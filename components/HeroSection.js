@@ -1,8 +1,41 @@
-export default function HeroSection() {
+"use client"
+
+import * as React from "react"
+import Autoplay from "embla-carousel-autoplay"
+import Image from "next/image"
+import logo from "../public/image.png" // use your own images here
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
+export default function ImageCarousel() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  )
+
   return (
-    <section id="hero" className="w-full bg-gradient-to-r from-blue-700 to-purple-700 text-white py-20 flex flex-col items-center justify-center text-center">
-      <h1 className="text-5xl font-extrabold mb-4">Welcome to ByteWar</h1>
-      <p className="text-xl mb-8 max-w-2xl">The ultimate coding competition platform to challenge your skills, compete with the best, and win amazing prizes!</p>
-    </section>
-  );
+    <Carousel
+      plugins={[plugin.current]}
+      className="w-full max-w-5xl mx-auto"
+      onMouseEnter={plugin.current.stop}
+      onMouseLeave={plugin.current.reset}
+    >
+      <CarouselContent>
+        {[logo, logo, logo].map((img, index) => (
+          <CarouselItem key={index}>
+            <div className="flex items-center justify-center p-4">
+              <Image src={img} alt={`Slide ${index}`} width={800} height={400} className="rounded-xl shadow-md" />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  )
 }
