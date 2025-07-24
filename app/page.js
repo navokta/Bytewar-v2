@@ -21,7 +21,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="font-sans min-h-screen flex flex-col bg-gray-50">
+    <div className="font-sans min-h-screen flex flex-col bg-sky-900">
       <Header />
       <HeroSection />
       <EnrollNow />

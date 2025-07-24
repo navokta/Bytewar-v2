@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <>
       {/* Main Header */}
-      <header className="w-full bg-sky-950 shadow-sm border-b border-sky-900 z-50 relative">
+      <header className="w-full bg-transparent z-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
 
           {/* Logo */}
@@ -34,9 +34,13 @@ export default function Header() {
           </div>
 
           {/* Tagline */}
-          <h1 className="text-lg md:text-xl font-bold text-center text-sky-400 tracking-wider hidden sm:block">
-            Bitewar: <span className="text-sky-50">Code. Compete. Conquer.</span>
-          </h1>
+         <div className="hidden md:flex flex-1 justify-center items-center">
+          <div className="backdrop-blur-md bg-white/10 border border-white/20 px-6 py-2 rounded-full shadow-lg transition-all duration-300">
+            <h2 className="text-sm md:text-base font-semibold tracking-wide text-center text-sky-50">
+              Welcome to <span className="text-blue-600 font-bold">Bytewar</span> - The Coding Warzone ⚔️
+            </h2>
+          </div>
+        </div>
 
           {/* Login / Signup */}
           <div>
@@ -52,13 +56,21 @@ export default function Header() {
       {/* Floating Sticky Tagline (glassmorphic) */}
       {showStickyTagline && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40">
-          <div className="backdrop-blur-md bg-white/10 border border-white/20 text-white px-6 py-2 rounded-full shadow-lg transition-all duration-300">
-            <h2 className="text-sm md:text-base font-semibold tracking-wide text-center text-sky-200">
-              Bitewar: <span className="text-white">Code. Compete. Conquer.</span>
+          <div className="backdrop-blur-md bg-transparent/10 border border-transparent/20 px-6 py-2 rounded-full shadow-lg transition-all duration-300">
+            <h2 className="text-sm md:text-base font-semibold tracking-wide text-center text-sky-700">
+              Welcome to <span className="text-blue-600 font-bold">Bytewar</span> - The Coding Warzone ⚔️
             </h2>
           </div>
         </div>
       )}
+
+      {/* In Mobile view the middle section and the sticky middle section will be hidden */}
+      <style jsx>{`
+        header {
+          backdrop-filter: blur(10px);
+        }
+      `}</style>
+      
     </>
   );
 }
