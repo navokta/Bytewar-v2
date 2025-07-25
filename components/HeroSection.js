@@ -3,7 +3,7 @@
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
-import logo from "../public/image.png" // use your own images here
+import photo1 from "../public/photo1.jpg" // use your own images here
 
 import {
   Carousel,
@@ -19,15 +19,23 @@ export default function ImageCarousel() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full max-w-5xl mx-auto"
+      className="w-full max-w-5xl mx-auto py-12"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-        {[logo, logo, logo].map((img, index) => (
+        {[photo1, photo1, photo1].map((img, index) => (
           <CarouselItem key={index}>
-            <div className="flex items-center justify-center p-4">
-              <Image src={img} alt={`Slide ${index}`} width={800} height={400} className="rounded-xl shadow-md" />
+            {/* Parent container with fixed height */}
+            <div className="relative w-full h-[400px]">
+              {/* Image that fills the parent container */}
+              <Image
+                src={img}
+                alt={`Slide ${index}`}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-xl shadow-md"
+              />
             </div>
           </CarouselItem>
         ))}
