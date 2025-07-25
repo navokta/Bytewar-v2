@@ -21,7 +21,7 @@ export default function ImageCarousel() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full max-w-5xl mx-auto py-12"
+      className="w-full max-w-5xl mx-auto py-12 h-[90vh]"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
