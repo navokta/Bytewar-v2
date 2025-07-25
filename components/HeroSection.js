@@ -4,6 +4,8 @@ import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
 import photo1 from "../public/photo1.jpg" // use your own images here
+import photo2 from "../public/photo2.jpg" // use your own images here
+import photo3 from "../public/photo3.jpg" // use your own images here
 
 import {
   Carousel,
@@ -24,7 +26,7 @@ export default function ImageCarousel() {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-        {[photo1, photo1, photo1].map((img, index) => (
+        {[photo1, photo2, photo3].map((img, index) => (
           <CarouselItem key={index}>
             {/* Parent container with fixed height */}
             <div className="relative w-full h-[400px]">

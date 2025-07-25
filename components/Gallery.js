@@ -27,7 +27,7 @@ const galleryItems = [
 export default function Gallery() {
   return (
     <section id="gallery" className="w-full py-12 bg-white">
-      <h2 className="text-3xl font-bold text-center mb-8">Photos & Videos</h2>
+      <h2 className="text-3xl font-bold text-center mb-8">Photos & Videos of Previous ByteWar Events</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
         {galleryItems.map((item, idx) => (
           <div

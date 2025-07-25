@@ -14,7 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-     import logo from '../public/image.png';
+    //  import logo from '../public/image.png';
 
 
 
