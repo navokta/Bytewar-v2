@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaGraduationCap, FaCode, FaInfoCircle } from "react-icons/fa";
 
 export default function EnrollForm() {
+  const [isClient, setIsClient] = useState(false);
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -16,18 +17,22 @@ export default function EnrollForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  // Replace with your actual Google Form endpoint
-  const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse";
-  
-  // Replace with your actual Google Form entry IDs
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Corrected Google Form submission URL
+  const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSdNynrV194cTiEqnviUsSvuAWmGwffvlprrU3Ul1I9PfdGraw/formResponse";
+
+  // Entry IDs from your form (confirmed correct)
   const ENTRY_IDS = {
-    name: "entry.1234567890",
-    phone: "entry.2345678901",
-    email: "entry.3456789012",
-    state: "entry.4567890123",
-    college: "entry.5678901234",
-    language: "entry.6789012345",
-    details: "entry.7890123456"
+    name: "entry.238128132",      // Name field
+    phone: "entry.427497571",     // Phone field
+    email: "entry.1872327688",    // Email field
+    state: "entry.929577433",     // State field
+    college: "entry.98423576",    // College field
+    language: "entry.1907752587", // Language field
+    details: "entry.946040287"    // Details field
   };
 
   const handleChange = (e) => {
@@ -39,28 +44,47 @@ export default function EnrollForm() {
     setLoading(true);
     setError("");
     setSuccess(false);
-    
+
     try {
       const formData = new FormData();
       Object.keys(form).forEach((key) => {
         formData.append(ENTRY_IDS[key], form[key]);
       });
-      
-      await fetch(GOOGLE_FORM_ACTION, {
+
+      // Debugging: Log the formData entries
+      // for (let [key, value] of formData.entries()) {
+      //   console.log(key, value);
+      // }
+
+      const response = await fetch(GOOGLE_FORM_ACTION, {
         method: "POST",
-        mode: "no-cors",
+        mode: "no-cors", // Required for Google Forms
         body: formData
       });
-      
+
+      // Note: With 'no-cors', you won't get detailed success/failure info
+      // Success is assumed if no exception is thrown
       setSuccess(true);
     } catch (err) {
       setError("Submission failed. Please try again.");
       console.error("Form submission error:", err);
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
+  // Render loading state on server/client mismatch
+  if (!isClient) {
+    return (
+      <div className="bg-gray-800/50 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-700 p-6">
+        <h2 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-2"> {/* Added gap-2 here */}
+          Loading Registration Form...
+        </h2>
+      </div>
+    );
+  }
+
+  // Render success message after submission
   if (success) {
     return (
       <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-8 rounded-2xl shadow-2xl text-center transform transition-all duration-500 hover:scale-[1.02]">
@@ -73,15 +97,15 @@ export default function EnrollForm() {
           <h2 className="text-2xl font-bold text-white mb-2">Form Submitted Successfully!</h2>
           <p className="text-green-100 mb-6">Please complete payment to finalize your enrollment</p>
         </div>
-        
-        <a 
-          href="https://wa.me/YOUR_WHATSAPP_NUMBER" 
-          target="_blank" 
-          rel="noopener" 
+
+        <a
+          href="https://wa.me/YOUR_WHATSAPP_NUMBER" // TODO: Replace with your actual WhatsApp link
+          target="_blank"
+          rel="noopener"
           className="inline-flex items-center gap-2 bg-white text-green-600 px-6 py-3 rounded-full font-bold mb-4 hover:bg-gray-100 transition-all duration-300 shadow-lg"
         >
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
           </svg>
           Join WhatsApp Group
         </a>
@@ -91,95 +115,102 @@ export default function EnrollForm() {
     );
   }
 
+  // Render the main form
   return (
     <div className="bg-gray-800/50 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-700 p-6">
       <h2 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-2">
         <FaUser className="text-purple-400" />
         Registration Form
       </h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Name Field */}
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaUser className="text-gray-400" />
           </div>
-          <input 
-            name="name" 
-            value={form.name} 
-            onChange={handleChange} 
-            required 
-            placeholder="Full Name" 
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            placeholder="Full Name"
             className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
           />
         </div>
 
+        {/* Phone Field */}
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaPhone className="text-gray-400" />
           </div>
-          <input 
-            name="phone" 
-            value={form.phone} 
-            onChange={handleChange} 
-            required 
-            placeholder="Phone Number" 
+          <input
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            required
+            placeholder="Phone Number"
             type="tel"
             className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
           />
         </div>
 
+        {/* Email Field */}
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaEnvelope className="text-gray-400" />
           </div>
-          <input 
-            name="email" 
-            value={form.email} 
-            onChange={handleChange} 
-            required 
-            placeholder="Email Address" 
-            type="email" 
+          <input
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            placeholder="Email Address"
+            type="email"
             className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
           />
         </div>
 
+        {/* State Field */}
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaMapMarkerAlt className="text-gray-400" />
           </div>
-          <input 
-            name="state" 
-            value={form.state} 
-            onChange={handleChange} 
-            required 
-            placeholder="State" 
+          <input
+            name="state"
+            value={form.state}
+            onChange={handleChange}
+            required
+            placeholder="State"
             className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
           />
         </div>
 
+        {/* College Field */}
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaGraduationCap className="text-gray-400" />
           </div>
-          <input 
-            name="college" 
-            value={form.college} 
-            onChange={handleChange} 
-            required 
-            placeholder="College Name" 
+          <input
+            name="college"
+            value={form.college}
+            onChange={handleChange}
+            required
+            placeholder="College Name"
             className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
           />
         </div>
 
+        {/* Language Field */}
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <FaCode className="text-gray-400" />
           </div>
-          <select 
-            name="language" 
-            value={form.language} 
-            onChange={handleChange} 
-            required 
+          <select
+            name="language"
+            value={form.language}
+            onChange={handleChange}
+            required
             className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 appearance-none"
           >
             <option value="">Select Preferred Language</option>
@@ -191,20 +222,22 @@ export default function EnrollForm() {
           </select>
         </div>
 
+        {/* Details Field */}
         <div className="relative">
           <div className="absolute top-3 left-0 pl-3 flex items-start pointer-events-none">
             <FaInfoCircle className="text-gray-400 mt-1" />
           </div>
-          <textarea 
-            name="details" 
-            value={form.details} 
-            onChange={handleChange} 
-            placeholder="Additional Details (optional)" 
+          <textarea
+            name="details"
+            value={form.details}
+            onChange={handleChange}
+            placeholder="Additional Details (optional)"
             rows="3"
             className="w-full pl-10 pr-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 resize-none"
           />
         </div>
 
+        {/* Error Message */}
         {error && (
           <div className="bg-red-500/20 border border-red-500 text-red-200 px-4 py-3 rounded-lg flex items-center gap-2">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -214,9 +247,10 @@ export default function EnrollForm() {
           </div>
         )}
 
-        <button 
-          type="submit" 
-          disabled={loading} 
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={loading}
           className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {loading ? (
