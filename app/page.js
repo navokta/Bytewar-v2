@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import ByteWarInfo from '../components/ByteWarInfo';
 import VideoAndInfographicSection from '../components/VideoAndInfographicSection';
 import ThemesSection from '../components/ThemesSection';
+import Timeline from '../components/Timeline';
     //  import logo from '../public/image.png';
 
 
@@ -22,6 +23,7 @@ export default function Home() {
       <ByteWarInfo />
       <VideoAndInfographicSection />
       <ThemesSection />
+      <Timeline />
       <EnrollNow />
       <Gallery />
       <ThoughtSection />
