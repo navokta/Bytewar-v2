@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaUserCircle, FaSignOutAlt, FaCamera } from 'react-icons/fa';
 
+
 export default function Header() {
   const [showStickyTagline, setShowStickyTagline] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showProfilePopup, setShowProfilePopup] = useState(false);
+   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const popupRef = useRef(null); // 👈 ref to detect outside click
 
   // Simulated user state (Replace with your real auth later)
@@ -22,11 +23,12 @@ export default function Header() {
     const handleScroll = () => {
       setShowStickyTagline(window.scrollY > 50);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 👇 Close profile popup when clicking outside
+   // 👇 Close profile popup when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -39,22 +41,37 @@ export default function Header() {
 
   return (
     <>
+      {/* Main Header */}
       <header className="w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 z-50 relative shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          {/* Logo */}
+          
+          {/* Logo Section with Enhanced Design */}
           <div className="flex items-center gap-3 group">
             <div className="relative">
               <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-purple-500 shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 transition-all duration-300 transform group-hover:rotate-6">
-                <Image src="/logo.png" alt="Bytewar Logo" width={56} height={56} className="object-cover" />
+                <Image
+                  src="/logo.png"
+                  alt="Bytewar Logo"
+                  width={56}
+                  height={56}
+                  className="object-cover"
+                />
               </div>
+              {/* Animated corner accents */}
+              <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-purple-400 rounded-tl-lg"></div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-purple-400 rounded-tr-lg"></div>
+              <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-purple-400 rounded-bl-lg"></div>
+              <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-purple-400 rounded-br-lg"></div>
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Bytewar</h1>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                Bytewar
+              </h1>
               <div className="h-0.5 w-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
             </div>
           </div>
 
-          {/* Center Tagline */}
+          {/* Enhanced Tagline */}
           <div className="hidden md:flex flex-1 justify-center items-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full blur opacity-25 animate-pulse"></div>
@@ -64,12 +81,17 @@ export default function Header() {
                   <h2 className="text-sm md:text-base font-bold tracking-wide text-center text-white">
                     Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-blue-300">Bytewar</span> - The Coding Warzone ⚔️
                   </h2>
+                  <div className="flex space-x-1">
+                    <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-bounce delay-100"></div>
+                    <div className="w-1.5 h-1.5 bg-red-400 rounded-full animate-bounce delay-200"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right side */}
+           {/* Right side */}
           <div className="flex items-center gap-3">
             {!user.isLoggedIn ? (
               <Link href="/login">
@@ -139,7 +161,8 @@ export default function Header() {
               </div>
             )}
 
-            {/* Mobile Menu Button */}
+            
+             {/* Mobile Menu Button */}
             <button className="md:hidden text-white p-2 rounded-lg hover:bg-gray-700 transition-colors" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <div className="w-6 h-6 flex flex-col justify-center items-center">
                 <span className={`block w-5 h-0.5 bg-white rounded-sm transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></span>
@@ -179,7 +202,7 @@ export default function Header() {
         )}
       </header>
 
-      {/* Sticky Tagline */}
+      {/* Enhanced Floating Sticky Tagline */}
       {showStickyTagline && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40 animate-fade-in">
           <div className="relative">
@@ -196,10 +219,11 @@ export default function Header() {
         </div>
       )}
 
+      {/* Custom Animations */}
       <style jsx global>{`
         @keyframes fade-in {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translate(-50%, -10px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
         }
         .animate-fade-in {
           animation: fade-in 0.3s ease-out forwards;
