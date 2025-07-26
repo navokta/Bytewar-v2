@@ -6,14 +6,8 @@ import EnrollNow from '../components/EnrollNow';
 import Gallery from '../components/Gallery';
 import ThoughtSection from '../components/ThoughtSection';
 import Footer from '../components/Footer';
-import Autoplay from "embla-carousel-autoplay"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+import ByteWarInfo from '../components/ByteWarInfo';
+import VideoAndInfographicSection from '../components/VideoAndInfographicSection';
     //  import logo from '../public/image.png';
 
 
@@ -24,6 +18,8 @@ export default function Home() {
     <div className="font-sans min-h-screen flex flex-col bg-sky-900">
       <Header />
       <HeroSection />
+      <ByteWarInfo />
+      <VideoAndInfographicSection />
       <EnrollNow />
       <Gallery />
       <ThoughtSection />
