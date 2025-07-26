@@ -91,18 +91,48 @@ export default function SignupPage() {
 
 
   return (
-    <div className='w-full bg-gray-900'>
-      <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-purple-200 opacity-20 blur-2xl"></div>
-        <div className="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-blue-200 opacity-20 blur-2xl"></div>
-
-        <div className="relative z-10 w-full max-w-md">
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-6 text-center">
-              <h1 className="text-3xl font-bold text-white">Create your account</h1>
-              <p className="text-purple-100 mt-2">Welcome! Please fill all required fields</p>
+       <div className='w-full bg-gray-900' >
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Decorative Elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-purple-200 opacity-20 blur-2xl"></div>
+      <div className="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-blue-200 opacity-20 blur-2xl"></div>
+      
+      <div className="relative z-10 w-full max-w-md">
+        {/* Signup Card */}
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+          {/* Card Header */}
+          <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-6 text-center">
+            <h1 className="text-3xl font-bold text-white">Create your account</h1>
+            <p className="text-purple-100 mt-2">Welcome! Please fill all required fields</p>
+          </div>
+          
+          {/* Card Body */}
+          <div className="p-6 sm:p-8">
+            {/* OAuth Buttons */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <Link href="#"
+                // onClick={() => handleOAuth('google')}
+                className="flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+              >
+                <FaGoogle className="text-red-500" />
+                Google
+              </Link>
+              <Link href="#"
+                // onClick={() => handleOAuth('github')}
+                className="flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+              >
+                <FaGithub className="text-gray-800" />
+                GitHub
+              </Link>
             </div>
-
+            
+            {/* Divider */}
+            <div className="flex items-center my-6">
+              <div className="flex-1 h-px bg-gray-300"></div>
+              <span className="px-4 text-gray-500 text-sm">OR</span>
+              <div className="flex-1 h-px bg-gray-300"></div>
+            </div>
+          
             <div className="p-6 sm:p-8">
               <form onSubmit={handleSubmit}>
                 {/* Email */}
@@ -219,6 +249,7 @@ export default function SignupPage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
