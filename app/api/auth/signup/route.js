@@ -8,6 +8,7 @@ export async function POST(request) {
     console.log("Connecting to DB...");
     await dbConnect();
     console.log("Connected ✅");
+    //finnaly fix
 
     const body = await request.json();
     const { email, password, phone } = body;
