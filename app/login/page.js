@@ -13,36 +13,39 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+  // Modify the handleSubmit function:
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError('');
 
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }), // ✅ Fixed here
-      });
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ email, password }),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (response.ok) {
-        console.log('Login successful', data);
-        router.push('/');
-      } else {
-        setError(data.message || 'Login failed. Please check your credentials.');
-      }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError('An unexpected error occurred. Please try again later.');
-    } finally {
-      setLoading(false);
+    if (response.ok) {
+      // Store the token
+      localStorage.setItem('authToken', data.token);
+      // Redirect to home page - the Header will automatically fetch user data
+      router.push('/');
+    } else {
+      setError(data.message || 'Login failed. Please check your credentials.');
     }
-  };
+  } catch (err) {
+    console.error('Login error:', err);
+    setError('An unexpected error occurred. Please try again later.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleGoogleLogin = () => {
     window.location.href = '/api/auth/google';

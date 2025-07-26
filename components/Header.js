@@ -49,44 +49,48 @@ export default function Header() {
     loading: true // To show loading state initially
   });
 
-  // Function to fetch user data
-  const fetchUserData = useCallback(async () => {
-    const token = getToken();
+  // Modify the fetchUserData function to ensure it gets the latest profile picture:
+const fetchUserData = useCallback(async () => {
+  const token = getToken();
 
-    if (!token) {
-      setUser({ isLoggedIn: false, data: null, loading: false });
-      return;
-    }
+  if (!token) {
+    setUser({ isLoggedIn: false, data: null, loading: false });
+    return;
+  }
 
-    try {
-      const response = await fetch('/api/auth/me', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`, // Common pattern for JWT
-          'Content-Type': 'application/json',
+  try {
+    const response = await fetch('/api/auth/me', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include'
+    });
+
+    if (response.ok) {
+      const userData = await response.json();
+      setUser({
+        isLoggedIn: true,
+        data: {
+          ...userData.user, // or userData based on your API
+          // Ensure profilePicture has full URL if it's stored as a path
+          profilePicture: userData.user.profilePicture 
+            ? `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}${userData.user.profilePicture}`
+            : null
         },
-        credentials: 'include' // Include cookies if needed
+        loading: false
       });
-
-      if (response.ok) {
-        const userData = await response.json();
-        setUser({
-          isLoggedIn: true,
-          data: userData.user || userData, // Adjust based on your API response structure
-          loading: false
-        });
-      } else {
-        // Token might be invalid or expired
-        console.error("Failed to fetch user data", response.status);
-        removeToken(); // Clear invalid token
-        setUser({ isLoggedIn: false, data: null, loading: false });
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      // Assume not logged in on error
+    } else {
+      console.error("Failed to fetch user data", response.status);
+      removeToken();
       setUser({ isLoggedIn: false, data: null, loading: false });
     }
-  }, []);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    setUser({ isLoggedIn: false, data: null, loading: false });
+  }
+}, []);
 
   // Fetch user data on component mount
   useEffect(() => {
@@ -122,26 +126,51 @@ export default function Header() {
     // window.location.href = '/'; // Or use Next.js router.push
   };
 
-  // Handle profile photo upload (placeholder logic)
-  const handlePhotoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // In a real app, you would upload the file to your server
-      // and update the user's profile picture URL in the database.
-      // For now, we'll just create a local object URL for preview.
-      const url = URL.createObjectURL(file);
-      setUser(prev => ({
-        ...prev,
-        data: {
-          ...prev.data,
-          // Assuming your user object has a 'profilePicture' field
-          profilePicture: url
-        }
-      }));
-      // TODO: Implement actual upload API call here
-      alert("Photo selected. In a real app, this would be uploaded to the server.");
+// Modify the handlePhotoUpload function:
+const handlePhotoUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  try {
+    // Create FormData to send the file
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+
+    const token = getToken();
+    if (!token) {
+      throw new Error('No authentication token found');
     }
-  };
+
+    // Upload the photo to the server
+    const response = await fetch('/api/auth/upload-profile', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to upload profile picture');
+    }
+
+    const data = await response.json();
+    
+    // Update the user state with the new picture URL
+    setUser(prev => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        profilePicture: data.profilePictureUrl // Assuming your API returns this
+      }
+    }));
+
+  } catch (error) {
+    console.error("Error uploading profile picture:", error);
+    alert("Failed to upload profile picture. Please try again.");
+  }
+};
+
 
   return (
     <>
