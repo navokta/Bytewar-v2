@@ -50,54 +50,58 @@ export default function SignupPage() {
     setFormData(prev => ({ ...prev, phone: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setError('');
+  // Modify the handleSubmit function:
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setSubmitted(true);
+  setError('');
 
-    // Validate all fields
-    if (!formData.email || !formData.password || !formData.phone) {
-      setError('Please fill all required fields');
-      return;
+  // Validate all fields
+  if (!formData.email || !formData.password || !formData.phone) {
+    setError('Please fill all required fields');
+    return;
+  }
+
+  if (!validateEmail(formData.email)) {
+    setError('Please enter a valid email address');
+    return;
+  }
+
+  if (!isPasswordValid) {
+    setError('Please fulfill all password requirements.');
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const response = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Signup failed with status ${response.status}`);
     }
 
-    if (!validateEmail(formData.email)) {
-      setError('Please enter a valid email address');
-      return;
+    const data = await response.json();
+    if (response.status === 200 || response.status === 201) {
+      // Store the token
+      localStorage.setItem('authToken', data.token);
+      // Redirect to home page - the Header will automatically fetch user data
+      router.push('/');
+    } else {
+      throw new Error(data.message || 'Signup failed');
     }
-
-    if (!isPasswordValid) {
-      setError('Please fulfill all password requirements.');
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Signup failed with status ${response.status}`);
-      }
-
-      const data = await response.json().catch(() => ({}));
-      if (response.status === 200 || response.status === 201) {
-        router.push('/');
-      } else {
-        throw new Error(data.message || 'Signup failed');
-      }
-    } catch (err) {
-      setError(err.message || 'An error occurred. Please try again.');
-      console.error('Signup error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (err) {
+    setError(err.message || 'An error occurred. Please try again.');
+    console.error('Signup error:', err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const renderRequirement = (label, fulfilled) => {
     const color = submitted 
