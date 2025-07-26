@@ -1,19 +1,32 @@
 import dbConnect from '@/lib/dbconnect';
 import User from '@/lib/models/user';
 import bcrypt from 'bcryptjs';
-export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ message: 'Method Not Allowed' });
 
+export async function POST(req) {
   await dbConnect();
-
-  const { email, password , phone } = req.body;
+  
+  const { email, password, phone } = await req.json();
 
   const existingUser = await User.findOne({ email });
-  if (existingUser) return res.status(400).json({ message: 'User already exists' });
-  if (!phone) return res.status(400).json({ message: 'Phone number required' });
+  if (existingUser) {
+    return new Response(JSON.stringify({ message: 'User already exists' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (!phone) {
+    return new Response(JSON.stringify({ message: 'Phone number required' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = await User.create({ email, password: hashedPassword , phone });
+  const newUser = await User.create({ email, password: hashedPassword, phone });
 
-  res.status(201).json({ message: 'User created', user: newUser._id });
+  return new Response(JSON.stringify({ message: 'User created', user: newUser._id }), {
+    status: 201,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
