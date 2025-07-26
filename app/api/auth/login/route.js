@@ -3,6 +3,7 @@ import dbConnect from "@/lib/dbconnect";
 import User from "@/lib/models/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { cookies } from 'next/headers'; // ✅ import this
 
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
@@ -46,12 +47,20 @@ export async function POST(request) {
 
     const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '7d' });
 
+    // ✅ Set the cookie securely
+    cookies().set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60, // 7 days
+      path: '/',
+    });
+
     const { password: _, ...userWithoutPassword } = user;
 
     return new Response(
       JSON.stringify({
         message: 'Login successful',
-        token,
         user: userWithoutPassword,
       }),
       {
@@ -62,7 +71,7 @@ export async function POST(request) {
       }
     );
   } catch (error) {
-    console.error('Login API Error:', error.message); // ❗Only logs the message (not full error or request body)
+    console.error('Login API Error:', error.message);
     return new Response(
       JSON.stringify({ message: 'Internal Server Error' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
