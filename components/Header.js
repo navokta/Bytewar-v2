@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaUserCircle, FaSignOutAlt, FaCamera } from 'react-icons/fa';
@@ -8,13 +8,14 @@ export default function Header() {
   const [showStickyTagline, setShowStickyTagline] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+  const popupRef = useRef(null); // 👈 ref to detect outside click
 
   // Simulated user state (Replace with your real auth later)
   const [user, setUser] = useState({
-    isLoggedIn: true, // ← change to false to simulate logged-out state
+    isLoggedIn: true,
     email: 'sakshi@example.com',
     phone: '+91 9876543210',
-    photo: null, // Replace with uploaded photo URL
+    photo: null,
   });
 
   useEffect(() => {
@@ -25,11 +26,21 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 👇 Close profile popup when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowProfilePopup(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <>
       <header className="w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 z-50 relative shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          
           {/* Logo */}
           <div className="flex items-center gap-3 group">
             <div className="relative">
@@ -58,9 +69,8 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Right side: Auth/Profile + Mobile Menu */}
+          {/* Right side */}
           <div className="flex items-center gap-3">
-
             {!user.isLoggedIn ? (
               <Link href="/login">
                 <button className="relative px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/30">
@@ -80,9 +90,12 @@ export default function Header() {
                   )}
                 </button>
 
-                {/* Popup */}
+                {/* Profile Popup */}
                 {showProfilePopup && (
-                  <div className="absolute right-0 mt-3 w-72 bg-gray-900 border border-gray-700 rounded-xl shadow-xl p-4 z-50 animate-fade-in backdrop-blur-md">
+                  <div
+                    ref={popupRef}
+                    className="absolute right-0 mt-3 w-72 bg-gray-900 border border-gray-700 rounded-xl shadow-xl p-4 z-50 animate-fade-in backdrop-blur-md"
+                  >
                     <div className="flex items-center gap-3">
                       <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-purple-500">
                         {user.photo ? (
@@ -166,7 +179,7 @@ export default function Header() {
         )}
       </header>
 
-      {/* Sticky Tagline on Scroll */}
+      {/* Sticky Tagline */}
       {showStickyTagline && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40 animate-fade-in">
           <div className="relative">
@@ -183,7 +196,6 @@ export default function Header() {
         </div>
       )}
 
-      {/* Custom Animations */}
       <style jsx global>{`
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(-10px); }
