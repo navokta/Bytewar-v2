@@ -12,7 +12,6 @@ export async function POST(request) {
 
     const body = await request.json();
     const { email, password, phone } = body;
-    console.log("Received body:", body);
 
     if (!email || !password || !phone) {
       console.log("Missing fields ❌");
@@ -21,21 +20,17 @@ export async function POST(request) {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log("User already exists ❌");
       return new Response(JSON.stringify({ message: 'User already exists' }), { status: 400 });
     }
 
-    console.log("Hashing password...");
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    console.log("Creating user...");
     const newUser = await User.create({
       email,
       password: hashedPassword,
       phone,
     });
 
-    console.log("User created ✅", newUser);
 
     return new Response(JSON.stringify({ message: 'User created', user: newUser._id }), {
       status: 201,
