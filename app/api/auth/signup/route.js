@@ -1,19 +1,46 @@
-import dbConnect from '@/lib/dbconnect';
-import User from '@/lib/models/user';
-import bcrypt from 'bcryptjs';
-export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ message: 'Method Not Allowed' });
+import dbConnect from "@/lib/dbconnect";
+import User from "@/lib/models/user";
+import bcrypt from "bcryptjs";
 
-  await dbConnect();
 
-  const { email, password , phone } = req.body;
+export async function POST(request) {
+  try {
+    console.log("Connecting to DB...");
+    await dbConnect();
+    console.log("Connected ✅");
 
-  const existingUser = await User.findOne({ email });
-  if (existingUser) return res.status(400).json({ message: 'User already exists' });
-  if (!phone) return res.status(400).json({ message: 'Phone number required' });
+    const body = await request.json();
+    const { email, password, phone } = body;
+    console.log("Received body:", body);
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = await User.create({ email, password: hashedPassword , phone });
+    if (!email || !password || !phone) {
+      console.log("Missing fields ❌");
+      return new Response(JSON.stringify({ message: 'All fields are required' }), { status: 400 });
+    }
 
-  res.status(201).json({ message: 'User created', user: newUser._id });
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      console.log("User already exists ❌");
+      return new Response(JSON.stringify({ message: 'User already exists' }), { status: 400 });
+    }
+
+    console.log("Hashing password...");
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    console.log("Creating user...");
+    const newUser = await User.create({
+      email,
+      password: hashedPassword,
+      phone,
+    });
+
+    console.log("User created ✅", newUser);
+
+    return new Response(JSON.stringify({ message: 'User created', user: newUser._id }), {
+      status: 201,
+    });
+  } catch (error) {
+    console.error('Signup error ❌:', error); // ← this will show full stack trace
+    return new Response(JSON.stringify({ message: 'Internal Server Error' }), { status: 500 });
+  }
 }
