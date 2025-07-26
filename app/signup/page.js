@@ -87,7 +87,7 @@ export default function SignupPage() {
 
       const data = await response.json().catch(() => ({}));
       if (response.status === 200 || response.status === 201) {
-        router.push('/verify');
+        router.push('/');
       } else {
         throw new Error(data.message || 'Signup failed');
       }
