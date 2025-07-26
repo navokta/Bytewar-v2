@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import img3 from "../public/img3.jpg";
+import Link from "next/link";
+
+import { FaArrowRight } from "react-icons/fa";  
 
 const galleryItems = [
   { 
@@ -46,6 +49,7 @@ export default function MediaGallery() {
 
   return (
     <section id="gallery" className="w-full py-12 md:py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative">
+      
       {/* Background elements */}
       <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-purple-200 opacity-20 blur-2xl animate-float"></div>
       <div className="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-blue-200 opacity-20 blur-2xl animate-float-delay"></div>
@@ -150,9 +154,25 @@ export default function MediaGallery() {
             <div className="mt-4 text-center text-white">
               <h3 className="text-xl font-semibold">{selectedMedia?.title || selectedMedia?.alt}</h3>
             </div>
+            
           </div>
+
         </div>
       )}
+
+      <div className="text-center mt-12">
+
+       {/* Enroll Now Button with Pulse Effect */}
+        <Link
+          href="/enroll"
+          className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold px-10 py-5 rounded-full text-xl shadow-2xl transform hover:scale-110 transition-all duration-300 ease-in-out group relative overflow-hidden"
+        >
+          <span className="relative z-10">Enroll Now</span>
+          <FaArrowRight className="mt-[2px] group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
+          <span className="absolute inset-0 bg-gradient-to-r from-purple-700 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+        </Link>
+      </div>
+
 
       {/* Animation styles */}
       <style jsx global>{`

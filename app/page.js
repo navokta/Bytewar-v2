@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
-import EnrollNow from '../components/EnrollNow';
+// import EnrollNow from '../components/EnrollNow';
 import Gallery from '../components/Gallery';
 import ThoughtSection from '../components/ThoughtSection';
 import Footer from '../components/Footer';
@@ -24,7 +24,6 @@ export default function Home() {
       <VideoAndInfographicSection />
       <ThemesSection />
       <Timeline />
-      <EnrollNow />
       <Gallery />
       <ThoughtSection />
       <Footer />
