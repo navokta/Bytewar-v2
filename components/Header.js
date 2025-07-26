@@ -200,7 +200,7 @@ export default function Header() {
               // Show Login/Signup button if not logged in
               <Link href="/login">
                 <button
-                  className="relative px-4 py-2 text-xs md:px-5 md:py-2.5 text-sm font-bold bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/30 overflow-hidden group"
+                  className="relative px-4 py-2 md:px-5 md:py-2.5 text-sm font-bold bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/30 overflow-hidden group"
                 >
                   <span className="relative z-10">Login / Signup</span>
                   <span className="absolute inset-0 bg-gradient-to-r from-purple-800 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
