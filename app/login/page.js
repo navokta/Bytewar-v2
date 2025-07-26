@@ -68,7 +68,7 @@ export default function LoginPage() {
             {/* Google Login Button */}
             <button
               onClick={handleGoogleLogin}
-              className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-300 mb-6"
+              className="cursor-pointer w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg py-3 px-4 text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-300 mb-6"
             >
               <FaGoogle className="text-red-500 text-xl" />
               Continue with Google
@@ -134,14 +134,6 @@ export default function LoginPage() {
                       <FaEye className="text-gray-400 hover:text-gray-600" />
                     )}
                   </button>
-                </div>
-                 <div className="mt-2 text-xs text-gray-500 flex items-center">
-                                  <FaShieldAlt className="mr-1" /> 8+ characters required
-                                </div>
-                <div className="flex justify-end mt-2">
-                  <Link href="/forgot-password" className="text-sm text-purple-600 hover:text-purple-800">
-                    Forgot password?
-                  </Link>
                 </div>
               </div>
               
