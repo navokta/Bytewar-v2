@@ -8,6 +8,7 @@ import ThoughtSection from '../components/ThoughtSection';
 import Footer from '../components/Footer';
 import ByteWarInfo from '../components/ByteWarInfo';
 import VideoAndInfographicSection from '../components/VideoAndInfographicSection';
+import ThemesSection from '../components/ThemesSection';
     //  import logo from '../public/image.png';
 
 
@@ -20,6 +21,7 @@ export default function Home() {
       <HeroSection />
       <ByteWarInfo />
       <VideoAndInfographicSection />
+      <ThemesSection />
       <EnrollNow />
       <Gallery />
       <ThoughtSection />
