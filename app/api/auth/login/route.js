@@ -1,9 +1,8 @@
-// app/api/auth/login/route.js
 import dbConnect from "@/lib/dbconnect";
 import User from "@/lib/models/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { cookies } from 'next/headers'; // ✅ import this
+import { cookies } from 'next/headers';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
@@ -47,8 +46,9 @@ export async function POST(request) {
 
     const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '7d' });
 
-    // ✅ Set the cookie securely
-    cookies().set('token', token, {
+    // ✅ Set token in cookie (await cookies())
+    const cookieStore = await cookies();
+    cookieStore.set('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
