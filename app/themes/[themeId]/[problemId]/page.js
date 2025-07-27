@@ -120,7 +120,7 @@ const ProblemDetailsPage = () => {
 
   const theme = problemsData[themeId] || problemsData['cybersecurity'];
   const problem = theme.problems[problemId] || theme.problems['secure-voting'];
-
+// Here is the code 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto relative z-10">

@@ -27,10 +27,10 @@ export default function Footer() {
               <a href="https://github.com/navokta" className="text-gray-400 hover:text-white transition-colors duration-300">
                 <FaGithub className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <a href="https://www.linkedin.com/company/navokta/" className="text-gray-400 hover:text-white transition-colors duration-300">
                 <FaLinkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <a href="" className="text-gray-400 hover:text-white transition-colors duration-300">
                 <FaTwitter className="w-5 h-5" />
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
