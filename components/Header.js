@@ -286,7 +286,7 @@ export default function Header() {
                             className="object-cover"
                           />
                         ) : (
-                          <FaUserCircle className="text-white text-4xl m-auto text-center" />
+                          <FaUserCircle className="text-white text-4xl m-auto text-center mt-2" />
                         )}
                         {/* <label className="absolute bottom-0 right-0 bg-purple-600 p-1.5 rounded-full cursor-pointer hover:bg-purple-700 transition-colors shadow-md">
                           <FaCamera className="text-white text-xs" />
@@ -318,7 +318,7 @@ export default function Header() {
                         My Profile
                       </Link>
                       <Link
-                        href="/create-team"
+                        href="/enroll"
                         className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-colors"
                         onClick={() => setShowProfilePopup(false)}
                       >

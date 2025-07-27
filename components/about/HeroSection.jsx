@@ -67,12 +67,12 @@ const WowHeroSection = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-6 mb-16">
-          <Link href="/coding" className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-bold rounded-full shadow-2xl hover:from-purple-700 hover:to-indigo-800 transform hover:scale-105 transition-all duration-300 overflow-hidden">
+          <Link href="/themes" className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-bold rounded-full shadow-2xl hover:from-purple-700 hover:to-indigo-800 transform hover:scale-105 transition-all duration-300 overflow-hidden">
             <span className="relative z-10 flex items-center justify-center gap-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              Enter the Warzone
+              Explore Themes
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-indigo-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="absolute top-0 left-0 w-full h-full bg-white opacity-20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
