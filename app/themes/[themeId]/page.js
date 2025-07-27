@@ -9,11 +9,11 @@ const ThemeProblemsPage = () => {
   const params = useParams();
   const themeId = params.themeId;
 
-  // Mock data for themes and problems
+  // Mock data for themes and problems - UPDATED IDs to match app/themes/page.js
   const themesData = {
-    'cybersecurity': {
-      name: 'Cyber Security',
-      icon: '🔒',
+    'blockchain-cybersecurity': {
+      name: 'BLOCKCHAIN & CYBERSECURITY',
+      icon: '🔐',
       color: 'from-purple-600 to-indigo-600',
       problems: [
         {
@@ -38,76 +38,167 @@ const ThemeProblemsPage = () => {
           participants: 95
         }
       ]
-    },
-    'blockchain': {
-      name: 'Blockchain',
-      icon: '🔗',
+    },  
+    'smart-education': {
+      name: 'SMART EDUCATION',
+      icon: '🎓',
       color: 'from-blue-500 to-cyan-500',
       problems: [
         {
-          id: 'supply-chain',
-          title: 'Supply Chain Transparency',
-          description: 'Create a blockchain solution for tracking products across supply chains',
-          difficulty: 'Medium',
+          id: 'adaptive-learning',
+          title: 'Adaptive Learning Platform',
+          description: 'Create an AI-powered learning platform that personalizes educational content',
+          difficulty: 'Hard',
           participants: 110
         },
         {
-          id: 'smart-contracts',
-          title: 'Automated Legal Contracts',
-          description: 'Develop a platform for creating and executing smart legal contracts',
-          difficulty: 'Hard',
+          id: 'virtual-classroom',
+          title: 'Immersive Virtual Classroom',
+          description: 'Develop a VR/AR solution for interactive remote learning experiences',
+          difficulty: 'Medium',
           participants: 75
         }
       ]
     },
-    'ai-ml': {
-      name: 'AI/ML',
-      icon: '🤖',
-      color: 'from-pink-500 to-rose-500',
+    'disaster-management': {
+      name: 'DISASTER MANAGEMENT',
+      icon: '🌪️',
+      color: 'from-green-500 to-emerald-500',
       problems: [
         {
-          id: 'healthcare-diagnosis',
-          title: 'AI Healthcare Diagnosis',
-          description: 'Build an AI system for early disease detection from medical scans',
+          id: 'early-warning-system',
+          title: 'AI-Powered Early Warning System',
+          description: 'Build a predictive system for natural disaster detection and alerts',
           difficulty: 'Hard',
           participants: 140
         },
         {
-          id: 'traffic-prediction',
-          title: 'Smart Traffic Prediction',
-          description: 'Create an ML model for predicting traffic patterns in real-time',
+          id: 'resource-allocation',
+          title: 'Emergency Resource Allocation',
+          description: 'Create a system for efficient distribution of resources during disasters',
           difficulty: 'Medium',
           participants: 90
         }
       ]
     },
-    'fintech': {
-      name: 'FinTech',
-      icon: '💰',
+    'environmental-sustainability': {
+      name: 'ENVIRONMENTAL SUSTAINABILITY',
+      icon: '🌍',
       color: 'from-yellow-500 to-amber-500',
       problems: [
         {
-          id: 'fraud-detection',
-          title: 'Real-time Fraud Detection',
-          description: 'Develop a system for detecting fraudulent financial transactions',
+          id: 'carbon-footprint-tracker',
+          title: 'Smart Carbon Footprint Tracker',
+          description: 'Develop an IoT-based system for monitoring and reducing carbon emissions',
           difficulty: 'Hard',
           participants: 105
         },
         {
-          id: 'budgeting-app',
-          title: 'AI Personal Budgeting',
-          description: 'Create an intelligent budgeting app that learns user spending habits',
+          id: 'waste-management',
+          title: 'Intelligent Waste Management',
+          description: 'Create a smart solution for efficient waste collection and recycling',
           difficulty: 'Medium',
           participants: 130
+        }
+      ]
+    },
+    'healthcare-innovation': {
+      name: 'HEALTHCARE INNOVATION',
+      icon: '🏥',
+      color: 'from-pink-500 to-rose-500',
+      problems: [
+        {
+          id: 'telemedicine-platform',
+          title: 'Advanced Telemedicine Platform',
+          description: 'Build a comprehensive remote healthcare consultation system',
+          difficulty: 'Hard',
+          participants: 140
+        },
+        {
+          id: 'patient-monitoring',
+          title: 'IoT Patient Monitoring System',
+          description: 'Create real-time health monitoring for chronic disease patients',
+          difficulty: 'Medium',
+          participants: 95
+        }
+      ]
+    },
+    'artificial-intelligence': {
+      name: 'ARTIFICIAL INTELLIGENCE',
+      icon: '🤖',
+      color: 'from-red-500 to-orange-500',
+      problems: [
+        {
+          id: 'predictive-analytics',
+          title: 'Business Predictive Analytics',
+          description: 'Develop AI models for business trend prediction and decision making',
+          difficulty: 'Hard',
+          participants: 120
+        },
+        {
+          id: 'natural-language-processing',
+          title: 'Multilingual NLP Assistant',
+          description: 'Create an AI assistant that understands and responds in multiple languages',
+          difficulty: 'Medium',
+          participants: 85
+        }
+      ]
+    },
+    'fintech-solutions': {
+      name: 'FINTECH SOLUTIONS',
+      icon: '💰',
+      color: 'from-teal-500 to-cyan-500',
+      problems: [
+        {
+          id: 'blockchain-payments',
+          title: 'Decentralized Payment System',
+          description: 'Build a secure, low-cost cross-border payment solution using blockchain',
+          difficulty: 'Hard',
+          participants: 110
+        },
+        {
+          id: 'personal-finance-ai',
+          title: 'AI Personal Finance Manager',
+          description: 'Create an intelligent system for automated financial planning',
+          difficulty: 'Medium',
+          participants: 130
+        }
+      ]
+    },
+    'smart-cities': {
+      name: 'SMART CITIES',
+      icon: '🏙️',
+      color: 'from-indigo-500 to-purple-500',
+      problems: [
+        {
+          id: 'traffic-optimization',
+          title: 'Intelligent Traffic Optimization',
+          description: 'Develop AI-powered traffic management for reducing congestion',
+          difficulty: 'Hard',
+          participants: 105
+        },
+        {
+          id: 'energy-management',
+          title: 'Smart Energy Grid Management',
+          description: 'Create a system for optimizing energy distribution in urban areas',
+          difficulty: 'Medium',
+          participants: 95
         }
       ]
     }
   };
 
-  const theme = themesData[themeId] || themesData['cybersecurity'];
+  const theme = themesData[themeId] || themesData['blockchain-cybersecurity'];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      </div>
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center mb-6">
@@ -117,7 +208,7 @@ const ThemeProblemsPage = () => {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-black mb-6">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
               {theme.name} Challenges
             </span>
           </h1>
@@ -188,6 +279,33 @@ const ThemeProblemsPage = () => {
           </Link>
         </div>
       </div>
+
+      {/* Custom Styles */}
+      <style jsx>{`
+        @keyframes gradient-x {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 3s ease infinite;
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+      `}</style>
     </div>
   );
 };
