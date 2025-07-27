@@ -239,7 +239,7 @@ export default function WowEnrollForm() {
               
               {/* Team Size Selector - Dark theme */}
               <div className="mb-6">
-                <label className="block text-gray-400 mb-2 flex items-center gap-2">
+                <label className="text-gray-400 mb-2 flex items-center gap-2">
                   <FaUsers className="text-gray-400" />
                   Select Team Size
                 </label>
