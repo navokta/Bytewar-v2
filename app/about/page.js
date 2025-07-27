@@ -53,13 +53,11 @@ export default function AboutPage() {
       <Mission/>
 
         {/* Team Section */}
-            <Team/>
+      <Team/>
 
       {/* Features Section */}
       <Feature/>
 
-      {/* CTA Section */}
-     {/* <Enroll/> */}
         {/* Footer Component */}
         <Footer />
     </div>
