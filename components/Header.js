@@ -1,20 +1,16 @@
-// components/Header.jsx (or app/components/Header.jsx depending on your structure)
 'use client';
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { FaUserCircle, FaSignOutAlt, FaCamera } from 'react-icons/fa';
 
 // Helper function to get the auth token (adjust based on how you store it)
 const getToken = () => {
   if (typeof window !== 'undefined') {
     try {
-      // Example: getting token from localStorage
       return localStorage.getItem('authToken');
-      // Or if using cookies (requires 'js-cookie' package):
-      // import Cookies from 'js-cookie';
-      // return Cookies.get('authToken');
     } catch (e) {
       console.warn("Could not access token storage", e);
       return null;
@@ -28,8 +24,6 @@ const removeToken = () => {
   if (typeof window !== 'undefined') {
     try {
       localStorage.removeItem('authToken');
-      // If using cookies:
-      // Cookies.remove('authToken');
     } catch (e) {
       console.warn("Could not remove token from storage", e);
     }
@@ -37,70 +31,67 @@ const removeToken = () => {
 };
 
 export default function Header() {
-  const [showStickyTagline, setShowStickyTagline] = useState(false);
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+  const [showStickyNav, setShowStickyNav] = useState(false);
   const popupRef = useRef(null);
 
-  // State for user data and loading state
   const [user, setUser] = useState({
     isLoggedIn: false,
-    data: null, // Will hold the fetched user details
-    loading: true // To show loading state initially
+    data: null,
+    loading: true
   });
 
-  // Modify the fetchUserData function to ensure it gets the latest profile picture:
-const fetchUserData = useCallback(async () => {
-  const token = getToken();
+  const fetchUserData = useCallback(async () => {
+    const token = getToken();
 
-  if (!token) {
-    setUser({ isLoggedIn: false, data: null, loading: false });
-    return;
-  }
+    if (!token) {
+      setUser({ isLoggedIn: false, data: null, loading: false });
+      return;
+    }
 
-  try {
-    const response = await fetch('/api/auth/me', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include'
-    });
-
-    if (response.ok) {
-      const userData = await response.json();
-      setUser({
-        isLoggedIn: true,
-        data: {
-          ...userData.user, // or userData based on your API
-          // Ensure profilePicture has full URL if it's stored as a path
-          profilePicture: userData.user.profilePicture 
-            ? `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}${userData.user.profilePicture}`
-            : null
+    try {
+      const response = await fetch('/api/auth/me', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
-        loading: false
+        credentials: 'include'
       });
-    } else {
-      console.error("Failed to fetch user data", response.status);
-      removeToken();
+
+      if (response.ok) {
+        const userData = await response.json();
+        setUser({
+          isLoggedIn: true,
+          data: {
+            ...userData.user,
+            profilePicture: userData.user.profilePicture 
+              ? `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}${userData.user.profilePicture}`
+              : null
+          },
+          loading: false
+        });
+      } else {
+        console.error("Failed to fetch user data", response.status);
+        removeToken();
+        setUser({ isLoggedIn: false, data: null, loading: false });
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
       setUser({ isLoggedIn: false, data: null, loading: false });
     }
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    setUser({ isLoggedIn: false, data: null, loading: false });
-  }
-}, []);
+  }, []);
 
-  // Fetch user data on component mount
   useEffect(() => {
     fetchUserData();
   }, [fetchUserData]);
 
-  // Handle scroll for sticky tagline
+  // Handle scroll for sticky navigation
   useEffect(() => {
     const handleScroll = () => {
-      setShowStickyTagline(window.scrollY > 50);
+      setShowStickyNav(window.scrollY > 100);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -122,55 +113,55 @@ const fetchUserData = useCallback(async () => {
     removeToken();
     setUser({ isLoggedIn: false, data: null, loading: false });
     setShowProfilePopup(false);
-    // Optionally redirect to home or login page
-    // window.location.href = '/'; // Or use Next.js router.push
   };
 
-// Modify the handlePhotoUpload function:
-const handlePhotoUpload = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  try {
-    // Create FormData to send the file
-    const formData = new FormData();
-    formData.append('profilePicture', file);
+    try {
+      const formData = new FormData();
+      formData.append('profilePicture', file);
 
-    const token = getToken();
-    if (!token) {
-      throw new Error('No authentication token found');
-    }
-
-    // Upload the photo to the server
-    const response = await fetch('/api/auth/upload-profile', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to upload profile picture');
-    }
-
-    const data = await response.json();
-    
-    // Update the user state with the new picture URL
-    setUser(prev => ({
-      ...prev,
-      data: {
-        ...prev.data,
-        profilePicture: data.profilePictureUrl // Assuming your API returns this
+      const token = getToken();
+      if (!token) {
+        throw new Error('No authentication token found');
       }
-    }));
 
-  } catch (error) {
-    console.error("Error uploading profile picture:", error);
-    alert("Failed to upload profile picture. Please try again.");
-  }
-};
+      const response = await fetch('/api/auth/upload-profile', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
 
+      if (!response.ok) {
+        throw new Error('Failed to upload profile picture');
+      }
+
+      const data = await response.json();
+      
+      setUser(prev => ({
+        ...prev,
+        data: {
+          ...prev.data,
+          profilePicture: data.profilePictureUrl
+        }
+      }));
+
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+      alert("Failed to upload profile picture. Please try again.");
+    }
+  };
+
+  // Calculate active tab position
+  const getActiveTabPosition = () => {
+    const tabs = ['/', '/about', '/timeline', '/themes'];
+    const index = tabs.findIndex(tab => pathname.startsWith(tab));
+    return index >= 0 ? index : 0;
+  };
 
   return (
     <>
@@ -191,7 +182,6 @@ const handlePhotoUpload = async (e) => {
                     className="object-cover"
                   />
                 </div>
-                {/* Corner accents */}
                 <div className="absolute -top-1 -left-1 w-2 h-2 md:w-3 md:h-3 border-t-2 border-l-2 border-purple-400 rounded-tl-lg"></div>
                 <div className="absolute -top-1 -right-1 w-2 h-2 md:w-3 md:h-3 border-t-2 border-r-2 border-purple-400 rounded-tr-lg"></div>
                 <div className="absolute -bottom-1 -left-1 w-2 h-2 md:w-3 md:h-3 border-b-2 border-l-2 border-purple-400 rounded-bl-lg"></div>
@@ -205,28 +195,62 @@ const handlePhotoUpload = async (e) => {
             </Link>
           </div>
 
-          {/* Tagline - Hidden on mobile */}
+          {/* Navigation Menu - Hidden on mobile */}
           <div className="hidden md:flex flex-1 justify-center items-center px-4">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full blur opacity-20 animate-pulse"></div>
-              <div className="relative backdrop-blur-lg bg-white/10 border border-white/20 px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-[1.02]">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                  <h2 className="text-xs md:text-sm font-bold tracking-wide text-center text-white whitespace-nowrap">
-                    Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-blue-300">Bytewar</span> - The Coding Warzone ⚔️
-                  </h2>
-                </div>
+            <nav className="relative flex items-center space-x-1 bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-full px-2 py-1 shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-full blur-sm animate-pulse"></div>
+              
+              <div className="relative flex space-x-1">
+                <Link 
+                  href="/" 
+                  className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                    pathname === '/' ? 'text-white' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  Home
+                </Link>
+                <Link 
+                  href="/about" 
+                  className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                    pathname.startsWith('/about') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  About
+                </Link>
+                <Link 
+                  href="/timeline" 
+                  className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                    pathname.startsWith('/timeline') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  Timeline
+                </Link>
+                <Link 
+                  href="/themes" 
+                  className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                    pathname.startsWith('/themes') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  Themes
+                </Link>
               </div>
-            </div>
+              
+              {/* Active indicator */}
+              <div 
+                className="absolute bottom-0 h-0.5 bg-purple-500 rounded-full transition-all duration-300"
+                style={{
+                  width: '60px',
+                  transform: `translateX(${getActiveTabPosition() * 80}px)`
+                }}
+              ></div>
+            </nav>
           </div>
 
           {/* Right side - Auth/User Section */}
           <div className="flex items-center gap-3">
             {user.loading ? (
-              // Show a loading spinner or placeholder while checking auth state
               <div className="w-10 h-10 rounded-full bg-gray-700 animate-pulse"></div>
             ) : !user.isLoggedIn ? (
-              // Show Login/Signup button if not logged in
               <Link href="/login">
                 <button
                   className="relative px-4 py-2 md:px-5 md:py-2.5 text-sm font-bold bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/30 overflow-hidden group"
@@ -236,7 +260,6 @@ const handlePhotoUpload = async (e) => {
                 </button>
               </Link>
             ) : (
-              // Show User Profile if logged in
               <div className="relative">
                 <button
                   className="w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-purple-500 overflow-hidden focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-200 hover:scale-105"
@@ -275,7 +298,6 @@ const handlePhotoUpload = async (e) => {
                         ) : (
                           <FaUserCircle className="text-white text-4xl m-auto" />
                         )}
-                        {/* Profile Picture Upload (simplified) */}
                         <label className="absolute bottom-0 right-0 bg-purple-600 p-1.5 rounded-full cursor-pointer hover:bg-purple-700 transition-colors shadow-md">
                           <FaCamera className="text-white text-xs" />
                           <input
@@ -287,7 +309,6 @@ const handlePhotoUpload = async (e) => {
                         </label>
                       </div>
                       <div className="text-white text-sm overflow-hidden">
-                        {/* Display user name if available, otherwise email */}
                         <p className="font-semibold truncate">
                           {user.data?.name || user.data?.username || 'User'}
                         </p>
@@ -298,7 +319,6 @@ const handlePhotoUpload = async (e) => {
                       </div>
                     </div>
 
-                    {/* Profile Menu Items */}
                     <nav className="space-y-1">
                       <Link
                         href="/profile"
@@ -314,7 +334,6 @@ const handlePhotoUpload = async (e) => {
                       >
                         Settings
                       </Link>
-                      {/* Add more links as needed */}
                     </nav>
 
                     <hr className="my-3 border-gray-700" />
@@ -349,15 +368,56 @@ const handlePhotoUpload = async (e) => {
         {isMenuOpen && (
           <div className="md:hidden bg-gray-800/95 backdrop-blur-lg border-t border-gray-700 px-4 py-3">
             <div className="flex flex-col items-center gap-4">
-              {/* Mobile Tagline */}
-              <div className="backdrop-blur-md bg-white/10 border border-white/20 px-4 py-2 rounded-full w-full max-w-xs">
-                <h2 className="text-sm font-bold tracking-wide text-center text-white">
-                  Welcome to <span className="text-blue-400 font-bold">Bytewar</span> ⚔️
-                </h2>
+              {/* Mobile Navigation Links */}
+              <div className="w-full max-w-xs space-y-2">
+                <Link
+                  href="/"
+                  className={`block w-full text-center px-4 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
+                    pathname === '/' 
+                      ? 'bg-purple-600 text-white' 
+                      : 'bg-gray-700 text-white hover:bg-gray-600'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/about"
+                  className={`block w-full text-center px-4 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
+                    pathname.startsWith('/about')
+                      ? 'bg-purple-600 text-white' 
+                      : 'bg-gray-700 text-white hover:bg-gray-600'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  About
+                </Link>
+                <Link
+                  href="/timeline"
+                  className={`block w-full text-center px-4 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
+                    pathname.startsWith('/timeline')
+                      ? 'bg-purple-600 text-white' 
+                      : 'bg-gray-700 text-white hover:bg-gray-600'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Timeline
+                </Link>
+                <Link
+                  href="/themes"
+                  className={`block w-full text-center px-4 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
+                    pathname.startsWith('/themes')
+                      ? 'bg-purple-600 text-white' 
+                      : 'bg-gray-700 text-white hover:bg-gray-600'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Themes
+                </Link>
               </div>
 
               {user.loading ? (
-                 <div className="w-full max-w-xs py-2 text-center text-gray-400">Loading...</div>
+                <div className="w-full max-w-xs py-2 text-center text-gray-400">Loading...</div>
               ) : !user.isLoggedIn ? (
                 <Link href="/login" className="w-full max-w-xs" onClick={() => setIsMenuOpen(false)}>
                   <button className="w-full px-4 py-2.5 text-sm font-bold bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-[1.02]">
@@ -380,23 +440,6 @@ const handlePhotoUpload = async (e) => {
                     </div>
                   </div>
                   
-                  <nav className="space-y-2">
-                    <Link
-                      href="/profile"
-                      className="block w-full text-center px-4 py-2.5 text-sm font-semibold text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      My Profile
-                    </Link>
-                    <Link
-                      href="/settings"
-                      className="block w-full text-center px-4 py-2.5 text-sm font-semibold text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Settings
-                    </Link>
-                  </nav>
-
                   <button
                     onClick={() => {
                       handleLogout();
@@ -413,19 +456,59 @@ const handlePhotoUpload = async (e) => {
         )}
       </header>
 
-      {/* Floating Sticky Tagline */}
-      {showStickyTagline && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-40 animate-fade-in-down">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full blur opacity-30"></div>
-            <div className="relative backdrop-blur-lg bg-gray-900/80 border border-gray-700 px-5 py-2 rounded-full shadow-xl">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                <h2 className="text-xs md:text-sm font-bold tracking-wide text-center text-white whitespace-nowrap">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-blue-300">Bytewar</span> - The Coding Warzone ⚔️
-                </h2>
+      {/* Sticky Navigation (only shows on scroll on desktop) */}
+      {showStickyNav && (
+        <div className="hidden md:block fixed top-0 left-0 w-full z-40 pt-4 pb-2 ">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex justify-center">
+              <div className="relative flex items-center space-x-1 backdrop-blur-lg bg-gray-500/10 border border-gray-700 rounded-full px-2 py-1 shadow-lg animate-fade-in-down">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-full blur-sm animate-pulse"></div>
+                
+                <div className="relative flex space-x-1">
+                  <Link 
+                    href="/"  
+                    className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                      pathname === '/' ? 'text-purple-600' : 'text-black-300 hover:text-white'
+                    }`}
+                  >
+                    Home
+                  </Link>
+                  <Link 
+                    href="/about" 
+                    className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                      pathname.startsWith('/about') ? 'text-purple-600' : 'text-black-300 hover:text-white'
+                    }`}
+                  >
+                    About
+                  </Link>
+                  <Link 
+                    href="/timeline" 
+                    className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                      pathname.startsWith('/timeline') ? 'text-purple-600' : 'text-black-300 hover:text-white'
+                    }`}
+                  >
+                    Timeline
+                  </Link>
+                  <Link 
+                    href="/themes" 
+                    className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                      pathname.startsWith('/themes') ? 'text-purple-600' : 'text-black-300 hover:text-white'
+                    }`}
+                  >
+                    Themes
+                  </Link>
+                </div>
+                
+                {/* Active indicator */}
+                <div 
+                  className="absolute bottom-0 h-0.5 bg-purple-500 rounded-full transition-all duration-300"
+                  style={{
+                    width: '60px',
+                    transform: `translateX(${getActiveTabPosition() * 80}px)`
+                  }}
+                ></div>
               </div>
-            </div>
+            </nav>
           </div>
         </div>
       )}
@@ -433,8 +516,8 @@ const handlePhotoUpload = async (e) => {
       {/* Custom Animations */}
       <style jsx global>{`
         @keyframes fade-in-down {
-          from { opacity: 0; transform: translate(-50%, -10px); }
-          to { opacity: 1; transform: translate(-50%, 0); }
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in-down {
           animation: fade-in-down 0.2s ease-out forwards;
