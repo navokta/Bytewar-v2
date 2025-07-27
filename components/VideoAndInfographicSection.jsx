@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 const WowVideoHero = () => {
@@ -137,9 +138,11 @@ const WowVideoHero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Link href={'/enroll'}>
               <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
                 Register Now
               </button>
+              </Link>
               <button className="px-8 py-4 bg-gray-800 border border-gray-700 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:bg-gray-700">
                 View Themes
               </button>

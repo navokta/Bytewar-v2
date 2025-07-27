@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const WowSponsorsSection = () => {
@@ -92,9 +93,11 @@ const WowSponsorsSection = () => {
                 <span className="text-orange-400 font-bold"> Contact us to discuss partnership opportunities!</span>
               </p>
             </div>
+            <Link href={'/sponsor'}>
             <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full text-white font-bold transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
               Sponsor Us
             </button>
+            </Link>
           </div>
         </div>
       </div>

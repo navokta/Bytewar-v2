@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const WowThemesSection = () => {
@@ -240,8 +241,23 @@ const WowThemesSection = () => {
           </div>
         </div>
 
+
+
+{/*This is the Button Of all Theme*/}
+<div className="text-center mt-16">
+            <Link href={'/themes'}>
+            <button  className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
+              View All Themes
+            </button>
+            </Link>
+          </div>
+
+
+
+
+
         {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
           <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-900/30 to-blue-900/30 backdrop-blur-lg border border-white/10">
             <div className="text-5xl font-bold text-orange-400 mb-2">500+</div>
             <div className="text-xl text-gray-300">Participants</div>
@@ -254,7 +270,7 @@ const WowThemesSection = () => {
             <div className="text-5xl font-bold text-orange-400 mb-2">10,000₹</div>
             <div className="text-xl text-gray-300">In Prizes</div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Custom Styles for Animations */}
