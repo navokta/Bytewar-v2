@@ -10,6 +10,7 @@ import ByteWarInfo from '../components/ByteWarInfo';
 import VideoAndInfographicSection from '../components/VideoAndInfographicSection';
 import ThemesSection from '../components/ThemesSection';
 import Timeline from '../components/Timeline';
+import Sponser from '../components/Sponser';
     //  import logo from '../public/image.png';
 
 
@@ -25,6 +26,7 @@ export default function Home() {
       <ThemesSection />
       <Timeline />
       <Gallery />
+      <Sponser />
       <ThoughtSection />
       <Footer />
     </div>
