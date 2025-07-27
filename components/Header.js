@@ -458,17 +458,17 @@ export default function Header() {
 
       {/* Sticky Navigation (only shows on scroll on desktop) */}
       {showStickyNav && (
-        <div className="hidden md:block fixed top-0 left-0 w-full z-40 pt-4 pb-2 animate-fade-in-down">
+        <div className="hidden md:block fixed top-0 left-0 w-full z-40 pt-4 pb-2 ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="flex justify-center">
-              <div className="relative flex items-center space-x-1 backdrop-blur-lg border border-gray-700 rounded-full px-2 py-1 shadow-lg">
+              <div className="relative flex items-center space-x-1 backdrop-blur-lg bg-gray-500/10 border border-gray-700 rounded-full px-2 py-1 shadow-lg animate-fade-in-down">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-full blur-sm animate-pulse"></div>
                 
                 <div className="relative flex space-x-1">
                   <Link 
-                    href="/" 
+                    href="/"  
                     className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
-                      pathname === '/' ? 'text-white' : 'text-gray-300 hover:text-white'
+                      pathname === '/' ? 'text-purple-600' : 'text-black-300 hover:text-white'
                     }`}
                   >
                     Home
@@ -476,7 +476,7 @@ export default function Header() {
                   <Link 
                     href="/about" 
                     className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
-                      pathname.startsWith('/about') ? 'text-white' : 'text-gray-300 hover:text-white'
+                      pathname.startsWith('/about') ? 'text-purple-600' : 'text-black-300 hover:text-white'
                     }`}
                   >
                     About
@@ -484,7 +484,7 @@ export default function Header() {
                   <Link 
                     href="/timeline" 
                     className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
-                      pathname.startsWith('/timeline') ? 'text-white' : 'text-gray-300 hover:text-white'
+                      pathname.startsWith('/timeline') ? 'text-purple-600' : 'text-black-300 hover:text-white'
                     }`}
                   >
                     Timeline
@@ -492,7 +492,7 @@ export default function Header() {
                   <Link 
                     href="/themes" 
                     className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
-                      pathname.startsWith('/themes') ? 'text-white' : 'text-gray-300 hover:text-white'
+                      pathname.startsWith('/themes') ? 'text-purple-600' : 'text-black-300 hover:text-white'
                     }`}
                   >
                     Themes
