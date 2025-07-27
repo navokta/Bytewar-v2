@@ -1,29 +1,25 @@
 "use client"
 
-import * as React from "react"
-import Autoplay from "embla-carousel-autoplay"
-import Image from "next/image"
-import photo1 from "../public/photo1.jpg"
-import photo2 from "../public/photo2.jpg"
-import photo3 from "../public/photo3.jpg"
-
+import * as React from "react";
+import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
+import photo1 from "../public/photo1.jpg";
+import photo2 from "../public/photo2.jpg";
+import photo3 from "../public/photo3.jpg";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem
-} from "@/components/ui/carousel"
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 export default function WowImageCarousel() {
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
-  )
+  );
 
-  const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0)
-  const [isHovered, setIsHovered] = React.useState(false)
-
-  const carouselRef = React.useRef(null)
-
-  const totalSlides = 3
+  const [api, setApi] = React.useState(null);
+  const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
+  const totalSlides = 3;
 
   const images = [
     {
@@ -41,22 +37,22 @@ export default function WowImageCarousel() {
       title: "Winner Celebration",
       desc: "Champions receiving recognition for their excellence",
     },
-  ]
+  ];
 
-  // Auto update index on manual or auto scroll
   React.useEffect(() => {
-    const embla = carouselRef.current?.emblaApi
-    if (!embla) return
+    if (!api) return;
 
     const onSelect = () => {
-      setCurrentSlideIndex(embla.selectedScrollSnap())
-    }
+      setCurrentSlideIndex(api.selectedScrollSnap());
+    };
 
-    embla.on("select", onSelect)
-    onSelect() // initialize
+    api.on("select", onSelect);
+    onSelect();
 
-    return () => embla?.off("select", onSelect)
-  }, [carouselRef.current?.emblaApi])
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
 
   return (
     <div className="relative w-full bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 overflow-hidden">
@@ -81,24 +77,18 @@ export default function WowImageCarousel() {
 
         <div
           className="relative"
-          onMouseEnter={() => {
-            plugin.current.stop()
-            setIsHovered(true)
-          }}
-          onMouseLeave={() => {
-            plugin.current.reset()
-            setIsHovered(false)
-          }}
+          onMouseEnter={() => plugin.current?.stop()}
+          onMouseLeave={() => plugin.current?.reset()}
         >
-          {/* Carousel container */}
+          {/* Carousel */}
           <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-sm"></div>
 
             <Carousel
+              setApi={setApi}
               plugins={[plugin.current]}
               opts={{ loop: true }}
               className="w-full"
-              ref={carouselRef}
             >
               <CarouselContent>
                 {images.map((img, index) => (
@@ -140,51 +130,8 @@ export default function WowImageCarousel() {
               <span className="text-gray-500">/{String(totalSlides).padStart(2, "0")}</span>
             </div>
           </div>
-
-          {/* Pause Icon */}
-          {isHovered && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 backdrop-blur-lg rounded-full p-4 border border-white/20 animate-pulse">
-              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-          )}
         </div>
       </div>
-
-      {/* Custom Styles */}
-      <style jsx>{`
-        @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient-x {
-          background-size: 200% 200%;
-          animation: gradient-x 3s ease infinite;
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.8s ease-out forwards;
-        }
-      `}</style>
     </div>
-  )
+  );
 }
