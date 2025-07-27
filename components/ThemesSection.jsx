@@ -8,6 +8,7 @@ const WowThemesSection = () => {
 
   const themes = [
     {
+      id: 'blockchain-cybersecurity',
       title: 'BLOCKCHAIN & CYBERSECURITY',
       description: 'Provide ideas in a decentralized and distributed ledger technology used to store digital information that powers cryptocurrencies and NFTs and can radically change multiple sectors.',
       icon: '🔐',
@@ -15,6 +16,7 @@ const WowThemesSection = () => {
       glow: 'shadow-purple-500/30'
     },
     {
+      id: 'smart-education',
       title: 'SMART EDUCATION',
       description: 'Smart education, a concept that describes learning in digital age. It enables learners to learn more effectively, efficiently, flexibly and comfortably.',
       icon: '🎓',
@@ -22,6 +24,7 @@ const WowThemesSection = () => {
       glow: 'shadow-blue-500/30'
     },
     {
+      id: 'disaster-management',
       title: 'DISASTER MANAGEMENT',
       icon: '🌪️',
       description: 'Disaster management includes ideas related to risk mitigation, planning and management before, after or during a disaster.',
@@ -29,6 +32,7 @@ const WowThemesSection = () => {
       glow: 'shadow-green-500/30'
     },
     {
+       id: 'environmental-sustainability',
       title: 'ENVIRONMENTAL SUSTAINABILITY',
       description: 'Focus on sustainable practices to protect the environment and promote ecological balance.',
       icon: '🌍',
@@ -36,6 +40,7 @@ const WowThemesSection = () => {
       glow: 'shadow-yellow-500/30'
     },
     {
+      id: 'healthcare-innovation',
       title: 'HEALTHCARE INNOVATION',
       description: 'Innovative solutions in healthcare to improve patient care, diagnostics, and treatment methods.',
       icon: '🏥',
@@ -43,6 +48,7 @@ const WowThemesSection = () => {
       glow: 'shadow-pink-500/30'
     },
     {
+      id: 'artificial-intelligence',
       title: 'ARTIFICIAL INTELLIGENCE',
       description: 'Explore cutting-edge AI solutions for real-world problems and future technological advancement.',
       icon: '🤖',
@@ -193,15 +199,17 @@ const WowThemesSection = () => {
                           
                           {/* Floating Action Button */}
                           {isCenter && (
+                            <Link href={`../themes/${theme.id}`} >
                             <button className={`px-6 py-3 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${theme.glow}`}>
                               Explore Theme
                             </button>
+                            </Link>
                           )}
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> 
               );
             })}
           </div>
