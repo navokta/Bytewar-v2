@@ -1,10 +1,11 @@
+// components/WowEnrollForm.jsx
 "use client";
 import { useState, useEffect } from "react";
-import { FaUser, FaEnvelope, FaPhone, FaUsers, FaIdCard, FaUserTag,FaArrowRight } from "react-icons/fa";
-import {  } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPhone, FaUsers, FaIdCard, FaUserTag, FaSave } from "react-icons/fa";
 
-export default function EnrollForm() {
+export default function WowEnrollForm() {
   const [teamSize, setTeamSize] = useState(3);
+  // Initialize members array with 5 empty objects upfront
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,17 +13,27 @@ export default function EnrollForm() {
     teamName: "",
     altPhone: "",
     upiId: "",
-    members: Array(5).fill({ name: "", role: "" })
+    members: [{ name: "", role: "" }, { name: "", role: "" }, { name: "", role: "" }, { name: "", role: "" }, { name: "", role: "" }]
   });
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
-  // Initialize form data from localStorage if available
+  // Load saved data on mount
   useEffect(() => {
     const savedData = localStorage.getItem('enrollmentData');
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
-        setFormData(parsedData);
-        // Set team size based on saved data
+        // Ensure members array always has 5 slots
+        const fullMembersArray = Array(5).fill({ name: "", role: "" }).map((defaultMember, index) => {
+          return parsedData.members && parsedData.members[index] ? parsedData.members[index] : defaultMember;
+        });
+        
+        setFormData({
+          ...parsedData,
+          members: fullMembersArray
+        });
+        
         if (parsedData.members) {
           const filledMembers = parsedData.members.filter(member => member.name || member.role);
           setTeamSize(Math.max(3, Math.min(5, filledMembers.length)));
@@ -34,8 +45,10 @@ export default function EnrollForm() {
   }, []);
 
   const handleTeamSizeChange = (e) => {
-    const size = parseInt(e.target.value);
-    setTeamSize(size);
+    const size = parseInt(e.target.value, 10);
+    if (size >= 3 && size <= 5) {
+      setTeamSize(size);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -47,195 +60,310 @@ export default function EnrollForm() {
   };
 
   const handleMemberChange = (index, field, value) => {
-    const updatedMembers = [...formData.members];
-    updatedMembers[index] = {
-      ...updatedMembers[index],
-      [field]: value
-    };
-    setFormData(prev => ({
-      ...prev,
-      members: updatedMembers
-    }));
+    if (index >= 0 && index < formData.members.length) {
+      const updatedMembers = [...formData.members];
+      updatedMembers[index] = {
+        ...updatedMembers[index],
+        [field]: value
+      };
+      setFormData(prev => ({
+        ...prev,
+        members: updatedMembers
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Store data in localStorage
-    const submissionData = {
-      ...formData,
-      members: formData.members.slice(0, teamSize)
-    };
-    localStorage.setItem('enrollmentData', JSON.stringify(submissionData));
-    alert("Registration data saved successfully!");
+    setIsSaving(true);
+    setSaveSuccess(false);
+    
+    // Simulate saving process
+    setTimeout(() => {
+      const submissionData = {
+        ...formData,
+        members: formData.members.slice(0, teamSize)
+      };
+      localStorage.setItem('enrollmentData', JSON.stringify(submissionData));
+      setIsSaving(false);
+      setSaveSuccess(true);
+      
+      // Hide success message after 3 seconds
+      setTimeout(() => setSaveSuccess(false), 3000);
+    }, 800);
   };
 
   return (
-    <div className="bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-700">
-      <h2 className="text-2xl font-bold text-white mb-6 pb-2 border-b border-gray-700">
-        Team Registration
-      </h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Personal Information Section */}
-        <fieldset className="space-y-4">
-          <legend className="text-lg font-semibold text-purple-400 mb-3">Personal Information</legend>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-1 flex items-center gap-2">
-                <FaUser className="text-purple-500" /> Full Name *
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-1 flex items-center gap-2">
-                <FaEnvelope className="text-purple-500" /> Email *
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </div>
+    <div className="relative group">
+      {/* Glow Effect for the entire card - Darker Purple/Blue */}
+      <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-purple-900 to-blue-900 opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500"></div>
+      
+      {/* Main Card - Dark Gray/Black with subtle border */}
+      <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10 p-6 md:p-8">
+        {/* Header with Icon - Darker theme */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-900 to-gray-900 mb-4 shadow-lg border border-white/10">
+            <FaUser className="text-2xl text-purple-400" /> {/* Purple icon */}
           </div>
+          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
+            Team Registration
+          </h2>
+          <p className="text-gray-400 mt-2">Join the ultimate coding battle</p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-1 flex items-center gap-2">
-                <FaPhone className="text-purple-500" /> Phone Number *
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-1 flex items-center gap-2">
-                <FaUsers className="text-purple-500" /> Team Name *
-              </label>
-              <input
-                type="text"
-                name="teamName"
-                value={formData.teamName}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </div>
-          </div>
-        </fieldset>
-
-        {/* Payment & Contact Section */}
-        <fieldset className="space-y-4">
-          <legend className="text-lg font-semibold text-purple-400 mb-3">Payment & Contact</legend>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-1 flex items-center gap-2">
-                <FaPhone className="text-purple-500" /> Alternative Phone
-              </label>
-              <input
-                type="tel"
-                name="altPhone"
-                value={formData.altPhone}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-gray-300 mb-1 flex items-center gap-2">
-                <FaIdCard className="text-purple-500" /> UPI ID *
-              </label>
-              <input
-                type="text"
-                name="upiId"
-                value={formData.upiId}
-                onChange={handleInputChange}
-                required
-                placeholder="user@bank"
-                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-              />
-            </div>
-          </div>
-        </fieldset>
-
-        {/* Team Configuration */}
-        <fieldset className="space-y-4">
-          <legend className="text-lg font-semibold text-purple-400 mb-3">Team Configuration</legend>
-          <div>
-            <label className=" text-sm font-medium text-gray-300 mb-1 flex items-center gap-2">
-              <FaUsers className="text-purple-500" /> Team Size *
-            </label>
-            <select
-              value={teamSize}
-              onChange={handleTeamSizeChange}
-              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            >
-              {[3, 4, 5].map(size => (
-                <option key={size} value={size}>{size} Members</option>
-              ))}
-            </select>
-          </div>
-        </fieldset>
-
-        {/* Team Members Section */}
-        <fieldset className="space-y-4">
-          <legend className="text-lg font-semibold text-purple-400 mb-3">Team Members</legend>
-          <div className="space-y-4">
-            {[...Array(teamSize)].map((_, index) => (
-              <div key={index} className="p-4 bg-gray-700/50 rounded-lg border border-gray-600">
-                <h4 className="font-medium text-white mb-3 flex items-center gap-2">
-                  <FaUserTag className="text-purple-500" /> Member {index + 1}
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm text-gray-300 mb-1">Name *</label>
-                    <input
-                      type="text"
-                      value={formData.members[index].name}
-                      onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
-                      required
-                      className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    />
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Personal Information Section - Dark theme */}
+          <div className="relative group/section">
+            <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-purple-900/40 to-blue-900/40 opacity-0 group-hover/section:opacity-100 blur transition-opacity duration-300"></div>
+            <div className="relative bg-gray-900/30 rounded-2xl p-5 border border-white/5"> {/* Darker background */}
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-purple-500"></div> {/* Purple dot */}
+                Personal Information
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {/* Inputs - Dark theme */}
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaUser className="text-purple-400" /> {/* Purple icon */}
                   </div>
-                  <div>
-                    <label className="block text-sm text-gray-300 mb-1">Role *</label>
-                    <input
-                      type="text"
-                      value={formData.members[index].role}
-                      onChange={(e) => handleMemberChange(index, 'role', e.target.value)}
-                      required
-                      placeholder="Developer, Designer, etc."
-                      className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    />
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Alex Johnson"
+                    className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-sm"
+                  />
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaEnvelope className="text-purple-400" />
                   </div>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="alex@example.com"
+                    className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-sm"
+                  />
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaPhone className="text-purple-400" />
+                  </div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="+91 98765 43210"
+                    className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-sm"
+                  />
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaUsers className="text-purple-400" />
+                  </div>
+                  <input
+                    type="text"
+                    name="teamName"
+                    value={formData.teamName}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="The Debuggers"
+                    className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-sm"
+                  />
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </fieldset>
 
-        {/* Submit Button */}
-        <div className="pt-4">
-          <button
-            type="submit"
-            className="w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
-          >
-            Next <FaArrowRight className="inline ml-2" />
-          </button>
-        </div>
-      </form>
+          {/* Payment & Contact Section - Dark theme */}
+          <div className="relative group/section">
+            <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-blue-900/40 to-gray-900/40 opacity-0 group-hover/section:opacity-100 blur transition-opacity duration-300"></div>
+            <div className="relative bg-gray-900/30 rounded-2xl p-5 border border-white/5">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-blue-500"></div> {/* Blue dot */}
+                Payment & Contact
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaPhone className="text-blue-400" /> {/* Blue icon */}
+                  </div>
+                  <input
+                    type="tel"
+                    name="altPhone"
+                    value={formData.altPhone}
+                    onChange={handleInputChange}
+                    placeholder="Alternate contact (Optional)"
+                    className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 backdrop-blur-sm"
+                  />
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaIdCard className="text-blue-400" />
+                  </div>
+                  <input
+                    type="text"
+                    name="upiId"
+                    value={formData.upiId}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="user@bank"
+                    className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 backdrop-blur-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Team Configuration & Members - Dark theme */}
+          <div className="relative group/section">
+            <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-gray-800/40 to-gray-900/40 opacity-0 group-hover/section:opacity-100 blur transition-opacity duration-300"></div>
+            <div className="relative bg-gray-900/30 rounded-2xl p-5 border border-white/5">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-gray-500"></div> {/* Gray dot */}
+                Team Configuration
+              </h3>
+              
+              {/* Team Size Selector - Dark theme */}
+              <div className="mb-6">
+                <label className="block text-gray-400 mb-2 flex items-center gap-2">
+                  <FaUsers className="text-gray-400" />
+                  Select Team Size
+                </label>
+                <div className="flex gap-2">
+                  {[3, 4, 5].map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => setTeamSize(size)}
+                      className={`flex-1 py-3 px-4 rounded-xl font-bold transition-all duration-300 ${
+                        teamSize === size
+                          ? 'bg-gradient-to-r from-purple-700 to-blue-700 text-white shadow-lg border border-white/20' // Darker active button
+                          : 'bg-gray-800/70 text-gray-400 hover:bg-gray-700/70 border border-white/10' // Darker inactive button
+                      }`}
+                    >
+                      {size} Members
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Team Members - Dark theme */}
+              <div>
+                <h4 className="text-lg font-semibold text-gray-300 mb-4 flex items-center gap-2">
+                  <FaUserTag className="text-gray-400" />
+                  Team Members Details
+                </h4>
+                <div className="space-y-4">
+                  {[...Array(teamSize)].map((_, index) => {
+                    const member = formData.members[index] || { name: "", role: "" };
+                    return (
+                      <div 
+                        key={index} 
+                        className="p-4 bg-gray-800/50 rounded-xl border border-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-gray-800/70" // Darker card
+                      >
+                        <h5 className="font-medium text-white mb-3 flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-700 to-gray-700 flex items-center justify-center text-xs font-bold border border-white/10"> {/* Darker badge */}
+                            {index + 1}
+                          </div>
+                          Member {index + 1}
+                        </h5>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                              <FaUser className="text-gray-500 text-sm" />
+                            </div>
+                            <input
+                              type="text"
+                              value={member.name}
+                              onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
+                              required
+                              placeholder="Full Name"
+                              className="w-full pl-10 pr-4 py-2.5 bg-gray-700/70 border border-white/10 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300"
+                            />
+                          </div>
+                          <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                              <FaUserTag className="text-gray-500 text-sm" />
+                            </div>
+                            <input
+                              type="text"
+                              value={member.role}
+                              onChange={(e) => handleMemberChange(index, 'role', e.target.value)}
+                              required
+                              placeholder="Role (Dev, Designer, etc.)"
+                              className="w-full pl-10 pr-4 py-2.5 bg-gray-700/70 border border-white/10 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Submit Button with Status - Dark theme */}
+          <div className="relative">
+            <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-purple-900 to-blue-900 opacity-0 group-hover:opacity-30 blur-lg transition-opacity duration-500"></div>
+            
+            <button
+              type="submit"
+              disabled={isSaving}
+              className="relative w-full py-4 px-6 bg-gradient-to-r from-purple-700 to-blue-700 text-white font-bold rounded-xl shadow-lg hover:from-purple-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 overflow-hidden group/btn border border-white/20"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                {isSaving ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <FaSave /> Save Registration
+                  </>
+                )}
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-900 to-blue-900 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+            </button>
+            
+            {/* Success Message - Dark theme */}
+            {saveSuccess && (
+              <div className="mt-3 p-3 bg-green-900/20 border border-green-800/30 rounded-lg text-green-400 text-center animate-fadeIn">
+                Registration saved successfully!
+              </div>
+            )}
+          </div>
+        </form>
+      </div>
+
+      {/* Custom Styles */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 }
