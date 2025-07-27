@@ -1,12 +1,53 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import stats from '../app/api/youtube-stats'
 
 const WowVideoHero = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [stats, setStats] = useState({
+    viewCount: '2.1M+',
+    likeCount: '45K+',
+    commentCount: '3.2K'
+  });
+  const [loading, setLoading] = useState(true);
 
   const handlePlayVideo = () => {
     setIsPlaying(true);
   };
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('/api/youtube-stats');
+        if (!response.ok) {
+          throw new Error('Failed to fetch stats');
+        }
+        const data = await response.json();
+        setStats(data);
+      } catch (err) {
+        console.error('Error loading YouTube stats:', err);
+        // Keep using default/fallback stats
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  // Helper function to render stat items
+  const renderStatItem = (value, label) => (
+    <div className="text-center p-4 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-white/10 transform hover:scale-105 transition-all duration-300">
+      <div className="text-3xl font-bold text-orange-400">
+        {loading ? (
+          <div className="inline-block h-8 w-16 bg-gray-700 rounded animate-pulse"></div>
+        ) : (
+          value
+        )}
+      </div>
+      <div className="text-gray-400">{label}</div>
+    </div>
+  );
 
   return (
     <section className="relative min-h-screen flex items-center justify-center py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
@@ -41,9 +82,7 @@ const WowVideoHero = () => {
               className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl cursor-pointer transform transition-all duration-700 hover:scale-105"
               onClick={handlePlayVideo}
             >
-              {/* Video Container */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900">
-                {/* Animated Grid Pattern */}
                 <div className="absolute inset-0 opacity-20">
                   <div className="grid grid-cols-8 grid-rows-8 h-full w-full">
                     {[...Array(64)].map((_, i) => (
@@ -59,7 +98,6 @@ const WowVideoHero = () => {
 
               {!isPlaying ? (
                 <>
-                  {/* Play Button */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="relative">
                       <div className="absolute inset-0 w-24 h-24 bg-red-600 rounded-full animate-ping opacity-75"></div>
@@ -70,42 +108,27 @@ const WowVideoHero = () => {
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Video Info */}
                   <div className="absolute bottom-6 left-0 right-0 text-center">
                     <h3 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">BYTEWAR 2023</h3>
                     <p className="text-gray-300 text-xl">Official Trailer - The Future of Hackathons</p>
                   </div>
                 </>
               ) : (
-                /* YouTube Embed */
                 <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                  src="https://www.youtube.com/embed/gFM8s2i2emQ?si=_Wo_w-A9KSMQj5yK"
                   title="ByteWar Hackathon 2023"
                   className="absolute inset-0 w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               )}
-              
-              {/* Glow Effect */}
               <div className="absolute inset-0 rounded-3xl shadow-[0_0_50px_20px_rgba(139,92,246,0.5)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
-            
-            {/* Video Stats */}
+
             <div className="grid grid-cols-3 gap-4 mt-8">
-              <div className="text-center p-4 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-white/10 transform hover:scale-105 transition-all duration-300">
-                <div className="text-3xl font-bold text-orange-400">2.1M+</div>
-                <div className="text-gray-400">Views</div>
-              </div>
-              <div className="text-center p-4 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-white/10 transform hover:scale-105 transition-all duration-300">
-                <div className="text-3xl font-bold text-orange-400">45K+</div>
-                <div className="text-gray-400">Likes</div>
-              </div>
-              <div className="text-center p-4 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-white/10 transform hover:scale-105 transition-all duration-300">
-                <div className="text-3xl font-bold text-orange-400">3.2K</div>
-                <div className="text-gray-400">Comments</div>
-              </div>
+              {renderStatItem(stats.viewCount, 'Views')}
+              {renderStatItem(stats.likeCount, 'Likes')}
+              {renderStatItem(stats.commentCount, 'Comments')}
             </div>
           </div>
 
@@ -139,14 +162,14 @@ const WowVideoHero = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link href={'/enroll'}>
-              <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
-                Register Now
-              </button>
+                <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
+                  Register Now
+                </button>
               </Link>
               <Link href={'/themes'}>
-              <button className="px-8 py-4 bg-gray-800 border border-gray-700 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:bg-gray-700">
-                View Themes
-              </button>
+                <button className="px-8 py-4 bg-gray-800 border border-gray-700 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:bg-gray-700">
+                  View Themes
+                </button>
               </Link>
             </div>
           </div>
