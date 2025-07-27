@@ -8,7 +8,7 @@ import HeroSection from '../../components/about/HeroSection';
 import Mission from '../../components/about/Mission';
 import Feature from '../../components/about/Feature';
 import Team from '../../components/about/Team';
-import Enroll from '../../components/about/Enroll';
+// import Enroll from '../../components/about/Enroll';
 
 export default function AboutPage() {
   const features = [
@@ -52,17 +52,14 @@ export default function AboutPage() {
       {/* Mission Section */}
       <Mission/>
 
-      {/* Features Section */}
-      <Feature/>
-      
-
-            {/* Team Section */}
+        {/* Team Section */}
             <Team/>
 
-
+      {/* Features Section */}
+      <Feature/>
 
       {/* CTA Section */}
-     <Enroll/>
+     {/* <Enroll/> */}
         {/* Footer Component */}
         <Footer />
     </div>
