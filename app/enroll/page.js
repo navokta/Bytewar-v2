@@ -73,24 +73,56 @@ export default function WowEnrollForm() {
     }
   };
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => { // Make function async
     e.preventDefault();
     setIsSaving(true);
     setSaveSuccess(false);
-    
-    // Simulate saving process
-    setTimeout(() => {
-      const submissionData = {
-        ...formData,
-        members: formData.members.slice(0, teamSize)
-      };
-      localStorage.setItem('enrollmentData', JSON.stringify(submissionData));
-      setIsSaving(false);
+
+    // Prepare data to send (only the members for the selected team size)
+    const submissionData = {
+      ...formData,
+      members: formData.members.slice(0, teamSize)
+    };
+
+    try {
+      // 1. Send data to the API route for processing and email sending
+      const response = await fetch('/api/send-registration-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      if (!response.ok) {
+        // Handle API errors (e.g., email service issues)
+        const errorData = await response.json().catch(() => ({}));
+        console.error("API Error:", errorData.message || response.statusText);
+        throw new Error(errorData.message || `Registration failed: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log("Server response:", result); // Optional: Log server success message
+
+      // 2. If API call is successful, save locally and show success
+      localStorage.setItem('enrollmentData', JSON.stringify(submissionData)); // Save locally if needed
       setSaveSuccess(true);
-      
-      // Hide success message after 3 seconds
-      setTimeout(() => setSaveSuccess(false), 3000);
-    }, 800);
+
+      // Optional: Reset form or redirect on success
+      // setFormData({ /* initial state */ });
+
+    } catch (error) {
+      // 3. Handle network errors or other unexpected issues
+      console.error("Submission error:", error);
+      alert(`An error occurred during registration: ${error.message || "Please try again later."}`);
+    } finally {
+      // 4. Always stop the saving indicator
+      setIsSaving(false);
+      // Hide success message after 3 seconds (if successful)
+      if (saveSuccess) {
+        setTimeout(() => setSaveSuccess(false), 3000);
+      }
+    }
   };
 
   return (
