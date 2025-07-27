@@ -300,7 +300,7 @@ export default function Header() {
                       </div>
                       <div className="text-white text-sm overflow-hidden">
                         <p className="font-semibold truncate">
-                          {user.data?.name || user.data?.username || 'User'}
+                          {user.data?.name || user.data?.username || 'You'}
                         </p>
                         <p className="text-gray-400 truncate">{user.data?.email}</p>
                         {user.data?.phone && (
@@ -318,11 +318,11 @@ export default function Header() {
                         My Profile
                       </Link>
                       <Link
-                        href="/settings"
+                        href="/create-team"
                         className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-colors"
                         onClick={() => setShowProfilePopup(false)}
                       >
-                        Settings
+                        Create Team
                       </Link>
                     </nav>
 
