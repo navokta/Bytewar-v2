@@ -105,46 +105,46 @@ export default function Header() {
     setShowProfilePopup(false);
   };
 
-  const handlePhotoUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // const handlePhotoUpload = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
-    try {
-      const formData = new FormData();
-      formData.append('profilePicture', file);
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('profilePicture', file);
 
-      const token = getToken();
-      if (!token) {
-        throw new Error('No authentication token found');
-      }
+  //     const token = getToken();
+  //     if (!token) {
+  //       throw new Error('No authentication token found');
+  //     }
 
-      const response = await fetch('/api/auth/upload-profile', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formData,
-      });
+  //     const response = await fetch('/api/auth/upload-profile', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //       },
+  //       body: formData,
+  //     });
 
-      if (!response.ok) {
-        throw new Error('Failed to upload profile picture');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Failed to upload profile picture');
+  //     }
 
-      const data = await response.json();
+  //     const data = await response.json();
       
-      setUser(prev => ({
-        ...prev,
-        data: {
-          ...prev.data,
-          profilePicture: data.profilePictureUrl
-        }
-      }));
+  //     setUser(prev => ({
+  //       ...prev,
+  //       data: {
+  //         ...prev.data,
+  //         profilePicture: data.profilePictureUrl
+  //       }
+  //     }));
 
-    } catch (error) {
-      console.error("Error uploading profile picture:", error);
-      alert("Failed to upload profile picture. Please try again.");
-    }
-  };
+  //   } catch (error) {
+  //     console.error("Error uploading profile picture:", error);
+  //     alert("Failed to upload profile picture. Please try again.");
+  //   }
+  // };
 
   // Calculate active tab position
   const getActiveTabPosition = () => {
@@ -281,14 +281,14 @@ export default function Header() {
                           <Image
                             src={user.data.profilePicture}
                             alt="Profile"
-                            width={56}
-                            height={56}
+                            width={70}
+                            height={70}
                             className="object-cover"
                           />
                         ) : (
-                          <FaUserCircle className="text-white text-4xl m-auto" />
+                          <FaUserCircle className="text-white text-4xl m-auto text-center" />
                         )}
-                        <label className="absolute bottom-0 right-0 bg-purple-600 p-1.5 rounded-full cursor-pointer hover:bg-purple-700 transition-colors shadow-md">
+                        {/* <label className="absolute bottom-0 right-0 bg-purple-600 p-1.5 rounded-full cursor-pointer hover:bg-purple-700 transition-colors shadow-md">
                           <FaCamera className="text-white text-xs" />
                           <input
                             type="file"
@@ -296,7 +296,7 @@ export default function Header() {
                             className="hidden"
                             onChange={handlePhotoUpload}
                           />
-                        </label>
+                        </label> */}
                       </div>
                       <div className="text-white text-sm overflow-hidden">
                         <p className="font-semibold truncate">
