@@ -4,7 +4,7 @@ import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
 import photo1 from "../public/photo1.jpg"
-import photo2 from "../public/photo2.jpg" 
+import photo2 from "../public/photo2.jpg"
 import photo3 from "../public/photo3.jpg"
 
 import {
@@ -17,19 +17,50 @@ export default function WowImageCarousel() {
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
   )
-  
-  const [currentSlide, setCurrentSlide] = React.useState(0)
+
+  const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0)
   const [isHovered, setIsHovered] = React.useState(false)
 
+  const carouselRef = React.useRef(null)
+
+  const totalSlides = 3
+
   const images = [
-    { src: photo1, title: "Innovation Hub", desc: "Students collaborating on groundbreaking projects" },
-    { src: photo2, title: "Coding Marathon", desc: "48 hours of non-stop development and creativity" },
-    { src: photo3, title: "Winner Celebration", desc: "Champions receiving recognition for their excellence" }
+    {
+      src: photo1,
+      title: "Innovation Hub",
+      desc: "Students collaborating on groundbreaking projects",
+    },
+    {
+      src: photo2,
+      title: "Coding Marathon",
+      desc: "48 hours of non-stop development and creativity",
+    },
+    {
+      src: photo3,
+      title: "Winner Celebration",
+      desc: "Champions receiving recognition for their excellence",
+    },
   ]
+
+  // Auto update index on manual or auto scroll
+  React.useEffect(() => {
+    const embla = carouselRef.current?.emblaApi
+    if (!embla) return
+
+    const onSelect = () => {
+      setCurrentSlideIndex(embla.selectedScrollSnap())
+    }
+
+    embla.on("select", onSelect)
+    onSelect() // initialize
+
+    return () => embla?.off("select", onSelect)
+  }, [carouselRef.current?.emblaApi])
 
   return (
     <div className="relative w-full bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 overflow-hidden">
-      {/* Animated Background Elements */}
+      {/* Blobs */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -37,7 +68,6 @@ export default function WowImageCarousel() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-black mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
@@ -49,7 +79,7 @@ export default function WowImageCarousel() {
           </p>
         </div>
 
-        <div 
+        <div
           className="relative"
           onMouseEnter={() => {
             plugin.current.stop()
@@ -60,20 +90,19 @@ export default function WowImageCarousel() {
             setIsHovered(false)
           }}
         >
-          {/* Carousel Container */}
+          {/* Carousel container */}
           <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20 backdrop-blur-sm"></div>
-            
+
             <Carousel
               plugins={[plugin.current]}
+              opts={{ loop: true }}
               className="w-full"
-              opts={{
-                loop: true,
-              }}
+              ref={carouselRef}
             >
               <CarouselContent>
                 {images.map((img, index) => (
-                  <CarouselItem key={index++} className="relative">
+                  <CarouselItem key={index} className="relative">
                     <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px]">
                       <Image
                         src={img.src}
@@ -82,11 +111,8 @@ export default function WowImageCarousel() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover transition duration-700 ease-in-out"
                       />
-                      
-                      {/* Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-                      
-                      {/* Content */}
+
                       <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
                         <div className="max-w-3xl">
                           <h3 className="text-2xl md:text-4xl font-bold text-white mb-3 animate-fadeIn">
@@ -102,19 +128,20 @@ export default function WowImageCarousel() {
                 ))}
               </CarouselContent>
             </Carousel>
-            
-            {/* Gradient Borders */}
+
+            {/* Hover border effect */}
             <div className="absolute inset-0 rounded-3xl pointer-events-none border border-white/5 shadow-[0_0_30px_10px_rgba(139,92,246,0.3)] opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
           </div>
 
-          {/* Current Slide Info */}
+          {/* Slide Index Display */}
           <div className="absolute top-6 right-6 bg-black/50 backdrop-blur-lg rounded-2xl p-4 border border-white/10">
             <div className="text-2xl font-bold text-white">
-              01<span className="text-gray-500">/03</span>
+              {String(currentSlideIndex + 1).padStart(2, "0")}
+              <span className="text-gray-500">/{String(totalSlides).padStart(2, "0")}</span>
             </div>
           </div>
 
-          {/* Pause Indicator */}
+          {/* Pause Icon */}
           {isHovered && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 backdrop-blur-lg rounded-full p-4 border border-white/20 animate-pulse">
               <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,9 +165,6 @@ export default function WowImageCarousel() {
         .animate-blob {
           animation: blob 7s infinite;
         }
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
         .animation-delay-2000 {
           animation-delay: 2s;
         }
@@ -162,5 +186,5 @@ export default function WowImageCarousel() {
         }
       `}</style>
     </div>
-  );
+  )
 }
