@@ -143,9 +143,11 @@ const WowVideoHero = () => {
                 Register Now
               </button>
               </Link>
+              <Link href={'/themes'}>
               <button className="px-8 py-4 bg-gray-800 border border-gray-700 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:bg-gray-700">
                 View Themes
               </button>
+              </Link>
             </div>
           </div>
         </div>
