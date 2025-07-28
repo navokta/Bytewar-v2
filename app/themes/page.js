@@ -1,5 +1,7 @@
 // app/themes/page.js
 "use client";
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import Link from 'next/link'; 
 import React from 'react';
 
@@ -71,8 +73,8 @@ const AllThemesPage = () => {
     }
   ];
 //  Here is the code 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
@@ -80,8 +82,11 @@ const AllThemesPage = () => {
         <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
+      {/* Header & Content */}
+      <Header />
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 pb-20">
+        {/* Header Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-black mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
@@ -96,31 +101,24 @@ const AllThemesPage = () => {
         {/* Themes Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {themes.map((theme) => (
-            <div 
-              key={theme.id}
-              className="group relative"
-            >
+            <div key={theme.id} className="group relative">
               {/* Glow Effect */}
               <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r ${theme.color} opacity-0 group-hover:opacity-30 blur-lg transition-all duration-500`}></div>
               
               {/* Card */}
               <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-2xl p-6 border border-white/10 h-full flex flex-col transform transition-all duration-500 group-hover:-translate-y-2">
-                {/* Icon */}
                 <div className={`flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br ${theme.color} text-2xl mb-6 transform transition-all duration-500 group-hover:scale-110`}>
                   {theme.icon}
                 </div>
                 
-                {/* Title */}
                 <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-500">
                   {theme.title}
                 </h3>
                 
-                {/* Description */}
                 <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-500 flex-grow">
                   {theme.description}
                 </p>
                 
-                {/* Explore Button */}
                 <Link href={`/themes/${theme.id}`} className="mt-6">
                   <button className={`w-full py-3 px-4 bg-gradient-to-r ${theme.color} text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2`}>
                     Explore Now
@@ -155,7 +153,12 @@ const AllThemesPage = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </main>
+
+      {/* Footer - Full Width, No Padding from Container */}
+      <footer className="relative z-10 w-full">
+        <Footer />
+      </footer>
 
       {/* Custom Styles */}
       <style jsx>{`
