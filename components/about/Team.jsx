@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Bhavy from "../../public/bhavy.jpg";
-import Sakshi from "../../public/Sakshi.png";
-import Bhumi from "../../public/bhumi.png";
-import Abhinav from "../../public/Abhinav.jpg";
-import Kratakshi from "../../public/kratakshi.png";
-import Fazal from "../../public/fazal.png";
+// import Bhavy from "../../public/bhavy.jpg";
+// import Sakshi from "../../public/Sakshi.png";
+// import Bhumi from "../../public/bhumi.png";
+// import Abhinav from "../../public/Abhinav.jpg";
+// import Kratakshi from "../../public/kratakshi.png";
+// import Fazal from "../../public/fazal.png";
 
 
 const WowTeamSection = () => {
@@ -15,7 +15,7 @@ const WowTeamSection = () => {
       name: "Bhavy Sharma",
       role: "Lead Developer",
       bio: "Former Google engineer with a passion for competitive programming and education.",
-      image: Bhavy,
+      image: '/bhavy.jpg',
       social: {
         linkedin: "https://www.linkedin.com/in/bhavy-sharma/"
       }
@@ -24,7 +24,7 @@ const WowTeamSection = () => {
       name: "Sakshi Jain",
       role: "UI/ UX Designer",
       bio: "UX expert dedicated to creating the best coding experience for developers.",
-      image: Sakshi,
+      image: '/Sakshi.png',
       social: {
         linkedin: "https://www.linkedin.com/in/sakshi-jain-34a7b7355/"
       }
@@ -33,7 +33,7 @@ const WowTeamSection = () => {
       name: "Bhumi Singhal",
       role: "Manager",
       bio: "Full-stack wizard who builds the infrastructure powering ByteWar.",
-      image: Bhumi,
+      image: '/bhumi.png',
       social: {
         linkedin: "https://www.linkedin.com/in/bhoomi-singhal-103a9b327/"
       }
@@ -42,7 +42,7 @@ const WowTeamSection = () => {
       name: "Abhinav Kaushik",
       role: "Editor",
       bio: "Competitive programming champion who designs our challenging problems.",
-      image: Abhinav,
+      image: '/Abhinav.jpg',
       social: {
         linkedin: "https://www.linkedin.com/in/abhinav-kaushik-b49a93371/"
       }
@@ -51,7 +51,7 @@ const WowTeamSection = () => {
       name: "Kratakshi Bhardwaj",
       role: "Researcher",
       bio: "Cloud infrastructure expert ensuring ByteWar runs smoothly at scale.",
-      image: Kratakshi,
+      image: '/kratakshi.png',
       social: {
         linkedin: "https://www.linkedin.com/in/kratakshi-bhardwaj-332a7b2a7/"
       }
@@ -60,7 +60,7 @@ const WowTeamSection = () => {
       name: "Mohd. Fazal Ali",
       role: "Backend Developer",
       bio: "Building and nurturing our global community of passionate programmers.",
-      image: Fazal,
+      image: '/fazal.png',
       social: {
         linkedin: "https://www.linkedin.com/in/mohd-fazal-ali/"
       }
@@ -85,7 +85,7 @@ const WowTeamSection = () => {
           </h2>
           <div className="w-32 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
           <p className="text-xl text-gray-400 mt-6 max-w-3xl mx-auto">
-            Passionate individuals dedicated to building the best competitive programming experience.
+            Driven minds behind the mission — crafting an exceptional competitive programming journey for all.
           </p>
         </div>
 

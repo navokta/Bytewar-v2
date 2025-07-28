@@ -55,13 +55,14 @@ const WowMissionSection = () => {
                 
                 <div className="space-y-6">
                   <p className="text-lg md:text-xl text-gray-300 leading-relaxed p-6 rounded-2xl bg-gray-800/30 backdrop-blur-sm border border-white/10 shadow-lg">
-                    At ByteWar, we believe that the best way to master programming is through <span className="text-purple-400 font-bold">practice, competition, and community</span>. 
-                    Our platform is designed to be the ultimate arena where coders can push their limits and discover their true potential.
+                    At ByteWar, we believe the best way to grow as a programmer is through
+<span className="text-purple-400 font-bold"> consistent practice, healthy competition, and a strong community.</span>
+
+Our platform isn’t just a hackathon — it's a launchpad where coders challenge themselves, level up their skills, and unlock their true potential.
                   </p>
                   
                   <p className="text-lg md:text-xl text-gray-300 leading-relaxed p-6 rounded-2xl bg-gray-800/30 backdrop-blur-sm border border-white/10 shadow-lg">
-                    We aim to create an <span className="text-pink-400 font-bold">inclusive environment</span> where beginners can start their journey and experts can find their next challenge, 
-                    fostering a community that celebrates learning, growth, and innovation.
+                   We aim to build an <span className="text-pink-400 font-bold">inclusive space</span> where beginners take their first steps and experts discover bold new challenges — all while being part of a community that celebrates learning, growth, and innovation.
                   </p>
                 </div>
               </div>
