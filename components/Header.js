@@ -323,7 +323,7 @@ const getActiveTabPosition = () => {
                         className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-colors"
                         onClick={() => setShowProfilePopup(false)}
                       >
-                        Create Team
+                        Registration Now
                       </Link>
                     </nav>
 
