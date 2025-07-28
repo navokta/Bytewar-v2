@@ -1,22 +1,13 @@
 // app/api/send-registration-email/route.js
 import { NextResponse } from 'next/server';
-// --- Corrected Import ---
-// Use default import for nodemailer
 import nodemailer from 'nodemailer';
-// OR, if the above doesn't work reliably, you can try:
-// const nodemailer = require('nodemailer'); // This is the traditional CommonJS way
 
 
-// IMPORTANT: Environment Variables
-// You MUST set these in your `.env.local` file:
-// EMAIL_SERVICE=gmail (or outlook, etc.)
-// EMAIL_USER=your_email@gmail.com
-// EMAIL_PASS=your_app_password (NOT your regular password for Gmail)
-// Make sure to add .env.local to your .gitignore!
+
+
 
 export async function POST(request) {
-  // --- Corrected Import Check ---
-  // Add a check to ensure nodemailer is imported correctly
+
   if (!nodemailer || typeof nodemailer.createTransport !== 'function') {
     console.error('Nodemailer import failed or createTransport is not available:', nodemailer);
     return NextResponse.json(
@@ -29,59 +20,62 @@ export async function POST(request) {
     const data = await request.json();
 
     const { name, email, phone, teamName, altPhone, upiId, members } = data;
-
-    // --- Configure Nodemailer Transporter ---
-    // Using environment variables for security
-    // --- Corrected Function Name: createTransport ---
     const transporter = nodemailer.createTransport({ 
       service: process.env.EMAIL_SERVICE, // e.g., 'gmail'
       auth: {
         user: process.env.EMAIL_USER, // Your sender email
         pass: process.env.EMAIL_PASS, // Your sender email's app password
       },
-      // --- Additional Options for Reliability ---
-      // These options can help, especially with services like Gmail
-      // tls: {
-      //   rejectUnauthorized: false // Only use if you encounter TLS errors, but be cautious
-      // }
-      // logger: true, // Enable for debugging SMTP connection issues
-      // debug: true,  // Enable for detailed SMTP logs
     });
 
-    // Verify transporter configuration (optional but helpful)
-    // This can catch configuration errors early
     await transporter.verify();
     console.log('Nodemailer transporter verified successfully.');
 
     // --- Compose Email Content ---
     // Email TO the user who registered
     const userMailOptions = {
-      from: `"Wow Event Team" <${process.env.EMAIL_USER}>`, // Sender address (your system)
+      from: `"ByteWar Team" <${process.env.EMAIL_USER}>`, // Sender address (your system)
       to: email, // Recipient: User's email from the form
       subject: `Registration Confirmation for Team ${teamName}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-          <h2 style="color: #4a00e0;">Wow Event Registration Confirmation</h2>
-          <p>Hi <strong>${name}</strong>,</p>
-          <p>Thank you for registering your team "<strong>${teamName}</strong>" for the Wow event!</p>
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 640px; margin: auto; padding: 30px; border: 1px solid #e0e0e0; border-radius: 10px; background-color: #ffffff;">
+  <h2 style="color: #4a00e0; font-size: 24px; margin-bottom: 20px;">ByteWar-V2 Hackathon Registration Confirmation</h2>
 
-          <h3 style="color: #8e2de2;">Registration Details:</h3>
-          <ul style="list-style-type: none; padding: 0;">
-             <li><strong>Team Name:</strong> ${teamName}</li>
-             <li><strong>Team Size:</strong> ${members.length}</li>
-             <li><strong>Primary Contact:</strong> ${name} (${email}, ${phone})</li>
-             ${altPhone ? `<li><strong>Alternate Contact:</strong> ${altPhone}</li>` : ''}
-             <li><strong>UPI ID:</strong> ${upiId}</li>
-           </ul>
+  <p style="font-size: 16px; color: #333333;">Dear <strong>${name}</strong>,</p>
 
-          <h3 style="color: #8e2de2;">Team Members:</h3>
-          <ul>
-            ${members.map((member, index) => `<li><strong>Member ${index + 1}:</strong> ${member.name} (${member.role})</li>`).join('')}
-          </ul>
+  <p style="font-size: 16px; color: #333333;">
+    Thank you for registering your team "<strong>${teamName}</strong>" for the <strong>ByteWar-V2 Hackathon</strong>. We are excited to have you on board and look forward to an innovative and competitive event!
+  </p>
 
-          <p>We look forward to seeing your team compete!</p>
-          <p>Best regards,<br>The Wow Event Team</p>
-        </div>
+  <h3 style="color: #8e2de2; font-size: 20px; margin-top: 30px;">📋 Registration Summary</h3>
+  <ul style="list-style: none; padding-left: 0; font-size: 15px; color: #444;">
+    <li><strong>Team Name:</strong> ${teamName}</li>
+    <li><strong>Team Size:</strong> ${members.length}</li>
+    <li><strong>Primary Contact:</strong> ${name} (<a href="mailto:${email}" style="color:#4a00e0; text-decoration: none;">${email}</a>, ${phone})</li>
+    ${altPhone ? `<li><strong>Alternate Contact:</strong> ${altPhone}</li>` : ''}
+    <li><strong>UPI ID for Payment:</strong> ${upiId}</li>
+  </ul>
+
+  <h3 style="color: #8e2de2; font-size: 20px; margin-top: 30px;">👥 Team Members</h3>
+  <ul style="padding-left: 20px; font-size: 15px; color: #444;">
+    ${members.map((member, index) => `<li><strong>Member ${index + 1}:</strong> ${member.name} – ${member.role}</li>`).join('')}
+  </ul>
+
+  <p style="font-size: 16px; color: #333333; margin-top: 30px;">
+    If any of the above details need correction or updates, please contact us at your earliest convenience.
+  </p>
+
+  <p style="font-size: 16px; color: #333333;">
+    We appreciate your enthusiasm and wish your team the very best as you prepare for the competition.
+  </p>
+
+  <p style="font-size: 16px; color: #333333; margin-top: 40px;">
+    Best regards,<br>
+    <strong>The ByteWar-V2 Organizing Team</strong><br>
+    <span style="color: #888;">Powered by Navokta</span>
+  </p>
+</div>
+
       `,
     };
 
