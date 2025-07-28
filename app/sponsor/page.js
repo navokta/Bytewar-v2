@@ -1,5 +1,7 @@
 // app/sponsor/page.js
 "use client";
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 import Link from 'next/link';
 import React from 'react';
 
@@ -58,13 +60,16 @@ const BecomeSponsorPage = () => {
   ];
 
   return (
+    <div>
+      
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-      </div>
+      <Header />
+{/* Animated Background Elements */}
+<div className="absolute inset-0 z-0 overflow-hidden">
+  <div className="absolute top-0 left-1/4 w-[30vw] h-[30vw] max-w-[384px] max-h-[384px] bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
+  <div className="absolute top-0 right-1/4 w-[30vw] h-[30vw] max-w-[384px] max-h-[384px] bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+  <div className="absolute bottom-0 left-1/2 w-[30vw] h-[30vw] max-w-[384px] max-h-[384px] bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+</div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
@@ -185,6 +190,7 @@ const BecomeSponsorPage = () => {
             </a>
           </div>
         </div>
+       
       </div>
 
       {/* Custom Styles */}
@@ -213,6 +219,9 @@ const BecomeSponsorPage = () => {
           100% { transform: translate(0px, 0px) scale(1); }
         }
       `}</style>
+     
+    </div>
+      <Footer/>
     </div>
   );
 };
