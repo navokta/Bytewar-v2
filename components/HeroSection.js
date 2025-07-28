@@ -67,11 +67,11 @@ export default function WowImageCarousel() {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-black mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
-              MOMENTS FROM BYTEWAR
+              WELCOME TO BYTEWAR
             </span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Relive the excitement and innovation from our previous editions
+            Don't talk, Show me the code!
           </p>
         </div>
 
