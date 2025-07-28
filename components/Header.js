@@ -146,12 +146,13 @@ export default function Header() {
   //   }
   // };
 
-  // Calculate active tab position
-  const getActiveTabPosition = () => {
-    const tabs = ['/', '/about', '/timeline', '/themes'];
-    const index = tabs.findIndex(tab => pathname.startsWith(tab));
-    return index >= 0 ? index : 0;
-  };
+ // Calculate active tab position
+const getActiveTabPosition = () => {
+  const tabs = ['/', '/about', '/timeline', '/themes'];
+  const index = tabs.findIndex(tab => pathname === tab); // Use exact match instead of startsWith
+  return index >= 0 ? index : 0;
+};
+
 
   return (
     <>
@@ -225,14 +226,14 @@ export default function Header() {
                 </Link>
               </div>
               
-              {/* Active indicator */}
-              <div 
-                className="absolute bottom-0 h-0.5 bg-purple-500 rounded-full transition-all duration-300"
-                style={{
-                  width: '60px',
-                  transform: `translateX(${getActiveTabPosition() * 80}px)`
-                }}
-              ></div>
+             {/* Active indicator */}
+<div 
+  className="absolute bottom-0 h-0.5 bg-purple-500 rounded-full transition-all duration-300"
+  style={{
+    width: '60px',
+    left: `${getActiveTabPosition() * 80 + 16}px` // 16px accounts for initial padding
+  }}
+></div>
             </nav>
           </div>
 
