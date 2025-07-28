@@ -1,6 +1,5 @@
 // app/choose-plan/page.js
 "use client";
-
 import React, { useState } from 'react';
 import { FaCheck, FaRupeeSign, FaShieldAlt } from 'react-icons/fa';
 
@@ -18,7 +17,7 @@ const ChoosePlanPage = () => {
     {
       id: 'platinum',
       name: "Platinum Partner",
-      price: 500000,
+      price: 5000,
       benefits: [
         "Logo placement on all marketing materials",
         "Keynote speaking opportunity",
@@ -33,7 +32,7 @@ const ChoosePlanPage = () => {
     {
       id: 'gold',
       name: "Gold Sponsor",
-      price: 250000,
+      price: 2500,
       benefits: [
         "Logo on website and event banners",
         "Booth space at venue",
@@ -47,7 +46,7 @@ const ChoosePlanPage = () => {
     {
       id: 'silver',
       name: "Silver Sponsor",
-      price: 100000,
+      price: 1000,
       benefits: [
         "Logo on website",
         "2 complimentary event passes",
@@ -60,7 +59,7 @@ const ChoosePlanPage = () => {
     {
       id: 'bronze',
       name: "Bronze Sponsor",
-      price: 50000,
+      price: 500,
       benefits: [
         "Logo on website",
         "1 complimentary event pass",
@@ -88,66 +87,73 @@ const ChoosePlanPage = () => {
     return new Promise((resolve) => {
       const script = document.createElement('script');
       script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
       document.body.appendChild(script);
     });
   };
 
   const handlePayment = async () => {
     if (!selectedTier) return;
-    
+
     // Validate form
     if (!sponsorDetails.name || !sponsorDetails.email || !sponsorDetails.company || !sponsorDetails.phone) {
       alert('Please fill all required fields');
       return;
     }
 
+    // Load Razorpay SDK
     const res = await loadRazorpayScript();
     if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?');
+      alert('Razorpay SDK failed to load. Check your internet connection.');
       return;
     }
 
     setPaymentStatus('processing');
 
-    // In a real implementation, this would be an API call to your backend
-    // to create an order with Razorpay
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Dummy order creation
-      const order = {
-        id: 'order_' + Math.random().toString(36).substr(2, 9),
-        amount: selectedTier.price * 100, // in paise
-        currency: 'INR'
-      };
+      // 🚀 Call your backend API to create a real Razorpay order
+      const response = await fetch('/api/razorpay/create-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: selectedTier.price, // ₹500 → 500
+          currency: 'INR',
+          receipt: `sponsor_${selectedTier.id}_${Date.now()}`
+        }),
+      });
+
+      const orderData = await response.json();
+
+      if (!orderData.success) {
+        throw new Error(orderData.error || 'Order creation failed');
+      }
 
       const options = {
-        key: 'rzp_test_YOUR_KEY_ID', // Replace with your Razorpay test key
-        amount: order.amount,
-        currency: order.currency,
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // From .env.local
+        amount: orderData.amount, // in paise
+        currency: orderData.currency,
         name: 'ByteWar',
         description: `${selectedTier.name} Sponsorship`,
-        order_id: order.id,
-        handler: function (response) {
-          // This is where you would verify the payment on your backend
-          console.log(response);
+        order_id: orderData.orderId,
+        handler: async (response) => {
+          console.log("Payment Success:", response);
+
+          // Optional: Send payment verification to backend
+          // await fetch('/api/verify-payment', { ... })
+
           setPaymentStatus('success');
         },
         prefill: {
           name: sponsorDetails.name,
           email: sponsorDetails.email,
-          contact: sponsorDetails.phone
+          contact: sponsorDetails.phone,
         },
         notes: {
           sponsorTier: selectedTier.name,
-          companyName: sponsorDetails.company
+          companyName: sponsorDetails.company,
         },
         theme: {
           color: '#8B5CF6'
@@ -155,15 +161,15 @@ const ChoosePlanPage = () => {
       };
 
       const rzp = new window.Razorpay(options);
-      rzp.on('payment.failed', function (response) {
-        console.log(response.error);
+      rzp.on('payment.failed', (response) => {
+        console.error("Payment Failed:", response.error);
         setPaymentStatus('failed');
       });
-      
       rzp.open();
     } catch (error) {
       console.error('Payment error:', error);
       setPaymentStatus('failed');
+      alert('Failed to initiate payment. Please try again.');
     }
   };
 
@@ -190,7 +196,7 @@ const ChoosePlanPage = () => {
         </div>
 
         {paymentStatus === 'success' ? (
-          // Success State
+          // ✅ Success State
           <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-10 text-center max-w-2xl mx-auto">
             <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
               <FaCheck className="text-4xl text-green-600" />
@@ -207,7 +213,7 @@ const ChoosePlanPage = () => {
             </a>
           </div>
         ) : paymentStatus === 'failed' ? (
-          // Failure State
+          // ❌ Failure State
           <div className="bg-gradient-to-br from-red-600 to-orange-700 rounded-3xl p-10 text-center max-w-2xl mx-auto">
             <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,7 +232,7 @@ const ChoosePlanPage = () => {
             </button>
           </div>
         ) : paymentStatus === 'processing' ? (
-          // Processing State
+          // ⏳ Processing State
           <div className="bg-gray-800/50 backdrop-blur-xl rounded-3xl p-10 text-center max-w-2xl mx-auto border border-white/10">
             <div className="flex justify-center mb-6">
               <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
@@ -237,7 +243,7 @@ const ChoosePlanPage = () => {
             </p>
           </div>
         ) : (
-          // Plan Selection and Payment Form
+          // 💳 Plan Selection & Payment Form
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Sponsorship Tiers */}
             <div className="lg:col-span-2">
@@ -255,7 +261,6 @@ const ChoosePlanPage = () => {
                     <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r ${tier.color} opacity-0 ${
                       selectedTier?.id === tier.id ? 'opacity-30' : 'group-hover:opacity-20'
                     } blur-lg transition-opacity duration-300`}></div>
-                    
                     <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-2xl p-6 border border-white/10 h-full">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-xl font-bold text-white">{tier.name}</h3>
@@ -265,13 +270,11 @@ const ChoosePlanPage = () => {
                           </div>
                         )}
                       </div>
-                      
                       <div className="mb-6">
                         <div className={`text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r ${tier.color}`}>
                           <FaRupeeSign className="inline text-2xl" />{tier.price.toLocaleString('en-IN')}
                         </div>
                       </div>
-                      
                       <ul className="space-y-3 mb-6 flex-grow">
                         {tier.benefits.map((benefit, idx) => (
                           <li key={idx} className="flex items-start">
@@ -289,7 +292,6 @@ const ChoosePlanPage = () => {
             {/* Payment Form */}
             <div className="relative">
               <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500"></div>
-              
               <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-3xl border border-white/10 p-6">
                 <div className="flex items-center gap-2 mb-6">
                   <FaShieldAlt className="text-purple-400" />
@@ -327,7 +329,6 @@ const ChoosePlanPage = () => {
                       placeholder="John Doe"
                     />
                   </div>
-                  
                   <div>
                     <label className="block text-gray-400 mb-2">Email Address *</label>
                     <input
@@ -339,7 +340,6 @@ const ChoosePlanPage = () => {
                       placeholder="john@company.com"
                     />
                   </div>
-                  
                   <div>
                     <label className="block text-gray-400 mb-2">Company Name *</label>
                     <input
@@ -351,7 +351,6 @@ const ChoosePlanPage = () => {
                       placeholder="Your Company Pvt. Ltd."
                     />
                   </div>
-                  
                   <div>
                     <label className="block text-gray-400 mb-2">Phone Number *</label>
                     <input

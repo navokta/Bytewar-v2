@@ -9,7 +9,7 @@ const BecomeSponsorPage = () => {
   const sponsorshipTiers = [
     {
       name: "Platinum Partner",
-      price: "₹5,00,000",
+      price: "₹500",
       benefits: [
         "Logo placement on all marketing materials",
         "Keynote speaking opportunity",
@@ -23,7 +23,7 @@ const BecomeSponsorPage = () => {
     },
     {
       name: "Gold Sponsor",
-      price: "₹2,50,000",
+      price: "₹2500",
       benefits: [
         "Logo on website and event banners",
         "Booth space at venue",
@@ -36,7 +36,7 @@ const BecomeSponsorPage = () => {
     },
     {
       name: "Silver Sponsor",
-      price: "₹1,00,000",
+      price: "₹10,000",
       benefits: [
         "Logo on website",
         "2 complimentary event passes",
@@ -48,7 +48,7 @@ const BecomeSponsorPage = () => {
     },
     {
       name: "Bronze Sponsor",
-      price: "₹50,000",
+      price: "₹50",
       benefits: [
         "Logo on website",
         "1 complimentary event pass",
