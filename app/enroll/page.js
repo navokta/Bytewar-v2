@@ -34,7 +34,7 @@ export default function WowEnrollForm() {
       try {
         const parsedData = JSON.parse(savedData);
         const fullMembersArray = Array(5).fill({ name: "", role: "" }).map((_, index) => {
-          return parsedData.members?.[index] ? parsedData.members[index] : { name: "", role: "" };
+          return parsedData.members?.[index] ? { ...parsedData.members[index] } : { name: "", role: "" };
         });
         setFormData({
           ...parsedData,
@@ -49,13 +49,6 @@ export default function WowEnrollForm() {
       }
     }
   }, []);
-
-  const handleTeamSizeChange = (e) => {
-    const size = parseInt(e.target.value, 10);
-    if (size >= 3 && size <= 5) {
-      setTeamSize(size);
-    }
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -90,11 +83,11 @@ export default function WowEnrollForm() {
     };
 
     try {
-      // Only save to localStorage — DO NOT send email yet
+      // ✅ Save only to localStorage
       localStorage.setItem('enrollmentData', JSON.stringify(submissionData));
       setSaveSuccess(true);
 
-      // Redirect to payment page
+      // ✅ Redirect to payment
       router.push('/enroll/payment');
     } catch (error) {
       console.error("Error saving form:", error);
@@ -142,7 +135,7 @@ export default function WowEnrollForm() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    placeholder="Alex Johnson"
+                    placeholder="Team Leader Name"
                     className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
@@ -156,7 +149,7 @@ export default function WowEnrollForm() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    placeholder="alex@example.com"
+                    placeholder="Leader Email"
                     className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
@@ -170,7 +163,7 @@ export default function WowEnrollForm() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
-                    placeholder="+91 98765 43210"
+                    placeholder="Leader Phone"
                     className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
@@ -184,7 +177,7 @@ export default function WowEnrollForm() {
                     value={formData.teamName}
                     onChange={handleInputChange}
                     required
-                    placeholder="The Debuggers"
+                    placeholder="Team Name"
                     className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
@@ -210,7 +203,7 @@ export default function WowEnrollForm() {
                     name="altPhone"
                     value={formData.altPhone}
                     onChange={handleInputChange}
-                    placeholder="Alternate contact (Optional)"
+                    placeholder="Alternate Phone"
                     className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
@@ -224,7 +217,7 @@ export default function WowEnrollForm() {
                     value={formData.upiId}
                     onChange={handleInputChange}
                     required
-                    placeholder="user@bank"
+                    placeholder="UPI ID (e.g. user@upi)"
                     className="w-full pl-10 pr-4 py-3.5 bg-gray-800/70 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 backdrop-blur-sm"
                   />
                 </div>
@@ -241,6 +234,7 @@ export default function WowEnrollForm() {
                 Team Configuration
               </h3>
 
+              {/* Team Size Selector */}
               <div className="mb-6">
                 <label className="text-gray-400 mb-2 flex items-center gap-2">
                   <FaUsers className="text-gray-400" />
@@ -264,6 +258,7 @@ export default function WowEnrollForm() {
                 </div>
               </div>
 
+              {/* Team Members */}
               <div>
                 <h4 className="text-lg font-semibold text-gray-300 mb-4 flex items-center gap-2">
                   <FaUserTag className="text-gray-400" />
@@ -306,7 +301,7 @@ export default function WowEnrollForm() {
                               value={member.role}
                               onChange={(e) => handleMemberChange(index, 'role', e.target.value)}
                               required
-                              placeholder="Role (Dev, Designer, etc.)"
+                              placeholder="Role (Developer, Designer, etc.)"
                               className="w-full pl-10 pr-4 py-2.5 bg-gray-700/70 border border-white/10 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300"
                             />
                           </div>
@@ -338,12 +333,13 @@ export default function WowEnrollForm() {
                   </>
                 ) : (
                   <>
-                    <FaSave /> Save Registration
+                    <FaSave /> Save & Continue
                   </>
                 )}
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-900 to-blue-900 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
             </button>
+
             {saveSuccess && (
               <div className="mt-3 p-3 bg-green-900/20 border border-green-800/30 rounded-lg text-green-400 text-center animate-fadeIn">
                 Registration saved successfully!
