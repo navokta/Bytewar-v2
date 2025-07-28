@@ -311,13 +311,13 @@ const getActiveTabPosition = () => {
                     </div>
 
                     <nav className="space-y-1">
-                      <Link
+                      {/* <Link
                         href="/profile"
                         className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-colors"
                         onClick={() => setShowProfilePopup(false)}
                       >
                         My Profile
-                      </Link>
+                      </Link> */}
                       <Link
                         href="/enroll"
                         className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-colors"
