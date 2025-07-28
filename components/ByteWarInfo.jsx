@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 const WowByteWarInfo = () => {
   return (
@@ -27,26 +27,46 @@ const WowByteWarInfo = () => {
           <div className="relative">
             {/* Decorative Elements */}
             <div className="absolute -left-8 top-0 w-1 h-full bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></div>
-            
+
             <div className="pl-8 space-y-8">
               <p className="text-lg md:text-xl text-gray-300 leading-relaxed p-6 rounded-2xl bg-gray-800/30 backdrop-blur-sm border border-white/10 shadow-lg">
-                ByteWar is an <span className="text-purple-400 font-bold">innovative nationwide hackathon</span> designed to engage students in solving some of the most pressing challenges faced in everyday life. Launched to foster a culture of innovation and practical problem-solving, ByteWar provides a dynamic platform for participants to develop and showcase their creative solutions to real-world problems.
+                ByteWar is a{" "}
+                <span className="text-purple-400 font-bold">
+                  one-of-a-kind hackathon held across India
+                </span>
+                , created to inspire students like you to turn your ideas into
+                real solutions for everyday problems. It’s more than just a
+                competition — it’s a movement to spark innovation, creativity,
+                and the spirit of problem-solving. ByteWar gives you the perfect
+                stage to learn, build, and showcase your skills while making a
+                real difference in the world. So dream big, code with purpose,
+                and be the change. Your ideas can shape the future — and ByteWar
+                is where it begins.
               </p>
-              
+
               <p className="text-lg md:text-xl text-gray-300 leading-relaxed p-6 rounded-2xl bg-gray-800/30 backdrop-blur-sm border border-white/10 shadow-lg">
-                Since its inception, ByteWar has garnered significant success in promoting <span className="text-pink-400 font-bold">out-of-the-box thinking</span> among young minds, particularly engineering students from across the country. Each edition has built on the previous one, refining its approach and expanding its impact. The hackathon not only offers participants an opportunity to showcase their skills but also encourages collaboration with industry experts, government agencies, and other stakeholders.
+                Since it began, ByteWar has become a powerful platform to
+                inspire{" "}
+                <span className="text-pink-400 font-bold">
+                  creative and out-of-the-box thinking
+                </span>{" "}
+                among students — especially those in engineering and tech. With
+                each edition, ByteWar has grown stronger, reaching more students
+                and creating bigger impact. It’s not just about showing off your
+                skills — it’s about learning, growing, and working together with
+                industry experts, government bodies, and mentors to solve real
+                problems that matter. ByteWar is where bright minds come
+                together to innovate, collaborate, and create a better tomorrow.
               </p>
             </div>
           </div>
 
-
-
           {/* CTA Button */}
           <div className="text-center mt-16">
-            <Link href={'/enroll'}>
-            <button  className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
-              Join ByteWar Now
-            </button>
+            <Link href={"/enroll"}>
+              <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
+                Join ByteWar Now
+              </button>
             </Link>
           </div>
         </div>
@@ -55,8 +75,13 @@ const WowByteWarInfo = () => {
       {/* Custom Styles */}
       <style jsx>{`
         @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
+          0%,
+          100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
         }
         .animate-gradient-x {
           background-size: 200% 200%;
@@ -72,10 +97,18 @@ const WowByteWarInfo = () => {
           animation-delay: 4s;
         }
         @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
         }
       `}</style>
     </section>
