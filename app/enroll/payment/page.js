@@ -12,7 +12,6 @@ export default function PaymentPage() {
     if (data) {
       setUserData(JSON.parse(data));
     } else {
-      // Redirect back if no data
       window.location.href = '/enroll';
     }
     setLoading(false);
@@ -38,12 +37,12 @@ export default function PaymentPage() {
     setPaymentStatus('processing');
 
     try {
-      // Simulate small delay for order creation
+      // Simulate delay
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: 100 * 100, // ₹100 in paise
+        amount: 100 * 100,
         currency: 'INR',
         name: 'ByteWar Hackathon',
         description: 'Registration Fee',
@@ -52,7 +51,7 @@ export default function PaymentPage() {
           console.log('Payment Success:', response);
 
           try {
-            // ✅ Now send the confirmation email
+            // ✅ 1. Send confirmation email via your API
             const emailRes = await fetch('/api/send-registration-email', {
               method: 'POST',
               headers: {
@@ -62,18 +61,42 @@ export default function PaymentPage() {
             });
 
             if (!emailRes.ok) {
-              const error = await emailRes.json();
-              console.error('Email send failed:', error);
-              throw new Error(error.message || 'Failed to send email');
+              const error = await emailRes.json().catch(() => ({}));
+              throw new Error(error.message || 'Email API failed');
             }
 
-            console.log('Email sent successfully');
+            // ✅ 2. Submit to Google Forms
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeTj3v7wQSb8HFZPHCLOcsoN_NTNaZMqAZLCY5vBzf9qGSK1w/formResponse";
+
+            const formData = new FormData();
+            formData.append("entry.196157114", userData.name);
+            formData.append("entry.782849520", userData.email);
+            formData.append("entry.662734838", userData.phone);
+            formData.append("entry.2033137663", userData.teamName);
+            formData.append("entry.1655015983", userData.upiId);
+            formData.append("entry.1120477465", userData.altPhone || "");
+
+            // Add all 5 members
+            formData.append("entry.1882654199", userData.members[0]?.name || "");
+            formData.append("entry.478505159", userData.members[1]?.name || "");
+            formData.append("entry.2040641448", userData.members[2]?.name || "");
+            formData.append("entry.1717696341", userData.members[3]?.name || "");
+            formData.append("entry.1992188917", userData.members[4]?.name || "");
+
+            await fetch(formUrl, {
+              method: "POST",
+              mode: "no-cors",
+              body: formData,
+            });
+
+            // ✅ 3. Cleanup & success
+            localStorage.removeItem('enrollmentData');
             setPaymentStatus('success');
-            localStorage.removeItem('enrollmentData'); // Cleanup
           } catch (error) {
-            console.error('Error sending email:', error);
-            alert('Payment succeeded, but confirmation email failed to send. Our team will contact you shortly.');
-            setPaymentStatus('success'); // Still show success
+            console.error("Post-payment error:", error);
+            alert("Payment succeeded, but we couldn't confirm your registration. Contact support.");
+            localStorage.removeItem('enrollmentData');
+            setPaymentStatus('success'); // Still allow success
           }
         },
         prefill: {
