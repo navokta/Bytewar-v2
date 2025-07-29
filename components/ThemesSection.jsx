@@ -1,10 +1,14 @@
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const WowThemesSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragOffset, setDragOffset] = useState(0);
+  const carouselRef = useRef(null);
 
   const themes = [
     {
@@ -65,7 +69,7 @@ const WowThemesSection = () => {
 
   // Auto-scroll functionality with dynamic direction
   useEffect(() => {
-    if (isHovered) return;
+    if (isHovered || isDragging) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => {
@@ -78,9 +82,10 @@ const WowThemesSection = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [themes.length, direction, isHovered]);
+  }, [themes.length, direction, isHovered, isDragging]);
 
   const goToSlide = (index) => {
+    if (isDragging) return; // Prevent navigation during drag
     setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
   };
@@ -97,6 +102,70 @@ const WowThemesSection = () => {
     );
   };
 
+  // Touch/Mouse drag handlers
+  const handleDragStart = (e) => {
+    const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+    const clientY = e.type === 'mousedown' ? e.clientY : e.touches[0].clientY;
+    
+    setIsDragging(true);
+    setDragStart({ x: clientX, y: clientY });
+    setDragOffset(0);
+    
+    if (e.type === 'mousedown') {
+      e.preventDefault();
+    }
+  };
+
+  const handleDragMove = (e) => {
+    if (!isDragging) return;
+    
+    const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+    const deltaX = clientX - dragStart.x;
+    
+    setDragOffset(deltaX);
+  };
+
+  const handleDragEnd = (e) => {
+    if (!isDragging) return;
+    
+    const threshold = 20; // Reduced minimum drag distance to trigger navigation
+    
+    if (Math.abs(dragOffset) > threshold) {
+      if (dragOffset > 0) {
+        prevSlide(); // Dragged right, go to previous
+      } else {
+        nextSlide(); // Dragged left, go to next
+      }
+    }
+    
+    setIsDragging(false);
+    setDragOffset(0);
+  };
+
+  // Mouse event handlers
+  const handleMouseDown = (e) => handleDragStart(e);
+  const handleMouseMove = (e) => handleDragMove(e);
+  const handleMouseUp = (e) => handleDragEnd(e);
+  const handleMouseLeave = (e) => handleDragEnd(e);
+
+  // Touch event handlers
+  const handleTouchStart = (e) => handleDragStart(e);
+  const handleTouchMove = (e) => handleDragMove(e);
+  const handleTouchEnd = (e) => handleDragEnd(e);
+
+  // Add global mouse event listeners
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging, dragStart, dragOffset]);
+
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Animated Background */}
@@ -108,22 +177,26 @@ const WowThemesSection = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-       <div className="text-center mb-20">
-  <h2 className="text-4xl md:text-6xl font-black tracking-tight bg-gradient-to-br from-purple-500 via-pink-500 to-yellow-400 text-transparent bg-clip-text inline-block">
-    HACKATHON THEMES
-  </h2>
-
-  <p className="mt-6 text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-    Turn your boldest ideas into real-world impact. Tackle themes that challenge you to build meaningful solutions for a better tomorrow.
-  </p>
-</div>
-
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-300 mb-4 animate-pulse">
+            HACKATHON THEMES
+          </h2>
+          <p className="text-2xl text-gray-300 max-w-3xl mx-auto">
+            Unleash your creativity on challenges that matter
+          </p>
+        </div>
 
         {/* Main Carousel Container */}
         <div
-          className="relative overflow-visible"
+          ref={carouselRef}
+          className="relative overflow-visible select-none"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
         >
           {/* Floating Elements */}
           <div className="absolute -top-20 -left-20 w-40 h-40 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 blur-3xl animate-pulse"></div>
@@ -142,6 +215,12 @@ const WowThemesSection = () => {
               let zIndex = 1;
               let scale = 0.8;
               let rotate = 0;
+              let translateX = 0;
+
+              // Apply drag offset to center card
+              if (isCenter && isDragging) {
+                translateX = dragOffset * 0.8; // Increased drag sensitivity for more responsive movement
+              }
 
               if (isCenter) {
                 positionClass = "z-30 scale-100 rotate-0";
@@ -166,19 +245,23 @@ const WowThemesSection = () => {
               return (
                 <div
                   key={index}
-                  className={`absolute inset-0 transition-all duration-700 ease-in-out transform-gpu ${positionClass}`}
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out transform-gpu ${
+                    isDragging && isCenter ? '' : positionClass
+                  }`}
                   style={{
                     transform: `translateZ(${
                       isCenter ? "50px" : "0"
-                    }) scale(${scale}) rotateY(${rotate}deg)`,
+                    }) scale(${scale}) rotateY(${rotate}deg) translateX(${translateX}px)`,
                     zIndex: zIndex,
+                    transition: isDragging && isCenter ? 'none' : 'all 0.7s ease-in-out',
                   }}
                 >
                   <div
-                    className={`h-full flex items-center justify-center cursor-pointer ${
+                    className={`h-full flex items-center justify-center ${
                       isCenter ? "pointer-events-auto" : "pointer-events-none"
                     }`}
-                    onClick={() => goToSlide(index)}
+                    onClick={() => !isDragging && goToSlide(index)}
+                    style={{ cursor: isDragging ? 'grabbing' : isCenter ? 'pointer' : 'default' }}
                   >
                     <div
                       className={`relative w-full max-w-lg mx-auto transform transition-all duration-500 ${
@@ -230,10 +313,16 @@ const WowThemesSection = () => {
                           </p>
 
                           {/* Floating Action Button */}
-                          {isCenter && (
+                          {isCenter && !isDragging && (
                             <Link href={`../themes/${theme.id}`}>
                               <button
                                 className={`px-6 py-3 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${theme.glow}`}
+                                onClick={(e) => {
+                                  e.stopPropagation(); // Prevent card selection
+                                  e.preventDefault();
+                                  // Navigate to the theme page
+                                  window.location.href = `../themes/${theme.id}`;
+                                }}
                               >
                                 Explore Theme
                               </button>
@@ -248,10 +337,10 @@ const WowThemesSection = () => {
             })}
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Visible only on laptop/desktop */}
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-gray-900/50 backdrop-blur-lg border border-white/20 flex items-center justify-center text-white hover:bg-gray-800/70 transition-all duration-300 group"
+            className="hidden lg:flex absolute left-4 top-1/2 transform -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-gray-900/50 backdrop-blur-lg border border-white/20 items-center justify-center text-white hover:bg-gray-800/70 transition-all duration-300 group"
           >
             <svg
               className="w-8 h-8 group-hover:-translate-x-1 transition-transform duration-300"
@@ -270,7 +359,7 @@ const WowThemesSection = () => {
 
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-gray-900/50 backdrop-blur-lg border border-white/20 flex items-center justify-center text-white hover:bg-gray-800/70 transition-all duration-300 group"
+            className="hidden lg:flex absolute right-4 top-1/2 transform -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-gray-900/50 backdrop-blur-lg border border-white/20 items-center justify-center text-white hover:bg-gray-800/70 transition-all duration-300 group"
           >
             <svg
               className="w-8 h-8 group-hover:translate-x-1 transition-transform duration-300"
@@ -286,6 +375,15 @@ const WowThemesSection = () => {
               />
             </svg>
           </button>
+
+          {/* Drag Indicator - Visible only on mobile */}
+          {isDragging && (
+            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 lg:hidden">
+              <div className="bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm">
+                {dragOffset > 10 ? '← Swipe to go back' : dragOffset < -10 ? 'Swipe to go next →' : 'Swipe left or right'}
+              </div>
+            </div>
+          )}
 
           {/* Dots Indicator */}
           <div className="flex justify-center mt-16 space-x-3 relative z-20">
@@ -311,22 +409,6 @@ const WowThemesSection = () => {
             </button>
           </Link>
         </div>
-
-        {/* Stats Section */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-          <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-900/30 to-blue-900/30 backdrop-blur-lg border border-white/10">
-            <div className="text-5xl font-bold text-orange-400 mb-2">500+</div>
-            <div className="text-xl text-gray-300">Participants</div>
-          </div>
-          <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-green-900/30 to-teal-900/30 backdrop-blur-lg border border-white/10">
-            <div className="text-5xl font-bold text-orange-400 mb-2">50+</div>
-            <div className="text-xl text-gray-300">Problem Statements</div>
-          </div>
-          <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-900/30 to-red-900/30 backdrop-blur-lg border border-white/10">
-            <div className="text-5xl font-bold text-orange-400 mb-2">10,000₹</div>
-            <div className="text-xl text-gray-300">In Prizes</div>
-          </div>
-        </div> */}
       </div>
 
       {/* Custom Styles for Animations */}
