@@ -373,36 +373,9 @@ const ProblemDetailsPage = () => {
                 </div>
               </div>
 
-              {/* Implementation Plan */}
-              <div className="mb-8">
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  Implementation Plan
-                </h2>
-                <div className="relative">
-                  <div className="absolute left-3 sm:left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 to-indigo-500"></div>
-                  <div className="space-y-4 pl-10 sm:pl-12">
-                    {problem.implementationPlan.map((phase, idx) => (
-                      <div key={idx} className="relative">
-                        <div className="absolute -left-9 sm:-left-10 w-6 h-6 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">{idx + 1}</span>
-                        </div>
-                        <div className="p-3 sm:p-4 bg-gray-700/30 rounded-xl border border-white/5">
-                          <p className="text-gray-300 text-sm sm:text-base">{phase}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
 
               {/* CTA Buttons */}
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <button className={`px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300 transform hover:scale-105 text-sm sm:text-base`}>
-                  Participate in this Challenge
-                </button>
                 <button className="px-6 py-3 sm:px-8 sm:py-4 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-full shadow-lg transition-colors duration-300 text-sm sm:text-base">
                   Download Requirements PDF
                 </button>
