@@ -1,7 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { FaTwitter, FaDiscord, FaLinkedin, FaGithub, FaPaperPlane, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaTwitter, FaDiscord, FaLinkedin, FaGithub, FaPaperPlane, FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const InteractiveContactPage = () => {
   const [formData, setFormData] = useState({
@@ -70,19 +73,19 @@ const InteractiveContactPage = () => {
     {
       icon: <FaMapMarkerAlt className="text-2xl" />,
       title: "Our Headquarters",
-      description: "123 Tech Park, Silicon Valley, CA 94025",
+      description: "Hansi, Haryana - 125033",
       color: "bg-blue-100 text-blue-600"
     },
     {
       icon: <FaPhone className="text-2xl" />,
       title: "Contact Number",
-      description: "+1 (555) 123-4567",
+      description: "+91 8307233996",
       color: "bg-green-100 text-green-600"
     },
     {
       icon: <FaEnvelope className="text-2xl" />,
       title: "Email Address",
-      description: "contact@bytewar.dev",
+      description: "navokta@gmail.com",
       color: "bg-purple-100 text-purple-600"
     }
   ];
@@ -95,6 +98,8 @@ const InteractiveContactPage = () => {
   ];
 
   return (
+    <div>
+        <Header />
     <section className="bg-gradient-to-br from-gray-900 to-black text-white py-12 md:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Animated Header */}
@@ -112,9 +117,9 @@ const InteractiveContactPage = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {/* Contact Information */}
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             {/* Contact Cards */}
             {contactMethods.map((method, index) => (
               <motion.div
@@ -122,14 +127,14 @@ const InteractiveContactPage = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`flex items-start p-6 rounded-xl backdrop-blur-sm bg-gray-800/50 border border-gray-700/50 hover:border-orange-500/50 transition-all duration-300`}
+                className={`flex items-start p-5 md:p-6 rounded-xl backdrop-blur-sm bg-gray-800/50 border border-gray-700/50 hover:border-orange-500/50 transition-all duration-300`}
               >
                 <div className={`p-3 rounded-full ${method.color} mr-4`}>
                   {method.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-1">{method.title}</h3>
-                  <p className="text-gray-300">{method.description}</p>
+                  <h3 className="text-lg md:text-xl font-bold mb-1">{method.title}</h3>
+                  <p className="text-sm md:text-base text-gray-300">{method.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -139,48 +144,50 @@ const InteractiveContactPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="pt-6"
+              className="pt-4 md:pt-6"
             >
-              <h3 className="text-xl font-bold mb-4">Connect With Us</h3>
-              <div className="flex space-x-4">
-                {[
-                  { icon: <FaTwitter />, label: "Twitter", color: "hover:bg-blue-500" },
-                  { icon: <FaDiscord />, label: "Discord", color: "hover:bg-indigo-500" },
-                  { icon: <FaLinkedin />, label: "LinkedIn", color: "hover:bg-blue-700" },
-                  { icon: <FaGithub />, label: "GitHub", color: "hover:bg-gray-700" }
-                ].map((social, index) => (
-                  <motion.a
-                    key={index}
-                    whileHover={{ y: -3 }}
-                    href="#"
-                    className={`w-12 h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-xl ${social.color} transition-all duration-300`}
-                    aria-label={social.label}
-                  >
-                    {social.icon}
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* FAQ Teaser */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="pt-6"
-            >
-              <h3 className="text-xl font-bold mb-3">Quick Answers</h3>
-              <div className="space-y-3">
-                {[
-                  "When does registration open?",
-                  "Can I participate as an individual?",
-                  "What are the prize details?"
-                ].map((question, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="text-orange-400 mr-2">•</div>
-                    <a href="#" className="text-gray-300 hover:text-orange-400 transition-colors">{question}</a>
-                  </div>
-                ))}
+              <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Connect With Us</h3>
+              <div className="flex space-x-3 md:space-x-4">
+                <motion.a
+                  href="https://github.com/navokta"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3 }}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-lg md:text-xl hover:bg-gray-700 transition-all duration-300"
+                  aria-label="GitHub"
+                >
+                  <FaGithub />
+                </motion.a>
+                <motion.a
+                  href="https://www.linkedin.com/company/navokta/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3 }}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-lg md:text-xl hover:bg-blue-700 transition-all duration-300"
+                  aria-label="LinkedIn"
+                >
+                  <FaLinkedin />
+                </motion.a>
+                <motion.a
+                  href="https://x.com/navokta"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3 }}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-lg md:text-xl hover:bg-blue-500 transition-all duration-300"
+                  aria-label="Twitter"
+                >
+                  <FaTwitter />
+                </motion.a>
+                <motion.a
+                  href="https://www.instagram.com/navokta/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3 }}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-lg md:text-xl hover:bg-pink-600 transition-all duration-300"
+                  aria-label="Instagram"
+                >
+                  <FaInstagram />
+                </motion.a>
               </div>
             </motion.div>
           </div>
@@ -190,17 +197,17 @@ const InteractiveContactPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 md:p-8 backdrop-blur-sm"
+            className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 md:p-8 backdrop-blur-sm"
           >
-            <h3 className="text-2xl font-bold mb-6">Send Us a Message</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-5 md:mb-6">Send Us a Message</h3>
             
             {/* Inquiry Type Tabs */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-5 md:mb-6">
               {inquiryTypes.map((type) => (
                 <button
                   key={type.id}
                   onClick={() => setActiveTab(type.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  className={`px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${
                     activeTab === type.id
                       ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white'
                       : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
@@ -211,7 +218,7 @@ const InteractiveContactPage = () => {
               ))}
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-1">Name *</label>
                 <input
@@ -220,7 +227,7 @@ const InteractiveContactPage = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-gray-700 border ${
+                  className={`w-full px-4 py-2 md:py-3 rounded-lg bg-gray-700 border ${
                     errors.name ? 'border-red-500' : 'border-gray-600 focus:border-orange-500'
                   } focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all`}
                   placeholder="Your name"
@@ -236,7 +243,7 @@ const InteractiveContactPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-gray-700 border ${
+                  className={`w-full px-4 py-2 md:py-3 rounded-lg bg-gray-700 border ${
                     errors.email ? 'border-red-500' : 'border-gray-600 focus:border-orange-500'
                   } focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all`}
                   placeholder="your@email.com"
@@ -252,7 +259,7 @@ const InteractiveContactPage = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-gray-700 border ${
+                  className={`w-full px-4 py-2 md:py-3 rounded-lg bg-gray-700 border ${
                     errors.subject ? 'border-red-500' : 'border-gray-600 focus:border-orange-500'
                   } focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all`}
                   placeholder="What's this about?"
@@ -265,10 +272,10 @@ const InteractiveContactPage = () => {
                 <textarea
                   id="message"
                   name="message"
-                  rows="5"
+                  rows="4"
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-gray-700 border ${
+                  className={`w-full px-4 py-2 md:py-3 rounded-lg bg-gray-700 border ${
                     errors.message ? 'border-red-500' : 'border-gray-600 focus:border-orange-500'
                   } focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all`}
                   placeholder="Your message here..."
@@ -281,15 +288,15 @@ const InteractiveContactPage = () => {
                   type="submit"
                   disabled={isSubmitting}
                   whileTap={{ scale: 0.95 }}
-                  className={`w-full flex items-center justify-center px-6 py-3 rounded-lg font-bold transition-all ${
+                  className={`w-full flex items-center justify-center px-5 py-2 md:px-6 md:py-3 rounded-lg font-bold transition-all ${
                     isSubmitting
                       ? 'bg-gray-600 cursor-not-allowed'
                       : 'bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600'
-                  } shadow-lg shadow-orange-500/20`}
+                  } shadow-lg shadow-orange-500/20 text-sm md:text-base`}
                 >
                   {isSubmitting ? (
                     <span className="flex items-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 md:h-5 md:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
@@ -307,7 +314,7 @@ const InteractiveContactPage = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 p-4 bg-green-900/50 border border-green-700 rounded-lg text-green-300"
+                  className="mt-3 p-3 md:p-4 bg-green-900/50 border border-green-700 rounded-lg text-sm md:text-base text-green-300"
                 >
                   Thank you! Your message has been sent successfully. We'll get back to you soon.
                 </motion.div>
@@ -316,26 +323,9 @@ const InteractiveContactPage = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Map Placeholder */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        className="max-w-7xl mx-auto mt-16 rounded-xl overflow-hidden border border-gray-700/50"
-      >
-        <div className="h-64 md:h-80 bg-gray-800/50 flex items-center justify-center">
-          <div className="text-center">
-            <FaMapMarkerAlt className="mx-auto text-4xl text-orange-500 mb-3" />
-            <h3 className="text-xl font-bold mb-1">Our Location</h3>
-            <p className="text-gray-400">123 Tech Park, Silicon Valley</p>
-            <button className="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm transition-colors">
-              View on Google Maps
-            </button>
-          </div>
-        </div>
-      </motion.div>
     </section>
+    <Footer />
+    </div>
   );
 };
 
