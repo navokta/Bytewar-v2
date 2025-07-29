@@ -10,62 +10,62 @@ import Image from 'next/image';
 
 
 const WowTeamSection = () => {
-  const teamMembers = [
-    {
-      name: "Bhavy Sharma",
-      role: "Lead Developer",
-      bio: "Former Google engineer with a passion for competitive programming and education.",
-      image: '/bhavy.jpg',
-      social: {
-        linkedin: "https://www.linkedin.com/in/bhavy-sharma/"
-      }
-    },
-    {
-      name: "Sakshi Jain",
-      role: "UI/ UX Designer",
-      bio: "UX expert dedicated to creating the best coding experience for developers.",
-      image: '/Sakshi.png',
-      social: {
-        linkedin: "https://www.linkedin.com/in/sakshi-jain-34a7b7355/"
-      }
-    },
-    {
-      name: "Bhumi Singhal",
-      role: "Manager",
-      bio: "Full-stack wizard who builds the infrastructure powering ByteWar.",
-      image: '/bhumi.png',
-      social: {
-        linkedin: "https://www.linkedin.com/in/bhoomi-singhal-103a9b327/"
-      }
-    },
-    {
-      name: "Abhinav Kaushik",
-      role: "Editor",
-      bio: "Competitive programming champion who designs our challenging problems.",
-      image: '/Abhinav.jpg',
-      social: {
-        linkedin: "https://www.linkedin.com/in/abhinav-kaushik-b49a93371/"
-      }
-    },
-    {
-      name: "Kratakshi Bhardwaj",
-      role: "Researcher",
-      bio: "Cloud infrastructure expert ensuring ByteWar runs smoothly at scale.",
-      image: '/kratakshi.png',
-      social: {
-        linkedin: "https://www.linkedin.com/in/kratakshi-bhardwaj-332a7b2a7/"
-      }
-    },
-    {
-      name: "Mohd. Fazal Ali",
-      role: "Backend Developer",
-      bio: "Building and nurturing our global community of passionate programmers.",
-      image: '/fazal.png',
-      social: {
-        linkedin: "https://www.linkedin.com/in/mohd-fazal-ali/"
-      }
+const teamMembers = [
+  {
+    name: "Bhavy Sharma",
+    role: "Lead Developer",
+    bio: "Full-stack specialist driving the core architecture of ByteWar. Passionate about scalable systems and empowering developers through code.",
+    image: '/bhavy.jpg',
+    social: {
+      linkedin: "https://www.linkedin.com/in/bhavy-sharma/"
     }
-  ];
+  },
+  {
+    name: "Sakshi Jain",
+    role: "UI/UX Designer",
+    bio: "User experience designer focused on crafting intuitive, beautiful interfaces that make ByteWar - V2 engaging, and enjoyable for all skill levels.",
+    image: '/Sakshi.png',
+    social: {
+      linkedin: "https://www.linkedin.com/in/sakshi-jain-34a7b7355/"
+    }
+  },
+  {
+  name: "Bhumi Singhal",
+  role: "Project & Operations Manager",
+  bio: "Drives end-to-end project execution, from timeline planning to delivery. Works with all over the teams to align development sprints, manage milestones, and ensure ByteWar runs like a well-oiled machine.",
+  image: '/bhumi.png',
+  social: {
+    linkedin: "https://www.linkedin.com/in/bhoomi-singhal-103a9b327/"
+  }
+},
+  {
+  name: "Abhinav Kaushik",
+  role: "Video & Creative Editor",
+  bio: "Creative force behind ByteWar's YouTube videos, announcement reels, and promotional graphics. Crafts engaging visual content that brings the competition to life and keeps our community excited and informed.",
+  image: '/Abhinav.jpg',
+  social: {
+    linkedin: "https://www.linkedin.com/in/abhinav-kaushik-b49a93371/"
+  }
+},
+  {
+  name: "Kratakshi Bhardwaj",
+  role: "Problem & Theme Researcher",
+  bio: "Lead researcher behind the ByteWar-V2 Hackathon problem statements and themes. Identifies cutting-edge tech domains, conducts in-depth theme analysis, and crafts innovative challenges that inspire creativity and real-world impact.",
+  image: '/kratakshi.png',
+  social: {
+    linkedin: "https://www.linkedin.com/in/kratakshi-bhardwaj-332a7b2a7/"
+  }
+},
+  {
+    name: "Mohd. Fazal Ali",
+    role: "Backend Developer",
+    bio: "Backend engineer building robust APIs and services that power ByteWar’s platform. Focused on performance, security, and creating a seamless developer experience.",
+    image: '/fazal.png',
+    social: {
+      linkedin: "https://www.linkedin.com/in/mohd-fazal-ali/"
+    }
+  }
+];
 
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
