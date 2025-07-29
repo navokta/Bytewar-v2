@@ -116,6 +116,129 @@ const problemsData = {
         ]
       }
     }
+  },
+  // 🔹 NEW: LEGALTECH
+  'legaltech': {
+    name: 'LegalTech',
+    icon: '⚖️',
+    color: 'from-indigo-600 to-blue-600',
+    glow: 'shadow-indigo-500/30',
+    problems: {
+      'ai-legal-assistant': {
+        id: 'ai-legal-assistant',
+        title: 'AI-Powered Legal Research Assistant',
+        description: 'Build a tool that helps lawyers quickly find relevant case laws, statutes, and precedents using NLP',
+        objective: 'To reduce legal research time and improve accuracy using artificial intelligence',
+        stakeholders: ['Lawyers', 'Judges', 'Legal Researchers', 'Law Firms', 'Courts'],
+        functionalRequirements: [
+          'Natural language query interface',
+          'Database of legal documents and case laws',
+          'Relevance ranking of search results',
+          'Citation verification system',
+          'User account and history management'
+        ],
+        nonFunctionalRequirements: [
+          'Support 10,000+ concurrent legal professionals',
+          'Search results returned in under 1 second',
+          '95%+ accuracy in relevance matching',
+          'Compliance with data privacy laws (e.g., GDPR)'
+        ],
+        acceptanceCriteria: [
+          'Users find relevant case law in <10 seconds',
+          'System achieves >95% relevance accuracy in testing',
+          'Successfully integrates with major legal databases',
+          'No data breaches during 6-month trial'
+        ],
+        implementationPlan: [
+          'Phase 1: Legal corpus collection and cleaning (2 months)',
+          'Phase 2: NLP model training and validation (3 months)',
+          'Phase 3: Frontend and backend integration (2 months)',
+          'Phase 4: Pilot deployment in law firms (1 month)'
+        ]
+      }
+    }
+  },
+  // 🔹 NEW: SMART EDUCATION
+  'smart-education': {
+    name: 'Smart Education',
+    icon: '🎓',
+    color: 'from-blue-500 to-cyan-500',
+    glow: 'shadow-blue-500/30',
+    problems: {
+      'adaptive-learning': {
+        id: 'adaptive-learning',
+        title: 'Adaptive Learning Platform',
+        description: 'Create an AI-powered learning platform that personalizes educational content',
+        objective: 'To deliver customized learning paths based on individual student performance and preferences',
+        stakeholders: ['Students', 'Teachers', 'School Administrators', 'Parents', 'EdTech Providers'],
+        functionalRequirements: [
+          'Student progress tracking and assessment',
+          'AI-driven content recommendation engine',
+          'Interactive learning modules (videos, quizzes, games)',
+          'Teacher dashboard for monitoring class performance',
+          'Parent portal for progress updates'
+        ],
+        nonFunctionalRequirements: [
+          'Support up to 1 million students simultaneously',
+          'Personalization updates in real-time',
+          'Accessibility compliant with WCAG 2.1 standards',
+          '99.9% uptime during school hours'
+        ],
+        acceptanceCriteria: [
+          'Students show 20% improvement in learning outcomes after 3 months',
+          'Platform recommends relevant content 90% of the time',
+          'Teachers report 30% reduction in manual grading workload',
+          'System supports multiple devices and offline mode'
+        ],
+        implementationPlan: [
+          'Phase 1: Curriculum mapping and data modeling (1 month)',
+          'Phase 2: AI engine development (3 months)',
+          'Phase 3: Platform UI/UX and integration (2 months)',
+          'Phase 4: School pilot and feedback loop (2 months)'
+        ]
+      }
+    }
+  },
+  // 🔹 NEW: FINTECH SOLUTIONS
+  'fintech-solutions': {
+    name: 'Fintech Solutions',
+    icon: '💰',
+    color: 'from-teal-500 to-cyan-500',
+    glow: 'shadow-teal-500/30',
+    problems: {
+      'personal-finance-ai': {
+        id: 'personal-finance-ai',
+        title: 'AI Personal Finance Manager',
+        description: 'Create an intelligent system for automated financial planning',
+        objective: 'To help individuals manage budgets, savings, and investments using AI insights',
+        stakeholders: ['Individual Users', 'Banks', 'Financial Advisors', 'Regulators'],
+        functionalRequirements: [
+          'Bank account and transaction integration',
+          'Spending categorization and trend analysis',
+          'Budget creation and alerts',
+          'Investment recommendation engine',
+          'Security and privacy controls'
+        ],
+        nonFunctionalRequirements: [
+          'End-to-end encryption for financial data',
+          'Real-time sync with banking APIs',
+          'Response time under 1 second for all actions',
+          '99.99% data integrity and backup reliability'
+        ],
+        acceptanceCriteria: [
+          'Users reduce overspending by 25% within 2 months',
+          'Investment suggestions match risk profile 90% of the time',
+          'Zero unauthorized access incidents in first year',
+          'App rated 4.5+ stars on app stores'
+        ],
+        implementationPlan: [
+          'Phase 1: Financial data API integration research (1 month)',
+          'Phase 2: AI budgeting and investment logic (3 months)',
+          'Phase 3: Mobile and web app development (3 months)',
+          'Phase 4: Beta launch and user feedback (1 month)'
+        ]
+      }
+    }
   }
 };
 

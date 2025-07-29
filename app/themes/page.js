@@ -7,71 +7,79 @@ import React from 'react';
 
 const AllThemesPage = () => {
   const themes = [
-    {
-      id: 'blockchain-cybersecurity',
-      title: 'BLOCKCHAIN & CYBERSECURITY',
-      description: 'Provide ideas in a decentralized and distributed ledger technology used to store digital information that powers cryptocurrencies and NFTs and can radically change multiple sectors.',
-      icon: '🔐',
-      color: 'from-purple-600 to-indigo-600',
-      glow: 'shadow-purple-500/30'
-    },
-    {
-      id: 'smart-education',
-      title: 'SMART EDUCATION',
-      description: 'Smart education, a concept that describes learning in digital age. It enables learners to learn more effectively, efficiently, flexibly and comfortably.',
-      icon: '🎓',
-      color: 'from-blue-500 to-cyan-500',
-      glow: 'shadow-blue-500/30'
-    },
-    {
-      id: 'disaster-management',
-      title: 'DISASTER MANAGEMENT',
-      description: 'Disaster management includes ideas related to risk mitigation, planning and management before, after or during a disaster.',
-      icon: '🌪️',
-      color: 'from-green-500 to-emerald-500',
-      glow: 'shadow-green-500/30'
-    },
-    {
-      id: 'environmental-sustainability',
-      title: 'ENVIRONMENTAL SUSTAINABILITY',
-      description: 'Focus on sustainable practices to protect the environment and promote ecological balance.',
-      icon: '🌍',
-      color: 'from-yellow-500 to-amber-500',
-      glow: 'shadow-yellow-500/30'
-    },
-    {
-      id: 'healthcare-innovation',
-      title: 'HEALTHCARE INNOVATION',
-      description: 'Innovative solutions in healthcare to improve patient care, diagnostics, and treatment methods.',
-      icon: '🏥',
-      color: 'from-pink-500 to-rose-500',
-      glow: 'shadow-pink-500/30'
-    },
-    {
-      id: 'artificial-intelligence',
-      title: 'ARTIFICIAL INTELLIGENCE',
-      description: 'Explore cutting-edge AI solutions for real-world problems and future technological advancement.',
-      icon: '🤖',
-      color: 'from-red-500 to-orange-500',
-      glow: 'shadow-red-500/30'
-    },
-    {
-      id: 'fintech-solutions',
-      title: 'FINTECH SOLUTIONS',
-      description: 'Revolutionary financial technologies to improve and automate the delivery of financial services.',
-      icon: '💰',
-      color: 'from-teal-500 to-cyan-500',
-      glow: 'shadow-teal-500/30'
-    },
-    {
-      id: 'smart-cities',
-      title: 'SMART CITIES',
-      description: 'Integrated technology solutions to create efficient and sustainable urban environments.',
-      icon: '🏙️',
-      color: 'from-indigo-500 to-purple-500',
-      glow: 'shadow-indigo-500/30'
-    }
-  ];
+  {
+    id: 'blockchain-cybersecurity',
+    title: 'BLOCKCHAIN & CYBERSECURITY',
+    description: 'Provide ideas in a decentralized and distributed ledger technology used to store digital information that powers cryptocurrencies and NFTs and can radically change multiple sectors.',
+    icon: '🔐',
+    color: 'from-purple-600 to-indigo-600',
+    glow: 'shadow-purple-500/30'
+  },
+  {
+    id: 'smart-education',
+    title: 'SMART EDUCATION',
+    description: 'Smart education, a concept that describes learning in digital age. It enables learners to learn more effectively, efficiently, flexibly and comfortably.',
+    icon: '🎓',
+    color: 'from-blue-500 to-cyan-500',
+    glow: 'shadow-blue-500/30'
+  },
+  {
+    id: 'disaster-management',
+    title: 'DISASTER MANAGEMENT',
+    description: 'Disaster management includes ideas related to risk mitigation, planning and management before, after or during a disaster.',
+    icon: '🌪️',
+    color: 'from-green-500 to-emerald-500',
+    glow: 'shadow-green-500/30'
+  },
+  {
+    id: 'environmental-sustainability',
+    title: 'ENVIRONMENTAL SUSTAINABILITY',
+    description: 'Focus on sustainable practices to protect the environment and promote ecological balance.',
+    icon: '🌍',
+    color: 'from-yellow-500 to-amber-500',
+    glow: 'shadow-yellow-500/30'
+  },
+  {
+    id: 'healthcare-innovation',
+    title: 'HEALTHCARE INNOVATION',
+    description: 'Innovative solutions in healthcare to improve patient care, diagnostics, and treatment methods.',
+    icon: '🏥',
+    color: 'from-pink-500 to-rose-500',
+    glow: 'shadow-pink-500/30'
+  },
+  {
+    id: 'artificial-intelligence',
+    title: 'ARTIFICIAL INTELLIGENCE',
+    description: 'Explore cutting-edge AI solutions for real-world problems and future technological advancement.',
+    icon: '🤖',
+    color: 'from-red-500 to-orange-500',
+    glow: 'shadow-red-500/30'
+  },
+  {
+    id: 'fintech-solutions',
+    title: 'FINTECH SOLUTIONS',
+    description: 'Revolutionary financial technologies to improve and automate the delivery of financial services.',
+    icon: '💰',
+    color: 'from-teal-500 to-cyan-500',
+    glow: 'shadow-teal-500/30'
+  },
+  {
+    id: 'smart-cities',
+    title: 'SMART CITIES',
+    description: 'Integrated technology solutions to create efficient and sustainable urban environments.',
+    icon: '🏙️',
+    color: 'from-indigo-500 to-purple-500',
+    glow: 'shadow-indigo-500/30'
+  },
+  {
+    id: 'legaltech',
+    title: 'LEGALTECH',
+    description: 'Innovative technology solutions transforming legal services, including automation, smart contracts, compliance tools, and access to justice platforms.',
+    icon: '⚖️',
+    color: 'from-indigo-600 to-blue-600',
+    glow: 'shadow-indigo-500/30'
+  }
+];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-x-hidden">

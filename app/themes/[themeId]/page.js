@@ -13,182 +13,211 @@ const ThemeProblemsPage = () => {
 
   // Mock data for themes and problems - UPDATED IDs to match app/themes/page.js
   const themesData = {
-    'blockchain-cybersecurity': {
-      name: 'BLOCKCHAIN & CYBERSECURITY',
-      icon: '🔐',
-      color: 'from-purple-600 to-indigo-600',
-      problems: [
-        {
-          id: 'secure-voting',
-          title: 'Secure Digital Voting System',
-          description: 'Create a blockchain-based voting system that ensures transparency and security',
-          difficulty: 'Hard',
-          participants: 120
-        },
-        {
-          id: 'phishing-detection',
-          title: 'AI-Powered Phishing Detection',
-          description: 'Develop an intelligent system to detect and prevent phishing attacks',
-          difficulty: 'Medium',
-          participants: 85
-        },
-        {
-          id: 'data-leak-prevention',
-          title: 'Automated Data Leak Prevention',
-          description: 'Build a system that monitors and prevents sensitive data leaks in real-time',
-          difficulty: 'Hard',
-          participants: 95
-        }
-      ]
-    },  
-    'smart-education': {
-      name: 'SMART EDUCATION',
-      icon: '🎓',
-      color: 'from-blue-500 to-cyan-500',
-      problems: [
-        {
-          id: 'adaptive-learning',
-          title: 'Adaptive Learning Platform',
-          description: 'Create an AI-powered learning platform that personalizes educational content',
-          difficulty: 'Hard',
-          participants: 110
-        },
-        {
-          id: 'virtual-classroom',
-          title: 'Immersive Virtual Classroom',
-          description: 'Develop a VR/AR solution for interactive remote learning experiences',
-          difficulty: 'Medium',
-          participants: 75
-        }
-      ]
-    },
-    'disaster-management': {
-      name: 'DISASTER MANAGEMENT',
-      icon: '🌪️',
-      color: 'from-green-500 to-emerald-500',
-      problems: [
-        {
-          id: 'early-warning-system',
-          title: 'AI-Powered Early Warning System',
-          description: 'Build a predictive system for natural disaster detection and alerts',
-          difficulty: 'Hard',
-          participants: 140
-        },
-        {
-          id: 'resource-allocation',
-          title: 'Emergency Resource Allocation',
-          description: 'Create a system for efficient distribution of resources during disasters',
-          difficulty: 'Medium',
-          participants: 90
-        }
-      ]
-    },
-    'environmental-sustainability': {
-      name: 'ENVIRONMENTAL SUSTAINABILITY',
-      icon: '🌍',
-      color: 'from-yellow-500 to-amber-500',
-      problems: [
-        {
-          id: 'carbon-footprint-tracker',
-          title: 'Smart Carbon Footprint Tracker',
-          description: 'Develop an IoT-based system for monitoring and reducing carbon emissions',
-          difficulty: 'Hard',
-          participants: 105
-        },
-        {
-          id: 'waste-management',
-          title: 'Intelligent Waste Management',
-          description: 'Create a smart solution for efficient waste collection and recycling',
-          difficulty: 'Medium',
-          participants: 130
-        }
-      ]
-    },
-    'healthcare-innovation': {
-      name: 'HEALTHCARE INNOVATION',
-      icon: '🏥',
-      color: 'from-pink-500 to-rose-500',
-      problems: [
-        {
-          id: 'telemedicine-platform',
-          title: 'Advanced Telemedicine Platform',
-          description: 'Build a comprehensive remote healthcare consultation system',
-          difficulty: 'Hard',
-          participants: 140
-        },
-        {
-          id: 'patient-monitoring',
-          title: 'IoT Patient Monitoring System',
-          description: 'Create real-time health monitoring for chronic disease patients',
-          difficulty: 'Medium',
-          participants: 95
-        }
-      ]
-    },
-    'artificial-intelligence': {
-      name: 'ARTIFICIAL INTELLIGENCE',
-      icon: '🤖',
-      color: 'from-red-500 to-orange-500',
-      problems: [
-        {
-          id: 'predictive-analytics',
-          title: 'Business Predictive Analytics',
-          description: 'Develop AI models for business trend prediction and decision making',
-          difficulty: 'Hard',
-          participants: 120
-        },
-        {
-          id: 'natural-language-processing',
-          title: 'Multilingual NLP Assistant',
-          description: 'Create an AI assistant that understands and responds in multiple languages',
-          difficulty: 'Medium',
-          participants: 85
-        }
-      ]
-    },
-    'fintech-solutions': {
-      name: 'FINTECH SOLUTIONS',
-      icon: '💰',
-      color: 'from-teal-500 to-cyan-500',
-      problems: [
-        {
-          id: 'blockchain-payments',
-          title: 'Decentralized Payment System',
-          description: 'Build a secure, low-cost cross-border payment solution using blockchain',
-          difficulty: 'Hard',
-          participants: 110
-        },
-        {
-          id: 'personal-finance-ai',
-          title: 'AI Personal Finance Manager',
-          description: 'Create an intelligent system for automated financial planning',
-          difficulty: 'Medium',
-          participants: 130
-        }
-      ]
-    },
-    'smart-cities': {
-      name: 'SMART CITIES',
-      icon: '🏙️',
-      color: 'from-indigo-500 to-purple-500',
-      problems: [
-        {
-          id: 'traffic-optimization',
-          title: 'Intelligent Traffic Optimization',
-          description: 'Develop AI-powered traffic management for reducing congestion',
-          difficulty: 'Hard',
-          participants: 105
-        },
-        {
-          id: 'energy-management',
-          title: 'Smart Energy Grid Management',
-          description: 'Create a system for optimizing energy distribution in urban areas',
-          difficulty: 'Medium',
-          participants: 95
-        }
-      ]
-    }
-  };
+  'blockchain-cybersecurity': {
+    name: 'BLOCKCHAIN & CYBERSECURITY',
+    icon: '🔐',
+    color: 'from-purple-600 to-indigo-600',
+    problems: [
+      {
+        id: 'secure-voting',
+        title: 'Secure Digital Voting System',
+        description: 'Create a blockchain-based voting system that ensures transparency and security',
+        difficulty: 'Hard',
+        participants: 120
+      },
+      {
+        id: 'phishing-detection',
+        title: 'AI-Powered Phishing Detection',
+        description: 'Develop an intelligent system to detect and prevent phishing attacks',
+        difficulty: 'Medium',
+        participants: 85
+      },
+      {
+        id: 'data-leak-prevention',
+        title: 'Automated Data Leak Prevention',
+        description: 'Build a system that monitors and prevents sensitive data leaks in real-time',
+        difficulty: 'Hard',
+        participants: 95
+      }
+    ]
+  },
+  'smart-education': {
+    name: 'SMART EDUCATION',
+    icon: '🎓',
+    color: 'from-blue-500 to-cyan-500',
+    problems: [
+      {
+        id: 'adaptive-learning',
+        title: 'Adaptive Learning Platform',
+        description: 'Create an AI-powered learning platform that personalizes educational content',
+        difficulty: 'Hard',
+        participants: 110
+      },
+      {
+        id: 'virtual-classroom',
+        title: 'Immersive Virtual Classroom',
+        description: 'Develop a VR/AR solution for interactive remote learning experiences',
+        difficulty: 'Medium',
+        participants: 75
+      }
+    ]
+  },
+  'disaster-management': {
+    name: 'DISASTER MANAGEMENT',
+    icon: '🌪️',
+    color: 'from-green-500 to-emerald-500',
+    problems: [
+      {
+        id: 'early-warning-system',
+        title: 'AI-Powered Early Warning System',
+        description: 'Build a predictive system for natural disaster detection and alerts',
+        difficulty: 'Hard',
+        participants: 140
+      },
+      {
+        id: 'resource-allocation',
+        title: 'Emergency Resource Allocation',
+        description: 'Create a system for efficient distribution of resources during disasters',
+        difficulty: 'Medium',
+        participants: 90
+      }
+    ]
+  },
+  'environmental-sustainability': {
+    name: 'ENVIRONMENTAL SUSTAINABILITY',
+    icon: '🌍',
+    color: 'from-yellow-500 to-amber-500',
+    problems: [
+      {
+        id: 'carbon-footprint-tracker',
+        title: 'Smart Carbon Footprint Tracker',
+        description: 'Develop an IoT-based system for monitoring and reducing carbon emissions',
+        difficulty: 'Hard',
+        participants: 105
+      },
+      {
+        id: 'waste-management',
+        title: 'Intelligent Waste Management',
+        description: 'Create a smart solution for efficient waste collection and recycling',
+        difficulty: 'Medium',
+        participants: 130
+      }
+    ]
+  },
+  'healthcare-innovation': {
+    name: 'HEALTHCARE INNOVATION',
+    icon: '🏥',
+    color: 'from-pink-500 to-rose-500',
+    problems: [
+      {
+        id: 'telemedicine-platform',
+        title: 'Advanced Telemedicine Platform',
+        description: 'Build a comprehensive remote healthcare consultation system',
+        difficulty: 'Hard',
+        participants: 140
+      },
+      {
+        id: 'patient-monitoring',
+        title: 'IoT Patient Monitoring System',
+        description: 'Create real-time health monitoring for chronic disease patients',
+        difficulty: 'Medium',
+        participants: 95
+      }
+    ]
+  },
+  'artificial-intelligence': {
+    name: 'ARTIFICIAL INTELLIGENCE',
+    icon: '🤖',
+    color: 'from-red-500 to-orange-500',
+    problems: [
+      {
+        id: 'predictive-analytics',
+        title: 'Business Predictive Analytics',
+        description: 'Develop AI models for business trend prediction and decision making',
+        difficulty: 'Hard',
+        participants: 120
+      },
+      {
+        id: 'natural-language-processing',
+        title: 'Multilingual NLP Assistant',
+        description: 'Create an AI assistant that understands and responds in multiple languages',
+        difficulty: 'Medium',
+        participants: 85
+      }
+    ]
+  },
+  'fintech-solutions': {
+    name: 'FINTECH SOLUTIONS',
+    icon: '💰',
+    color: 'from-teal-500 to-cyan-500',
+    problems: [
+      {
+        id: 'blockchain-payments',
+        title: 'Decentralized Payment System',
+        description: 'Build a secure, low-cost cross-border payment solution using blockchain',
+        difficulty: 'Hard',
+        participants: 110
+      },
+      {
+        id: 'personal-finance-ai',
+        title: 'AI Personal Finance Manager',
+        description: 'Create an intelligent system for automated financial planning',
+        difficulty: 'Medium',
+        participants: 130
+      }
+    ]
+  },
+  'smart-cities': {
+    name: 'SMART CITIES',
+    icon: '🏙️',
+    color: 'from-indigo-500 to-purple-500',
+    problems: [
+      {
+        id: 'traffic-optimization',
+        title: 'Intelligent Traffic Optimization',
+        description: 'Develop AI-powered traffic management for reducing congestion',
+        difficulty: 'Hard',
+        participants: 105
+      },
+      {
+        id: 'energy-management',
+        title: 'Smart Energy Grid Management',
+        description: 'Create a system for optimizing energy distribution in urban areas',
+        difficulty: 'Medium',
+        participants: 95
+      }
+    ]
+  },
+  // 🔹 NEW THEME: LEGALTECH
+  'legaltech': {
+    name: 'LEGALTECH',
+    icon: '⚖️',
+    color: 'from-indigo-600 to-blue-600',
+    problems: [
+      {
+        id: 'smart-contracts',
+        title: 'Self-Executing Smart Contracts',
+        description: 'Develop blockchain-based smart contracts for automated legal agreements in real estate or freelancing',
+        difficulty: 'Hard',
+        participants: 90
+      },
+      {
+        id: 'ai-legal-assistant',
+        title: 'AI-Powered Legal Research Assistant',
+        description: 'Build a tool that helps lawyers quickly find relevant case laws, statutes, and precedents using NLP',
+        difficulty: 'Medium',
+        participants: 100
+      },
+      {
+        id: 'compliance-monitoring',
+        title: 'Automated Regulatory Compliance System',
+        description: 'Create a platform that continuously monitors business operations for legal and regulatory compliance',
+        difficulty: 'Hard',
+        participants: 115
+      }
+    ]
+  }
+};
 
   const theme = themesData[themeId] || themesData['blockchain-cybersecurity'];
 
