@@ -1,9 +1,11 @@
 'use client';
 
-import { FaShieldAlt, FaGoogle, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaShieldAlt, FaGoogle, FaGithub, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -13,45 +15,50 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  // Modify the handleSubmit function:
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-  try {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) {
-      // Store the token
-      localStorage.setItem('authToken', data.token);
-      // Redirect to home page - the Header will automatically fetch user data
-      router.push('/');
-    } else {
-      setError(data.message || 'Login failed. Please check your credentials.');
+      if (response.ok) {
+        // Store the token
+        localStorage.setItem('authToken', data.token);
+        // Redirect to home page - the Header will automatically fetch user data
+        router.push('/');
+      } else {
+        setError(data.message || 'Login failed. Please check your credentials.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An unexpected error occurred. Please try again later.');
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error('Login error:', err);
-    setError('An unexpected error occurred. Please try again later.');
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const handleGoogleLogin = () => {
     window.location.href = '/api/auth/google';
   };
 
+  const handleGithubLogin = () => {
+    window.location.href = '/api/auth/github';
+  };
+
   return (
+    <div>
+      <Header />
     <div className="w-full bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-purple-500 opacity-20 blur-3xl animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-blue-500 opacity-20 blur-3xl animate-pulse"></div>
@@ -64,14 +71,24 @@ const handleSubmit = async (e) => {
           </div>
 
           <div className="p-6 sm:p-8">
-            <button
-              onClick={handleGoogleLogin}
-              disabled={loading}
-              className="cursor-pointer w-full flex items-center justify-center gap-3 bg-white/10 border border-gray-600 rounded-lg py-3 px-4 text-gray-200 font-medium hover:bg-white/20 hover:border-gray-500 transition-all duration-300 mb-6 disabled:opacity-50"
-            >
-              <FaGoogle className="text-red-400 text-xl" />
-              Continue with Google
-            </button>
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <button
+                onClick={handleGoogleLogin}
+                disabled={loading}
+                className="cursor-pointer w-full flex items-center justify-center gap-3 bg-white/10 border border-gray-600 rounded-lg py-3 px-4 text-gray-200 font-medium hover:bg-white/20 hover:border-gray-500 transition-all duration-300 disabled:opacity-50"
+              >
+                <FaGoogle className="text-red-400 text-xl" />
+                Google
+              </button>
+              <button
+                onClick={handleGithubLogin}
+                disabled={loading}
+                className="cursor-pointer w-full flex items-center justify-center gap-3 bg-white/10 border border-gray-600 rounded-lg py-3 px-4 text-gray-200 font-medium hover:bg-white/20 hover:border-gray-500 transition-all duration-300 disabled:opacity-50"
+              >
+                <FaGithub className="text-gray-200 text-xl" />
+                GitHub
+              </button>
+            </div>
 
             <div className="flex items-center my-6">
               <div className="flex-1 h-px bg-gray-600"></div>
@@ -170,6 +187,8 @@ const handleSubmit = async (e) => {
           </div>
         </div>
       </div>
+    </div>
+    <Footer />
     </div>
   );
 }

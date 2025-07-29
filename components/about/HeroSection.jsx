@@ -45,7 +45,7 @@ const WowHeroSection = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full blur-lg opacity-50 animate-pulse"></div>
               <div className="relative px-6 py-2 bg-gray-900/80 backdrop-blur-lg border border-white/10 rounded-full">
-                <span className="text-orange-400 font-bold">BYTEWAR 2023</span>
+                <span className="text-orange-400 font-bold">BYTEWAR 2025</span>
               </div>
             </div>
           </div>
