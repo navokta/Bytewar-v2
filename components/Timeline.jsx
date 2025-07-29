@@ -16,56 +16,84 @@ const InteractiveTimeline = () => {
   }, []);
 
   const timelineEvents = [
-    {
-      date: "15 Oct 2023",
-      title: "Registration Opens",
-      description: "Secure your spot in the ultimate coding battle. Early birds get exclusive swag!",
-      icon: "🚀",
-      color: "from-purple-600 to-blue-500"
-    },
-    {
-      date: "25 Oct 2023",
-      title: "Team Formation",
-      description: "Find your perfect coding partner and form unstoppable teams of up to 4 members.",
-      icon: "👥",
-      color: "from-blue-500 to-teal-400"
-    },
-    {
-      date: "01 Nov 2023",
-      title: "Hackathon Kickoff",
-      description: "Grand opening ceremony with keynote speakers and problem statement reveal.",
-      icon: "🎯",
-      color: "from-teal-400 to-green-500"
-    },
-    {
-      date: "02-03 Nov 2023",
-      title: "Intense Coding",
-      description: "48 hours of non-stop coding, innovation, and caffeine-fueled creativity.",
-      icon: "💻",
-      color: "from-green-500 to-yellow-400"
-    },
-    {
-      date: "04 Nov 2023",
-      title: "Project Submission",
-      description: "Deadline for all project submissions. Last chance to finalize your masterpiece!",
-      icon: "📤",
-      color: "from-yellow-400 to-orange-500"
-    },
-    {
-      date: "05 Nov 2023",
-      title: "Judging Phase",
-      description: "Industry experts evaluate projects based on innovation, impact, and technical excellence.",
-      icon: "⚖️",
-      color: "from-orange-500 to-red-500"
-    },
-    {
-      date: "07 Nov 2023",
-      title: "Results & Awards",
-      description: "Winners announced with prizes worth $50,000 and internship opportunities!",
-      icon: "🏆",
-      color: "from-red-500 to-pink-500"
-    }
-  ];
+  {
+    date: "1 Sep 2025",
+    title: "Registration Opens",
+    description: "Secure your spot in the ultimate coding battle. Early birds get exclusive swag and bonus resources!",
+    icon: "🚀",
+    color: "from-purple-600 to-blue-500"
+  },
+  {
+    date: "15 Sep 2025",
+    title: "End of Registration",
+    description: "Team registration closes. Finalize your quintet of up to 5 members before it's too late!",
+    icon: "👥",
+    color: "from-blue-500 to-teal-400"
+  },
+  {
+    date: "16 Sep 2025",
+    title: "Video Submission Round Begins",
+    description: "Kickoff event with a keynote from industry leaders and the official release of problem statements.",
+    icon: "🎯",
+    color: "from-teal-400 to-green-500"
+  },
+  {
+    date: "18 Sep 2025",
+    title: "End of Video Submission Round",
+    description: "Deadline to submit your 3-minute concept video showcasing your idea and team vision.",
+    icon: "🎥",
+    color: "from-green-500 to-yellow-400"
+  },
+  {
+    date: "19-20 Sep 2025",
+    title: "Video Submission Results Announced",
+    description: "Top teams selected to advance to the next round based on innovation and feasibility of their video pitch.",
+    icon: "📢",
+    color: "from-yellow-400 to-orange-500"
+  },
+  {
+    date: "25 Sep 2025",
+    title: "PPT Submission Round Begins",
+    description: "Selected teams receive feedback and begin preparing detailed project presentations.",
+    icon: "📘",
+    color: "from-orange-500 to-red-500"
+  },
+  {
+    date: "27 Sep 2025",
+    title: "End of PPT Submission",
+    description: "Final deadline to submit your project presentation deck for expert evaluation.",
+    icon: "📤",
+    color: "from-red-500 to-pink-500"
+  },
+  {
+    date: "25 Sep - 5 Oct 2025",
+    title: "Mentor Session & Development Phase",
+    description: "Get guidance from industry mentors and refine your solution during the intensive build phase.",
+    icon: "👨‍🏫",
+    color: "from-pink-500 to-rose-500"
+  },
+  {
+    date: "6 Oct 2025",
+    title: "Coding Round Ends",
+    description: "All coding, testing, and documentation must be completed. Final submissions locked at midnight.",
+    icon: "💻",
+    color: "from-rose-500 to-orange-500"
+  },
+  {
+    date: "8 Oct 2025",
+    title: "Final Results Announcement",
+    description: "Winners revealed live! Celebrate innovation with prizes worth 10,000 Rs.",
+    icon: "🏆",
+    color: "from-yellow-400 to-gold-500"
+  },
+  {
+    date: "10 Oct 2025",
+    title: "Awards & Recognition Ceremony",
+    description: "All participants honored. Winners receive trophies, gifts, and career-boosting opportunities.",
+    icon: "🎁",
+    color: "from-green-400 to-teal-500"
+  }
+];
 
   // Auto-advance timeline
   useEffect(() => {
