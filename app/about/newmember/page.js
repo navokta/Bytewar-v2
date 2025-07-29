@@ -28,15 +28,16 @@ export default function NewMemberForm() {
   }, []);
 
   // --- REPLACE THESE WITH YOUR ACTUAL GOOGLE FORM DETAILS ---
-  const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/YOUR_NEW_MEMBER_FORM_ID/formResponse";
-  const ENTRY_IDS = {
-    name: "entry.YOUR_NAME_ENTRY_ID",
-    email: "entry.YOUR_EMAIL_ENTRY_ID",
-    linkedin: "entry.YOUR_LINKEDIN_ENTRY_ID",
-    github: "entry.YOUR_GITHUB_ENTRY_ID",
-    portfolio: "entry.YOUR_PORTFOLIO_ENTRY_ID",
-    motivation: "entry.YOUR_MOTIVATION_ENTRY_ID"
-  };
+const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSep0eLSIoKpQUeofArmVsEWYAHo1j1B2PDrGC79q91lAOi97A/formResponse";
+
+const ENTRY_IDS = {
+  name: "entry.876284472",
+  email: "entry.1069539123",
+  linkedin: "entry.1804940976",
+  github: "entry.1688349177",
+  portfolio: "entry.1655143648",
+  motivation: "entry.1424578550"
+};
   // --- END REPLACE SECTION ---
 
   const handleChange = (e) => {
