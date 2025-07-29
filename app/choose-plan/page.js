@@ -106,9 +106,11 @@ const ChoosePlanPage = () => {
   };
 
   return (
+    <div>
+       <Header />
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-4 sm:py-8 lg:py-12 px-3 sm:px-4 lg:px-8">
       {/* Simple Header */}
-      <Header />
+     
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -325,10 +327,7 @@ const ChoosePlanPage = () => {
         )}
       </div>
 
-      {/* Simple Footer */}
-            <footer className="bg-gray-900 text-white py-8 px-4 sm:px-6 lg:px-8 footer-full-width">
-              <Footer />
-            </footer>
+     
 
       {/* Custom Styles */}
       <style jsx>{`
@@ -381,6 +380,9 @@ const ChoosePlanPage = () => {
           }
         }
       `}</style>
+    </div>
+        <Footer />
+           
     </div>
   );
 };
