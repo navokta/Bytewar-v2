@@ -105,54 +105,12 @@ export default function Header() {
     setShowProfilePopup(false);
   };
 
-  // const handlePhotoUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
-
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('profilePicture', file);
-
-  //     const token = getToken();
-  //     if (!token) {
-  //       throw new Error('No authentication token found');
-  //     }
-
-  //     const response = await fetch('/api/auth/upload-profile', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Authorization': `Bearer ${token}`,
-  //       },
-  //       body: formData,
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to upload profile picture');
-  //     }
-
-  //     const data = await response.json();
-      
-  //     setUser(prev => ({
-  //       ...prev,
-  //       data: {
-  //         ...prev.data,
-  //         profilePicture: data.profilePictureUrl
-  //       }
-  //     }));
-
-  //   } catch (error) {
-  //     console.error("Error uploading profile picture:", error);
-  //     alert("Failed to upload profile picture. Please try again.");
-  //   }
-  // };
-
- // Calculate active tab position
-const getActiveTabPosition = () => {
-  const tabs = ['/', '/about', '/timeline', '/themes'];
-  const index = tabs.findIndex(tab => pathname === tab); // Use exact match instead of startsWith
-  return index >= 0 ? index : 0;
-};
-
+  // Calculate active tab position
+  const getActiveTabPosition = () => {
+    const tabs = ['/', '/about', '/timeline', '/themes', '/contact'];
+    const index = tabs.findIndex(tab => pathname === tab);
+    return index >= 0 ? index : 0;
+  };
 
   return (
     <>
@@ -224,16 +182,24 @@ const getActiveTabPosition = () => {
                 >
                   Themes
                 </Link>
+                <Link 
+                  href="/contact" 
+                  className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 ${
+                    pathname.startsWith('/contact') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  Contact
+                </Link>
               </div>
               
-             {/* Active indicator */}
-<div 
-  className="absolute bottom-0 h-0.5 bg-purple-500 rounded-full transition-all duration-300"
-  style={{
-    width: '60px',
-    left: `${getActiveTabPosition() * 80 + 16}px` // 16px accounts for initial padding
-  }}
-></div>
+              {/* Active indicator */}
+              <div 
+                className="absolute bottom-0 h-0.5 bg-purple-500 rounded-full transition-all duration-300"
+                style={{
+                  width: '60px',
+                  left: `${getActiveTabPosition() * 80 + 16}px` // 16px accounts for initial padding
+                }}
+              ></div>
             </nav>
           </div>
 
@@ -289,15 +255,6 @@ const getActiveTabPosition = () => {
                         ) : (
                           <FaUserCircle className="text-white text-4xl m-auto text-center mt-2" />
                         )}
-                        {/* <label className="absolute bottom-0 right-0 bg-purple-600 p-1.5 rounded-full cursor-pointer hover:bg-purple-700 transition-colors shadow-md">
-                          <FaCamera className="text-white text-xs" />
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={handlePhotoUpload}
-                          />
-                        </label> */}
                       </div>
                       <div className="text-white text-sm overflow-hidden">
                         <p className="font-semibold truncate">
@@ -311,13 +268,6 @@ const getActiveTabPosition = () => {
                     </div>
 
                     <nav className="space-y-1">
-                      {/* <Link
-                        href="/profile"
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-colors"
-                        onClick={() => setShowProfilePopup(false)}
-                      >
-                        My Profile
-                      </Link> */}
                       <Link
                         href="/enroll"
                         className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-colors"
@@ -404,6 +354,17 @@ const getActiveTabPosition = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Themes
+                </Link>
+                <Link
+                  href="/contact"
+                  className={`block w-full text-center px-4 py-2.5 text-sm font-semibold rounded-lg transition-colors ${
+                    pathname.startsWith('/contact')
+                      ? 'bg-purple-600 text-white' 
+                      : 'bg-gray-700 text-white hover:bg-gray-600'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contact
                 </Link>
               </div>
 
