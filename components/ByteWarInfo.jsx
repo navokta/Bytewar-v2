@@ -35,12 +35,9 @@ const WowByteWarInfo = () => {
                   one-of-a-kind hackathon held across India
                 </span>
                 , created to inspire students like you to turn your ideas into
-                real solutions for everyday problems. It’s more than just a
-                competition — it’s a movement to spark innovation, creativity,
-                and the spirit of problem-solving. ByteWar gives you the perfect
+                real solutions for everyday problems. ByteWar gives you the perfect
                 stage to learn, build, and showcase your skills while making a
-                real difference in the world. So dream big, code with purpose,
-                and be the change. Your ideas can shape the future — and ByteWar
+                real difference in the world. Your ideas can shape the future — and ByteWar
                 is where it begins.
               </p>
 
@@ -50,11 +47,8 @@ const WowByteWarInfo = () => {
                 <span className="text-pink-400 font-bold">
                   creative and out-of-the-box thinking
                 </span>{" "}
-                among students — especially those in engineering and tech. With
-                each edition, ByteWar has grown stronger, reaching more students
-                and creating bigger impact. It’s not just about showing off your
-                skills — it’s about learning, growing, and working together with
-                industry experts, government bodies, and mentors to solve real
+                among students — especially those in engineering and tech. It’s not just about showing off your
+                skills — it’s about learning, growing, and working together to solve real
                 problems that matter. ByteWar is where bright minds come
                 together to innovate, collaborate, and create a better tomorrow.
               </p>

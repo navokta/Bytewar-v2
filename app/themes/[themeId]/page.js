@@ -1,6 +1,8 @@
 // app/themes/[themeId]/page.js (Theme Problems Page)
 "use client";
 
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React from 'react';
@@ -189,75 +191,91 @@ const ThemeProblemsPage = () => {
   };
 
   const theme = themesData[themeId] || themesData['blockchain-cybersecurity'];
-// Here is the code *
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-x-hidden">
+      {/* Animated Background Elements - Responsive */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-10 left-1/4 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-10 right-1/4 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center mb-6">
-            <div className={`flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br ${theme.color} text-4xl`}>
+      {/* Header */}
+      <Header />
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-12 sm:pb-20">
+        {/* Header Section - Responsive */}
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="inline-flex items-center justify-center mb-4 sm:mb-6">
+            <div className={`flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br ${theme.color} text-3xl sm:text-4xl shadow-lg`}>
               {theme.icon}
             </div>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-black mb-6">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 px-2">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
-              {theme.name} Challenges
+              {theme.name} 
+            </span>
+            <br className="sm:hidden" />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
+              Challenges
             </span>
           </h1>
           
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto px-4">
             Select a problem statement to explore detailed requirements
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Problems Grid - Responsive */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {theme.problems.map((problem) => (
             <Link 
               key={problem.id}
               href={`/themes/${themeId}/${problem.id}`}
-              className="group relative"
+              className="group relative block"
             >
+              {/* Glow Effect */}
               <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r ${theme.color} opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500`}></div>
               
-              <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6 h-full transform transition-all duration-500 group-hover:-translate-y-2">
-                <div className="flex justify-between items-start mb-4">
-                  <h2 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-500">
+              {/* Card - Enhanced Responsive Design */}
+              <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-6 h-full transform transition-all duration-500 group-hover:-translate-y-2 group-active:scale-95 min-h-[200px] sm:min-h-[220px]">
+                {/* Header with Title and Difficulty */}
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 mb-4">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-500 leading-tight">
                     {problem.title}
                   </h2>
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                  <span className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap self-start ${
                     problem.difficulty === 'Hard' 
-                      ? 'bg-red-500/20 text-red-400' 
+                      ? 'bg-red-500/20 text-red-400 border border-red-500/30' 
                       : problem.difficulty === 'Medium' 
-                        ? 'bg-yellow-500/20 text-yellow-400' 
-                        : 'bg-green-500/20 text-green-400'
+                        ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' 
+                        : 'bg-green-500/20 text-green-400 border border-green-500/30'
                   }`}>
                     {problem.difficulty}
                   </span>
                 </div>
                 
-                <p className="text-gray-400 mb-6">
+                {/* Description */}
+                <p className="text-gray-400 text-sm sm:text-base mb-6 leading-relaxed">
                   {problem.description}
                 </p>
                 
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center text-gray-500">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {/* Footer with Participants and Button */}
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                     <span>{problem.participants} participants</span>
                   </div>
                   
-                  <button className={`px-4 py-2 bg-gradient-to-r ${theme.color} text-white font-bold rounded-lg hover:opacity-90 transition-opacity duration-300 flex items-center gap-2`}>
-                    View Details
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <button className={`px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r ${theme.color} text-white font-bold text-sm sm:text-base rounded-lg hover:opacity-90 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl whitespace-nowrap`}>
+                    <span className="hidden sm:inline">View Details</span>
+                    <span className="sm:hidden">Details</span>
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
@@ -267,20 +285,27 @@ const ThemeProblemsPage = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        {/* Back Button - Responsive */}
+        <div className="text-center">
           <Link 
             href="/themes" 
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-full transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-800 hover:bg-gray-700 active:bg-gray-900 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 active:scale-95 text-sm sm:text-base shadow-lg hover:shadow-xl"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            Back to All Themes
+            <span className="hidden sm:inline">Back to All Themes</span>
+            <span className="sm:hidden">Back to Themes</span>
           </Link>
         </div>
-      </div>
+      </main>
 
-      {/* Custom Styles */}
+      {/* Footer - Full Width */}
+      <footer className="relative z-10 w-full">
+        <Footer />
+      </footer>
+
+      {/* Custom Styles - Enhanced for Mobile */}
       <style jsx>{`
         @keyframes gradient-x {
           0%, 100% { background-position: 0% 50%; }
@@ -304,6 +329,13 @@ const ThemeProblemsPage = () => {
           33% { transform: translate(30px, -50px) scale(1.1); }
           66% { transform: translate(-20px, 20px) scale(0.9); }
           100% { transform: translate(0px, 0px) scale(1); }
+        }
+        
+        /* Mobile-specific optimizations */
+        @media (max-width: 640px) {
+          .group:active {
+            transform: scale(0.98);
+          }
         }
       `}</style>
     </div>
