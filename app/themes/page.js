@@ -73,7 +73,7 @@ const AllThemesPage = () => {
   },
   {
     id: 'legaltech',
-    title: 'LEGALTECH',
+    title: 'LEGAL TECH',
     description: 'Innovative technology solutions transforming legal services, including automation, smart contracts, compliance tools, and access to justice platforms.',
     icon: '⚖️',
     color: 'from-indigo-600 to-blue-600',
