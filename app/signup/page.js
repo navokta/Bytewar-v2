@@ -258,43 +258,23 @@ export default function SignupPage() {
                 <label htmlFor="phone" className="block text-gray-300 text-sm font-medium mb-2">
                   Phone Number <span className="text-red-400">*</span>
                 </label>
-                <div 
-                  ref={phoneInputRef}
-                  onClick={handlePhoneContainerClick}
-                  className={`relative w-full bg-gray-700/50 border ${
-                    isPhoneFocused ? 'border-purple-500 ring-2 ring-purple-500/30' : 'border-gray-600'
-                  } rounded-lg transition duration-200 hover:border-gray-500`}
-                >
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaPhone className="text-gray-500" />
-                  </div>
-                  <PhoneInput
-                    international
-                    defaultCountry="IN"
-                    value={formData.phone}
-                    onChange={handlePhoneChange}
-                    onFocus={() => setIsPhoneFocused(true)}
-                    onBlur={() => setIsPhoneFocused(false)}
-                    className="phone-input"
-                    inputComponent={({ onFocus, onBlur, ...rest }) => (
-                      <input 
-                        id="phone"
-                        name="phone"
-                        className="w-full pl-10 pr-3 py-3 bg-transparent border-0 focus:ring-0 text-white placeholder-gray-500 outline-none"
-                        onFocus={(e) => {
-                          setIsPhoneFocused(true);
-                          onFocus?.(e);
-                        }}
-                        onBlur={(e) => {
-                          setIsPhoneFocused(false);
-                          onBlur?.(e);
-                        }}
-                        autoComplete="tel"
-                        {...rest} 
-                      />
-                    )}
-                  />
-                </div>
+                <div className={`relative w-full bg-gray-700/50 border ${
+  isPhoneFocused ? 'border-purple-500 ring-2 ring-purple-500/30' : 'border-gray-600'
+} rounded-lg transition duration-200 hover:border-gray-500`}>
+  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+    <FaPhone className="text-gray-500" />
+  </div>
+  <PhoneInput
+    international
+    defaultCountry="IN"
+    value={formData.phone}
+    onChange={handlePhoneChange}
+    onFocus={() => setIsPhoneFocused(true)}
+    onBlur={() => setIsPhoneFocused(false)}
+    className="phone-input"
+  />
+</div>
+
               </div>
 
               <div className="mb-6">
