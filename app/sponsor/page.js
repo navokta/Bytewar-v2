@@ -9,51 +9,53 @@ const BecomeSponsorPage = () => {
   const sponsorshipTiers = [
     {
       name: "Platinum Partner",
-      price: "₹5,00,000",
+      price: "₹5,000",
       benefits: [
         "Logo placement on all marketing materials",
+        "Branding on event Posters",
+        "2 complimentary Teams",
+        "Social media mentions",
+        "Recognition in opening/closing ceremony",
+        "Giving Reward for top 3 winners for Brands Products if Sponsor provides",
+        "Add Links of your Social Media",
+        "Video shoutout of 1 Min in Announcement Video",
         "Keynote speaking opportunity",
-        "Premium booth space at venue",
-        "10 complimentary event passes",
-        "Social media mentions (10 posts)",
-        "Dedicated recognition video",
         "Product demo session slot"
       ],
       color: "from-gray-300 to-gray-500"
     },
     {
       name: "Gold Sponsor",
-      price: "₹2,50,000",
+      price: "₹2,500",
       benefits: [
-        "Logo on website and event banners",
-        "Booth space at venue",
-        "5 complimentary event passes",
-        "Social media mentions (5 posts)",
+        "Logo on website",
+        "Branding on event Posters",
+        "1 complimentary Team",
+        "Social media mentions",
         "Recognition in opening/closing ceremony",
-        "Branding on event T-shirts"
+        "Giving Reward for top 3 winners for Brands Products if Sponsor provides",
+        "Add Links of your Social Media",
+        "Video shoutout of 30 Second in Announcement Video"
       ],
       color: "from-yellow-300 to-yellow-500"
     },
     {
       name: "Silver Sponsor",
-      price: "₹1,00,000",
+      price: "₹1,000",
       benefits: [
         "Logo on website",
-        "2 complimentary event passes",
-        "Social media mentions (3 posts)",
-        "Branding on event banners",
-        "Recognition in event program"
+        "Social media mentions",
+        "Branding on event Posters",
+        "Add Links of your Social Media"
       ],
       color: "from-gray-200 to-gray-400"
     },
     {
       name: "Bronze Sponsor",
-      price: "₹50,000",
+      price: "₹500",
       benefits: [
         "Logo on website",
-        "1 complimentary event pass",
-        "Social media mention",
-        "Name in event program"
+        "Social media mention"
       ],
       color: "from-amber-700 to-amber-900"
     }
