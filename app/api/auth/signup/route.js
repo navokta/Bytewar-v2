@@ -10,9 +10,9 @@ export async function POST(request) {
     await dbConnect();
 
     const body = await request.json();
-    const { email, password, phone } = body;
+    const { email, password, phone, firstName, lastName } = body;
 
-    if (!email || !password || !phone) {
+    if (!email || !password || !phone || !firstName || !lastName) {
       return new Response(
         JSON.stringify({ message: 'All fields are required' }), 
         { status: 400 }
@@ -33,9 +33,10 @@ export async function POST(request) {
       email,
       password: hashedPassword,
       phone,
+      firstName,
+      lastName,
     });
 
-    // Generate token
     const token = jwt.sign(
       { userId: newUser._id.toString(), email: newUser.email },
       JWT_SECRET,
