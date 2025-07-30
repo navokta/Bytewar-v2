@@ -8,6 +8,7 @@ import 'react-phone-number-input/style.css';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { signIn } from 'next-auth/react';
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -159,7 +160,7 @@ export default function SignupPage() {
             <div className="grid grid-cols-2 gap-4 mb-6">
               <button
                 type="button"
-                onClick={() => window.location.href = '/api/auth/google'}
+               onClick={() => signIn("google", { callbackUrl: "/" })}
                 className="flex items-center justify-center gap-2 bg-white/10 border border-gray-600 rounded-lg py-3 px-4 text-gray-200 font-medium hover:bg-white/20 hover:border-gray-500 transition-all duration-300 cursor-pointer group"
                 aria-label="Sign up with Google"
               >
@@ -168,7 +169,7 @@ export default function SignupPage() {
               </button>
               <button
                 type="button"
-                onClick={() => window.location.href = '/api/auth/github'}
+                onClick={() => signIn('github', { callbackUrl: "/" })}
                 className="flex items-center justify-center gap-2 bg-white/10 border border-gray-600 rounded-lg py-3 px-4 text-gray-200 font-medium hover:bg-white/20 hover:border-gray-500 transition-all duration-300 cursor-pointer group"
                 aria-label="Sign up with GitHub"
               >
