@@ -15,43 +15,55 @@ const handler = NextAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
   ],
+
   callbacks: {
-    async signIn({ user, account, profile }) {
-      try {
-        await dbConnect();
+   async signIn({ user }) {
+  await dbConnect();
+  const existingUser = await User.findOne({ email: user.email });
 
-        const existingUser = await User.findOne({ email: user.email });
+  if (!existingUser) {
+    await User.create({
+      email: user.email,
+      firstName: user.name?.split(" ")[0] || "",
+      lastName: user.name?.split(" ")[1] || "",
+      image: user.image || "",
+      password: "",
+      phone: "",
+    });
+    user.newOAuthUser = true;
+  } else {
+    // ✅ Only true if either phone or password is missing
+    const hasPhone = !!existingUser.phone?.trim();
+    const hasPassword = !!existingUser.password?.trim();
 
-        if (!existingUser) {
-          await User.create({
-            email: user.email,
-            firstName: user.name?.split(" ")[0] || "",
-            lastName: user.name?.split(" ")[1] || "",
-            image: user.image || "",
-            password: "",  // for OAuth user
-            phone: "",     // for OAuth user
-          });
-        }
+    user.newOAuthUser = !(hasPhone && hasPassword); // FALSE if both are filled
+  }
 
-        return true;
-      } catch (err) {
-        console.error("Error in signIn callback:", err);
-        return false;
-      }
-    },
-    async jwt({ token, user }) {
-      if (user) token.user = user;
-      return token;
-    },
-    async session({ session, token }) {
-      session.user = token.user;
-      return session;
+  return true;
+},
+
+     async session({ session, token }) {
+    session.userId = token.sub;
+    session.isNewUser = token.newOAuthUser ?? false;
+    return session;
+  },
+  async jwt({ token, user }) {
+    if (user) {
+      token.newOAuthUser = user.newOAuthUser ?? false;
+    }
+    return token;
+  },
+
+    redirect({ url, baseUrl }) {
+      return baseUrl; // Always redirect to home, frontend handles complete-profile
     },
   },
+
   pages: {
-    signIn: "/login",       // your custom login page
-    error: "/auth/error",   // optional: custom error page
+    signIn: "/login",
+    error: "/auth/error",
   },
+
   secret: process.env.NEXTAUTH_SECRET,
 });
 

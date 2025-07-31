@@ -105,12 +105,12 @@ export default function SignupPage() {
         body: JSON.stringify(formData),
       });
 
-      // if (response.ok) {
-      //   const data = await response.json();
-      //   router.push(`/complete-profile?email=${formData.email}`);
-      // } else {
-      //   alert("Signup failed");
-      // }
+      if (response.ok) {
+        const data = await response.json();
+        router.push(`/complete-profile?email=${formData.email}`);
+      } else {
+        alert("Signup failed");
+      }
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));

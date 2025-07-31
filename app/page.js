@@ -1,22 +1,42 @@
-"use client";
-import Image from "next/image";
+'use client';
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
-// import EnrollNow from '../components/EnrollNow';
 import Gallery from '../components/Gallery';
 import ThoughtSection from '../components/ThoughtSection';
 import Footer from '../components/Footer';
 import ByteWarInfo from '../components/ByteWarInfo';
 import VideoAndInfographicSection from '../components/VideoAndInfographicSection';
 import ThemesSection from '../components/ThemesSection';
-// import Timeline from '../components/Timeline';
 import Sponser from '../components/Sponser';
-    //  import logo from '../public/image.png';
-
-
-
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkUserProfile = async () => {
+      const alreadyRedirected = localStorage.getItem('redirectedToCompleteProfile');
+
+      if (status === 'authenticated' && !alreadyRedirected) {
+        const res = await fetch(`/api/users/check-profile?email=${session?.user?.email}`);
+        const data = await res.json();
+
+        if (data.incompleteProfile) {
+          localStorage.setItem('redirectedToCompleteProfile', 'true');
+          router.push(`/complete-profile?email=${session.user.email}`);
+        }
+      }
+    };
+
+    checkUserProfile();
+  }, [status, session, router]);
+
+  if (status === 'loading') return null;
+
   return (
     <div className="font-sans min-h-screen flex flex-col bg-sky-900">
       <Header />
@@ -24,7 +44,6 @@ export default function Home() {
       <ByteWarInfo />
       <VideoAndInfographicSection />
       <ThemesSection />
-      {/* <Timeline /> */}
       <Gallery />
       <Sponser />
       <ThoughtSection />
