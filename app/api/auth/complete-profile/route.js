@@ -8,26 +8,16 @@ export async function POST(request) {
     await dbConnect();
     const { email, phone, password } = await request.json();
 
-    if (!email || !phone || !password) {
-      return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+    const user = await User.findOne({ email });
+    if (!user || user.authMethod === 'credentials') {
+      return NextResponse.json({ message: "Not an OAuth user" }, { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    await User.updateOne({ email }, { phone, password: hashedPassword });
 
-    const updatedUser = await User.findOneAndUpdate(
-  { email, $or: [{ phone: "" }, { password: "" }] },
-  { phone, password: hashedPassword },
-  { new: true }
-);
-
-if (!updatedUser) {
-  return NextResponse.json({ message: "User already completed profile or not found." }, { status: 400 });
-}
-
-
-    return NextResponse.json({ message: "Profile updated" }, { status: 200 });
+    return NextResponse.json({ message: "Profile completed" }, { status: 200 });
   } catch (error) {
-    console.error("Complete profile error:", error);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }

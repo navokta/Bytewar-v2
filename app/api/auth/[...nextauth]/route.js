@@ -17,30 +17,31 @@ const handler = NextAuth({
   ],
 
   callbacks: {
-   async signIn({ user }) {
-  await dbConnect();
-  const existingUser = await User.findOne({ email: user.email });
+   async signIn({ user, account }) {
+    await dbConnect();
+    const existingUser = await User.findOne({ email: user.email });
 
-  if (!existingUser) {
-    await User.create({
-      email: user.email,
-      firstName: user.name?.split(" ")[0] || "",
-      lastName: user.name?.split(" ")[1] || "",
-      image: user.image || "",
-      password: "",
-      phone: "",
-    });
-    user.newOAuthUser = true;
-  } else {
-    // ✅ Only true if either phone or password is missing
-    const hasPhone = !!existingUser.phone?.trim();
-    const hasPassword = !!existingUser.password?.trim();
+    if (!existingUser) {
+      // New OAuth user → mark as incomplete
+      await User.create({
+        email: user.email,
+        firstName: user.name?.split(" ")[0] || "",
+        lastName: user.name?.split(" ")[1] || "",
+        image: user.image || "",
+        password: "", // Force profile completion
+        phone: "",    // Force profile completion
+        authMethod: account.provider, // "google" or "github"
+      });
+      return '/complete-profile'; // Redirect OAuth users
+    }
 
-    user.newOAuthUser = !(hasPhone && hasPassword); // FALSE if both are filled
-  }
+    // Existing OAuth user with missing phone/password
+    if (account.provider !== 'credentials' && (!existingUser.phone || !existingUser.password)) {
+      return '/complete-profile';
+    }
 
-  return true;
-},
+    return true; // Allow login
+  },
 
      async session({ session, token }) {
     session.userId = token.sub;
