@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import { signIn } from 'next-auth/react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -48,12 +49,8 @@ export default function LoginPage() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = '/api/auth/google';
-  };
-
-  const handleGithubLogin = () => {
-    window.location.href = '/api/auth/github';
+  const handleOAuthLogin = (provider) => {
+    signIn(provider, { callbackUrl: '/' });
   };
 
   return (
@@ -73,7 +70,7 @@ export default function LoginPage() {
           <div className="p-6 sm:p-8">
             <div className="grid grid-cols-2 gap-4 mb-6">
               <button
-                onClick={handleGoogleLogin}
+                  onClick={() => handleOAuthLogin('google')}
                 disabled={loading}
                 className="cursor-pointer w-full flex items-center justify-center gap-3 bg-white/10 border border-gray-600 rounded-lg py-3 px-4 text-gray-200 font-medium hover:bg-white/20 hover:border-gray-500 transition-all duration-300 disabled:opacity-50"
               >
@@ -81,7 +78,7 @@ export default function LoginPage() {
                 Google
               </button>
               <button
-                onClick={handleGithubLogin}
+                onClick={() => handleOAuthLogin('github')}
                 disabled={loading}
                 className="cursor-pointer w-full flex items-center justify-center gap-3 bg-white/10 border border-gray-600 rounded-lg py-3 px-4 text-gray-200 font-medium hover:bg-white/20 hover:border-gray-500 transition-all duration-300 disabled:opacity-50"
               >
