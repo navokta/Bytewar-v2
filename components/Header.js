@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useSession, signOut } from 'next-auth/react'; // ✅ add this
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -32,6 +33,7 @@ const removeToken = () => {
 
 export default function Header() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const popupRef = useRef(null);
@@ -42,46 +44,61 @@ export default function Header() {
     loading: true
   });
 
-  const fetchUserData = useCallback(async () => {
-    const token = getToken();
+ const fetchUserData = useCallback(async () => {
+  const token = getToken();
 
-    if (!token) {
-      setUser({ isLoggedIn: false, data: null, loading: false });
-      return;
-    }
+  if (!token && !session) {
+    setUser({ isLoggedIn: false, data: null, loading: false });
+    return;
+  }
 
-    try {
-      const response = await fetch('/api/auth/me', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+  // ✅ If logged in via Google or GitHub
+  if (session?.user) {
+    setUser({
+      isLoggedIn: true,
+      data: {
+        name: session.user.name,
+        email: session.user.email,
+        profilePicture: session.user.image,
+      },
+      loading: false,
+    });
+    return;
+  }
+
+  // ✅ If logged in via your custom /api/auth/login
+  try {
+    const response = await fetch('/api/auth/me', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+
+    if (response.ok) {
+      const userData = await response.json();
+      setUser({
+        isLoggedIn: true,
+        data: {
+          ...userData.user,
+          profilePicture: userData.user.profilePicture 
+            ? `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}${userData.user.profilePicture}`
+            : null
         },
-        credentials: 'include'
+        loading: false,
       });
-
-      if (response.ok) {
-        const userData = await response.json();
-        setUser({
-          isLoggedIn: true,
-          data: {
-            ...userData.user,
-            profilePicture: userData.user.profilePicture 
-              ? `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}${userData.user.profilePicture}`
-              : null
-          },
-          loading: false
-        });
-      } else {
-        console.error("Failed to fetch user data", response.status);
-        removeToken();
-        setUser({ isLoggedIn: false, data: null, loading: false });
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
+    } else {
+      removeToken();
       setUser({ isLoggedIn: false, data: null, loading: false });
     }
-  }, []);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    setUser({ isLoggedIn: false, data: null, loading: false });
+  }
+}, [session]);
+
 
   useEffect(() => {
     fetchUserData();
@@ -98,12 +115,13 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Handle logout
-  const handleLogout = () => {
-    removeToken();
-    setUser({ isLoggedIn: false, data: null, loading: false });
-    setShowProfilePopup(false);
-  };
+  const handleLogout = async () => {
+  removeToken();
+  await signOut({ callbackUrl: '/' }); // NextAuth logout
+  setUser({ isLoggedIn: false, data: null, loading: false });
+  setShowProfilePopup(false);
+};
+
 
   // Calculate active tab position
   const getActiveTabPosition = () => {
