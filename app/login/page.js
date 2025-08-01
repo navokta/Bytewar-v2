@@ -49,9 +49,10 @@ export default function LoginPage() {
     }
   };
 
-  const handleOAuthLogin = (provider) => {
-    signIn(provider, { callbackUrl: '/' });
-  };
+  // In login.js, modify the handleOAuthLogin function:
+const handleOAuthLogin = (provider) => {
+  signIn(provider, { callbackUrl: '/api/auth/check-profile' });
+};
 
   return (
     <div>
