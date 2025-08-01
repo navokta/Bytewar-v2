@@ -13,211 +13,302 @@ const ThemeProblemsPage = () => {
 
   // Mock data for themes and problems - UPDATED IDs to match app/themes/page.js
   const themesData = {
-  'blockchain-cybersecurity': {
-    name: 'BLOCKCHAIN & CYBERSECURITY',
-    icon: '🔐',
-    color: 'from-purple-600 to-indigo-600',
-    problems: [
-      {
-        id: 'secure-voting',
-        title: 'Secure Digital Voting System',
-        description: 'Create a blockchain-based voting system that ensures transparency and security',
-        difficulty: 'Hard',
-        participants: 120
-      },
-      {
-        id: 'phishing-detection',
-        title: 'AI-Powered Phishing Detection',
-        description: 'Develop an intelligent system to detect and prevent phishing attacks',
-        difficulty: 'Medium',
-        participants: 85
-      },
-      {
-        id: 'data-leak-prevention',
-        title: 'Automated Data Leak Prevention',
-        description: 'Build a system that monitors and prevents sensitive data leaks in real-time',
-        difficulty: 'Hard',
-        participants: 95
-      }
-    ]
-  },
-  'smart-education': {
-    name: 'SMART EDUCATION',
-    icon: '🎓',
-    color: 'from-blue-500 to-cyan-500',
-    problems: [
-      {
-        id: 'adaptive-learning',
-        title: 'Adaptive Learning Platform',
-        description: 'Create an AI-powered learning platform that personalizes educational content',
-        difficulty: 'Hard',
-        participants: 110
-      },
-      {
-        id: 'virtual-classroom',
-        title: 'Immersive Virtual Classroom',
-        description: 'Develop a VR/AR solution for interactive remote learning experiences',
-        difficulty: 'Medium',
-        participants: 75
-      }
-    ]
-  },
-  'disaster-management': {
-    name: 'DISASTER MANAGEMENT',
-    icon: '🌪️',
-    color: 'from-green-500 to-emerald-500',
-    problems: [
-      {
-        id: 'early-warning-system',
-        title: 'AI-Powered Early Warning System',
-        description: 'Build a predictive system for natural disaster detection and alerts',
-        difficulty: 'Hard',
-        participants: 140
-      },
-      {
-        id: 'resource-allocation',
-        title: 'Emergency Resource Allocation',
-        description: 'Create a system for efficient distribution of resources during disasters',
-        difficulty: 'Medium',
-        participants: 90
-      }
-    ]
-  },
-  'environmental-sustainability': {
-    name: 'ENVIRONMENTAL SUSTAINABILITY',
-    icon: '🌍',
-    color: 'from-yellow-500 to-amber-500',
-    problems: [
-      {
-        id: 'carbon-footprint-tracker',
-        title: 'Smart Carbon Footprint Tracker',
-        description: 'Develop an IoT-based system for monitoring and reducing carbon emissions',
-        difficulty: 'Hard',
-        participants: 105
-      },
-      {
-        id: 'waste-management',
-        title: 'Intelligent Waste Management',
-        description: 'Create a smart solution for efficient waste collection and recycling',
-        difficulty: 'Medium',
-        participants: 130
-      }
-    ]
-  },
-  'healthcare-innovation': {
-    name: 'HEALTHCARE INNOVATION',
-    icon: '🏥',
-    color: 'from-pink-500 to-rose-500',
-    problems: [
-      {
-        id: 'telemedicine-platform',
-        title: 'Advanced Telemedicine Platform',
-        description: 'Build a comprehensive remote healthcare consultation system',
-        difficulty: 'Hard',
-        participants: 140
-      },
-      {
-        id: 'patient-monitoring',
-        title: 'IoT Patient Monitoring System',
-        description: 'Create real-time health monitoring for chronic disease patients',
-        difficulty: 'Medium',
-        participants: 95
-      }
-    ]
-  },
-  'artificial-intelligence': {
-    name: 'ARTIFICIAL INTELLIGENCE',
-    icon: '🤖',
-    color: 'from-red-500 to-orange-500',
-    problems: [
-      {
-        id: 'predictive-analytics',
-        title: 'Business Predictive Analytics',
-        description: 'Develop AI models for business trend prediction and decision making',
-        difficulty: 'Hard',
-        participants: 120
-      },
-      {
-        id: 'natural-language-processing',
-        title: 'Multilingual NLP Assistant',
-        description: 'Create an AI assistant that understands and responds in multiple languages',
-        difficulty: 'Medium',
-        participants: 85
-      }
-    ]
-  },
-  'fintech-solutions': {
-    name: 'FINTECH SOLUTIONS',
-    icon: '💰',
-    color: 'from-teal-500 to-cyan-500',
-    problems: [
-      {
-        id: 'blockchain-payments',
-        title: 'Decentralized Payment System',
-        description: 'Build a secure, low-cost cross-border payment solution using blockchain',
-        difficulty: 'Hard',
-        participants: 110
-      },
-      {
-        id: 'personal-finance-ai',
-        title: 'AI Personal Finance Manager',
-        description: 'Create an intelligent system for automated financial planning',
-        difficulty: 'Medium',
-        participants: 130
-      }
-    ]
-  },
-  'smart-cities': {
-    name: 'SMART CITIES',
-    icon: '🏙️',
-    color: 'from-indigo-500 to-purple-500',
-    problems: [
-      {
-        id: 'traffic-optimization',
-        title: 'Intelligent Traffic Optimization',
-        description: 'Develop AI-powered traffic management for reducing congestion',
-        difficulty: 'Hard',
-        participants: 105
-      },
-      {
-        id: 'energy-management',
-        title: 'Smart Energy Grid Management',
-        description: 'Create a system for optimizing energy distribution in urban areas',
-        difficulty: 'Medium',
-        participants: 95
-      }
-    ]
-  },
-  // 🔹 NEW THEME: LEGALTECH
-  'legaltech': {
-    name: 'LEGALTECH',
-    icon: '⚖️',
-    color: 'from-indigo-600 to-blue-600',
-    problems: [
-      {
-        id: 'smart-contracts',
-        title: 'Self-Executing Smart Contracts',
-        description: 'Develop blockchain-based smart contracts for automated legal agreements in real estate or freelancing',
-        difficulty: 'Hard',
-        participants: 90
-      },
-      {
-        id: 'ai-legal-assistant',
-        title: 'AI-Powered Legal Research Assistant',
-        description: 'Build a tool that helps lawyers quickly find relevant case laws, statutes, and precedents using NLP',
-        difficulty: 'Medium',
-        participants: 100
-      },
-      {
-        id: 'compliance-monitoring',
-        title: 'Automated Regulatory Compliance System',
-        description: 'Create a platform that continuously monitors business operations for legal and regulatory compliance',
-        difficulty: 'Hard',
-        participants: 115
-      }
-    ]
-  }
-};
+    'blockchain-cybersecurity': {
+      name: 'BLOCKCHAIN & CYBERSECURITY',
+      icon: '🔐',
+      color: 'from-purple-600 to-indigo-600',
+      problems: [
+        {
+          id: 'secure-voting',
+          title: 'Secure Digital Voting System',
+          description: 'Create a blockchain-based voting system that ensures transparency and security',
+          difficulty: 'Hard',
+          participants: 120
+        },
+        {
+          id: 'phishing-detection',
+          title: 'AI-Powered Phishing Detection',
+          description: 'Develop an intelligent system to detect and prevent phishing attacks',
+          difficulty: 'Medium',
+          participants: 85
+        },
+        {
+          id: 'data-leak-prevention',
+          title: 'Automated Data Leak Prevention',
+          description: 'Build a system that monitors and prevents sensitive data leaks in real-time',
+          difficulty: 'Hard',
+          participants: 95
+        }
+      ]
+    },
+    'smart-education': {
+      name: 'SMART EDUCATION',
+      icon: '🎓',
+      color: 'from-blue-500 to-cyan-500',
+      problems: [
+        {
+          id: 'adaptive-learning',
+          title: 'Adaptive Learning Platform',
+          description: 'Create an AI-powered learning platform that personalizes educational content',
+          difficulty: 'Hard',
+          participants: 110
+        },
+        {
+          id: 'virtual-classroom',
+          title: 'Immersive Virtual Classroom',
+          description: 'Develop a VR/AR solution for interactive remote learning experiences',
+          difficulty: 'Medium',
+          participants: 75
+        }
+      ]
+    },
+    'healthcare-innovation': {
+      name: 'HEALTHCARE INNOVATION',
+      icon: '🏥',
+      color: 'from-pink-500 to-rose-500',
+      problems: [
+        {
+          id: 'telemedicine-platform',
+          title: 'Advanced Telemedicine Platform',
+          description: 'Build a comprehensive remote healthcare consultation system',
+          difficulty: 'Hard',
+          participants: 140
+        },
+        {
+          id: 'patient-monitoring',
+          title: 'IoT Patient Monitoring System',
+          description: 'Create real-time health monitoring for chronic disease patients',
+          difficulty: 'Medium',
+          participants: 95
+        }
+      ]
+    },
+    'artificial-intelligence': {
+      name: 'ARTIFICIAL INTELLIGENCE',
+      icon: '🤖',
+      color: 'from-red-500 to-orange-500',
+      problems: [
+        {
+          id: 'predictive-analytics',
+          title: 'Business Predictive Analytics',
+          description: 'Develop AI models for business trend prediction and decision making',
+          difficulty: 'Hard',
+          participants: 120
+        },
+        {
+          id: 'natural-language-processing',
+          title: 'Multilingual NLP Assistant',
+          description: 'Create an AI assistant that understands and responds in multiple languages',
+          difficulty: 'Medium',
+          participants: 85
+        }
+      ]
+    },
+    'fintech-solutions': {
+      name: 'FINTECH SOLUTIONS',
+      icon: '💰',
+      color: 'from-teal-500 to-cyan-500',
+      problems: [
+        {
+          id: 'transparent-investment-education-platform',
+          title: 'Transparent Investment Education Platform',
+          description: 'A web/mobile platform designed to educate beginners about investments in a transparent and unbiased way.',
+          difficulty: 'Hard',
+          participants: 110
+        },
+        {
+          id: 'tax-filing-amplifier-gig-freelancers',
+          title: 'Tax Filing Amplifier for Gig Workers and Freelancers',
+          description: 'A platform designed to simplify and automate tax filing for gig workers, freelancers, and independent contractors.',
+          difficulty: 'Medium',
+          participants: 130
+        },
+        {
+          id: 'smart-credit-scoring-unbanked',
+          title: 'Smart Credit Scoring System for Unbanked',
+          description: 'An AI-powered alternative credit scoring system designed for individuals without formal banking history.',
+          difficulty: 'Medium',
+          participants: 130
+        },
+        {
+          id: 'smart-bill-splitter-upi',
+          title: 'Smart Bill Splitter and UPI Integration',
+          description: 'A mobile/web application that simplifies splitting group expenses and settling payments through UPI.',
+          difficulty: 'Medium',
+          participants: 130
+        },
+        {
+          id: 'personal-finance-tracker-youngsters',
+          title: 'Personal Finance Tracker for Youngsters',
+          description: 'A mobile/web-based app to help students and young adults manage income, expenses, savings goals, and budgets.',
+          difficulty: 'Medium',
+          participants: 130
+        },
+        {
+          id: 'micro-saving-platform-daily-earners',
+          title: 'Micro Saving Platform for Daily Earners',
+          description: 'A platform that helps daily wage earners save small amounts of money easily and access financial services.',
+          difficulty: 'Medium',
+          participants: 130
+        },
+        {
+          id: 'gamified-financial-literacy-platform',
+          title: 'Gamified Financial Literacy Platform',
+          description: 'A platform that uses gamification to teach financial literacy concepts to users of all ages.',
+          difficulty: 'Medium',
+          participants: 130
+        },
+        {
+          id: 'fraud-detection-upi-ai',
+          title: 'Fraud Detection System for UPI Transactions',
+          description: 'An AI-based system to detect and prevent fraudulent transactions in UPI payments.',
+          difficulty: 'Hard',
+          participants: 140
+        },
+        {
+          id: 'decentralized-p2p-lending-platform',
+          title: 'Decentralized Peer-to-Peer Lending Platform',
+          description: 'A blockchain-based platform that connects borrowers and lenders directly, without intermediaries.',
+          difficulty: 'Hard',
+          participants: 140
+        },
+        {
+          id: 'cash-flow-tracker',
+          title: 'Cash Flow Tracker for Small Businesses',
+          description: 'A tool to help small businesses monitor and manage their cash flow effectively.',
+          difficulty: 'Medium',
+          participants: 120
+        },
+        {
+          id: 'ai-driven-personal-finance-assistant',
+          title: 'AI-Driven Personal Finance Assistant',
+          description: 'An AI-based system to provide personalized financial advice and insights to users.',
+          difficulty: 'Hard',
+          participants: 140
+        },
+        {
+          id: 'mobile-banking-visually-impaired',
+          title: 'Mobile Banking Solution for Visually Impaired',
+          description: 'An accessible mobile banking application designed for visually impaired users.',
+          difficulty: 'Hard',
+          participants: 140
+        },
+        {
+          id: 'ai-driven-credit-scoring',
+          title: 'AI-Driven Credit Scoring System',
+          description: 'An AI-based system to assess creditworthiness using alternative data sources.',
+          difficulty: 'Hard',
+          participants: 140
+        }
+      ]
+    },
+    'smart-cities': {
+      name: 'SMART CITIES',
+      icon: '🏙️',
+      color: 'from-indigo-500 to-purple-500',
+      problems: [
+        {
+          id: 'air-quality-noise-monitoring-app',
+          title: 'Air Quality and Noise Monitoring App',
+          description: 'Develop a mobile app for real-time air quality and noise level monitoring in urban areas',
+          difficulty: 'Hard',
+          participants: 105
+        },
+        {
+          id: 'citizen-participation-feedback-platform',
+          title: 'Citizen Participation and Feedback Platform',
+          description: 'Create a platform for citizens to provide feedback and participate in urban planning decisions',
+          difficulty: 'Medium',
+          participants: 95
+        },
+        {
+          id: 'civic-engagement-issue-reporting-app',
+          title: 'Civic Engagement Issue Reporting App',
+          description: 'Create a platform for citizens to report issues and participate in urban planning decisions',
+          difficulty: 'Medium',
+          participants: 95
+        },
+        {
+          id: 'energy-consumption-dashboard',
+          title: 'Energy Consumption Dashboard',
+          description: 'Create a dashboard for monitoring and analyzing energy consumption in real-time',
+          difficulty: 'Medium',
+          participants: 95
+        },
+        {
+          id: 'intelligent-parking-finder',
+          title: 'Intelligent Parking Finder',
+          description: 'Develop an AI-powered app to help users find available parking spots in real-time',
+          difficulty: 'Medium',
+          participants: 95
+        },
+        {
+          id: 'public-transport-optimisation',
+          title: 'Public Transport Optimisation',
+          description: 'Develop a system to optimize public transport routes and schedules using real-time data',
+          difficulty: 'Hard',
+          participants: 100
+        },
+        {
+          id: 'unified-city-service-app',
+          title: 'Unified City Service App',
+          description: 'A centralized digital platform that consolidates municipal services into one user-friendly application. It streamlines service access, enhances communication between citizens and city departments, and improves the efficiency of urban governance.',
+          difficulty: 'Hard',
+          participants: 100
+        },
+        {
+          id: 'urban-flood-monitoring',
+          title: 'Urban Flood Monitoring System',
+          description: 'Develop a system to monitor and predict urban flooding using IoT and AI technologies.',
+          difficulty: 'Hard',
+          participants: 100
+        },
+        {
+          id: 'energy-consumption-dashboard',
+          title: 'Energy Consumption Dashboard',
+          description: 'Develop a dashboard to monitor and analyze energy consumption in real-time.',
+          difficulty: 'Hard',
+          participants: 100
+        },
+        {
+          id: 'waste-segregation-smart-bin',
+          title: 'Waste Segregation and Smart Bin Monitoring',
+          description: 'An AI-powered system designed to automate waste segregation and provide real-time monitoring of waste bins using computer vision and sensor data. It aims to optimize collection schedules, improve recycling, and enhance smart city infrastructure.',
+          difficulty: 'Hard',
+          participants: 100
+        }
+      ]
+    },
+    // 🔹 NEW THEME: LEGALTECH
+    'legaltech': {
+      name: 'LEGALTECH',
+      icon: '⚖️',
+      color: 'from-indigo-600 to-blue-600',
+      problems: [
+        {
+          id: 'smart-contracts',
+          title: 'Self-Executing Smart Contracts',
+          description: 'Develop blockchain-based smart contracts for automated legal agreements in real estate or freelancing',
+          difficulty: 'Hard',
+          participants: 90
+        },
+        {
+          id: 'ai-legal-assistant',
+          title: 'AI-Powered Legal Research Assistant',
+          description: 'Build a tool that helps lawyers quickly find relevant case laws, statutes, and precedents using NLP',
+          difficulty: 'Medium',
+          participants: 100
+        },
+        {
+          id: 'compliance-monitoring',
+          title: 'Automated Regulatory Compliance System',
+          description: 'Create a platform that continuously monitors business operations for legal and regulatory compliance',
+          difficulty: 'Hard',
+          participants: 115
+        }
+      ]
+    }
+  };
 
   const theme = themesData[themeId] || themesData['blockchain-cybersecurity'];
 
@@ -242,17 +333,17 @@ const ThemeProblemsPage = () => {
               {theme.icon}
             </div>
           </div>
-          
+
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 px-2">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
-              {theme.name} 
+              {theme.name}
             </span>
             <br className="sm:hidden" />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 animate-gradient-x">
               Challenges
             </span>
           </h1>
-          
+
           <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto px-4">
             Select a problem statement to explore detailed requirements
           </p>
@@ -261,14 +352,14 @@ const ThemeProblemsPage = () => {
         {/* Problems Grid - Responsive */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {theme.problems.map((problem) => (
-            <Link 
+            <Link
               key={problem.id}
               href={`/themes/${themeId}/${problem.id}`}
               className="group relative block"
             >
               {/* Glow Effect */}
               <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r ${theme.color} opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500`}></div>
-              
+
               {/* Card - Enhanced Responsive Design */}
               <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-6 h-full transform transition-all duration-500 group-hover:-translate-y-2 group-active:scale-95 min-h-[200px] sm:min-h-[220px]">
                 {/* Header with Title and Difficulty */}
@@ -276,22 +367,21 @@ const ThemeProblemsPage = () => {
                   <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-500 leading-tight">
                     {problem.title}
                   </h2>
-                  <span className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap self-start ${
-                    problem.difficulty === 'Hard' 
-                      ? 'bg-red-500/20 text-red-400 border border-red-500/30' 
-                      : problem.difficulty === 'Medium' 
-                        ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' 
+                  <span className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap self-start ${problem.difficulty === 'Hard'
+                      ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                      : problem.difficulty === 'Medium'
+                        ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
                         : 'bg-green-500/20 text-green-400 border border-green-500/30'
-                  }`}>
+                    }`}>
                     {problem.difficulty}
                   </span>
                 </div>
-                
+
                 {/* Description */}
                 <p className="text-gray-400 text-sm sm:text-base mb-6 leading-relaxed">
                   {problem.description}
                 </p>
-                
+
                 {/* Footer with Participants and Button */}
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                   <div className="flex items-center text-gray-500 text-sm">
@@ -300,7 +390,7 @@ const ThemeProblemsPage = () => {
                     </svg>
                     <span>{problem.participants} participants</span>
                   </div>
-                  
+
                   <button className={`px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r ${theme.color} text-white font-bold text-sm sm:text-base rounded-lg hover:opacity-90 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl whitespace-nowrap`}>
                     <span className="hidden sm:inline">View Details</span>
                     <span className="sm:hidden">Details</span>
@@ -316,8 +406,8 @@ const ThemeProblemsPage = () => {
 
         {/* Back Button - Responsive */}
         <div className="text-center">
-          <Link 
-            href="/themes" 
+          <Link
+            href="/themes"
             className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-800 hover:bg-gray-700 active:bg-gray-900 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 active:scale-95 text-sm sm:text-base shadow-lg hover:shadow-xl"
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

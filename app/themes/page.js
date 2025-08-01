@@ -24,22 +24,6 @@ const AllThemesPage = () => {
     glow: 'shadow-blue-500/30'
   },
   {
-    id: 'disaster-management',
-    title: 'DISASTER MANAGEMENT',
-    description: 'Disaster management includes ideas related to risk mitigation, planning and management before, after or during a disaster.',
-    icon: '🌪️',
-    color: 'from-green-500 to-emerald-500',
-    glow: 'shadow-green-500/30'
-  },
-  {
-    id: 'environmental-sustainability',
-    title: 'ENVIRONMENTAL SUSTAINABILITY',
-    description: 'Focus on sustainable practices to protect the environment and promote ecological balance.',
-    icon: '🌍',
-    color: 'from-yellow-500 to-amber-500',
-    glow: 'shadow-yellow-500/30'
-  },
-  {
     id: 'healthcare-innovation',
     title: 'HEALTHCARE INNOVATION',
     description: 'Innovative solutions in healthcare to improve patient care, diagnostics, and treatment methods.',
