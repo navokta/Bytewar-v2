@@ -1,9 +1,7 @@
-// app/themes/[themeId]/[problemId]/page.js
 "use client";
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import React from 'react';
-
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -117,7 +115,6 @@ const problemsData = {
       }
     }
   },
-  // 🔹 NEW: LEGALTECH
   'legaltech': {
     name: 'LegalTech',
     icon: '⚖️',
@@ -158,7 +155,6 @@ const problemsData = {
       }
     }
   },
-  // 🔹 NEW: SMART EDUCATION
   'smart-education': {
     name: 'Smart Education',
     icon: '🎓',
@@ -199,71 +195,324 @@ const problemsData = {
       }
     }
   },
-  // 🔹 NEW: FINTECH SOLUTIONS
   'fintech-solutions': {
     name: 'Fintech Solutions',
     icon: '💰',
     color: 'from-teal-500 to-cyan-500',
     glow: 'shadow-teal-500/30',
     problems: {
-      'personal-finance-ai': {
-        id: 'personal-finance-ai',
-        title: 'AI Personal Finance Manager',
-        description: 'Create an intelligent system for automated financial planning',
-        objective: 'To help individuals manage budgets, savings, and investments using AI insights',
-        stakeholders: ['Individual Users', 'Banks', 'Financial Advisors', 'Regulators'],
+      "ai-driven-credit-scoring": {
+        id: 'ai-driven-credit-scoring',
+        link: 'https://drive.google.com/file/d/1p0RM7xNB3wMnIkT9UOK406XtTStIgX_E/view?usp=sharing',
+        title: 'AI - Driven Credit Scoring for the Gig Economy',
+        description: 'Develop an AI-driven credit scoring system tailored for gig economy workers',
+        objective: [
+          'To design a reliable credit scoring system for gig workers based on non-traditional data.',
+          'To include financially excluded individuals in formal credit systems.',
+          'To assist lenders in making informed decisions with reduced risk.',
+          'To provide gig workers with access to loans, insurance, and credit lines based on AI-powered scores.',
+          'To replace biased or outdated models that overlook gig economy dynamics.'
+        ],
+        stakeholders: ['Gig Workers (Primary Users)', 'Gig Platforms (e.g., Swiggy, Uber, Upwork)', 'Credit Bureaus', 'Regulators', 'Developers / Data Scientists'],
         functionalRequirements: [
-          'Bank account and transaction integration',
-          'Spending categorization and trend analysis',
-          'Budget creation and alerts',
-          'Investment recommendation engine',
-          'Security and privacy controls'
+          'User Profile Management',
+          'Data Collection Engine',
+          'AI-Based Credit Score Engine',
+          'Score Visualization Dashboard',
+          'Lender Integration'
         ],
         nonFunctionalRequirements: [
-          'End-to-end encryption for financial data',
-          'Real-time sync with banking APIs',
-          'Response time under 1 second for all actions',
-          '99.99% data integrity and backup reliability'
+          'Should handle large-scale data from thousands of users and platforms.',
+          'AI model must maintain high prediction accuracy and low false positives.',
+          'Model should be explainable and reduce bias against any demographic.',
+          'Show users why their score changed and what factors matter.'
         ],
         acceptanceCriteria: [
-          'Users reduce overspending by 25% within 2 months',
-          'Investment suggestions match risk profile 90% of the time',
-          'Zero unauthorized access incidents in first year',
-          'App rated 4.5+ stars on app stores'
+          'User can register and link their gig platform account(s).',
+          'A credit score is generated using AI with at least 85% model confidence.',
+          'User sees why their score is high/low (e.g., low consistency, high ratings).',
+          'Lenders can access scores via API after user authorizes.'
+        ]
+      }
+    }, 
+    "legal-rights-awareness-tool": {
+  id: 'legal-rights-awareness-tool',
+  link: 'https://your-link-here.com', // Replace with actual document or project link
+  title: 'Legal Rights Awareness Tool',
+  description: 'A digital platform to educate and empower users by providing clear, scenario-based legal rights information based on location and situation.',
+  objective: [
+    'To educate users on their fundamental legal rights based on their location and situation.',
+    'To make legal information easily accessible, especially for marginalized or underserved communities.',
+    'To provide a mobile and web-based tool that offers actionable steps in real-time situations.',
+    'To reduce misinformation and reliance on unofficial or unreliable legal advice sources.'
+  ],
+  stakeholders: [
+    'General Public (Primary Users)',
+    'Legal Aid NGOs',
+    'Lawyers and Legal Experts',
+    'Regulatory Bodies',
+    'App Developers and Content Reviewers'
+  ],
+  functionalRequirements: [
+    'Simple, multilingual user interface for web and mobile platforms.',
+    'Form input for users to specify their legal issue (e.g., police stop, landlord dispute).',
+    'Interactive scenario selection and step-by-step rights explanation.',
+    'Geolocation detection for jurisdiction-specific advice.',
+    'Search bar to query rights-related topics.',
+    'Offline mode for basic legal info access.',
+    'Emergency help button linking to legal aid contacts.',
+    'Content verification by certified legal professionals.',
+    'Accessibility features like text-to-speech, font resizing, high-contrast mode.'
+  ],
+  nonFunctionalRequirements: [
+    'Average query response time should be within 2 seconds.',
+    'System must support 10,000+ concurrent users.',
+    'End-to-end encryption for any user-entered data.',
+    'Minimal data collection to ensure anonymity.',
+    '99.5% uptime for hosted versions.',
+    'Easy-to-use UI for non-technical users.',
+    'Modular code and content for easy maintenance and legal updates.'
+  ],
+  acceptanceCriteria: [
+    'Tool must display legal rights based on user’s geolocation.',
+    'Users can choose from at least 3 common legal scenarios.',
+    'Each scenario provides step-by-step legal guidance.',
+    'Offline access to core legal info must be supported.',
+    'Emergency help button must display relevant legal aid contacts.',
+    'At least two accessibility features must be available.',
+    'Users must be able to search topics using keywords.',
+    'System must respond to input within 2 seconds.',
+    'All legal content must be reviewed by qualified legal professionals.',
+    'Tested by at least 5 non-technical users with positive usability feedback.',
+    'No personal data stored without explicit consent.',
+    'App must maintain 99.5% uptime if hosted.',
+    'Multilingual support for at least English and one local language.'
+  ]
+}
+
+  },
+  // 🔹 NEW: 5 BLACK-THEMED PROBLEMS
+  'ai-healthcare': {
+    name: 'AI in Healthcare',
+    icon: '🧠',
+    color: 'from-gray-800 to-black',
+    glow: 'shadow-gray-700/30',
+    problems: {
+      'medical-diagnosis-ai': {
+        id: 'medical-diagnosis-ai',
+        link: 'https://example.com/medical-ai.pdf',
+        title: 'AI-Powered Medical Diagnosis Assistant',
+        description: 'Develop an AI system that assists doctors in diagnosing diseases from medical imaging and patient history.',
+        objective: [
+          'To reduce misdiagnosis rates using AI analysis.',
+          'To support doctors in early detection of critical illnesses.',
+          'To integrate with hospital EMR systems.',
+          'To provide explainable AI insights for clinicians.',
+          'To ensure HIPAA and GDPR compliance.'
         ],
-        implementationPlan: [
-          'Phase 1: Financial data API integration research (1 month)',
-          'Phase 2: AI budgeting and investment logic (3 months)',
-          'Phase 3: Mobile and web app development (3 months)',
-          'Phase 4: Beta launch and user feedback (1 month)'
+        stakeholders: ['Doctors', 'Patients', 'Hospitals', 'Regulatory Bodies', 'AI Developers'],
+        functionalRequirements: [
+          'Image recognition for X-rays, MRIs, CT scans',
+          'Patient history analysis module',
+          'Diagnosis confidence scoring',
+          'Integration with Electronic Medical Records (EMR)',
+          'Alert system for critical findings'
+        ],
+        nonFunctionalRequirements: [
+          '99% uptime in clinical environments',
+          'Diagnosis results in under 5 seconds',
+          'HIPAA and GDPR compliant data handling',
+          'Support for 500+ concurrent hospital users'
+        ],
+        acceptanceCriteria: [
+          'AI detects tumors in scans with >95% accuracy',
+          'System integrates with at least 3 major EMR platforms',
+          'No unauthorized data access in 1-year audit',
+          'Doctors report 40% faster diagnosis time'
+        ]
+      }
+    }
+  },
+  'climate-tech': {
+    name: 'Climate Technology',
+    icon: '🌍',
+    color: 'from-green-800 to-black',
+    glow: 'shadow-green-700/30',
+    problems: {
+      'carbon-footprint-tracker': {
+        id: 'carbon-footprint-tracker',
+        link: 'https://example.com/carbon-tracker.pdf',
+        title: 'Real-Time Carbon Footprint Tracker',
+        description: 'Create a mobile and web app to track personal and organizational carbon emissions.',
+        objective: [
+          'To raise awareness about carbon emissions.',
+          'To help individuals and companies reduce their environmental impact.',
+          'To integrate with transportation, energy, and spending data.',
+          'To provide actionable insights and reduction tips.',
+          'To support carbon offset programs.'
+        ],
+        stakeholders: ['Individuals', 'Corporations', 'Environmental Agencies', 'NGOs', 'Developers'],
+        functionalRequirements: [
+          'User activity and spending data import',
+          'Carbon emission calculation engine',
+          'Visualization dashboard',
+          'Offset program integration',
+          'Gamification and goal tracking'
+        ],
+        nonFunctionalRequirements: [
+          'Support 10 million users',
+          'Data updates within 1 minute',
+          'Offline mode for mobile app',
+          'Energy-efficient algorithms'
+        ],
+        acceptanceCriteria: [
+          'Users reduce carbon footprint by 15% within 6 months',
+          'App processes data from 5+ sources (e.g., bank, GPS)',
+          'Dashboard loads in under 1.5 seconds',
+          'No data leaks in security audit'
+        ]
+      }
+    }
+  },
+  'agritech': {
+    name: 'AgriTech',
+    icon: '🌱',
+    color: 'from-emerald-800 to-black',
+    glow: 'shadow-emerald-700/30',
+    problems: {
+      'smart-irrigation': {
+        id: 'smart-irrigation',
+        link: 'https://example.com/smart-irrigation.pdf',
+        title: 'AI-Based Smart Irrigation System',
+        description: 'Design an IoT and AI-powered system to optimize water usage in agriculture.',
+        objective: [
+          'To reduce water waste in farming.',
+          'To increase crop yield through precise irrigation.',
+          'To monitor soil moisture, weather, and plant health.',
+          'To automate irrigation schedules.',
+          'To support small and large farms.'
+        ],
+        stakeholders: ['Farmers', 'Agricultural Scientists', 'Government Agencies', 'Environmental Groups', 'Tech Providers'],
+        functionalRequirements: [
+          'Soil moisture and weather sensors',
+          'AI-based irrigation scheduler',
+          'Remote control via mobile app',
+          'Alerts for drought or overwatering',
+          'Data export for analysis'
+        ],
+        nonFunctionalRequirements: [
+          'Battery life >6 months for sensors',
+          'System uptime >99%',
+          'Works in remote areas with low connectivity',
+          'Scalable to thousands of farms'
+        ],
+        acceptanceCriteria: [
+          'Water usage reduced by 30% in pilot farms',
+          'Farmers report 20% higher crop yield',
+          'System operates in 10+ climate zones',
+          'Mobile app receives 4.5+ star rating'
+        ]
+      }
+    }
+  },
+  'edtech': {
+    name: 'EdTech',
+    icon: '📘',
+    color: 'from-indigo-900 to-black',
+    glow: 'shadow-indigo-700/30',
+    problems: {
+      'vr-classroom': {
+        id: 'vr-classroom',
+        link: 'https://example.com/vr-classroom.pdf',
+        title: 'Virtual Reality Classroom for Remote Learning',
+        description: 'Build an immersive VR platform for interactive and engaging remote education.',
+        objective: [
+          'To make remote learning more engaging and effective.',
+          'To support STEM and vocational training.',
+          'To allow real-time collaboration in virtual classrooms.',
+          'To be accessible on low-cost VR devices.',
+          'To integrate with existing LMS platforms.'
+        ],
+        stakeholders: ['Students', 'Teachers', 'Schools', 'EdTech Companies', 'VR Hardware Makers'],
+        functionalRequirements: [
+          'VR classroom environment with avatars',
+          'Real-time voice and text chat',
+          'Interactive 3D models and simulations',
+          'Attendance and performance tracking',
+          'LMS integration (e.g., Moodle, Google Classroom)'
+        ],
+        nonFunctionalRequirements: [
+          'Low latency (<100ms) for smooth interaction',
+          'Support 50+ users in one session',
+          'Compatible with Oculus, Vive, and WebXR',
+          'Accessible to users with disabilities'
+        ],
+        acceptanceCriteria: [
+          'Students report 30% higher engagement in VR classes',
+          'System supports 50 users in a session without lag',
+          'Integrates with at least 2 major LMS platforms',
+          'Achieves WCAG 2.1 AA compliance'
+        ]
+      }
+    }
+  },
+  'renewable-energy': {
+    name: 'Renewable Energy',
+    icon: '⚡',
+    color: 'from-yellow-800 to-black',
+    glow: 'shadow-yellow-700/30',
+    problems: {
+      'solar-grid-optimizer': {
+        id: 'solar-grid-optimizer',
+        link: 'https://example.com/solar-optimizer.pdf',
+        title: 'AI-Powered Solar Grid Optimization',
+        description: 'Develop an AI system to optimize energy distribution in solar-powered microgrids.',
+        objective: [
+          'To maximize solar energy utilization.',
+          'To balance supply and demand in real-time.',
+          'To reduce energy waste and costs.',
+          'To support off-grid and rural communities.',
+          'To integrate with battery storage systems.'
+        ],
+        stakeholders: ['Energy Providers', 'Homeowners', 'Grid Operators', 'Environmental Agencies', 'Tech Developers'],
+        functionalRequirements: [
+          'Real-time energy production and consumption monitoring',
+          'AI-based load balancing engine',
+          'Battery storage optimization',
+          'Predictive maintenance alerts',
+          'User dashboard for energy usage'
+        ],
+        nonFunctionalRequirements: [
+          '99.99% reliability in critical systems',
+          'Response time under 50ms',
+          'Support for 10,000+ grid nodes',
+          'Secure against cyber threats'
+        ],
+        acceptanceCriteria: [
+          'Energy waste reduced by 25% in pilot areas',
+          'System responds to load changes in <50ms',
+          'Dashboard accessible on mobile and web',
+          'No security breaches in 1-year operation'
         ]
       }
     }
   }
 };
 
-
-
-
-
 const ProblemDetailsPage = () => {
   const params = useParams();
   const { themeId, problemId } = params;
-
   const theme = problemsData[themeId] || problemsData['cybersecurity'];
   const problem = theme.problems[problemId] || theme.problems[Object.keys(theme.problems)[0]];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex flex-col">
-      {/* Header */}
       <Header />
-
-      {/* Main Content */}
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center mb-6">
-              <div className={`flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br ${theme.color} text-4xl shadow-lg`}>
+              <div className={`flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br ${theme.color} text-4xl shadow-lg ${theme.glow}`}>
                 {theme.icon}
               </div>
             </div>
@@ -278,6 +527,7 @@ const ProblemDetailsPage = () => {
           <div className="group relative">
             <div className={`absolute -inset-1 rounded-3xl bg-gradient-to-r ${theme.color} opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500`}></div>
             <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-3xl border border-white/10 p-6 sm:p-8">
+
               {/* Objective */}
               <div className="mb-8">
                 <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 flex items-center gap-2">
@@ -286,9 +536,18 @@ const ProblemDetailsPage = () => {
                   </svg>
                   Objective
                 </h2>
-                <p className="text-gray-300">
-                  {problem.objective}
-                </p>
+                {Array.isArray(problem.objective) ? (
+                  <ul className="space-y-2 text-gray-300">
+                    {problem.objective.map((point, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-green-400 font-bold mt-1">•</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-300">{problem.objective}</p>
+                )}
               </div>
 
               {/* Stakeholders */}
@@ -308,9 +567,8 @@ const ProblemDetailsPage = () => {
                 </div>
               </div>
 
-              {/* Functional & Non-Functional Requirements */}
+              {/* Functional & Non-Functional */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                {/* Functional */}
                 <div>
                   <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 flex items-center gap-2">
                     <svg className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -329,8 +587,6 @@ const ProblemDetailsPage = () => {
                     ))}
                   </ul>
                 </div>
-
-                {/* Non-Functional */}
                 <div>
                   <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 flex items-center gap-2">
                     <svg className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -373,29 +629,29 @@ const ProblemDetailsPage = () => {
                 </div>
               </div>
 
-
               {/* CTA Buttons */}
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="px-6 py-3 sm:px-8 sm:py-4 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-full shadow-lg transition-colors duration-300 text-sm sm:text-base">
-                  Download Requirements PDF
-                </button>
+                {problem.link && (
+                  <Link
+                    href={problem.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 sm:px-8 sm:py-4 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-full shadow-lg transition-colors duration-300 text-sm sm:text-base text-center"
+                  >
+                    Download Requirements PDF
+                  </Link>
+                )}
+                <Link
+                  href={`/themes/${themeId}`}
+                  className="px-6 py-3 sm:px-8 sm:py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-full shadow-lg transition-colors duration-300 text-sm sm:text-base text-center"
+                >
+                  Back to {theme.name} Problems
+                </Link>
               </div>
             </div>
           </div>
-
-          {/* Back Button */}
-          <div className="mt-10 text-center">
-            <Link href={`/themes/${themeId}`} className="inline-flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-full transition-colors duration-300 text-sm sm:text-base">
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to {theme.name} Problems
-            </Link>
-          </div>
         </div>
       </main>
-
-      {/* Footer */}
       <Footer />
     </div>
   );
