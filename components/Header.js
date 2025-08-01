@@ -368,7 +368,7 @@ export default function Header() {
                 </Link>
               </div>
 
-              {user.loading ? (
+              {/* {user.loading ? (
                 <div className="w-full max-w-xs py-2 text-center text-gray-400">Loading...</div>
               ) : !user.isLoggedIn ? (
                 <Link href="/login" className="w-full max-w-xs" onClick={() => setIsMenuOpen(false)}>
@@ -402,7 +402,7 @@ export default function Header() {
                     Logout
                   </button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         )}

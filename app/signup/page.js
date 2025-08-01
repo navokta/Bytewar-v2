@@ -106,24 +106,12 @@ export default function SignupPage() {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        router.push(`/complete-profile?email=${formData.email}`);
-      } else {
-        alert("Signup failed");
-      }
+  router.push('/'); // Regular signups always go to home
+} else {
+  const errorData = await response.json();
+  throw new Error(errorData.message || 'Signup failed');
+}
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Signup failed with status ${response.status}`);
-      }
-
-      const data = await response.json();
-      if (response.status === 200 || response.status === 201) {
-        localStorage.setItem('authToken', data.token);
-        router.push('/');
-      } else {
-        throw new Error(data.message || 'Signup failed');
-      }
     } catch (err) {
       setError(err.message || 'An error occurred. Please try again.');
       console.error('Signup error:', err);
