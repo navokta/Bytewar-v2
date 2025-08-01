@@ -153,13 +153,9 @@ const WowThemesSection = () => {
   const handleTouchMove = (e) => handleDragMove(e);
   const handleTouchEnd = (e) => handleDragEnd(e);
 
-  // Handle card click - only trigger if not dragging and not clicking on button
+  // Handle card click - only trigger if not dragging
   const handleCardClick = (index, e) => {
-    // Check if the click target is the button or its children
-    if (e.target.closest('button') || e.target.closest('a')) {
-      return; // Don't select card if clicking on button or link
-    }
-    
+    e.stopPropagation();
     if (!isDragging) {
       goToSlide(index);
     }
@@ -204,8 +200,18 @@ const WowThemesSection = () => {
           className="relative overflow-visible select-none"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleTouchStart}
+          onMouseDown={(e) => {
+            // Only start drag if not clicking on a button or link
+            if (!e.target.closest('button') && !e.target.closest('a')) {
+              handleMouseDown(e);
+            }
+          }}
+          onTouchStart={(e) => {
+            // Only start drag if not touching a button or link
+            if (!e.target.closest('button') && !e.target.closest('a')) {
+              handleTouchStart(e);
+            }
+          }}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
@@ -272,8 +278,7 @@ const WowThemesSection = () => {
                     className={`h-full flex items-center justify-center ${
                       isCenter ? "pointer-events-auto" : "pointer-events-none"
                     }`}
-                    onClick={(e) => handleCardClick(index, e)}
-                    style={{ cursor: isDragging ? 'grabbing' : isCenter ? 'pointer' : 'default' }}
+                    style={{ cursor: isDragging ? 'grabbing' : 'default' }}
                   >
                     <div
                       className={`relative w-full max-w-lg mx-auto transform transition-all duration-500 ${
@@ -303,39 +308,63 @@ const WowThemesSection = () => {
                         ></div>
 
                         <div className="relative z-10 flex flex-col items-center text-center space-y-6">
-                          {/* Icon with Animation */}
-                          <div
-                            className={`flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br ${
-                              theme.color
-                            } text-4xl transform transition-all duration-500 ${
-                              isCenter ? "scale-110 rotate-12" : "scale-100"
-                            }`}
+                          {/* Clickable area for icon, title, and description */}
+                          <div 
+                            className="cursor-pointer flex flex-col items-center space-y-6"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCardClick(index, e);
+                            }}
                           >
-                            {theme.icon}
+                            {/* Icon with Animation */}
+                            <div
+                              className={`flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br ${
+                                theme.color
+                              } text-4xl transform transition-all duration-500 ${
+                                isCenter ? "scale-110 rotate-12" : "scale-100"
+                              }`}
+                            >
+                              {theme.icon}
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                              {theme.title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="text-gray-200 text-lg leading-relaxed">
+                              {theme.description}
+                            </p>
                           </div>
 
-                          {/* Title */}
-                          <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-                            {theme.title}
-                          </h3>
-
-                          {/* Description */}
-                          <p className="text-gray-200 text-lg leading-relaxed">
-                            {theme.description}
-                          </p>
-
-                          {/* Floating Action Button */}
+                          {/* Floating Action Button - Completely separate from clickable area */}
                           {isCenter && !isDragging && (
-                            <Link href={`../themes/${theme.id}`} onClick={(e) => e.stopPropagation()}>
-                              <button
-                                className={`px-6 py-3 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${theme.glow} relative z-50`}
-                                onClick={(e) => {
-                                  e.stopPropagation(); // Prevent event bubbling
-                                }}
+                            <div 
+                              className="relative z-50 pointer-events-auto"
+                              onClick={(e) => e.stopPropagation()}
+                              onMouseDown={(e) => e.stopPropagation()}
+                              onTouchStart={(e) => e.stopPropagation()}
+                            >
+                              <Link 
+                                href={`../themes/${theme.id}`}
+                                onClick={(e) => e.stopPropagation()}
                               >
-                                Explore Theme
-                              </button>
-                            </Link>
+                                <button
+                                  className={`px-6 py-3 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${theme.glow} pointer-events-auto`}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    // Force navigation using router or window location
+                                    window.location.href = `../themes/${theme.id}`;
+                                  }}
+                                  onMouseDown={(e) => e.stopPropagation()}
+                                  onTouchStart={(e) => e.stopPropagation()}
+                                >
+                                  Explore Theme
+                                </button>
+                              </Link>
+                            </div>
                           )}
                         </div>
                       </div>
