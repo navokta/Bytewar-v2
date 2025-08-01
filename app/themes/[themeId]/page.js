@@ -62,48 +62,6 @@ const ThemeProblemsPage = () => {
         }
       ]
     },
-    'disaster-management': {
-      name: 'DISASTER MANAGEMENT',
-      icon: '🌪️',
-      color: 'from-green-500 to-emerald-500',
-      problems: [
-        {
-          id: 'early-warning-system',
-          title: 'AI-Powered Early Warning System',
-          description: 'Build a predictive system for natural disaster detection and alerts',
-          difficulty: 'Hard',
-          participants: 140
-        },
-        {
-          id: 'resource-allocation',
-          title: 'Emergency Resource Allocation',
-          description: 'Create a system for efficient distribution of resources during disasters',
-          difficulty: 'Medium',
-          participants: 90
-        }
-      ]
-    },
-    'environmental-sustainability': {
-      name: 'ENVIRONMENTAL SUSTAINABILITY',
-      icon: '🌍',
-      color: 'from-yellow-500 to-amber-500',
-      problems: [
-        {
-          id: 'carbon-footprint-tracker',
-          title: 'Smart Carbon Footprint Tracker',
-          description: 'Develop an IoT-based system for monitoring and reducing carbon emissions',
-          difficulty: 'Hard',
-          participants: 105
-        },
-        {
-          id: 'waste-management',
-          title: 'Intelligent Waste Management',
-          description: 'Create a smart solution for efficient waste collection and recycling',
-          difficulty: 'Medium',
-          participants: 130
-        }
-      ]
-    },
     'healthcare-innovation': {
       name: 'HEALTHCARE INNOVATION',
       icon: '🏥',
@@ -250,18 +208,74 @@ const ThemeProblemsPage = () => {
       color: 'from-indigo-500 to-purple-500',
       problems: [
         {
-          id: 'traffic-optimization',
-          title: 'Intelligent Traffic Optimization',
-          description: 'Develop AI-powered traffic management for reducing congestion',
+          id: 'air-quality-noise-monitoring-app',
+          title: 'Air Quality and Noise Monitoring App',
+          description: 'Develop a mobile app for real-time air quality and noise level monitoring in urban areas',
           difficulty: 'Hard',
           participants: 105
         },
         {
-          id: 'energy-management',
-          title: 'Smart Energy Grid Management',
-          description: 'Create a system for optimizing energy distribution in urban areas',
+          id: 'citizen-participation-feedback-platform',
+          title: 'Citizen Participation and Feedback Platform',
+          description: 'Create a platform for citizens to provide feedback and participate in urban planning decisions',
           difficulty: 'Medium',
           participants: 95
+        },
+        {
+          id: 'civic-engagement-issue-reporting-app',
+          title: 'Civic Engagement Issue Reporting App',
+          description: 'Create a platform for citizens to report issues and participate in urban planning decisions',
+          difficulty: 'Medium',
+          participants: 95
+        },
+        {
+          id: 'energy-consumption-dashboard',
+          title: 'Energy Consumption Dashboard',
+          description: 'Create a dashboard for monitoring and analyzing energy consumption in real-time',
+          difficulty: 'Medium',
+          participants: 95
+        },
+        {
+          id: 'intelligent-parking-finder',
+          title: 'Intelligent Parking Finder',
+          description: 'Develop an AI-powered app to help users find available parking spots in real-time',
+          difficulty: 'Medium',
+          participants: 95
+        },
+        {
+          id: 'public-transport-optimisation',
+          title: 'Public Transport Optimisation',
+          description: 'Develop a system to optimize public transport routes and schedules using real-time data',
+          difficulty: 'Hard',
+          participants: 100
+        },
+        {
+          id: 'unified-city-service-app',
+          title: 'Unified City Service App',
+          description: 'A centralized digital platform that consolidates municipal services into one user-friendly application. It streamlines service access, enhances communication between citizens and city departments, and improves the efficiency of urban governance.',
+          difficulty: 'Hard',
+          participants: 100
+        },
+        {
+          id: 'urban-flood-monitoring',
+          title: 'Urban Flood Monitoring System',
+          description: 'Develop a system to monitor and predict urban flooding using IoT and AI technologies.',
+          difficulty: 'Hard',
+          participants: 100
+        },
+        {
+          id: 'energy-consumption-dashboard',
+          title: 'Energy Consumption Dashboard',
+          description: 'Develop a dashboard to monitor and analyze energy consumption in real-time.',
+          difficulty: 'Hard',
+          participants: 100
+        },
+        {
+          id: 'waste-segregation-smart-bin',
+          title: 'Waste Segregation and Smart Bin Monitoring',
+          description: 'An AI-powered system designed to automate waste segregation and provide real-time monitoring of waste bins using computer vision and sensor data. It aims to optimize collection schedules, improve recycling, and enhance smart city infrastructure.',
+          difficulty: 'Hard',
+          participants: 100
         }
       ]
     },
