@@ -68,7 +68,13 @@ export async function POST(request) {
         token,
         user: userWithoutPassword,
       }),
-      { status: 201 }
+      {
+    status: 201,
+    headers: {
+      'Content-Type': 'application/json',
+      'Set-Cookie': `token=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${7 * 24 * 60 * 60}${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`
+    }
+  }
     );
   } catch (error) {
     console.error("Signup error:", error);

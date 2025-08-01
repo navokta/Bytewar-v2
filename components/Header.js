@@ -44,15 +44,8 @@ export default function Header() {
     loading: true
   });
 
- const fetchUserData = useCallback(async () => {
-  const token = getToken();
-
-  if (!token && !session) {
-    setUser({ isLoggedIn: false, data: null, loading: false });
-    return;
-  }
-
-  // ✅ If logged in via Google or GitHub
+const fetchUserData = useCallback(async () => {
+  // First check for social login (Google/GitHub)
   if (session?.user) {
     setUser({
       isLoggedIn: true,
@@ -60,37 +53,40 @@ export default function Header() {
         name: session.user.name,
         email: session.user.email,
         profilePicture: session.user.image,
+        phone: null // Social logins might not provide phone number
       },
       loading: false,
     });
     return;
   }
 
-  // ✅ If logged in via your custom /api/auth/login
+  // Then check for traditional login
   try {
     const response = await fetch('/api/auth/me', {
-      method: 'GET',
+      credentials: 'include', // For cookie-based auth
       headers: {
-        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
-      },
-      credentials: 'include',
+        // Include token if you're using token-based auth
+        ...(getToken() && { 'Authorization': `Bearer ${getToken()}` })
+      }
     });
 
     if (response.ok) {
-      const userData = await response.json();
+      const { user } = await response.json();
       setUser({
         isLoggedIn: true,
         data: {
-          ...userData.user,
-          profilePicture: userData.user.profilePicture 
-            ? `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}${userData.user.profilePicture}`
-            : null
+          name: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          profilePicture: user.profilePicture 
+            ? `${process.env.NEXT_PUBLIC_API_BASE_URL || ''}${user.profilePicture}`
+            : null,
+          phone: user.phone
         },
-        loading: false,
+        loading: false
       });
     } else {
-      removeToken();
+      // If both methods fail, user is not logged in
       setUser({ isLoggedIn: false, data: null, loading: false });
     }
   } catch (error) {
@@ -116,10 +112,26 @@ export default function Header() {
   }, []);
 
   const handleLogout = async () => {
-  removeToken();
-  await signOut({ callbackUrl: '/' }); // NextAuth logout
-  setUser({ isLoggedIn: false, data: null, loading: false });
-  setShowProfilePopup(false);
+  try {
+    // For traditional login (email/password)
+    await fetch('/api/auth/logout', { 
+      method: 'POST',
+      credentials: 'include' 
+    });
+
+    // For social login (Google/GitHub)
+    await signOut({ callbackUrl: '/' });
+
+    // Clear local state
+    setUser({ isLoggedIn: false, data: null, loading: false });
+    
+    // Optional: Redirect after logout
+    window.location.href = '/'; // or use router.push('/') if using Next.js router
+  } catch (error) {
+    console.error('Logout failed:', error);
+    // Fallback: still clear local state even if logout request fails
+    setUser({ isLoggedIn: false, data: null, loading: false });
+  }
 };
 
 
