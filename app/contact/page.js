@@ -18,6 +18,15 @@ const InteractiveContactPage = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [activeTab, setActiveTab] = useState('general');
 
+  // Google Forms configuration
+  const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe9X8mMUfypeN6yVYJ6KYn4v9ZNaDNHQ8BCTyMekI1TO6N6lA/formResponse";
+  const FORM_FIELDS = {
+    name: "entry.2058199135",
+    email: "entry.1931446687", 
+    subject: "entry.1844142547",
+    message: "entry.1452999000"
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -48,14 +57,41 @@ const InteractiveContactPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const submitToGoogleForms = async (data) => {
+    try {
+      // Create FormData object
+      const formDataToSubmit = new FormData();
+      formDataToSubmit.append(FORM_FIELDS.name, data.name);
+      formDataToSubmit.append(FORM_FIELDS.email, data.email);
+      formDataToSubmit.append(FORM_FIELDS.subject, data.subject);
+      formDataToSubmit.append(FORM_FIELDS.message, data.message);
+
+      // Submit to Google Forms
+      const response = await fetch(GOOGLE_FORM_ACTION_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Important: Google Forms requires no-cors mode
+        body: formDataToSubmit
+      });
+
+      // Since we're using no-cors, we can't check the response status
+      // We'll assume success if no error is thrown
+      return true;
+    } catch (error) {
+      console.error('Error submitting to Google Forms:', error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       setIsSubmitting(true);
-      // Simulate API call
-      setTimeout(() => {
-        console.log('Form submitted:', formData);
-        setIsSubmitting(false);
+      
+      try {
+        // Submit to Google Forms
+        await submitToGoogleForms(formData);
+        
+        console.log('Form submitted successfully:', formData);
         setSubmitSuccess(true);
         setFormData({
           name: '',
@@ -63,9 +99,16 @@ const InteractiveContactPage = () => {
           subject: '',
           message: ''
         });
+        
         // Reset success message after 5 seconds
         setTimeout(() => setSubmitSuccess(false), 5000);
-      }, 1500);
+      } catch (error) {
+        console.error('Failed to submit form:', error);
+        // You can add error handling here, like showing an error message
+        alert('Failed to submit form. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
