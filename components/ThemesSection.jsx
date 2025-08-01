@@ -153,6 +153,18 @@ const WowThemesSection = () => {
   const handleTouchMove = (e) => handleDragMove(e);
   const handleTouchEnd = (e) => handleDragEnd(e);
 
+  // Handle card click - only trigger if not dragging and not clicking on button
+  const handleCardClick = (index, e) => {
+    // Check if the click target is the button or its children
+    if (e.target.closest('button') || e.target.closest('a')) {
+      return; // Don't select card if clicking on button or link
+    }
+    
+    if (!isDragging) {
+      goToSlide(index);
+    }
+  };
+
   // Add global mouse event listeners
   useEffect(() => {
     if (isDragging) {
@@ -260,7 +272,7 @@ const WowThemesSection = () => {
                     className={`h-full flex items-center justify-center ${
                       isCenter ? "pointer-events-auto" : "pointer-events-none"
                     }`}
-                    onClick={() => !isDragging && goToSlide(index)}
+                    onClick={(e) => handleCardClick(index, e)}
                     style={{ cursor: isDragging ? 'grabbing' : isCenter ? 'pointer' : 'default' }}
                   >
                     <div
@@ -314,14 +326,11 @@ const WowThemesSection = () => {
 
                           {/* Floating Action Button */}
                           {isCenter && !isDragging && (
-                            <Link href={`../themes/${theme.id}`}>
+                            <Link href={`../themes/${theme.id}`} onClick={(e) => e.stopPropagation()}>
                               <button
-                                className={`px-6 py-3 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${theme.glow}`}
+                                className={`px-6 py-3 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${theme.glow} relative z-50`}
                                 onClick={(e) => {
-                                  e.stopPropagation(); // Prevent card selection
-                                  e.preventDefault();
-                                  // Navigate to the theme page
-                                  window.location.href = `../themes/${theme.id}`;
+                                  e.stopPropagation(); // Prevent event bubbling
                                 }}
                               >
                                 Explore Theme
