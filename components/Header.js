@@ -115,7 +115,6 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Handle logout
   const handleLogout = async () => {
   removeToken();
   await signOut({ callbackUrl: '/' }); // NextAuth logout

@@ -17,47 +17,47 @@ const handler = NextAuth({
   ],
 
   callbacks: {
-   async signIn({ user, account }) {
-    await dbConnect();
-    const existingUser = await User.findOne({ email: user.email });
+async signIn({ user, account }) {
+  await dbConnect();
+  const existingUser = await User.findOne({ email: user.email });
 
-    if (!existingUser) {
-      // New OAuth user → mark as incomplete
-      await User.create({
-        email: user.email,
-        firstName: user.name?.split(" ")[0] || "",
-        lastName: user.name?.split(" ")[1] || "",
-        image: user.image || "",
-        password: "", // Force profile completion
-        phone: "",    // Force profile completion
-        authMethod: account.provider, // "google" or "github"
-      });
-      return '/complete-profile'; // Redirect OAuth users
-    }
+  if (!existingUser) {
+    await User.create({
+      email: user.email,
+      firstName: user.name?.split(" ")[0] || "",
+      lastName: user.name?.split(" ")[1] || "",
+      image: user.image || "",
+      password: "",
+      phone: "",
+      authMethod: account.provider,
+    });
+    // mark token flag
+    user.isNewOAuthUser = true;
+  } else if ((!existingUser.phone || !existingUser.password) && account.provider !== "credentials") {
+    user.isNewOAuthUser = true;
+  }
+  return true;
+},
 
-    // Existing OAuth user with missing phone/password
-    if (account.provider !== 'credentials' && (!existingUser.phone || !existingUser.password)) {
-      return '/complete-profile';
-    }
+async session({ session, token }) {
+  session.userId = token.sub;
+  session.isNewUser = token.isNewOAuthUser || false;
+  return session;
+},
 
-    return true; // Allow login
-  },
-
-     async session({ session, token }) {
-    session.userId = token.sub;
-    session.isNewUser = token.newOAuthUser ?? false;
-    return session;
-  },
   async jwt({ token, user }) {
-    if (user) {
-      token.newOAuthUser = user.newOAuthUser ?? false;
-    }
-    return token;
-  },
+  if (user) {
+    token.isNewOAuthUser = user.isNewOAuthUser ?? false;
+  }
+  return token;
+},
 
-    redirect({ url, baseUrl }) {
-      return baseUrl; // Always redirect to home, frontend handles complete-profile
-    },
+   async redirect({ url, baseUrl, token }) {
+  if (token?.isNewOAuthUser) {
+    return `${baseUrl}/complete-profile`;
+  }
+  return baseUrl;
+},
   },
 
   pages: {
