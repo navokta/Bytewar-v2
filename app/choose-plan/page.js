@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Check, Shield, DollarSign, X, Menu } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 const ChoosePlanPage = () => {
   const [selectedTier, setSelectedTier] = useState(null);
@@ -223,9 +224,9 @@ const ChoosePlanPage = () => {
             <p className="text-green-100 text-lg mb-6">
               Thank you for becoming a {selectedTier?.name} sponsor. We&apos;ll contact you shortly with next steps.
             </p>
-            <a href="/" className="inline-block px-6 py-3 bg-white text-green-700 font-bold rounded-full hover:bg-gray-100 transition-colors">
+            <Link href="/" className="inline-block px-6 py-3 bg-white text-green-700 font-bold rounded-full hover:bg-gray-100 transition-colors">
               Back to Home
-            </a>
+            </Link>
           </div>
         ) : paymentStatus === 'failed' ? (
           <div className="bg-gradient-to-br from-red-600 to-orange-700 rounded-2xl p-6 sm:p-8 lg:p-10 text-center max-w-2xl mx-auto">
