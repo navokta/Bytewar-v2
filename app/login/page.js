@@ -37,7 +37,7 @@ export default function LoginPage() {
         // Store the token
         localStorage.setItem('authToken', data.token);
         // Redirect to home page - the Header will automatically fetch user data
-        router.push('/');
+        router.push('/complete-profile');
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
       }
