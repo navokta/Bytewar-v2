@@ -99,38 +99,421 @@ const problemsData = {
     color: 'from-indigo-600 to-blue-600',
     glow: 'shadow-indigo-500/30',
     problems: {
-      'ai-legal-assistant': {
-        id: 'ai-legal-assistant',
-        title: 'AI-Powered Legal Research Assistant',
-        description: 'Build a tool that helps lawyers quickly find relevant case laws, statutes, and precedents using NLP',
-        objective: 'To reduce legal research time and improve accuracy using artificial intelligence',
-        stakeholders: ['Lawyers', 'Judges', 'Legal Researchers', 'Law Firms', 'Courts'],
+      'court-case-manager': {
+        id: 'court-case-manager',
+        link: "https://drive.google.com/file/d/1lRIJ45iLlIbguNsBapg4G2GUuMhFTcW4/view?usp=sharing", 
+        title: 'Court Hearing and Case Management Platform',
+        description: 'Digitized platform to manage court hearings, legal case filings, document sharing, and real-time notifications for all stakeholders.',
+        objective: 'To streamline legal case workflows and improve transparency and accessibility in court operations.',
+        stakeholders: ['Judges', 'Lawyers', 'Court Clerks', 'Citizens', 'System Admins', 'Judicial Authorities'],
         functionalRequirements: [
-          'Natural language query interface',
-          'Database of legal documents and case laws',
-          'Relevance ranking of search results',
-          'Citation verification system',
-          'User account and history management'
+          'Role-based authentication and access',
+          'Case filing and document uploads',
+          'Hearing scheduling and updates',
+          'Case dashboard with timeline view',
+          'Real-time notifications and case search'
         ],
         nonFunctionalRequirements: [
-          'Support 10,000+ concurrent legal professionals',
-          'Search results returned in under 1 second',
-          '95%+ accuracy in relevance matching',
-          'Compliance with data privacy laws (e.g., GDPR)'
+          'End-to-end encryption',
+          'Support for large concurrent users',
+          '<2 second response time',
+          '99.9% uptime',
+          'WCAG 2.1 & GDPR compliance'
         ],
         acceptanceCriteria: [
-          'Users find relevant case law in <10 seconds',
-          'System achieves >95% relevance accuracy in testing',
-          'Successfully integrates with major legal databases',
-          'No data breaches during 6-month trial'
+          'Role-based login and secure access',
+          'Lawyers can file cases with documents',
+          'Hearing scheduling with notifications',
+          'Search/filter and dashboard status view',
+          'Full audit trail for case activities'
         ],
         implementationPlan: [
-          'Phase 1: Legal corpus collection and cleaning (2 months)',
-          'Phase 2: NLP model training and validation (3 months)',
-          'Phase 3: Frontend and backend integration (2 months)',
-          'Phase 4: Pilot deployment in law firms (1 month)'
+          'Phase 1: Auth & Case Filing (1.5 months)',
+          'Phase 2: Scheduling & Dashboard (1.5 months)',
+          'Phase 3: Notifications & Search (1 month)',
+          'Phase 4: Testing & Deployment (1 month)'
         ]
-      }
+      },
+      'access-to-justice': {
+        id: 'access-to-justice',
+        link: "https://drive.google.com/file/d/1Hv3JHejGDYjJdbKKA06doyxtF2jb6XW_/view?usp=sharing", 
+        title: 'Access to Justice for Underserved Communities',
+        description: 'A mobile-first platform that connects marginalized communities with free or affordable legal help through multilingual support, legal resources, chatbots, and pro bono services.',
+        objective: 'To democratize legal access by connecting underserved populations with legal education, aid, and self-help tools.',
+        stakeholders: [
+          'Community Members / Users',
+          'Legal Aid Organizations',
+          'Pro Bono Lawyers / Law Students',
+          'NGOs / Civil Society Groups',
+          'Government / Judiciary',
+          'Platform Administrators'
+        ],
+        functionalRequirements: [
+          'Multilingual user interface',
+          'AI chatbot for legal issue triage',
+          'Self-help legal library with regional content',
+          'Legal help request and matching system',
+          'Online appointment booking',
+          'Anonymous usage mode for sensitive cases',
+          'NGO/Lawyer dashboards',
+          'Push notifications and SMS alerts'
+        ],
+        nonFunctionalRequirements: [
+          'Encrypted data & privacy law compliance',
+          '24/7 high availability',
+          'Mobile-first, offline access, WCAG-compliant design',
+          'Scalable for high user volume and chatbot sessions',
+          'Localized and culturally sensitive content',
+          'Fast performance on low-bandwidth devices'
+        ],
+        acceptanceCriteria: [
+          'Available in at least 3 languages',
+          'Chatbot triages legal issues with 80%+ accuracy',
+          'Library includes 50+ region-specific articles/templates',
+          'User requests responded to within 24 hours',
+          'NGOs/lawyers manage cases via dashboard',
+          'Loads under 3 seconds on 3G Android phones',
+          'Anonymity respected by default for sensitive users',
+          'Offline access for static legal resources',
+          'Consultation scheduling via calendar interface',
+          'Admins and NGOs can track usage and engagement'
+        ],
+        implementationPlan: [
+          'Phase 1: Multilingual UI & chatbot prototype (1.5 months)',
+          'Phase 2: Legal library, request form, appointment system (2 months)',
+          'Phase 3: Dashboards & push/SMS alerts (1 month)',
+          'Phase 4: Testing, offline support, and deployment (1.5 months)'
+        ]
+      },
+      'automated-legal-doc-generator': {
+          id: 'automated-legal-doc-generator',
+          link: "https://drive.google.com/file/d/1PQWOMVB-GznIRxYUOsFem5s26P0Aijt5/view?usp=sharing", 
+          title: 'Automated Legal Document Generator',
+          description: 'A rule-based and AI-powered system for generating customized legal documents like contracts, NDAs, and wills using smart forms and templates.',
+          objective: 'To automate document drafting, ensure legal compliance, and save time for individuals and legal teams.',
+          stakeholders: [
+            'Legal Professionals / Law Firms',
+            'Corporate Legal Departments',
+            'Small Businesses / Startups',
+            'Individuals / End Users',
+            'Product Owner',
+            'Software Developers',
+            'Compliance Officers'
+          ],
+          functionalRequirements: [
+            'Secure login and dashboard',
+            'Form-based input for legal data',
+            'Predefined customizable templates',
+            'Jurisdiction-based language selection',
+            'Preview, edit, and download as PDF/Word',
+            'Save/retrieve previous documents',
+            'Admin interface for template control',
+            'Version control and optional e-signature'
+          ],
+          nonFunctionalRequirements: [
+            '<5 seconds document generation time',
+            'AES-256 encryption, HTTPS, role-based access',
+            'Simple UI for non-legal users',
+            'Supports 10,000+ concurrent users',
+            '99.9% uptime and backup',
+            'GDPR/CCPA compliance',
+            'Supports multiple languages and jurisdictions'
+          ],
+          acceptanceCriteria: [
+            'Users can register, log in, and access templates',
+            'Dynamic forms adjust to document type/jurisdiction',
+            'Secure, editable PDF/Word download available',
+            'Document generation within 5 seconds',
+            'Admins can update templates without data loss'
+          ],
+          implementationPlan: [
+            'Phase 1: Auth, dashboard, form input (1 month)',
+            'Phase 2: Template engine + jurisdiction logic (1.5 months)',
+            'Phase 3: PDF/Word export, storage, admin panel (1 month)',
+            'Phase 4: Testing, deployment, usability checks (1 month)'
+          ]
+        },
+      'fake-legal-doc-detector': {
+          id: 'fake-legal-doc-detector',
+          link: "https://drive.google.com/file/d/1Wq0-9sENR3St7uKRtcOmhN5RvMxqC2Mo/view?usp=sharing", 
+          title: 'Fake Legal Document Detector',
+          description: 'Detects forged legal documents using AI, OCR, and metadata analysis to prevent fraud.',
+          objective: 'To reduce legal fraud by verifying authenticity of documents automatically.',
+          stakeholders: ['Law Firms', 'Government Agencies', 'Corporate Legal Teams', 'General Public'],
+          functionalRequirements: [
+            'Document upload and OCR',
+            'Metadata and digital signature verification',
+            'AI-based forgery detection',
+            'Authenticity scoring and PDF reports',
+            'Admin dashboard for flagged documents'
+          ],
+          nonFunctionalRequirements: [
+            'Analysis within 10 seconds',
+            'Supports 1000+ checks/day',
+            'AES-256 encryption & GDPR compliance',
+            '90%+ detection accuracy'
+          ],
+          acceptanceCriteria: [
+            'Secure upload and analysis',
+            'Correctly flags forged documents',
+            'Provides reasoning and PDF report',
+            'Performs within required limits'
+          ],
+          implementationPlan: [
+            'Phase 1: OCR + Upload (1 month)',
+            'Phase 2: AI Forgery Detection (2 months)',
+            'Phase 3: Dashboard + Integration (2 months)',
+            'Phase 4: Testing & Deployment (1 month)'
+          ]
+        },
+        'ai-legal-doc-summarizer': {
+          id: 'ai-legal-doc-summarizer',
+          link: "https://drive.google.com/file/d/1kfJG76EnNcDwbS-rmKqecvUCH8LViWQQ/view?usp=sharing", 
+          title: 'AI Powered Legal Document Summarizer',
+          description: 'Tool to summarize legal documents like contracts and judgments using AI/NLP.',
+          objective: 'To save time and improve understanding of lengthy legal documents.',
+          stakeholders: [
+            'Participants',
+            'Legal Mentors',
+            'Technical Mentors',
+            'Judges',
+            'End Users'
+          ],
+          functionalRequirements: [
+            'Upload legal documents',
+            'Text extraction & OCR',
+            'AI-based summarization',
+            'Show summary vs original',
+            'Download summary'
+          ],
+          nonFunctionalRequirements: [
+            'Fast performance',
+            'Accurate legal summaries',
+            'Secure & encrypted',
+            'Role-based access',
+            'Multilingual support'
+          ],
+          acceptanceCriteria: [
+            'Uploads & summarization work fast',
+            'Legal meaning preserved',
+            'Editable & downloadable summaries',
+            'Secure access & storage'
+          ],
+          implementationPlan: [
+            'Phase 1: Upload + basic summary',
+            'Phase 2: Side-by-side view',
+            'Phase 3: UI + download',
+            'Phase 4: Security',
+            'Phase 5: Testing & launch'
+          ]
+        },
+        'legal-right-awareness-tool': {
+          id: 'legal-right-awareness-tool',
+          link: "https://drive.google.com/file/d/18JMAP-eOEtYybIspnt3hBT2tOMoYy_1a/view?usp=sharing", 
+          title: 'Legal Right Awareness Tool',
+          description: 'Platform to educate users about legal rights using location-based, scenario-driven guidance.',
+          objective: 'To provide real-time, accessible legal info in simple language for common situations.',
+          stakeholders: [
+            'Users',
+            'Legal Experts',
+            'NGOs',
+            'Developers',
+            'Judges'
+          ],
+          functionalRequirements: [
+            'Multilingual UI (web & mobile)',
+            'Scenario-based guidance',
+            'Location-based legal info',
+            'Search bar for topics',
+            'Offline access',
+            'Emergency help button',
+            'Verified legal content',
+            'Accessibility features'
+          ],
+          nonFunctionalRequirements: [
+            'Fast (≤ 2s response)',
+            'Scalable (10K+ users)',
+            'Secure & anonymous',
+            '99.5% uptime',
+            'Easy to use & update'
+          ],
+          acceptanceCriteria: [
+            'Shows legal rights by location',
+            'Supports 3+ scenarios',
+            'Step-by-step guidance',
+            'Offline mode works',
+            'Emergency help functional',
+            '2+ accessibility options',
+            'Search works accurately',
+            'Verified content',
+            'Usability tested',
+            'No data collected without consent',
+            'Multilingual support (2+ languages)'
+          ],
+          implementationPlan: [
+            'UI + Languages + Scenarios',
+            'Location + Content',
+            'Emergency + Accessibility',
+            'Offline + Optimization',
+            'Testing + Launch'
+          ]
+        },
+        'legal-risk-analyzer': {
+            id: 'legal-risk-analyzer',
+            link: "https://drive.google.com/file/d/108R-CkMMnmwApWtOKS0rDFXsRR6qMUvQ/view?usp=sharing", 
+            title: 'Legal Risk Analyzer for Contracts',
+            description: 'AI tool to analyze contracts, detect legal risks, and provide summaries with flagged clauses.',
+            objective: 'To automate legal review and highlight contract risks for faster, safer decision-making.',
+            stakeholders: [
+              'Participants',
+              'Legal Mentors',
+              'Technical Mentors',
+              'Judges',
+              'End Users',
+              'Sponsors'
+            ],
+            functionalRequirements: [
+              'Upload DOCX, PDF, TXT files',
+              'NLP-based contract summarization',
+              'Flag risk clauses by category',
+              'Assign & display risk levels',
+              'Explain risk reasoning',
+              'Highlight risky clauses in full text',
+              'Download summary and report'
+            ],
+            nonFunctionalRequirements: [
+              'High risk detection accuracy',
+              'Fast (≤ 60s analysis)',
+              'Secure & encrypted file handling',
+              'Scalable for many users',
+              'Accessible on all devices (WCAG compliant)',
+              'Easy-to-use for non-legal users'
+            ],
+            acceptanceCriteria: [
+              'Handles 25+ docs in parallel',
+              '99.9% uptime',
+              '≤ 5s analysis for short docs',
+              'Retry failed analysis automatically',
+              'Only authorized access allowed',
+              'Logs for audit trails',
+              'Consistent results on repeated analysis',
+              'Supports one legal domain',
+              'Risk labels (Low, Medium, High) shown',
+              'Downloadable risk report',
+              'Summary dashboard available'
+            ],
+            implementationPlan: [
+              'Phase 1: Upload + Summarization',
+              'Phase 2: Risk tagging + Severity levels',
+              'Phase 3: Report generation + Download',
+              'Phase 4: UI, Security, Accessibility',
+              'Phase 5: Testing + Demo-ready deployment'
+            ]
+          },
+          'legal-risk-scoring-startups': {
+            id: 'legal-risk-scoring-startups',
+            link: "https://drive.google.com/file/d/1WheolUZpkKTqKPfiCyEiEwVOQ-NTRp9F/view?usp=sharing", 
+            title: 'Legal Risk Scoring for Startups',
+            description: 'Tool for startups to self-assess legal risk using questionnaires, document uploads, and scoring logic.',
+            objective: 'To help startups identify legal risks, improve compliance, and become funding-ready.',
+            stakeholders: [
+              'Startup Founders',
+              'Investors / VCs',
+              'Legal Advisors',
+              'Compliance Officers'
+            ],
+            functionalRequirements: [
+              'Role-based registration (Startup, Investor, Legal Advisor)',
+              'Legal questionnaire by topic (IP, labor, privacy)',
+              'Document upload & review',
+              'Risk scoring engine (0–100)',
+              'Downloadable or in-app risk report',
+              'Startup dashboard (scores & trends)',
+              'Admin panel for managing rules/questions'
+            ],
+            nonFunctionalRequirements: [
+              'Fast (≤ 10s for scoring)',
+              'Secure & encrypted',
+              'Scalable for many users',
+              'Accurate rule-based logic',
+              'Clean UI for non-legal users',
+              'Mobile-friendly & WCAG compliant',
+              'Compliant with GDPR/CCPA'
+            ],
+            acceptanceCriteria: [
+              'User registration & profile creation',
+              'Legal questionnaire completes < 15 min',
+              'Generates real-time risk score (0–100)',
+              'Secure doc uploads',
+              'Risk report with 3+ suggestions',
+              'Admin can update logic/questions',
+              'Response time ≤ 2s for 90% interactions',
+              'Data securely stored',
+              'Dashboard shows risk by category'
+            ],
+            implementationPlan: [
+              'Phase 1: Auth + Questionnaire',
+              'Phase 2: Scoring Engine + Report',
+              'Phase 3: Dashboard + Admin Panel',
+              'Phase 4: Security + Compliance',
+              'Phase 5: Testing + Optimization'
+            ]
+          },
+          'legislative-bill-tracker': {
+            id: 'legislative-bill-tracker',
+            link: "https://drive.google.com/file/d/1xUGLr7MYhd7v6AbxuxAixya0jfB6-s3F/view?usp=sharing", 
+            title: 'Legislative Bill Tracker with Impact Forecasting',
+            description: 'Platform to track legislative bills in real-time and forecast their impact using AI.',
+            objective: 'To improve transparency, accessibility, and understanding of legislative processes and impacts.',
+            stakeholders: [
+              'Citizens / Voters',
+              'Policy Analysts',
+              'Journalists / Media',
+              'NGOs / Advocates',
+              'Businesses / Legal Teams',
+              'Lawmakers / Government Staff'
+            ],
+            functionalRequirements: [
+              'Track bills by status, category, date',
+              'Real-time alerts and subscriptions',
+              'AI-based impact forecasting',
+              'Summarize legal text into plain language',
+              'User dashboard with personalized feed',
+              'Search & filter by keywords, bill number',
+              'Public voting and feedback system',
+              'Support national and state-level bills'
+            ],
+            nonFunctionalRequirements: [
+              'Secure APIs & data encryption',
+              'Scalable for high data & traffic',
+              'Fast (≤ 3s load time)',
+              '99.9% uptime',
+              'User-friendly interface with charts',
+              'Mobile responsive + WCAG compliant',
+              'Multi-language support'
+            ],
+            acceptanceCriteria: [
+              'Real-time updates for 100+ bills',
+              'AI forecasts match expert benchmarks',
+              'Summaries cut text by 70%+',
+              'Email/SMS alerts for tracked bills',
+              'Search < 2s response',
+              'Moderated voting & comments',
+              'Custom user dashboard',
+              'Admin control for outdated bills',
+              'Works on desktop/mobile',
+              'Integrates with gov APIs'
+            ],
+            implementationPlan: [
+              'Phase 1: Bill DB + Tracker + Search',
+              'Phase 2: AI Forecasting + Summarizer',
+              'Phase 3: Dashboard + Subscriptions',
+              'Phase 4: Public Input + Multi-level tracking',
+              'Phase 5: Security + Testing + Launch'
+            ]
+          }
+
+
     }
   },
 

@@ -286,29 +286,74 @@ const ThemeProblemsPage = () => {
       color: 'from-indigo-600 to-blue-600',
       problems: [
         {
-          id: 'smart-contracts',
-          title: 'Self-Executing Smart Contracts',
-          description: 'Develop blockchain-based smart contracts for automated legal agreements in real estate or freelancing',
-          difficulty: 'Hard',
-          participants: 90
-        },
-        {
-          id: 'ai-legal-assistant',
-          title: 'AI-Powered Legal Research Assistant',
-          description: 'Build a tool that helps lawyers quickly find relevant case laws, statutes, and precedents using NLP',
+          id: 'court-case-manager',
+          title: 'Court Hearing and Case Management Platform',
+          description: 'A digital platform to manage court cases, schedule hearings, upload documents, and receive real-time updates, enhancing judicial transparency and efficiency.',
           difficulty: 'Medium',
-          participants: 100
+          participants: 140
         },
         {
-          id: 'compliance-monitoring',
-          title: 'Automated Regulatory Compliance System',
-          description: 'Create a platform that continuously monitors business operations for legal and regulatory compliance',
+          id: 'access-to-justice',
+          title: 'Access to Justice for Underserved Communities',
+          description: 'A multilingual mobile platform that connects underserved users with legal help, chatbots, and self-help tools to ensure access to justice.',
+          difficulty: 'Medium',
+          participants: 160
+        },
+        {
+          id: 'automated-legal-doc-generator',
+          title: 'Automated Legal Document Generator',
+          description: 'An AI-assisted platform to generate customized, compliant legal documents like contracts and NDAs using smart forms and templates.',
+          difficulty: 'Medium',
+          participants: 135
+        },
+        {
+          id: 'fake-legal-doc-detector',
+          title: 'Fake Legal Document Detector',
+          description: 'An AI-powered system to detect forged or unauthorized legal documents using OCR, metadata     verification, and machine learning to ensure trust and security in legal operations.',
           difficulty: 'Hard',
           participants: 115
+        },
+        {
+          id: 'ai-legal-doc-summarizer',
+          title: 'AI Powered Legal Document Summarizer',
+          description: 'An NLP-based tool to summarize lengthy legal documents like contracts and case law into concise, accurate, and readable summaries for legal professionals and the public.',
+          difficulty: 'Hard',
+          participants: 142
+        },
+        {
+          id: 'legal-right-awareness-tool',
+          title: 'Legal Right Awareness Tool',
+          description: 'A multilingual, mobile-friendly platform to educate users about their legal rights in real-world scenarios like police stops, tenancy issues, or workplace disputes, using plain language and location-based info.',
+          difficulty: 'Medium',
+          participants: 113
+        },
+        {
+          id: 'legal-risk-analyzer',
+          title: 'Legal Risk Analyzer for Contracts',
+          description: 'An AI-powered tool to scan contracts, identify legal risks, and generate summaries for fast review and decision-making.',
+          difficulty: 'Hard',
+          participants: 127
+        },
+        {
+          id: 'legal-risk-scoring-startups',
+          title: 'Legal Risk Scoring for Startups',
+          description: 'An automated tool that assesses a startup’s legal health via questionnaires and document analysis, providing a risk score and improvement suggestions.',
+          difficulty: 'Medium',
+          participants: 119
+        },
+        {
+          id: 'legislative-bill-tracker',
+          title: 'Legislative Bill Tracker with Impact Forecasting',
+          description: 'A real-time bill tracking platform that uses AI to forecast legal, social, and economic impact of proposed legislation, helping citizens and stakeholders stay informed.',
+          difficulty: 'Hard',
+          participants: 135
         }
+
+
+
       ]
     }
-  };
+  }; 
 
   const theme = themesData[themeId] || themesData['blockchain-cybersecurity'];
 
