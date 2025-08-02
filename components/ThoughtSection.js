@@ -22,7 +22,7 @@ export default function ThoughtSection() {
 
         {/* Main Quote */}
         <blockquote className="text-3xl md:text-4xl font-extrabold italic text-gray-800 leading-tight">
-          "Built <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600'>for coders, by coders </span> —  Code your way to change the real-world ."
+          &ldquo;Built <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600'>for coders, by coders </span> —  Code your way to change the real-world .&ldquo;
         </blockquote>
 
 
