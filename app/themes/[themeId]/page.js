@@ -104,18 +104,60 @@ const ThemeProblemsPage = () => {
       color: 'from-pink-500 to-rose-500',
       problems: [
         {
-          id: 'telemedicine-platform',
-          title: 'Advanced Telemedicine Platform',
-          description: 'Build a comprehensive remote healthcare consultation system',
-          difficulty: 'Hard',
-          participants: 140
+          id: 'anonymous-venting-platform',
+          title: 'Anonymous Venting & Emotional Support Platform',
+          description: 'A secure and anonymous space for users to vent emotions, get crowd-sourced support, and receive AI-assisted mental health resources without judgment or identity tracking.',
+          difficulty: 'Medium',
+          participants: 137
         },
         {
-          id: 'patient-monitoring',
-          title: 'IoT Patient Monitoring System',
-          description: 'Create real-time health monitoring for chronic disease patients',
+          id: 'mental-health-early-detection',
+          title: 'Early Detection of Mental Health Issues',
+          description: 'An AI-powered platform using text, voice, and wearable data to detect early signs of mental health conditions and provide personalized, stigma-free support.',
+          difficulty: 'Hard',
+          participants: 131
+        },
+        {
+          id: 'medicine-reminder-app',
+          title: 'Medicine Reminder & Pill Management App',
+          description: 'A voice-enabled, AI-powered app for medication tracking, pill identification, pharmacy sync, and caregiver support to reduce missed doses and improve adherence.',
           difficulty: 'Medium',
-          participants: 95
+          participants: 129
+        },
+        {
+          id: 'mindfulness-companion',
+          title: 'Personalized Mindfulness Companion',
+          description: 'An AI-based app that recommends mood-specific mindfulness practices like breathing, journaling, and meditation to improve mental well-being.',
+          difficulty: 'Medium',
+          participants: 133
+        },
+        {
+          id: 'smart-queue-scheduler',
+          title: 'Smart Appointment Scheduling & Queue Management System',
+          description: 'An AI-based platform to optimize appointment booking, automate queue flow, and reduce wait times for clinics, salons, and service centers.',
+          difficulty: 'Medium',
+          participants: 126
+        },
+        {
+          id: 'voice-mental-health-assistant',
+          title: 'Voice-Activated Mental Health Assistant',
+          description: 'A conversational AI assistant that provides real-time emotional support, coping exercises, and suicide risk detection through multilingual voice interaction.',
+          difficulty: 'Hard',
+          participants: 134
+        },
+        {
+          id: 'telemedicine-rural-healthcare',
+          title: 'Tele-Medicine Platform for Rural Healthcare Access',
+          description: 'A low-bandwidth, multilingual telemedicine system for rural areas, offering AI-assisted triage, doctor consults, offline prescriptions, and local pharmacy coordination.',
+          difficulty: 'Hard',
+          participants: 145
+        },
+        {
+          id: 'blockchain-health-records',
+          title: 'Blockchain-Powered Health Record Management System',
+          description: 'A secure, decentralized system for managing and sharing electronic health records using blockchain, giving patients full control and auditability.',
+          difficulty: 'Hard',
+          participants: 190
         }
       ]
     },
@@ -125,18 +167,53 @@ const ThemeProblemsPage = () => {
       color: 'from-red-500 to-orange-500',
       problems: [
         {
-          id: 'predictive-analytics',
-          title: 'Business Predictive Analytics',
-          description: 'Develop AI models for business trend prediction and decision making',
+          id: 'emotion-detector-ai',
+          title: 'AI-Based Emotion Detector from Voice and Text',
+          description: 'An AI-powered tool that detects emotions like happiness, sadness, and anger from text and voice inputs, offering real-time feedback for integration into apps and services.',
+          difficulty: 'Medium',
+          participants: 130
+        },
+        {
+          id: 'predictive-maintenance-ai',
+          title: 'Predictive Maintenance for Machines or Vehicles',
+          description: 'An AI-powered system that forecasts machine or vehicle failures using sensor and log data, helping reduce downtime and optimize maintenance schedules in industrial and fleet settings.',
           difficulty: 'Hard',
+          participants: 138
+        },
+        {
+          id: 'sales-inventory-automation',
+          title: 'Sales Forecasting and Inventory Automation System',
+          description: 'An AI-powered platform to forecast sales, automate inventory decisions, and reduce stock-related inefficiencies using historical data and real-time trends.',
+          difficulty: 'Medium',
+          participants: 132
+        },
+        {
+          id: 'ai-code-review-system',
+          title: 'AI Based Code Quality Review System',
+          description: 'An AI-powered tool that reviews code for bugs, optimization, readability, and best practices across multiple programming languages.',
+          difficulty: 'Medium',
           participants: 120
         },
         {
-          id: 'natural-language-processing',
-          title: 'Multilingual NLP Assistant',
-          description: 'Create an AI assistant that understands and responds in multiple languages',
+          id: 'ai-resume-analyser',
+          title: 'AI Powered Resume Analyser for Job Fitment',
+          description: 'An AI tool that matches resumes with job descriptions to generate objective fitment scores, highlight skill gaps, and streamline hiring.',
           difficulty: 'Medium',
-          participants: 85
+          participants: 110
+        },
+        {
+          id: 'ai-traffic-violation-detector',
+          title: 'AI Powered Traffic Violation Detection System',
+          description: 'AI system that analyzes real-time video feeds to detect and report traffic violations, enhancing road safety and reducing manual enforcement.',
+          difficulty: 'High',
+          participants: 95
+        },
+        {
+          id: 'real-time-news-verifier',
+          title: 'Real-time AI News Verifier',
+          description: 'An AI-powered tool that verifies news credibility in real-time by detecting misinformation, analyzing bias, and evaluating source trustworthiness.',
+          difficulty: 'High',
+          participants: 92
         }
       ]
     },

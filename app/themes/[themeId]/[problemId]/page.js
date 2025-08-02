@@ -90,6 +90,341 @@ const problemsData = {
 
 
 
+  'artificial-intelligence': {
+    name: 'ARTIFICIAL INTELLIGENCE',
+    icon: '🤖',
+    color: 'from-purple-600 to-indigo-600',
+    glow: 'shadow-purple-500/30',
+    problems: { 
+        'emotion-detector-ai': {
+            id: 'emotion-detector-ai',
+            link: "https://drive.google.com/file/d/1Ti7n7YeKVs70-c1WaQ7hydJkqT-6q4uo/view?usp=sharing",
+            title: 'AI-Based Emotion Detector from Voice and Text',
+            description: 'EmotionSense is an AI tool that detects user emotions from voice and text using NLP and audio analysis.',
+            objective: 'To detect emotions like joy, anger, sadness, fear, and neutrality from both text and voice with confidence scoring.',
+            stakeholders: [
+              'Hackathon Team / Developers',
+              'Judges / Mentors',
+              'End Users (e.g., support agents, therapists)',
+              'Hackathon Organizers',
+              'Integration Partners (e.g., chatbot tools)'
+            ],
+            functionalRequirements: [
+              'Text-based emotion detection using NLP',
+              'Voice-based detection via mic or audio upload',
+              'Confidence score for each prediction',
+              'Real-time predictions on web/mobile UI',
+              'Basic analytics: count of processed inputs, emotion trends'
+            ],
+            nonFunctionalRequirements: [
+              '≥75% accuracy for core emotions',
+              '≤2 second response time (text & voice)',
+              'Scalable codebase for future expansion',
+              'Web-based, browser-compatible UI',
+              'No data storage; all processing is in-memory',
+              'Simple UI for all user types'
+            ],
+            acceptanceCriteria: [
+              'Detects ≥4 core emotions (Happy, Sad, Angry, Neutral)',
+              'Mic and file upload supported for voice',
+              'Voice input works for clips between 5–15 seconds',
+              'UI displays results with 2s latency',
+              'No persistent data storage; all data handled temporarily'
+            ],
+            implementationPlan: [
+              'Phase 1: Text emotion detection + display',
+              'Phase 2: Voice processing + model classification',
+              'Phase 3: Confidence score + UI enhancement',
+              'Phase 4: Analytics and real-time tracking',
+              'Phase 5: Testing + deployment'
+            ]
+          },
+          'predictive-maintenance-ai': {
+            id: 'predictive-maintenance-ai',
+            link: "https://drive.google.com/file/d/1U0Ft7ALatvstN7ynrbsU-f3SS-bryumN/view?usp=sharing",
+            title: 'Predictive Maintenance for Machines or Vehicles',
+            description: 'AI system that predicts mechanical failures using sensor and historical data to reduce downtime and improve maintenance efficiency.',
+            objective: 'To forecast equipment failures in advance, enable data-driven maintenance, and reduce unplanned downtime.',
+            stakeholders: [
+              'Hackathon Participants (Developers, Data Scientists)',
+              'Hackathon Judges',
+              'Mentors / Domain Experts',
+              'End Users (Fleet Managers, Operators)',
+              'Business Decision Makers (Factory Owners, Logistics Managers)'
+            ],
+            functionalRequirements: [
+              'Sensor and log data ingestion (real or simulated)',
+              'Machine learning model for failure prediction',
+              'Component-level failure identification',
+              'Dashboard with real-time health visualization',
+              'Alert system (email/in-app) for maintenance triggers',
+              'Downloadable asset health and maintenance reports'
+            ],
+            nonFunctionalRequirements: [
+              'Predictions within 3–5 seconds',
+              'Secure data handling',
+              '≥85% model accuracy',
+              'Responsive web UI (desktop + mobile)',
+              'Scalable to multiple assets or vehicles',
+              'Extensible to new sensor/equipment types'
+            ],
+            acceptanceCriteria: [
+              'Sensor/log data ingested correctly',
+              'Model achieves ≥85% accuracy in failure detection',
+              'Dashboard shows asset health and maintenance forecasts',
+              'Alerts trigger based on risk thresholds',
+              'Reports exportable/downloadable',
+              'System shows clear impact on reducing unplanned maintenance'
+            ],
+            implementationPlan: [
+              'Phase 1: Data ingestion + sensor simulation',
+              'Phase 2: Model training + failure prediction',
+              'Phase 3: Dashboard + alert system',
+              'Phase 4: Report generation + mobile UI',
+              'Phase 5: Testing + deployment'
+            ]
+          },
+          'sales-inventory-automation': {
+            id: 'sales-inventory-automation',
+            link: "https://drive.google.com/file/d/1jlC2srdlWDw-lNgOR6LNhxgDsGlSa0GU/view?usp=sharing",
+            title: 'Sales Forecasting and Inventory Automation System',
+            description: 'AI system for predicting sales and automating inventory levels using past data, seasonal trends, and external variables.',
+            objective: 'To reduce stockouts/overstock by using AI-driven sales forecasting and inventory planning.',
+            stakeholders: [
+              'Hackathon Team',
+              'Hackathon Judges',
+              'Retailers / Business Owners',
+              'Mentors / Advisors',
+              'Potential Clients (e-commerce, SMEs)'
+            ],
+            functionalRequirements: [
+              'Upload historical sales data (CSV, JSON, API)',
+              'Forecast sales for selected time periods using ML',
+              'Generate inventory recommendations with reorder points',
+              'Real-time dashboard with sales and stock levels',
+              'Exportable reports (CSV/PDF)',
+              'Color-coded inventory status indicators',
+              'Email or UI alerts for understock/overstock/high demand'
+            ],
+            nonFunctionalRequirements: [
+              '≥80% forecast accuracy on test data',
+              'Processing time <5 seconds',
+              'Scalable for large product catalogs',
+              'User-friendly UI for non-technical users',
+              'Web-based & browser-compatible',
+              'Secure data handling with no unauthorized storage'
+            ],
+            acceptanceCriteria: [
+              'Forecasts generated with ≥80% accuracy',
+              'Inventory suggestions align with demand forecasts',
+              'Dashboard shows status and alerts clearly',
+              'Alerts triggered for critical stock conditions',
+              'Forecasts and reports processed in under 5 seconds',
+              'No persistent data storage without consent'
+            ],
+            implementationPlan: [
+              'Phase 1: Data upload + forecasting engine',
+              'Phase 2: Inventory recommendation logic',
+              'Phase 3: Dashboard + alert system',
+              'Phase 4: Export/reporting functionality',
+              'Phase 5: Usability + security testing'
+            ]
+          },
+          'ai-code-review-system': {
+            id: 'ai-code-review-system',
+            link: "https://drive.google.com/file/d/1J56kz_XBnO4Y9-FEEh5SAstIV8f9vb4u/view?usp=sharing",
+            title: 'AI Based Code Quality Review System',
+            description: 'AI tool that analyzes code to detect bugs, suggest improvements, enforce coding standards, and evaluate maintainability automatically.',
+            objective: 'Improve code quality through automated AI review of syntax, logic, readability, and compliance with best practices.',
+            stakeholders: [
+              'Developers – receive instant feedback on their code',
+              'Team Leads – ensure quality and consistency',
+              'QA Engineers – identify risky patterns early',
+              'Educators – help students write better code',
+              'Hackathon Judges – assess submission quality quickly'
+            ],
+            functionalRequirements: [
+              'Code input via editor, file upload, or Git repo link',
+              'AI-powered static code analysis',
+              'Bug and anti-pattern detection',
+              'Style & convention checker (e.g., PEP8, Airbnb JS)',
+              'Code quality scoring (readability, complexity)',
+              'Language support (e.g., Python, JavaScript, C++)',
+              'Downloadable reports with suggestions',
+              'Integration with VSCode, GitHub, GitLab (optional)'
+            ],
+            nonFunctionalRequirements: [
+              'Accuracy ≥ 85% in detecting code smells and bugs',
+              'Fast feedback: <3 seconds for <200 lines of code',
+              'Secure sandbox execution (no remote code execution)',
+              'Extensible architecture for new languages',
+              'Responsive UI for web/mobile'
+            ],
+            acceptanceCriteria: [
+              'Detects syntax and logical issues in uploaded code',
+              'Provides improvement suggestions and style violations',
+              'Generates a quality score out of 100',
+              'Supports at least 3 languages',
+              'UI loads code and suggestions within 3s',
+              'Data privacy ensured – no code stored without consent'
+            ],
+            implementationPlan: [
+              'Phase 1: Basic code parsing & error detection',
+              'Phase 2: Style checkers and scoring engine',
+              'Phase 3: Multi-language support + UI',
+              'Phase 4: GitHub/IDE integrations',
+              'Phase 5: Real-world testing + feedback loop'
+            ]
+          },
+          'ai-resume-analyser': {
+            id: 'ai-resume-analyser',
+            link: "https://drive.google.com/file/d/12GRgfIcxLSH1kUxTGY_Tnb3IHEwmArjX/view?usp=sharing",
+            title: 'AI Powered Resume Analyser for Job Fitment',
+            description: 'Automated system using NLP to evaluate resumes against job descriptions, reducing hiring bias, time-to-hire, and increasing match accuracy.',
+            objective: 'Streamline recruitment by automating resume-job matching, highlighting key skills, and delivering objective fitment scores.',
+            stakeholders: [
+              'Participants – develop the AI system',
+              'HR Professionals – provide hiring logic and domain data',
+              'Judges – assess usability, accuracy, and innovation',
+              'Recruiters – end users who screen candidates',
+              'Job Seekers – receive personalized feedback',
+              'Sponsors – support the initiative with tools or prizes'
+            ],
+            functionalRequirements: [
+              'Support resume upload (PDF, DOCX, TXT)',
+              'Support job description input (text or file)',
+              'Extract skills, experience, and education using NLP',
+              'Match resume features with job requirements',
+              'Generate fitment score with explanations',
+              'Highlight skill matches and gaps',
+              'Side-by-side comparison of resume vs. JD',
+              'Responsive, intuitive UI with result breakdown'
+            ],
+            nonFunctionalRequirements: [
+              'Process resumes within 10 seconds',
+              'Achieve ≥85% matching accuracy',
+              'No persistent data storage',
+              'Support desktop and mobile browsers',
+              'Scalable to handle multiple analyses simultaneously',
+              'Compliant with privacy and fair hiring laws'
+            ],
+            acceptanceCriteria: [
+              'Supports multiple document formats (PDF, DOCX, TXT)',
+              'Provides accurate fitment score and match/gap highlights',
+              'Responsive UI for recruiters with detailed breakdown',
+              'Fully working demo with live upload and output',
+              'User data not stored – privacy respected'
+            ],
+            implementationPlan: [
+              'Phase 1: Resume/JD parsing + NLP skill extraction',
+              'Phase 2: Fitment scoring logic',
+              'Phase 3: UI for uploads and output display',
+              'Phase 4: Highlighting and comparison dashboard',
+              'Phase 5: Final integration and live testing'
+            ]
+          },
+          'ai-traffic-violation-detector': {
+            id: 'ai-traffic-violation-detector',
+            link: "https://drive.google.com/file/d/1kiyx7VRGC9aGzEF2hKzb1GoxNT3na3Ae/view?usp=sharing",
+            title: 'AI Powered Traffic Violation Detection System',
+            description: 'A real-time AI system using computer vision to detect traffic violations (e.g., red light running, speeding), generate evidence, and assist enforcement with live video analytics.',
+            objective: 'Reduce manual traffic enforcement by automating violation detection, improving road safety, and enabling data-driven traffic management.',
+            stakeholders: [
+              'Participants – develop AI-based detection system',
+              'Traffic Authorities – provide violation criteria and enforcement use cases',
+              'Technical Mentors – guide ML and CV implementation',
+              'Judges – evaluate innovation, precision, real-time performance',
+              'End Users – municipal traffic departments and law enforcement',
+              'Sponsors – provide hardware/video feeds or prizes'
+            ],
+            functionalRequirements: [
+              'Integrate with live or simulated traffic camera feeds',
+              'Use computer vision models to detect violations: red light, speeding, lane cutting, etc.',
+              'Real-time alert generation with <2 sec delay',
+              'Evidence capture: timestamped snapshots or clips',
+              'Dashboard for live monitoring and historic violation search',
+              'Violation classification with location/time/vehicle details',
+              'OCR integration (optional) for license plate detection'
+            ],
+            nonFunctionalRequirements: [
+              '>90% detection accuracy for defined violations',
+              'Secure video and evidence storage with access controls',
+              'Real-time performance with high uptime',
+              'Scalable to handle multiple simultaneous feeds',
+              'Legal compliance with surveillance/data privacy laws',
+              'Responsive dashboard for desktops and large screens'
+            ],
+            acceptanceCriteria: [
+              'Simulated video feed integrated successfully',
+              'Accurate detection of at least two violation types in live test',
+              'Evidence (image/video) captured and stored correctly',
+              'Dashboard shows real-time violation alerts with history logs',
+              'Fully working demo ready for live evaluation',
+              'Data handled securely with privacy safeguards in place'
+            ],
+            implementationPlan: [
+              'Phase 1: Integrate video input and simulate traffic scenarios',
+              'Phase 2: Train CV models on labeled traffic violation datasets',
+              'Phase 3: Configure violation types and evidence logic',
+              'Phase 4: Build live monitoring dashboard',
+              'Phase 5: Test system end-to-end and ensure legal compliance'
+            ]
+          },
+          'real-time-news-verifier': {
+            id: 'real-time-news-verifier',
+            link: "https://drive.google.com/file/d/1UmJ-8qwoiy1ZdiEGZBY8aKbIbQWKx4y_/view?usp=sharing",
+            title: 'Real-time AI News Verifier',
+            description: 'A machine learning and NLP-based tool that verifies the credibility of news articles and social media posts by flagging misinformation, analyzing bias, and assessing source trustworthiness in real time.',
+            objective: 'Combat misinformation by verifying news content accuracy, identifying ideological bias, and enhancing public media literacy through instant credibility assessments.',
+            stakeholders: [
+              'Participants – develop the AI-powered news verifier',
+              'Journalists/Fact-checkers – contribute domain insights and factual claim templates',
+              'Technical Mentors – assist with ML, NLP, and API integrations',
+              'Judges – evaluate based on accuracy, speed, innovation',
+              'End Users – general public, researchers, journalists',
+              'Sponsors – support infrastructure, knowledge bases, APIs'
+            ],
+            functionalRequirements: [
+              'Accept news URLs, pasted content, or simulated social feeds',
+              'Extract article text and metadata (author, timestamp, source)',
+              'Use NLP to analyze claims and check sentiment/bias',
+              'Cross-reference content with verified databases and fact-check APIs',
+              'Generate a credibility score and highlight biased or false claims',
+              'Display source trust rating and bias explanation',
+              'Enable user feedback for learning/improvement'
+            ],
+            nonFunctionalRequirements: [
+              'Verification latency <10 seconds per article',
+              '>80% factual detection accuracy, >75% bias detection accuracy',
+              'Secure, temporary processing of user-submitted content',
+              'Responsive and intuitive interface for desktop/mobile',
+              'Scalable to support multiple requests in real time',
+              'Compliant with data protection regulations (e.g., GDPR)'
+            ],
+            acceptanceCriteria: [
+              'Accept text/URL submissions with full metadata extraction',
+              'Correctly flag misinformation or bias in test content',
+              'Display a readable and detailed credibility score/report',
+              'User-friendly UI for uploading and viewing results',
+              'Live working demo ready for judges and end-users',
+              'User data handled securely with no permanent storage'
+            ],
+            implementationPlan: [
+              'Phase 1: Build ingestion module for text and URL input',
+              'Phase 2: Train and integrate NLP models for claim detection and bias classification',
+              'Phase 3: Set up knowledge base/API cross-referencing for fact-checking',
+              'Phase 4: Design UI dashboard to display verification results and credibility score',
+              'Phase 5: Run user tests and refine based on feedback'
+            ]
+          }
+    }
+  },
+
+
+
+
+
+
 
 
 
@@ -1466,45 +1801,341 @@ const problemsData = {
 
 
 
-  'ai-healthcare': {
-    name: 'AI in Healthcare',
-    icon: '🧠',
+  'healthcare-innovation': {
+    name: 'HEALTHCARE INNOVATION',
+    icon: '🏥',
     color: 'from-gray-800 to-black',
     glow: 'shadow-gray-700/30',
     problems: {
-      'medical-diagnosis-ai': {
-        id: 'medical-diagnosis-ai',
-        link: 'https://example.com/medical-ai.pdf',
-        title: 'AI-Powered Medical Diagnosis Assistant',
-        description: 'Develop an AI system that assists doctors in diagnosing diseases from medical imaging and patient history.',
-        objective: [
-          'To reduce misdiagnosis rates using AI analysis.',
-          'To support doctors in early detection of critical illnesses.',
-          'To integrate with hospital EMR systems.',
-          'To provide explainable AI insights for clinicians.',
-          'To ensure HIPAA and GDPR compliance.'
-        ],
-        stakeholders: ['Doctors', 'Patients', 'Hospitals', 'Regulatory Bodies', 'AI Developers'],
-        functionalRequirements: [
-          'Image recognition for X-rays, MRIs, CT scans',
-          'Patient history analysis module',
-          'Diagnosis confidence scoring',
-          'Integration with Electronic Medical Records (EMR)',
-          'Alert system for critical findings'
-        ],
-        nonFunctionalRequirements: [
-          '99% uptime in clinical environments',
-          'Diagnosis results in under 5 seconds',
-          'HIPAA and GDPR compliant data handling',
-          'Support for 500+ concurrent hospital users'
-        ],
-        acceptanceCriteria: [
-          'AI detects tumors in scans with >95% accuracy',
-          'System integrates with at least 3 major EMR platforms',
-          'No unauthorized data access in 1-year audit',
-          'Doctors report 40% faster diagnosis time'
-        ]
-      }
+      'anonymous-venting-platform': {
+          id: 'anonymous-venting-platform',
+          link: "https://drive.google.com/file/d/1BvMCvR5xpAFIl2u6zCIERaS3o2lij9wn/view?usp=sharing",
+          title: 'Anonymous Venting & Emotional Support Platform',
+          description: 'A judgment-free digital platform for anonymous emotional sharing, peer support, and AI-driven mental health safety.',
+          objective: 'To provide a safe, private space for emotional release and support through anonymous posts and intelligent moderation.',
+          stakeholders: [
+            'Users',
+            'Moderators',
+            'Mental Health NGOs',
+            'AI Team'
+          ],
+          functionalRequirements: [
+            'Post vents via text or optional voice notes',
+            'React with emojis or anonymous comments',
+            'AI flags high-risk posts and suggests crisis resources',
+            'Sentiment detection tags posts by emotion',
+            'Join topic-based “Support Circles”',
+            'Anonymous polls and voting on advice',
+            'Auto-delete vents after 30 days',
+            'End-to-end encryption for sensitive posts'
+          ],
+          nonFunctionalRequirements: [
+            'No identity-linked data stored',
+            'Supports 10K+ concurrent users',
+            'Dark mode and screen-reader compatibility'
+          ],
+          acceptanceCriteria: [
+            'No IP/logs traceable to user identity',
+            'AI flags 90%+ of high-risk posts',
+            'At least 70% weekly user retention'
+          ],
+          implementationPlan: [
+            'Phase 1: Anonymous posting + emoji reactions',
+            'Phase 2: AI risk detection + sentiment tagging',
+            'Phase 3: Support Circles + polling features',
+            'Phase 4: Encryption + auto-delete logic',
+            'Phase 5: Load testing + accessibility features'
+          ]
+        },
+          'mental-health-early-detection': {
+            id: 'mental-health-early-detection',
+            link: "https://drive.google.com/file/d/1KP-U3G2BziW3Db2rvGicu3byiazxPFyq/view?usp=sharing",
+            title: 'Early Detection of Mental Health Issues',
+            description: 'AI platform for identifying early mental health symptoms through passive monitoring and multi-modal data analysis.',
+            objective: 'To provide early risk alerts and resources for mental health conditions using AI and user-generated data.',
+            stakeholders: [
+              'At-risk Individuals',
+              'Mental Health Professionals',
+              'Data Scientists',
+              'Ethics Board',
+              'NGOs/Government Agencies'
+            ],
+            functionalRequirements: [
+              'Analyze text, voice, and wearable inputs',
+              'Voice stress and sentiment detection',
+              'Trend analysis for behavioral shifts',
+              'AI-generated risk scores and dashboards',
+              'Curated therapy resources and emergency contact suggestions',
+              'Clinician-ready reports (optional)',
+              'User-controlled data permissions with encryption'
+            ],
+            nonFunctionalRequirements: [
+              '≥90% detection accuracy (clinically validated)',
+              'Real-time response (<5 seconds)',
+              'Zero data storage without consent',
+              'Accessible design and low-bandwidth mode'
+            ],
+            acceptanceCriteria: [
+              'AI alerts match clinical standards',
+              '95% user trust in data handling',
+              '<5% false positives on low-risk users',
+              'Compatible with 3+ wearables (e.g., Fitbit, Apple Watch)'
+            ],
+            implementationPlan: [
+              'Phase 1: Input collection + wearable integration',
+              'Phase 2: AI model development + risk engine',
+              'Phase 3: Dashboards + resource curation',
+              'Phase 4: Privacy controls + ethical compliance',
+              'Phase 5: Clinical testing + rollout'
+            ]
+          },
+          'medicine-reminder-app': {
+            id: 'medicine-reminder-app',
+            link: "https://drive.google.com/file/d/1xBscQ1inCPTXUVDNcJLR-5bpGt1ANZzY/view?usp=sharing",
+            title: 'Medicine Reminder & Pill Management App',
+            description: 'Voice-enabled app for medication reminders, pill scanning, and pharmacy integration for elderly, chronic patients, and caregivers.',
+            objective: 'To improve medication adherence and reduce health risks using AI, reminders, and family coordination.',
+            stakeholders: [
+              'Patients',
+              'Caregivers',
+              'Pharmacies',
+              'Health App Developers'
+            ],
+            functionalRequirements: [
+              'Voice-activated customizable reminders',
+              'Snooze/reschedule via voice command',
+              'Pill scanner for shape/color-based identification',
+              'Medication database (10K+ India-specific meds)',
+              'Adherence tracking and weekly reports',
+              'Family dashboard with missed-dose alerts',
+              'Pharmacy discounts and refill reminders',
+              'Emergency alert mode for skipped critical meds',
+              'Accessibility: Hindi/English voice, large font, high contrast UI'
+            ],
+            nonFunctionalRequirements: [
+              'Offline support for basic reminders',
+              'HIPAA-compliant encrypted data handling',
+              'Battery-optimized background operation'
+            ],
+            acceptanceCriteria: [
+              '≥95% pill identification accuracy',
+              '40% reduction in missed doses (trial users)',
+              'Usability rating ≥ 4.5/5 by elderly users'
+            ],
+            implementationPlan: [
+              'Phase 1: Reminder engine + voice commands',
+              'Phase 2: Pill identification + adherence tracking',
+              'Phase 3: Family dashboard + pharmacy sync',
+              'Phase 4: Accessibility features + emergency mode',
+              'Phase 5: Usability testing + rollout'
+            ]
+          },
+          'mindfulness-companion': {
+            id: 'mindfulness-companion',
+            link: "https://drive.google.com/file/d/1quKk_zIYRdhwXiDprmsJQuBTs29l1JRj/view?usp=sharing",
+            title: 'Personalized Mindfulness Companion',
+            description: 'AI-driven app that curates personalized mindfulness exercises using mood input and adaptive feedback.',
+            objective: 'To reduce stress and enhance mental well-being through customized meditation, journaling, and breathing routines.',
+            stakeholders: [
+              'End Users',
+              'Mental Health Experts',
+              'Developers',
+              'Sponsors / NGOs'
+            ],
+            functionalRequirements: [
+              'Mood logging via text, voice, or wearables',
+              'Preference-based profiling (e.g., session length)',
+              'AI-generated exercise suggestions using NLP/ML',
+              'Guided audio/video sessions with real-time feedback',
+              'Journaling with sentiment tracking',
+              'Gamification: badges, streaks, group challenges',
+              'Community sharing and meditation events'
+            ],
+            nonFunctionalRequirements: [
+              '≥85% user satisfaction in mood detection',
+              'Load exercises in ≤ 2 seconds',
+              'HIPAA/GDPR-compliant data security',
+              'Support for 10K+ concurrent users'
+            ],
+            acceptanceCriteria: [
+              'Mood log → personalized routine → user feedback flow works',
+              'Psychologists approve suggested exercises',
+              'UI rated intuitive by ≥90% beta users',
+              'Judges recognize AI personalization feature as innovative'
+            ],
+            implementationPlan: [
+              'Phase 1: Mood input + user profiling',
+              'Phase 2: AI recommendation engine',
+              'Phase 3: Guided content + journaling tools',
+              'Phase 4: Gamification + community features',
+              'Phase 5: Privacy + scalability testing'
+            ]
+          },
+          'smart-queue-scheduler': {
+            id: 'smart-queue-scheduler',
+            link: "https://drive.google.com/file/d/1F5Yg7zOFF5UZCoKmJb42pWrM0LRyTvZ5/view?usp=sharing",
+            title: 'Smart Appointment Scheduling & Queue Management System',
+            description: 'AI-powered system for real-time appointment booking, smart queuing, and predictive staffing for service businesses.',
+            objective: 'To reduce waiting times, improve customer experience, and streamline scheduling operations.',
+            stakeholders: [
+              'Businesses (Clinics, Salons, DMVs)',
+              'Customers',
+              'Service Staff',
+              'Integration Partners (EHR, POS, Calendar)'
+            ],
+            functionalRequirements: [
+              'AI-based smart scheduling (based on no-show history, service type)',
+              'Live queue tracking and priority management',
+              'Customer tools: QR code check-in, remote SMS alerts',
+              'Voice assistant for rescheduling',
+              'Predictive analytics for peak hour staffing',
+              'Integration with EHR/POS/Google Calendar',
+              'Multi-language + ADA-compliant interface'
+            ],
+            nonFunctionalRequirements: [
+              'Handles 500+ concurrent bookings',
+              '<1 second real-time updates',
+              'Encrypted customer data, PII compliant'
+            ],
+            acceptanceCriteria: [
+              'Wait times reduced by 50% in pilots',
+              'No-shows cut by 30% using reminders',
+              '80% staff adoption over manual system within 1 month'
+            ],
+            implementationPlan: [
+              'Phase 1: Scheduling + Reminders',
+              'Phase 2: Queue dashboard + customer tools',
+              'Phase 3: Predictive analytics + staffing optimizer',
+              'Phase 4: Voice assistant + calendar integration',
+              'Phase 5: Testing + accessibility + rollout'
+            ]
+          },
+          'voice-mental-health-assistant': {
+            id: 'voice-mental-health-assistant',
+            link: "https://drive.google.com/file/d/1SW87mzUO6BR985yznrQtUaxedqoV3e-6/view?usp=sharing",
+            title: 'Voice-Activated Mental Health Assistant',
+            description: 'Voice-based AI companion for emotional support, therapeutic interaction, and mental health crisis response.',
+            objective: 'To provide accessible, real-time mental health support through multilingual voice conversations and AI-powered insights.',
+            stakeholders: [
+              'Users (anxiety/depression)',
+              'Psychologists',
+              'Crisis Helplines (e.g., NGOs)',
+              'Smart Speaker Hardware Partners'
+            ],
+            functionalRequirements: [
+              'Voice recognition for mood detection and conversation',
+              'Therapeutic responses using CBT/DBT techniques',
+              'Tone adaptation for different emotional states',
+              'Auto-connect to helplines on crisis phrases',
+              'Anonymous usage with no data storage',
+              'Voice-guided tools (breathing, journaling, sleep stories)',
+              'Integration with WhatsApp/Telegram (text fallback)',
+              'Wearable syncing to detect panic episodes'
+            ],
+            nonFunctionalRequirements: [
+              '<2s latency for responses',
+              'End-to-end voice encryption',
+              'Offline mode with basic features'
+            ],
+            acceptanceCriteria: [
+              '≥85% emotion detection accuracy in tests',
+              'Connect to help in under 1 minute during crisis',
+              '60%+ user weekly engagement'
+            ],
+            implementationPlan: [
+              'Phase 1: Voice interaction + tone adaptation',
+              'Phase 2: Crisis detection + helpline integration',
+              'Phase 3: Mental health exercises + journaling',
+              'Phase 4: Offline mode + wearable sync',
+              'Phase 5: Multilingual support + user testing'
+            ]
+          },
+          'telemedicine-rural-healthcare': {
+            id: 'telemedicine-rural-healthcare',
+            link: "https://drive.google.com/file/d/1bEK_dZN8FggFBTom2enWg5lZ-1lr4XIZ/view?usp=sharing",
+            title: 'Tele-Medicine Platform for Rural Healthcare Access',
+            description: 'Offline-first telemedicine system enabling rural patients to access specialists through adaptive modes, AI triage, and SMS prescriptions.',
+            objective: 'To increase access to quality healthcare in low-connectivity rural regions using adaptive tech, AI, and government/pharmacy integration.',
+            stakeholders: [
+              'Patients (multi-language support)',
+              'ASHA Workers',
+              'Doctors (Tier-2/3 cities)',
+              'Government (ABHA, Ayushman Bharat)',
+              'Pharmacy/Kirana Store Partners'
+            ],
+            functionalRequirements: [
+              'Adaptive connectivity: auto-switch video → audio → chat',
+              'AI triage system for symptoms + risk prioritization',
+              'SMS-based prescriptions for offline use',
+              'Icon-based interface for low-literacy users',
+              'Medicinal image database for pill identification',
+              'Offline EMR syncing via E-Panther kiosks',
+              'Group consultation feature (e.g., maternal health talks)',
+              'Simple AI explanations of lab results'
+            ],
+            nonFunctionalRequirements: [
+              'Operates on 2G networks (<500KB/s)',
+              '<5% battery usage per 15-minute session',
+              'Doctor verification via DigiLocker',
+              'End-to-end encryption per IRDAI guidelines'
+            ],
+            acceptanceCriteria: [
+              '500+ monthly consults in pilot areas',
+              'AI triage matches ≥80% of doctor assessments',
+              '≤3 second response time in text/chat mode'
+            ],
+            implementationPlan: [
+              'Phase 1: Connectivity fallback + SMS Rx system',
+              'Phase 2: AI triage + multilingual UI',
+              'Phase 3: Kiosk syncing + group consultations',
+              'Phase 4: Government/pharmacy integration',
+              'Phase 5: Testing + pilot deployment'
+            ]
+          },
+          'blockchain-health-records': {
+            id: 'blockchain-health-records',
+            link: "https://drive.google.com/file/d/1UBcaIKDqGkuT6X-L9xFNFUVp4pKyBfNj/view?usp=sharing",
+            title: 'Blockchain-Powered Health Record Management System',
+            description: 'Decentralized, tamper-proof EHR platform with smart contract-based access control, standardized health record formats, and hospital interoperability.',
+            objective: 'Build a blockchain-based system to unify patient records, ensure privacy, support cross-hospital access, and provide audit trails for transparency.',
+            stakeholders: [
+              'Patients (own/manage access)',
+              'Doctors/Hospitals (real-time verified data)',
+              'Insurance Providers (claim processing)',
+              'Govt. Bodies (compliance enforcement)',
+              'Blockchain Validators (e.g., hospital nodes)'
+            ],
+            functionalRequirements: [
+              'Decentralized EHR storage (on-chain encrypted)',
+              'Off-chain large file storage (e.g., MRI)',
+              'Smart contract-based permission system',
+              'Time-limited access grants and revocations',
+              'QR/NFC-based data retrieval at hospitals',
+              'Emergency break-glass access with audit log',
+              'AI research data (with user opt-in)',
+              'Wearables auto-update records',
+              'Telemedicine access plugin'
+            ],
+            nonFunctionalRequirements: [
+              'Scalable (10K+ TPS via Layer-2)',
+              'Zero-Knowledge Proofs for private verifications',
+              'Gas-optimized transaction model',
+              'Pseudonymization & data deletion (GDPR-ready)',
+              '<5s retrieval latency for EHR access'
+            ],
+            acceptanceCriteria: [
+              '100% record tamper-resistance under security audits',
+              '50+ hospitals onboarded in 6-month pilot',
+              'Real-time access latency under 5 seconds'
+            ],
+            implementationPlan: [
+              'Phase 1: EHR encryption & blockchain storage',
+              'Phase 2: Smart contracts for access control',
+              'Phase 3: QR/NFC access + break-glass protocol',
+              'Phase 4: Wearable & telemedicine integration',
+              'Phase 5: Pilot rollout with 50+ hospitals'
+            ]
+          }
     }
   },
 
