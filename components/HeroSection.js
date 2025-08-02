@@ -71,7 +71,7 @@ export default function WowImageCarousel() {
             </span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Don't talk, Show me the code!
+            Don&apos;t talk, Show me the code!
           </p>
         </div>
 

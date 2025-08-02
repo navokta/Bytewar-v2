@@ -82,7 +82,7 @@ const BecomeSponsorPage = () => {
             </span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Partner with India's premier hackathon and gain access to top tech talent while supporting innovation
+            Partner with India&apos;s premier hackathon and gain access to top tech talent while supporting innovation
           </p>
         </div>
 
@@ -138,7 +138,7 @@ const BecomeSponsorPage = () => {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Access Top Talent</h3>
-              <p className="text-gray-400">Connect with India's brightest programming minds and potential future employees</p>
+              <p className="text-gray-400">Connect with India&apos;s brightest programming minds and potential future employees</p>
             </div>
             
             <div className="text-center p-6 rounded-2xl bg-gray-700/30 border border-white/5">

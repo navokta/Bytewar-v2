@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 
 const ChoosePlanPage = () => {
   const [selectedTier, setSelectedTier] = useState(null);
-  const [paymentStatus, setPaymentStatus] = useState(null); // null, 'processing', 'success', 'failed'
+  const [paymentStatus, setPaymentStatus] = useState(null); 
   const [sponsorDetails, setSponsorDetails] = useState({
     name: '',
     email: '',
@@ -221,7 +221,7 @@ const ChoosePlanPage = () => {
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">Payment Successful!</h2>
             <p className="text-green-100 text-lg mb-6">
-              Thank you for becoming a {selectedTier?.name} sponsor. We'll contact you shortly with next steps.
+              Thank you for becoming a {selectedTier?.name} sponsor. We&apos;ll contact you shortly with next steps.
             </p>
             <a href="/" className="inline-block px-6 py-3 bg-white text-green-700 font-bold rounded-full hover:bg-gray-100 transition-colors">
               Back to Home

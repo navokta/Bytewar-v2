@@ -153,7 +153,7 @@ const InteractiveContactPage = () => {
               </span>
             </h2>
             <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-              Have questions about ByteWar? We're here to help! Reach out and our team will get back to you soon.
+              Have questions about ByteWar? We&apos;re here to help! Reach out and our team will get back to you soon.
             </p>
           </motion.div>
 

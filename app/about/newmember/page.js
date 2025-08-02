@@ -6,10 +6,6 @@ import { FaUser, FaEnvelope, FaLinkedin, FaGithub, FaGlobe, FaInfoCircle } from 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
-// export const metadata = {
-//   title: 'Join ByteWar Team | Become a Member',
-//   description: 'Apply to join the ByteWar team. Tell us about your skills and passion for competitive programming.',
-// };
 
 export default function NewMemberForm() {
   const [isClient, setIsClient] = useState(false);
@@ -92,7 +88,7 @@ const ENTRY_IDS = {
               </svg>
             </div>
             <h2 className="text-2xl font-bold text-white mb-2">Application Submitted!</h2>
-            <p className="text-green-100 mb-6">Thank you for your interest in joining ByteWar. We'll review your application soon.</p>
+            <p className="text-green-100 mb-6">Thank you for your interest in joining ByteWar. We&apos;ll review your application soon.</p>
           </div>
           <Link href="/about" className="inline-block bg-white text-green-600 px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 shadow-lg">
             ← Back to About
@@ -112,7 +108,7 @@ const ENTRY_IDS = {
             Join the ByteWar Team
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            We're always looking for passionate individuals to help us build the ultimate coding warzone.
+            We&apos;re always looking for passionate individuals to help us build the ultimate coding warzone.
             Tell us about yourself!
           </p>
         </div>

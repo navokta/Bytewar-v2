@@ -1,11 +1,12 @@
 // app/enroll/payment/page.js
 "use client";
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function PaymentPage() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [paymentStatus, setPaymentStatus] = useState(null); // null, 'processing', 'success', 'failed'
+  const [paymentStatus, setPaymentStatus] = useState(null); 
 
   useEffect(() => {
     const data = localStorage.getItem('enrollmentData');
@@ -143,14 +144,14 @@ export default function PaymentPage() {
             Thank you, <strong>{userData.name}</strong>! You've been enrolled in ByteWar.
           </p>
           <p className="text-green-300 mb-6">
-            We've sent a confirmation email to <strong>{userData.email}</strong>.
+            We&apos;ve sent a confirmation email to <strong>{userData.email}</strong>.
           </p>
-          <a
+          <Link
             href="/"
             className="inline-block px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700"
           >
             Back to Home
-          </a>
+          </Link>
         </div>
       </div>
     );
