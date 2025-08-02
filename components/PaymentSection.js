@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { FaQrcode, FaRupeeSign, FaCheckCircle, FaWhatsapp, FaCopy, FaShieldAlt } from "react-icons/fa";
 
@@ -44,32 +45,16 @@ export default function WowPaymentSection() {
               <FaCheckCircle className="w-16 h-16 text-white relative" />
             </div>
             <h3 className="text-3xl font-black text-white mb-2">Payment Successful!</h3>
-            <p className="text-green-100 text-lg mb-6">Thank you for your payment. You're now enrolled in ByteWar!</p>
-          </div>
-          
-          <div className="relative group/button">
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-white to-gray-200 opacity-0 group-hover/button:opacity-30 blur-lg transition-all duration-300"></div>
-            <a 
-              href="https://wa.me/YOUR_WHATSAPP_NUMBER" 
-              target="_blank" 
-              rel="noopener" 
-              className="relative inline-flex items-center gap-3 bg-white text-green-600 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 shadow-lg group-hover/button:scale-105"
-            >
-              <FaWhatsapp className="text-2xl text-green-500" />
-              <span>Join WhatsApp Group</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
+            <p className="text-green-100 text-lg mb-6">Thank you for your payment. You&apos;re now enrolled in ByteWar!</p>
           </div>
           
           <div className="mt-6">
-            <a 
+            <Link 
               href="/" 
               className="text-white/80 underline hover:text-white transition-colors"
             >
               ← Back to Home
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -177,7 +162,7 @@ export default function WowPaymentSection() {
               className="relative w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3"
             >
               <FaCheckCircle className="text-xl" />
-              <span className="text-lg">I've Paid ₹{AMOUNT}</span>
+              <span className="text-lg">I&apos;ve Paid ₹{AMOUNT}</span>
             </button>
           </div>
         </div>
