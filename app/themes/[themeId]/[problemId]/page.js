@@ -534,38 +534,318 @@ const problemsData = {
     color: 'from-blue-500 to-cyan-500',
     glow: 'shadow-blue-500/30',
     problems: {
-      'adaptive-learning': {
-        id: 'adaptive-learning',
-        title: 'Adaptive Learning Platform',
-        description: 'Create an AI-powered learning platform that personalizes educational content',
-        objective: 'To deliver customized learning paths based on individual student performance and preferences',
-        stakeholders: ['Students', 'Teachers', 'School Administrators', 'Parents', 'EdTech Providers'],
-        functionalRequirements: [
-          'Student progress tracking and assessment',
-          'AI-driven content recommendation engine',
-          'Interactive learning modules (videos, quizzes, games)',
-          'Teacher dashboard for monitoring class performance',
-          'Parent portal for progress updates'
-        ],
-        nonFunctionalRequirements: [
-          'Support up to 1 million students simultaneously',
-          'Personalization updates in real-time',
-          'Accessibility compliant with WCAG 2.1 standards',
-          '99.9% uptime during school hours'
-        ],
-        acceptanceCriteria: [
-          'Students show 20% improvement in learning outcomes after 3 months',
-          'Platform recommends relevant content 90% of the time',
-          'Teachers report 30% reduction in manual grading workload',
-          'System supports multiple devices and offline mode'
-        ],
-        implementationPlan: [
-          'Phase 1: Curriculum mapping and data modeling (1 month)',
-          'Phase 2: AI engine development (3 months)',
-          'Phase 3: Platform UI/UX and integration (2 months)',
-          'Phase 4: School pilot and feedback loop (2 months)'
-        ]
-      }
+        'learning-tracker-school-parents': {
+          id: 'learning-tracker-school-parents',
+          link: "https://drive.google.com/file/d/1hx4mGfNtRr3Zjeke4kAr049_E4F_4pKa/view?usp=sharing", 
+          title: 'Learning Tracker for School-Parents',
+          description: 'Platform to help parents monitor their child’s academic, behavioral, and attendance records in real-time.',
+          objective: 'To improve school-parent communication and enable early interventions for student success.',
+          stakeholders: [
+            'Parents/Guardians',
+            'Students',
+            'Teachers',
+            'School Administrators'
+          ],
+          functionalRequirements: [
+            'User authentication (parents, teachers, admins)',
+            'Student dashboard (grades, attendance, behavior, assignments)',
+            'Teacher interface to update student records',
+            'Notification system (grades, assignments, events)',
+            'Parent-teacher messaging system',
+            'Admin panel (user control, reports)'
+          ],
+          nonFunctionalRequirements: [
+            'Scalable for multiple schools',
+            'Secure & encrypted student data',
+            'Fast performance (< 2s load)',
+            'User-friendly UI for all roles',
+            '99.5% uptime during school hours',
+            'Responsive on mobile & desktop',
+            'Localization support'
+          ],
+          acceptanceCriteria: [
+            'Parents can log in and view dashboard',
+            'Teachers can update student data',
+            'Notifications work for grades & assignments',
+            'Messaging between parents and teachers works',
+            'Admins manage users and reports',
+            'Platform loads < 2s, mobile-friendly',
+            'All data protected with encryption & access control'
+          ],
+          implementationPlan: [
+            'Phase 1: Auth + Student Dashboard',
+            'Phase 2: Teacher Input + Notifications',
+            'Phase 3: Messaging + Admin Panel',
+            'Phase 4: Security + Mobile Optimization',
+            'Phase 5: Testing + Multi-language Support'
+          ]
+        },
+        'online-note-summarizer': {
+          id: 'online-note-summarizer',
+          link: "https://drive.google.com/file/d/1I7Fuuqf5NpB04jqmgLN3y370OqF_XbaG/view?usp=sharing", 
+          title: 'Online Note Summarizer',
+          description: 'A platform that uses AI to generate summaries, highlights, bullet lists, and action items from user-uploaded notes or documents.',
+          objective: 'To make note revision faster and more effective by auto-summarizing long text into digestible formats.',
+          stakeholders: [
+            'Students',
+            'Educators & Tutors',
+            'Working Professionals',
+            'Product Owners / EdTech Companies',
+            'Developers / AI Researchers'
+          ],
+          functionalRequirements: [
+            'User authentication (email, Google, password reset)',
+            'Input notes via text box or file upload (.txt, .pdf, .docx)',
+            'AI-based summarization engine with format/style options',
+            'Summary output in paragraph, bullet, or mind map formats',
+            'Export/download summary (PDF, DOCX, clipboard)',
+            'User dashboard to manage saved notes/summaries',
+            'Mobile responsive, light/dark modes, loading indicators'
+          ],
+          nonFunctionalRequirements: [
+            'Summarization within 5 seconds for 1,000 words',
+            'Supports multiple simultaneous users',
+            '99.5% uptime and fault-tolerant system',
+            'Semantic accuracy in generated summaries',
+            'Intuitive and accessible UI with tooltips and guidance'
+          ],
+          acceptanceCriteria: [
+            'Users can upload or paste notes (100–10,000 characters)',
+            'Summaries retain meaning and context within 10 seconds',
+            'Users can choose short or detailed summary formats',
+            'Summary is exportable in .txt, .pdf, or .docx',
+            'UI is intuitive, responsive, and shows input/output clearly',
+            'System handles large inputs without crashing'
+          ],
+          implementationPlan: [
+            'Phase 1: Input mechanisms (text, file upload)',
+            'Phase 2: Summarization engine with output controls',
+            'Phase 3: UI/UX refinements + export options',
+            'Phase 4: Dashboard + note management',
+            'Phase 5: Performance testing and deployment'
+          ]
+        },
+        'ai-career-path-advisor': {
+          id: 'ai-career-path-advisor',
+          link: "https://drive.google.com/file/d/1FE3MPh16PP19eiMUepK4lrIm-AmIjajq/view?usp=sharing", 
+          title: 'AI Career Path Advisor',
+          description: 'AI tool that helps users explore and plan a personalized career in Artificial Intelligence using skills assessment and trend analysis.',
+          objective: 'To guide users on the best AI career path based on current skills, interests, and industry demands.',
+          stakeholders: [
+            'Students',
+            'Working Professionals',
+            'Career Counselors',
+            'Educators',
+            'HR & Recruiters'
+          ],
+          functionalRequirements: [
+            'User sign-up and profile creation',
+            'Skill assessment quiz or input',
+            'AI-generated career recommendations (e.g., NLP, ML Engineer)',
+            'Learning roadmap with suggested courses and certifications',
+            'Progress tracking dashboard',
+            'Real-time job trend insights and salaries'
+          ],
+          nonFunctionalRequirements: [
+            'Secure user data handling',
+            'Fast response time for recommendations',
+            'Mobile and desktop responsive design',
+            'Scalable to support many users',
+            'User-friendly and visually clear interface'
+          ],
+          acceptanceCriteria: [
+            'Users complete a skill/profile setup',
+            'System suggests at least 3 AI career paths',
+            'Roadmap includes courses, tools, and milestones',
+            'Dashboard updates with user progress',
+            'Recommendation results delivered within 5 seconds'
+          ],
+          implementationPlan: [
+            'Phase 1: User login + Skill input form',
+            'Phase 2: AI recommendation engine',
+            'Phase 3: Roadmap generation + Dashboard',
+            'Phase 4: Job trends integration',
+            'Phase 5: Testing and UX improvements'
+          ]
+        },
+        'inclusive-learning-platform': {
+          id: 'inclusive-learning-platform',
+          link: "https://drive.google.com/file/d/1U6ZPy0kTl9JCyRd-p9byDyhAvM9O5Xvo/view?usp=sharing", 
+          title: 'Inclusive Learning for Students with Disabilities',
+          description: 'A platform to make education more accessible for students with disabilities using assistive technology and customized learning experiences.',
+          objective: 'To provide equal learning opportunities through accessible content, tools, and support tailored to various disabilities.',
+          stakeholders: [
+            'Students with Disabilities',
+            'Special Educators',
+            'Parents/Guardians',
+            'School Administrators',
+            'Accessibility Experts'
+          ],
+          functionalRequirements: [
+            'User profiles with disability-specific preferences',
+            'Text-to-speech, speech-to-text, and sign language support',
+            'Customizable font sizes, contrast modes, and layouts',
+            'Interactive quizzes and visual learning modules',
+            'Progress tracking with educator feedback',
+            'Parental/guardian dashboards'
+          ],
+          nonFunctionalRequirements: [
+            'WCAG-compliant design',
+            'Mobile-first and responsive UI',
+            'Data privacy and secure logins',
+            'Multilingual support',
+            'Minimal load time (≤ 2 seconds)'
+          ],
+          acceptanceCriteria: [
+            'Platform adapts UI for various impairments (e.g., visual, auditory)',
+            'Content is accessible via multiple formats (text, audio, visual)',
+            'Users can complete lessons independently',
+            'Educators can monitor progress and give feedback',
+            'Guardians can access student reports securely'
+          ],
+          implementationPlan: [
+            'Phase 1: Profile setup + Accessibility settings',
+            'Phase 2: Assistive tools integration',
+            'Phase 3: Interactive content + Dashboards',
+            'Phase 4: Testing with special educators and students',
+            'Phase 5: Deployment + Feedback loop'
+          ]
+        },
+        'peer-doubt-solving-platform': {
+          id: 'peer-doubt-solving-platform',
+           link: "https://drive.google.com/file/d/1HMHAJ54zZw0kN_YfvpshDnWENim8h94Q/view?usp=sharing", 
+          title: 'Peer-to-Peer Doubt Solving Platform',
+          description: 'A digital space for students to ask and resolve academic doubts through peer support, real-time Q&A, and expert validation.',
+          objective: 'To create a collaborative and scalable doubt-solving ecosystem driven by students and mentors.',
+          stakeholders: [
+            'Students',
+            'Peer Mentors',
+            'Subject Experts',
+            'Teachers',
+            'Platform Moderators'
+          ],
+          functionalRequirements: [
+            'User signup/login with role selection (student, mentor)',
+            'Post academic questions with tags/subjects',
+            'Real-time or threaded answers from peers/mentors',
+            'Voting/rating system to highlight accurate responses',
+            'Mentor verification and reputation scoring',
+            'Chat or follow-up feature for discussion',
+            'Dashboard to track questions, answers, and ratings'
+          ],
+          nonFunctionalRequirements: [
+            'Scalable backend for large user base',
+            'Responsive design for mobile & web',
+            'Secure user data handling',
+            'Fast query and response rendering',
+            'Moderation tools to prevent abuse or spam'
+          ],
+          acceptanceCriteria: [
+            'Students can ask questions and receive verified responses',
+            'High-rated answers get promoted or flagged as solved',
+            'Mentors have badges based on reputation or activity',
+            'Moderators can manage content and users',
+            'Platform works smoothly on both mobile and desktop'
+          ],
+          implementationPlan: [
+            'Phase 1: Auth + Role setup + Basic Q&A',
+            'Phase 2: Answer rating + Reputation system',
+            'Phase 3: Mentor validation + Chat feature',
+            'Phase 4: Moderation + Dashboard',
+            'Phase 5: UI polishing + Load testing'
+          ]
+        },
+        'real-time-engagement-tracker': {
+            id: 'real-time-engagement-tracker',
+            link: "https://drive.google.com/file/d/1VJG9gyhrNChYq6ZHTdNaTbsOB1ibnZcI/view?usp=sharing",
+            title: 'Real-Time Engagement Tracker for Online Classes',
+            description: 'AI system to track student attentiveness in real-time using facial expression, audio, and interaction data.',
+            objective: 'To help instructors measure, understand, and improve student engagement during online sessions.',
+            stakeholders: [
+              'Teachers / Instructors',
+              'Students',
+              'EdTech Companies / LMS Platforms',
+              'Mentors / Academic Advisors'
+            ],
+            functionalRequirements: [
+              'Engagement detection via webcam and microphone',
+              'Track chat, polls, and quiz participation',
+              'Real-time engagement scoring (0–100 or low/med/high)',
+              'Instructor dashboard with live class stats',
+              'Highlight disengaged students',
+              'Alert system for low engagement',
+              'Post-class analytics and downloadable reports'
+            ],
+            nonFunctionalRequirements: [
+              'Latency under 3 seconds',
+              'Secure data processing with consent',
+              'At least 80% scoring accuracy',
+              'Works across major browsers and tools',
+              'Simple setup with scalable support (10–50 users)',
+              'Minimal UI for ease of use'
+            ],
+            acceptanceCriteria: [
+              'Live engagement scores visible to instructors',
+              'Facial/audio activity affects scoring correctly',
+              'Alerts trigger during low engagement',
+              'Dashboard updates in real-time',
+              'Post-class reports generated accurately',
+              'No data stored without user opt-in'
+            ],
+            implementationPlan: [
+              'Phase 1: Engagement engine (face/audio tracking)',
+              'Phase 2: Instructor dashboard + real-time scores',
+              'Phase 3: Alert & nudge system',
+              'Phase 4: Post-class reports',
+              'Phase 5: Privacy + integration testing'
+            ]
+          },
+          'teacher-productivity-platform': {
+            id: 'teacher-productivity-platform',
+            link: "https://drive.google.com/file/d/1saOtpHJeZUnz22oFSTbWjyfyAqYNlr2B/view?usp=sharing",
+            title: 'Teacher Productivity Platform',
+            description: 'A digital workspace to help teachers plan lessons, track student progress, and manage classroom tasks efficiently.',
+            objective: 'To boost teacher productivity by automating routine academic and administrative tasks.',
+            stakeholders: [
+              'Teachers',
+              'School Administrators',
+              'Students',
+              'Parents'
+            ],
+            functionalRequirements: [
+              'Lesson planner with templates and scheduling',
+              'Student performance tracking and grading tools',
+              'Automated attendance and report generation',
+              'Assignment distribution and feedback system',
+              'Calendar with reminders for classes and events',
+              'Dashboard with teaching insights and productivity metrics'
+            ],
+            nonFunctionalRequirements: [
+              'Responsive and mobile-friendly design',
+              'Secure login and data privacy',
+              'Fast loading (<2s response time)',
+              'Cloud-based storage and sync',
+              'Scalable for schools with 50+ teachers',
+              'Easy-to-use UI for non-technical users'
+            ],
+            acceptanceCriteria: [
+              'Teachers can create and schedule lesson plans',
+              'System tracks and reports student performance',
+              'Assignments can be distributed and graded digitally',
+              'Attendance can be marked and reports generated',
+              'All tools accessible via a single dashboard',
+              'Platform works across devices with minimal setup'
+            ],
+            implementationPlan: [
+              'Phase 1: Lesson planning + calendar',
+              'Phase 2: Attendance + grading system',
+              'Phase 3: Assignment + feedback tools',
+              'Phase 4: Dashboard + analytics',
+              'Phase 5: Testing, deployment, and training'
+            ]
+          }
+
+
     }
   },
 

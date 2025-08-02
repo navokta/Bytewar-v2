@@ -47,19 +47,55 @@ const ThemeProblemsPage = () => {
       color: 'from-blue-500 to-cyan-500',
       problems: [
         {
-          id: 'adaptive-learning',
-          title: 'Adaptive Learning Platform',
-          description: 'Create an AI-powered learning platform that personalizes educational content',
-          difficulty: 'Hard',
-          participants: 110
+          id: 'learning-tracker-school-parents',
+          title: 'Learning Tracker for School-Parents',
+          description: 'A real-time digital platform that connects schools and parents by tracking student academic performance, attendance, behavior, and assignments.',
+          difficulty: 'Medium',
+          participants: 148
+        },
+       {
+          id: 'online-note-summarizer',
+          title: 'Online Note Summarizer',
+          description: 'AI-powered platform to automatically generate concise summaries, key points, and mind maps from long notes to improve revision and retention.',
+          difficulty: 'Medium',
+          participants: 135
         },
         {
-          id: 'virtual-classroom',
-          title: 'Immersive Virtual Classroom',
-          description: 'Develop a VR/AR solution for interactive remote learning experiences',
+          id: 'ai-career-path-advisor',
+          title: 'AI Career Path Advisor',
+          description: 'A personalized AI-driven tool that guides individuals in selecting and advancing their career in AI based on skills, goals, and market trends.',
           difficulty: 'Medium',
-          participants: 75
+          participants: 124
+        },
+        {
+          id: 'inclusive-learning-platform',
+          title: 'Inclusive Learning for Students with Disabilities',
+          description: 'An assistive digital learning platform designed to support students with physical, cognitive, or learning disabilities using adaptive tools and personalized content.',
+          difficulty: 'Medium',
+          participants: 118
+        },
+        {
+          id: 'peer-doubt-solving-platform',
+          title: 'Peer-to-Peer Doubt Solving Platform',
+          description: 'A collaborative platform where students can ask academic questions and get answers from verified peers, mentors, or subject experts in real time.',
+          difficulty: 'Medium',
+          participants: 141
+        },
+        {
+          id: 'real-time-engagement-tracker',
+          title: 'Real-Time Engagement Tracker for Online Classes',
+          description: 'An AI-based system that monitors student engagement during live online classes using facial, audio, and activity data to support instructors with live analytics and intervention.',
+          difficulty: 'Hard',
+          participants: 139
+        },
+        {
+          id: 'teacher-productivity-platform',
+          title: 'Teacher Productivity Platform',
+          description: 'A centralized digital platform designed to help teachers manage lesson planning, grading, student analytics, and scheduling for increased productivity and better learning outcomes.',
+          difficulty: 'Medium',
+          participants: 122
         }
+
       ]
     },
     'healthcare-innovation': {
