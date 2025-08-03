@@ -71,7 +71,7 @@ const ChoosePlanPage = () => {
       price: 500,
       benefits: [
         "Logo on website",
-        "Social media mentions"
+        "Social media mentions"  //THis is Changed
       ],
       color: "from-amber-700 to-amber-900"
     }
