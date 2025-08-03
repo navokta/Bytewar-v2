@@ -205,14 +205,14 @@ const ThemeProblemsPage = () => {
           id: 'ai-traffic-violation-detector',
           title: 'AI Powered Traffic Violation Detection System',
           description: 'AI system that analyzes real-time video feeds to detect and report traffic violations, enhancing road safety and reducing manual enforcement.',
-          difficulty: 'High',
+          difficulty: 'Hard',
           participants: 95
         },
         {
           id: 'real-time-news-verifier',
           title: 'Real-time AI News Verifier',
           description: 'An AI-powered tool that verifies news credibility in real-time by detecting misinformation, analyzing bias, and evaluating source trustworthiness.',
-          difficulty: 'High',
+          difficulty: 'Hard',
           participants: 92
         }
       ]
