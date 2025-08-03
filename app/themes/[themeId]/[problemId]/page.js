@@ -13,76 +13,297 @@ const problemsData = {
 
 
 
-  'cybersecurity': {
-    name: 'Cyber Security',
-    icon: '🔒',
+  'CYBERSECURITY-PRIVACY': {
+    name: 'CYBERSECURITY & PRIVACY',
+    icon: '🔐',
     color: 'from-purple-600 to-indigo-600',
     glow: 'shadow-purple-500/30',
     problems: {
-      'secure-voting': {
-        id: 'secure-voting',
-        title: 'Secure Digital Voting System',
-        description: 'Create a blockchain-based voting system that ensures transparency and security',
-        objective: 'To develop a tamper-proof digital voting system that increases trust in electoral processes',
-        stakeholders: ['Election Commission', 'Voters', 'Political Parties', 'Cybersecurity Experts'],
-        functionalRequirements: [
-          'User registration and authentication',
-          'Secure ballot casting mechanism',
-          'Immutable vote recording on blockchain',
-          'Real-time vote counting',
-          'Audit trail generation'
-        ],
-        nonFunctionalRequirements: [
-          'System must handle 1 million concurrent users',
-          'Response time under 2 seconds',
-          '99.9% uptime during election period',
-          'End-to-end encryption for all communications'
-        ],
-        acceptanceCriteria: [
-          'All votes are recorded on blockchain within 5 seconds',
-          'Zero vote manipulation detected in security audits',
-          'System passes penetration testing by cybersecurity experts'
-        ],
-        implementationPlan: [
-          'Phase 1: Research and prototype development (2 months)',
-          'Phase 2: Core system development with smart contracts (3 months)',
-          'Phase 3: Security audits and penetration testing (1 month)',
-          'Phase 4: Pilot testing with local elections (2 months)'
-        ]
-      },
-      'phishing-detection': {
-        id: 'phishing-detection',
-        title: 'AI-Powered Phishing Detection',
-        description: 'Develop an intelligent system to detect and prevent phishing attacks',
-        objective: 'To create an AI system that can identify and block phishing attempts in real-time',
-        stakeholders: ['IT Security Teams', 'Email Service Providers', 'End Users', 'Cybersecurity Firms'],
-        functionalRequirements: [
-          'Email content analysis engine',
-          'Real-time threat detection',
-          'User alert system',
-          'Dashboard for security administrators',
-          'Integration with email clients'
-        ],
-        nonFunctionalRequirements: [
-          'Process 100,000 emails per second',
-          '99.5% detection accuracy',
-          'Less than 0.1% false positive rate',
-          'Real-time processing with <100ms latency'
-        ],
-        acceptanceCriteria: [
-          'Detection accuracy >99.5% on test dataset',
-          'False positive rate <0.1%',
-          'System handles peak loads of 100K emails/second',
-          'Integration works with major email providers'
-        ],
-        implementationPlan: [
-          'Phase 1: Data collection and preprocessing (1 month)',
-          'Phase 2: AI model development and training (3 months)',
-          'Phase 3: System integration and testing (2 months)',
-          'Phase 4: Deployment and monitoring (1 month)'
-        ]
-      }
-    }
+      'zk-password-manager': {
+  id: 'zk-password-manager',
+  link: "https://drive.google.com/file/d/135ZoBou6WM-493CUrngb55Uqej2-wg49/view?usp=sharing",
+  title: 'Decentralized Password Manager using Zero-Knowledge Proofs',
+  description: 'A privacy-focused password management app using decentralized storage and Zero-Knowledge Proofs (ZKPs) to secure and authenticate credentials without exposing actual passwords or relying on centralized servers.',
+  objective: 'Enhance user security and privacy by eliminating central storage, enabling ZKP-based authentication, and delivering a reliable, decentralized password vault.',
+  stakeholders: [
+    'Participants – Build and demo the ZKP-based manager',
+    'Security Experts – Guide ZKP, encryption, and crypto best practices',
+    'Decentralization Experts – Advise on architecture and storage',
+    'Technical Mentors – Assist with integration and dev workflow',
+    'Judges – Evaluate innovation, security, and UX',
+    'End Users – Individuals/orgs who need secure password storage',
+    'Sponsors – Provide funding, infrastructure, and tooling'
+  ],
+  functionalRequirements: [
+    'Securely store/retrieve/update/generate passwords with encryption',
+    'Use ZKP to authenticate without revealing master password',
+    'Use ZKP to authorize access without exposing entries',
+    'Store encrypted data on decentralized networks like IPFS or blockchain',
+    'Support decentralized identity (DID) for access rights',
+    'Provide user-friendly web or desktop dashboard',
+    'Support password imports/exports (encrypted)'
+  ],
+  nonFunctionalRequirements: [
+    'Security: End-to-end encryption, ZKP soundness, no plaintext passwords',
+    'Privacy: No exposure of sensitive data during verification',
+    'Performance: ZKP operations under 3 seconds, fast retrieval',
+    'Usability: Simple UI even for non-tech-savvy users',
+    'Scalability: Support growing users and credentials on decentralized infra',
+    'Reliability: Ensure integrity and availability across nodes',
+    'Compliance: Follows GDPR/CCPA and privacy regulations'
+  ],
+  acceptanceCriteria: [
+    'Passwords stored/retrieved securely via decentralized infra',
+    'Master password verified with ZKP without revealing it',
+    'All credentials fetched from decentralized networks (not centralized)',
+    'UI is easy to navigate and shows privacy features',
+    'Fully working demo with end-to-end ZKP auth and storage',
+    'No sensitive info stored or leaked during any process'
+  ],
+  implementationPlan: [
+    'Phase 1: Define ZKP protocol for login & data access',
+    'Phase 2: Build client app for credential handling',
+    'Phase 3: Integrate decentralized storage (e.g., IPFS)',
+    'Phase 4: Add DID-based access control logic',
+    'Phase 5: Test security, usability, and build live demo'
+  ]
+},
+'breach-alert-system': {
+  id: 'breach-alert-system',
+  link: "https://drive.google.com/file/d/17N6tviv1N0yAffwWo9wQlkTVB8OIokwG/view?usp=sharing",
+  title: 'Breach Alert System for Personal Data Leaks',
+  description: 'An AI-powered platform that scans public and dark web sources to detect data leaks involving personal identifiers such as emails, phone numbers, and usernames, and alerts users with contextual information and personalized security recommendations.',
+  objective: 'Protect users by detecting and notifying them in real-time about compromised personal data and recommending corrective actions.',
+  stakeholders: [
+    'End Users – Scan for breaches, receive alerts, subscribe to monitoring',
+    'Cybersecurity Professionals – Monitor employee/client data and breach trends',
+    'Hackathon Judges – Evaluate functionality, clarity, and impact',
+    'Regulatory Teams – Optional integration for compliance and auditing',
+    'Developers/App Owners – Integrate via API, force password resets or 2FA'
+  ],
+  functionalRequirements: [
+    'Input scan for email, phone, or username',
+    'Real-time/daily scans of public and dark web breach databases',
+    'Breach alerts with detailed context (source, time, data type)',
+    'Custom recommendations (e.g., enable 2FA, change password)',
+    'Ongoing subscription-based monitoring',
+    'User dashboard showing past breach history and recommendations'
+  ],
+  nonFunctionalRequirements: [
+    'Performance: Return results within 3 seconds for known data',
+    'Security: Inputs hashed/encrypted; no raw data stored',
+    'Compliance: GDPR/CCPA aligned',
+    'Usability: Simple UI for both casual and technical users',
+    'Responsiveness: Works on desktop, mobile, tablet',
+    'Reliability: Background scan uptime >99%',
+    'Localization: Multilingual support optional'
+  ],
+  acceptanceCriteria: [
+    'Scan identifier (email/phone) and check against known breaches',
+    'Notify user of confirmed breach with detailed context',
+    'Show recommendations based on what data was leaked',
+    'User can opt-in to continuous monitoring',
+    'No sensitive data stored in plain form',
+    'Log of past alerts/actions available on user dashboard'
+  ],
+  implementationPlan: [
+    'Phase 1: Breach data source integration (public APIs, sample dumps)',
+    'Phase 2: Input scanner and breach matcher with hashing',
+    'Phase 3: Alert engine (email, app notification, optional SMS)',
+    'Phase 4: Dashboard UI for history, breach details, and tips',
+    'Phase 5: Real-time sync and subscription model for monitoring'
+  ]
+},
+'child-teen-online-safety': {
+  id: 'child-teen-online-safety',
+  link: "https://drive.google.com/file/d/1GagLxb1T_Iw-snkwT_V5c1tog6LYxDvw/view?usp=sharing",
+  title: 'Child & Teen Online Safety & Privacy',
+  description: 'An AI-powered digital platform for parents to monitor, filter, and manage children’s online activity, enforce screen-time rules, prevent exposure to inappropriate content, and provide privacy protection and educational content.',
+  objective: 'Protect young users online, empower families to manage digital risks, and promote responsible digital citizenship.',
+  stakeholders: [
+    'Participants – Build the safety & privacy platform',
+    'Parents/Guardians – Manage controls, receive alerts',
+    'Children/Teens – Use protected devices (monitored with consent)',
+    'Child Safety Experts – Provide content & best practices',
+    'Technical Mentors – Guide AI/privacy implementation',
+    'Judges – Evaluate ethics, usability, innovation',
+    'Sponsors – Provide resources or funding'
+  ],
+  functionalRequirements: [
+    'Content filtering by category and keyword (e.g., adult content, violence)',
+    'Enforce safe search, flag messages or social content (with consent)',
+    'Privacy controls for app permissions, PII alerts, social media guidance',
+    'Screen-time limits, app-specific restrictions, device downtime scheduling',
+    'Real-time alerts to parents on unsafe behavior or PII leaks',
+    'Child reporting interface to notify trusted adults',
+    'Educational content on safety, privacy, cyberbullying for kids and parents'
+  ],
+  nonFunctionalRequirements: [
+    'Security: End-to-end encryption, COPPA/GDPR compliant',
+    'Performance: <1s latency for monitoring, real-time alerting',
+    'Usability: Easy-to-use dashboards for parents, non-intrusive child UX',
+    'Scalability: Support multiple devices and profiles',
+    'Responsiveness: Works across mobile and web apps',
+    'Compliance: Follows global online safety laws and privacy ethics'
+  ],
+  acceptanceCriteria: [
+    'Filters block inappropriate content on test devices',
+    'Parents successfully configure and enforce screen-time rules',
+    'Privacy alerts trigger on simulated PII sharing',
+    'UI is intuitive for both parent and child experiences',
+    'Fully working demo available with core safety tools',
+    'Verified handling of sensitive child data with secure protocols'
+  ],
+  implementationPlan: [
+    'Phase 1: Setup content filtering and parental dashboard',
+    'Phase 2: Add screen-time controls, alert system, and child reports',
+    'Phase 3: Integrate privacy alerts and safe-sharing mechanisms',
+    'Phase 4: Build resource library and educational UI',
+    'Phase 5: Finalize secure deployment and full-feature demo'
+  ]
+},
+'cyber-hygiene-scorecard': {
+  id: 'cyber-hygiene-scorecard',
+  link: "https://drive.google.com/file/d/1CxFBn7Dd9c1x0-vL15z3FFPgw7ep1NCl/view?usp=sharing",
+  title: 'Cyber Hygiene Scorecard For Organization',
+  description: 'A digital tool that evaluates an organization’s cybersecurity posture across multiple domains, calculates scores, and provides actionable insights for improvement and compliance support.',
+  objective: 'Automate cyber hygiene assessment, provide clear scores and remediation tips, and help leadership track security readiness and gaps.',
+  stakeholders: [
+    'IT Security Team – Conducts assessments and implements fixes',
+    'Compliance Officers – Use scorecards for audit trails and certifications',
+    'Executives (CISO/CIO) – Monitor overall cyber risk posture',
+    'Department Heads – Get team-specific breakdowns',
+    'Hackathon Judges – Evaluate based on usability, innovation, and accuracy'
+  ],
+  functionalRequirements: [
+    'Role-based user login (Admin, Auditor, Viewer)',
+    'Assess cyber hygiene across: Network Security, Endpoint Protection, Email Hygiene, Access Management, Awareness',
+    'Automated scans or manual inputs per category',
+    'Weighted score calculation and visual score breakdown',
+    'Trend graph, category-wise performance, and action tips',
+    'Export scores/reports in PDF or CSV',
+    'Admin panel for org/user/weights config'
+  ],
+  nonFunctionalRequirements: [
+    'Security: Full encryption, MFA support, access control',
+    'Performance: Scores processed under 5s',
+    'Scalability: Multiple orgs and users supported',
+    'Usability: Designed for technical and non-technical users',
+    'Reliability: >99.9% uptime, auto-assessment backups',
+    'Compliance: GDPR/privacy-safe if personal data is included'
+  ],
+  acceptanceCriteria: [
+    'Role-based login works and restricts features correctly',
+    'Assessments generate accurate category and total scores',
+    'Users can track history and view score trends',
+    'Remediation tips are visible for low scores',
+    'Reports export cleanly in PDF/CSV formats',
+    'Dashboard is responsive and mobile-friendly',
+    'Access control and error handling tested in live demo'
+  ],
+  implementationPlan: [
+    'Phase 1: User roles, login system, assessment UI',
+    'Phase 2: Score engine + dashboard breakdown',
+    'Phase 3: Admin panel and weights customization',
+    'Phase 4: Export/report generation, tips UI',
+    'Phase 5: Mobile responsiveness, polish, and demo readiness'
+  ]
+},
+'privacy-dashboard': {
+  id: 'privacy-dashboard',
+  link: "https://drive.google.com/file/d/1QvRbbQfb-wQX00LCT3QLaA9twEUzIg-V/view?usp=sharing",
+  title: 'Privacy Dashboard For Apps and Browser',
+  description: 'A centralized privacy tool that helps users track, audit, and control permissions granted to mobile apps and browser extensions. Features real-time alerts, data usage history, and personalized privacy scores.',
+  objective: 'Empower users with visibility and control over app/browser permissions, send suspicious activity alerts, and promote privacy best practices.',
+  stakeholders: [
+    'End Users – Individuals managing app/browser permissions',
+    'App & Extension Developers – Ensure compliance and transparency',
+    'Security Analysts – Monitor data access trends',
+    'Hackathon Judges – Evaluate concept, feasibility, usability'
+  ],
+  functionalRequirements: [
+    'List of installed apps/extensions and permission summaries',
+    'Access logs for location, contacts, camera, cookies, etc.',
+    'Visual analytics on access frequency and permission use',
+    'Permission revocation or access restriction from dashboard',
+    'Real-time alerts for suspicious or sensitive access',
+    'Privacy report export and privacy score',
+    'Tips to improve personal privacy',
+    'Admin dashboard for trends and user management (optional)'
+  ],
+  nonFunctionalRequirements: [
+    'Performance: Loads in under 2 seconds for average users',
+    'Security: End-to-end encryption, secure HTTPS transport',
+    'Compliance: GDPR, CCPA, and privacy standards adherence',
+    'Responsiveness: Mobile/tablet/desktop compatible',
+    'Interoperability: Android + major browsers (Chrome, Firefox)',
+    'Scalability: Handles 1000+ apps/extensions per user',
+    'Usability: Clean and easy UI for non-technical users'
+  ],
+  acceptanceCriteria: [
+    'Users see a full list of apps/extensions with current permissions',
+    'Can revoke at least one permission (e.g., location) from UI',
+    'Get real-time alert when sensitive permissions are used',
+    'Privacy score dynamically reflects user’s current settings',
+    'System logs at least 7 days of access history per app/extension',
+    'Data encrypted during transit and storage',
+    'Dashboard responsive across screen sizes'
+  ],
+  implementationPlan: [
+    'Phase 1: App/Extension permission listing module',
+    'Phase 2: Access logging and real-time alert system',
+    'Phase 3: Privacy score algorithm + export feature',
+    'Phase 4: UI polish, mobile adaptation, and alert logic refinement',
+    'Phase 5: Final demo + security audit'
+  ]
+},
+'anti-surveillance-platform': {
+  id: 'anti-surveillance-platform',
+  link: "https://drive.google.com/file/d/1io_X4Tl8JM-i5fVWbR2hThSCSMqV6gNj/view?usp=sharing",
+  title: 'Smartphone Anti-Surveillance Platform',
+  description: 'A mobile platform (Android MVP) that detects unauthorized surveillance activities, notifies users of suspicious behavior, and provides tools and education to manage smartphone privacy and security.',
+  objective: 'To empower users with real-time surveillance detection, permission management, and network threat alerts to improve digital privacy.',
+  stakeholders: [
+    'End Users – Privacy-conscious smartphone users',
+    'Developers – Build and maintain anti-surveillance app',
+    'Hackathon Judges – Evaluate security innovation and UX',
+    'Cybersecurity Experts – Guide threat detection models',
+    'Privacy Advocates – Ensure ethical, privacy-first design'
+  ],
+  functionalRequirements: [
+    'Real-time detection of unauthorized mic/camera/GPS use',
+    'Background notifications for suspicious hardware access',
+    'Display and revoke risky app permissions',
+    'Detection of rogue Wi-Fi/Bluetooth and MITM threats',
+    'Privacy dashboard with surveillance summaries and tips',
+    'Stealth mode to hide the app from view and notifications',
+    'Privacy education content on surveillance threats'
+  ],
+  nonFunctionalRequirements: [
+    'Performance: ≤5% CPU/battery usage in background',
+    'Security: Local data processing, no remote server sharing',
+    'Usability: Simple UI for non-technical users',
+    'Scalability: Expandable to iOS/desktop in future',
+    'Reliability: Stable under high activity and sensor use'
+  ],
+  acceptanceCriteria: [
+    'Real-time alerts (<3s) for sensitive hardware access',
+    'Accurate listing of high-risk app permissions',
+    'Detection of unsafe networks and rogue devices',
+    'Stealth mode works: no visibility in recent tasks',
+    'Dashboard updates with threat summaries and advice',
+    'Low system resource use in passive mode',
+    'No personal data leaves the device without consent'
+  ],
+  implementationPlan: [
+    'Phase 1: Permission scanning + mic/camera/GPS monitoring',
+    'Phase 2: Network scanner for rogue Wi-Fi/Bluetooth',
+    'Phase 3: Privacy dashboard and education module',
+    'Phase 4: Stealth mode and system optimizations',
+    'Phase 5: Full demo, UX enhancements, and testing'
+  ]
+}
+}
   },
 
 

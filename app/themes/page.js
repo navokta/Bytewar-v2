@@ -8,8 +8,8 @@ import React from 'react';
 const AllThemesPage = () => {
   const themes = [
   {
-    id: 'blockchain-cybersecurity',
-    title: 'BLOCKCHAIN & CYBERSECURITY',
+    id: 'CYBERSECURITY-PRIVACY',
+    title: 'CYBERSECURITY & PRIVACY',
     description: 'Provide ideas in a decentralized and distributed ledger technology used to store digital information that powers cryptocurrencies and NFTs and can radically change multiple sectors.',
     icon: '🔐',
     color: 'from-purple-600 to-indigo-600',

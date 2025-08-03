@@ -41,31 +41,52 @@ const ThemeProblemsPage = () => {
 
   // Mock data for themes and problems - UPDATED IDs to match app/themes/page.js
   const themesData = {
-    'blockchain-cybersecurity': {
-      name: 'BLOCKCHAIN & CYBERSECURITY',
+    'CYBERSECURITY-PRIVACY': {
+      name: 'CYBERSECURITY & PRIVACY',
       icon: '🔐',
       color: 'from-purple-600 to-indigo-600',
       problems: [
         {
-          id: 'secure-voting',
-          title: 'Secure Digital Voting System',
-          description: 'Create a blockchain-based voting system that ensures transparency and security',
+          id: 'zk-password-manager',
+          title: 'Decentralized Password Manager using Zero-Knowledge Proofs',
+          description: 'A decentralized, ZKP-secured password manager enabling private, encrypted storage and access to credentials without revealing sensitive data or relying on central servers.',
           difficulty: 'Hard',
-          participants: 120
+          participants: 92
         },
         {
-          id: 'phishing-detection',
-          title: 'AI-Powered Phishing Detection',
-          description: 'Develop an intelligent system to detect and prevent phishing attacks',
+          id: 'breach-alert-system',
+          title: 'Breach Alert System for Personal Data Leaks',
+          description: 'A real-time monitoring and notification system that scans the dark web and public breach databases to detect if personal data (emails, phone numbers, passwords) has been leaked, and alerts users with actionable security recommendations.',
           difficulty: 'Medium',
-          participants: 85
+          participants: 108
         },
         {
-          id: 'data-leak-prevention',
-          title: 'Automated Data Leak Prevention',
-          description: 'Build a system that monitors and prevents sensitive data leaks in real-time',
-          difficulty: 'Hard',
-          participants: 95
+          id: 'child-teen-online-safety',
+          title: 'Child & Teen Online Safety & Privacy',
+          description: 'A parental control and privacy management platform that protects children and teens online by filtering content, limiting screen time, detecting cyberbullying, and educating families on digital safety.',
+          difficulty: 'Medium',
+          participants: 106
+        },
+        {
+          id: 'cyber-hygiene-scorecard',
+          title: 'Cyber Hygiene Scorecard For Organization',
+          description: 'A cybersecurity assessment tool that evaluates an organization’s digital hygiene across key domains like access management, patching, and employee awareness, providing scores, insights, and visual dashboards for improvement.',
+          difficulty: 'Medium',
+          participants: 98
+        },
+        {
+          id: 'privacy-dashboard',
+          title: 'Privacy Dashboard For Apps and Browser',
+          description: 'A centralized tool to monitor, manage, and revoke permissions for mobile apps and browser extensions, with real-time alerts and privacy scores to enhance user control and data transparency.',
+          difficulty: 'Easy',
+          participants: 86
+        },
+        {
+          id: 'anti-surveillance-platform',
+          title: 'Smartphone Anti-Surveillance Platform',
+          description: 'A privacy-focused Android app that detects and prevents unauthorized microphone, camera, GPS access, and rogue networks, offering real-time alerts, stealth mode, and privacy education.',
+          difficulty: 'Medium',
+          participants: 72
         }
       ]
     },
@@ -496,7 +517,7 @@ const ThemeProblemsPage = () => {
     }
   }; 
 
-  const theme = themesData[themeId] || themesData['blockchain-cybersecurity'];
+  const theme = themesData[themeId] || themesData['CYBERSECURITY-PRIVACY'];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-x-hidden">
