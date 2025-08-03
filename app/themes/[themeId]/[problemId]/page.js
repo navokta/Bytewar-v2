@@ -2349,7 +2349,7 @@ const problemsData = {
 
 "intelligent-parking-finder": {
   "id": "intelligent-parking-finder",
-  "link": "https://drive.google.com/file/d/your-pdf-id/view?usp=sharing", // Replace with actual PDF link
+  "link": "https://drive.google.com/file/d/17TlgkpGzXB9sipmBikGzMgcrl_Riy8EG/view?usp=sharing", // Replace with actual PDF link
   "title": "Intelligent Parking Finder",
   "description": "An AI-powered parking solution that identifies real-time availability of parking spots using computer vision and data integration. It minimizes search time, enhances urban traffic flow, and supports smart city goals with accurate navigation and intelligent parking recommendations.",
   "objective": [
@@ -2530,49 +2530,54 @@ const problemsData = {
     "Security Protocol Adherence: Ensure secure and tamper-proof handling of all system data."
   ]
 },
-"energy-consumption-dashboard": {
-  "id": "energy-consumption-dashboard",
-  "link": "https://drive.google.com/file/d/1hQvDcYhdIgWS8Oowd6f6S7bp95WtWUQ6/view?usp=sharing", // Replace with actual PDF link
-  "title": "Energy Consumption Dashboard for Smart Homes",
-  "description": "An intelligent dashboard that monitors and analyzes energy usage from smart devices within homes. It provides real-time and historical insights, detects inefficiencies, and empowers users to optimize consumption and reduce their environmental impact.",
-  "objective": [
-    "Precise Energy Monitoring: Accurately track energy usage at device and household levels.",
-    "Actionable Insight Generation: Analyze data for trends, anomalies, and conservation opportunities.",
-    "Consumption Optimization: Recommend actions or automate controls to reduce excess energy use.",
-    "Enhanced User Awareness: Promote sustainable behavior through increased energy transparency.",
-    "Seamless Smart Home Integration: Ensure compatibility with common smart home ecosystems."
+'energy-dashboard': {
+  id: 'energy-dashboard',
+  link: "https://drive.google.com/file/d/1hQvDcYhdIgWS8Oowd6f6S7bp95WtWUQ6/view?usp=sharing",
+  title: 'Energy Consumption Dashboard for Smart Homes',
+  description: 'A smart dashboard to monitor, analyze, and visualize energy consumption in real-time and over time from smart meters and connected devices, offering actionable insights to optimize home energy use.',
+  objective: 'Help homeowners track energy usage, detect inefficiencies, optimize consumption, and reduce electricity bills through AI-powered analytics and intuitive dashboards.',
+  stakeholders: [
+    'Organizers – manage and support the hackathon event',
+    'Participants – develop and demo the energy dashboard',
+    'Energy Mentors – advise on conservation strategies and use cases',
+    'Technical Mentors – guide on IoT integration and dashboard building',
+    'Judges – assess accuracy, usability, and innovation',
+    'End Users – homeowners, renters, or facility managers',
+    'Sponsors – fund tools, cloud credits, and prizes'
   ],
-  "stakeholders": [
-    "Organizers – Plan and manage the hackathon and its evaluation.",
-    "Participants – Build and present the energy monitoring dashboard.",
-    "Energy Efficiency Mentors – Guide on interpreting energy data and conservation techniques.",
-    "Technical Mentors – Assist with IoT integration, data processing, and dashboard development.",
-    "Judges – Score solutions based on innovation, accuracy, and practical energy-saving impact.",
-    "End Users – Homeowners and property managers who will use the system.",
-    "Sponsors – Provide financial and technical resources or rewards."
+  functionalRequirements: [
+    'Integrate with smart meters or IoT devices via API/simulated data',
+    'Collect and store energy data per device and household',
+    'Analyze historical and real-time usage trends',
+    'Detect anomalies like energy spikes or device failures',
+    'Provide a responsive dashboard with charts by hour/day/week/month',
+    'Generate downloadable reports (e.g., estimated cost, patterns)',
+    'Send alerts when energy use crosses thresholds',
+    'Suggest personalized tips to reduce energy waste'
   ],
-  "functionalRequirements": [
-    "Data Acquisition & Integration: Connect to smart meters and devices to collect real-time and historical energy data.",
-    "Data Analysis & Intelligence: Analyze consumption patterns, detect anomalies, and optionally forecast usage.",
-    "Visualization & Reporting: Present energy trends on a responsive dashboard with reports and threshold alerts.",
-    "User Interface & Interaction: Provide a user-friendly app for managing budgets, devices, and personalized recommendations."
+  nonFunctionalRequirements: [
+    'Performance: Real-time updates <5 sec, historical report <10 sec',
+    'Accuracy: ≥98% fidelity in energy data tracking',
+    'Usability: Simple and intuitive UI for non-tech users',
+    'Security: All data encrypted and stored securely',
+    'Scalability: Monitor many devices and homes simultaneously',
+    'Responsiveness: Works on mobile, desktop, and tablet',
+    'Compliance: Follows GDPR/CCPA for energy data privacy'
   ],
-  "nonFunctionalRequirements": [
-    "Performance: Update live energy data with under 5s latency and load reports in under 10s.",
-    "Accuracy: Ensure 98% fidelity in measured consumption and analysis.",
-    "Usability: Design an intuitive interface for non-technical homeowners.",
-    "Security: Encrypt data and protect all user and device information.",
-    "Scalability: Monitor many devices and support multiple household instances.",
-    "Responsiveness: Work seamlessly across desktop, tablet, and mobile platforms.",
-    "Compliance: Follow GDPR, CCPA, and other applicable privacy laws."
+  acceptanceCriteria: [
+    'Connects with at least one smart device/meter for demo',
+    'Shows energy consumption in real-time and historical views',
+    'Correctly flags at least one energy spike or usage trend',
+    'UI allows navigation and chart filtering without confusion',
+    'Live demo ready for judges with working features',
+    'Data is securely processed without persistent personal storage'
   ],
-  "acceptanceCriteria": [
-    "Data Integration Verification: Demonstrate integration with at least one simulated smart device or meter.",
-    "Dashboard Functionality: Show real-time and historical energy data on a live dashboard.",
-    "Insight Generation Capability: Highlight at least one pattern or anomaly in energy usage.",
-    "User Interface Intuition: Allow intuitive navigation, filtering, and interaction.",
-    "Demonstration Readiness: Provide a working prototype with full data flow and reporting.",
-    "Security Protocol Adherence: Securely handle all collected data and enforce privacy protocols."
+  implementationPlan: [
+    'Phase 1: Set up simulated data feed for IoT/smart meters',
+    'Phase 2: Build backend to process and store energy logs',
+    'Phase 3: Implement frontend dashboard with visualization tools',
+    'Phase 4: Add analytics and anomaly detection module',
+    'Phase 5: Enable reports, alerts, and energy-saving tips'
   ]
 },
 "waste-segregation-smart-bin": {
