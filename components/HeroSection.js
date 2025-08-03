@@ -92,23 +92,22 @@ export default function WowImageCarousel() {
             >
               <CarouselContent>
                 {images.map((img, index) => (
-                  <CarouselItem key={index} className="relative">
-                    <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px]">
+                 <CarouselItem key={index} className="relative">
+                    <div className="relative w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px]">
                       <Image
                         src={img.src}
                         alt={img.title}
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, (max-width: 1280px) 70vw, 60vw"
                         className="object-cover transition duration-700 ease-in-out"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-
-                      <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12">
                         <div className="max-w-3xl">
-                          <h3 className="text-2xl md:text-4xl font-bold text-white mb-3 animate-fadeIn">
+                          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 md:mb-3 animate-fadeIn">
                             {img.title}
                           </h3>
-                          <p className="text-lg md:text-xl text-gray-300 animate-fadeIn animation-delay-200">
+                          <p className="text-base sm:text-lg md:text-xl text-gray-300 animate-fadeIn animation-delay-200">
                             {img.desc}
                           </p>
                         </div>

@@ -30,6 +30,15 @@ const teamMembers = [
     }
   },
   {
+  name: "Gaurav Pratap Singh",
+  role: "Marketing Head",
+  bio: "Marketing strategist leading ByteWar - V2 with data-driven campaigns, brand storytelling, and community engagement to drive growth and impact across all digital platforms.",
+  image: "/photo1.jpg",
+  social: {
+    linkedin: "https://www.linkedin.com/in/sakshi-jain-34a7b7355/"
+  }
+},
+  {
   name: "Bhumi Singhal",
   role: "Project & Operations Manager",
   bio: "Drives end-to-end project execution, from timeline planning to delivery. Works with all over the teams to align development sprints, manage milestones, and ensure ByteWar runs like a well-oiled machine.",
