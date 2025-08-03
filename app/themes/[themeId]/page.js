@@ -394,7 +394,7 @@ const ThemeProblemsPage = () => {
     },
     // 🔹 NEW THEME: LEGALTECH
     'legaltech': {
-      name: 'LEGALTECH',
+      name: 'LEGAL TECH',
       icon: '⚖️',
       color: 'from-indigo-600 to-blue-600',
       problems: [

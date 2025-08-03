@@ -429,7 +429,7 @@ const problemsData = {
 
 
   'legaltech': {
-    name: 'LegalTech',
+    name: 'Legal Tech',
     icon: '⚖️',
     color: 'from-indigo-600 to-blue-600',
     glow: 'shadow-indigo-500/30',
