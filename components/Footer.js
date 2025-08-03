@@ -72,7 +72,11 @@ export default function Footer() {
             <ul className="space-y-2 text-gray-300">
               <li className="flex items-start">
                 <span className="mr-2">📧</span>
-                <span>navokta@gmail.com</span>
+                <a 
+                  href="mailto:navokta@gmail.com" 
+                >
+                  navokta@gmail.com
+                </a>
               </li>
               <li className="flex items-start">
                 <span className="mr-2">📍</span>
