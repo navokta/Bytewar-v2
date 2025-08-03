@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FaUserCircle, FaSignOutAlt, FaCamera } from 'react-icons/fa';
+import logo from "../public/logo.png";
 
 // Helper function to get the auth token (adjust based on how you store it)
 const getToken = () => {
@@ -154,7 +155,7 @@ const fetchUserData = useCallback(async () => {
               <div className="relative">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl overflow-hidden border-2 border-purple-500 shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 transition-all duration-300 transform group-hover:rotate-3">
                   <Image
-                    src="/logo.png"
+                    src={logo}
                     alt="Bytewar Logo"
                     width={56}
                     height={56}
