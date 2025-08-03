@@ -1643,7 +1643,7 @@ const problemsData = {
       },
       "fraud-detection-upi-ai": {
         id: "fraud-detection-upi-ai",
-        link: "https://drive.google.com/file/d/1JhwhrBjTu696iK2NWdmXYQhd4SZR2Bs_/view?usp=sharing", // Replace with actual link
+        link: "https://drive.google.com/file/d/1I0CQ-Z8MUw7PJmTrcYl7aVyxe3vemyjH/view?usp=sharing", // Replace with actual link
         title: "Fraud Detection using AI for UPI Payments",
         description: "A real-time fraud detection system that leverages AI/ML to monitor UPI transactions, detect anomalies, assign risk scores, and prevent scams such as phishing, identity theft, and transaction manipulation—without disrupting user experience.",
         objective: [
