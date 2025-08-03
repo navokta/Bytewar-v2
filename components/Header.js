@@ -155,7 +155,7 @@ const fetchUserData = useCallback(async () => {
               <div className="relative">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl overflow-hidden border-2 border-purple-500 shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 transition-all duration-300 transform group-hover:rotate-3">
                   <Image
-                    src="/logo.png"
+                    src="/Logo.png"
                     alt="Bytewar Logo"
                     width={56}
                     height={56}
