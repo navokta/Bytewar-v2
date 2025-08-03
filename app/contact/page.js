@@ -199,7 +199,7 @@ const InteractiveContactPage = () => {
                     { icon: <FaLinkedin />, href: "https://www.linkedin.com/company/navokta/", color: "hover:bg-blue-700", label: "LinkedIn" },
                     { icon: <FaTwitter />, href: "https://x.com/navokta", color: "hover:bg-blue-500", label: "Twitter" },
                     { icon: <FaInstagram />, href: "https://www.instagram.com/navokta/", color: "hover:bg-pink-600", label: "Instagram" },
-                    { icon: <FaDiscord />, href: "#", color: "hover:bg-indigo-600", label: "Discord" }
+                    { icon: <FaDiscord />, href: "https://discord.com/users/1401496221687873619", color: "hover:bg-indigo-600", label: "Discord" }
                   ].map((social, index) => (
                     <motion.a
                       key={index}
