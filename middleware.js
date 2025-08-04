@@ -9,7 +9,9 @@ export async function middleware(request) {
 
   // If no token, redirect to login
   if (!token) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('from', request.nextUrl.pathname); // Preserve original URL
+    return NextResponse.redirect(loginUrl);
   }
 
   try {
@@ -26,15 +28,19 @@ export async function middleware(request) {
 
   } catch (err) {
     // If verification fails, redirect to login
-    return NextResponse.redirect(new URL('/login', request.url));
+    const response = NextResponse.redirect(new URL('/login', request.url));
+    response.cookies.delete('token'); // Clear invalid token
+    return response;
   }
 }
 
-// ✅ Apply to protected routes only
+// Updated config to include theme/problem routes
 export const config = {
   matcher: [
-    '/dashboard/:path*',     // example private route
-    '/profile/:path*',       // add all routes that need protection
+    '/dashboard/:path*',
+    '/profile/:path*',
     '/settings/:path*',
+    '/themes/:themeId/:problemId', // Protect individual problem pages
+    // '/themes/:themeId' // Protect theme overview pages
   ],
 };
