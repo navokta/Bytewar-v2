@@ -12,6 +12,7 @@ import ByteWarInfo from '../components/ByteWarInfo';
 import VideoAndInfographicSection from '../components/VideoAndInfographicSection';
 import ThemesSection from '../components/ThemesSection';
 import Sponser from '../components/Sponser';
+import TermsSection from "@/components/TermsSection";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -42,6 +43,7 @@ export default function Home() {
       <Header />
       <HeroSection />
       <ByteWarInfo />
+       <TermsSection />
       <VideoAndInfographicSection />
       <ThemesSection />
       <Gallery />

@@ -8,6 +8,7 @@ import HeroSection from '../../components/about/HeroSection';
 import Mission from '../../components/about/Mission';
 import Feature from '../../components/about/Feature';
 import Team from '../../components/about/Team';
+import TermsSection from '@/components/TermsSection';
 // import Enroll from '../../components/about/Enroll';
 
 export default function AboutPage() {
@@ -51,6 +52,8 @@ export default function AboutPage() {
 
       {/* Mission Section */}
       <Mission/>
+
+      <TermsSection />
 
         {/* Team Section */}
       <Team/>
