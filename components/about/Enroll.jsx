@@ -37,7 +37,7 @@ const WowCallToActionSection = () => {
         <div className="group relative inline-block">
           <div className="absolute -inset-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
           
-          <Link href="/enroll" className="relative inline-flex items-center px-10 py-5 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-full text-lg shadow-2xl hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 transition-all duration-300 overflow-hidden">
+          <Link href="/BannerPage" className="relative inline-flex items-center px-10 py-5 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-full text-lg shadow-2xl hover:from-green-600 hover:to-emerald-700 transform hover:scale-105 transition-all duration-300 overflow-hidden">
             <span className="relative z-10 flex items-center gap-2">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />

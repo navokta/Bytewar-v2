@@ -78,7 +78,7 @@ const WowHeroSection = () => {
             <div className="absolute top-0 left-0 w-full h-full bg-white opacity-20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
           </Link>
           
-          <Link href="/enroll" className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-700 text-white font-bold rounded-full shadow-2xl hover:from-blue-700 hover:to-cyan-800 transform hover:scale-105 transition-all duration-300 overflow-hidden">
+          <Link href="/BannerPage" className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-700 text-white font-bold rounded-full shadow-2xl hover:from-blue-700 hover:to-cyan-800 transform hover:scale-105 transition-all duration-300 overflow-hidden">
             <span className="relative z-10 flex items-center justify-center gap-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />

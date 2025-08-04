@@ -138,7 +138,7 @@ export default function TermsAndConditions() {
                   <Link href="/" className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-white font-medium transition-all">
                     Back to Home
                   </Link>
-                  <Link href="/enroll" className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg text-white font-medium shadow-lg hover:shadow-pink-500/30 transition-all">
+                  <Link href="/BannerPage" className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg text-white font-medium shadow-lg hover:shadow-pink-500/30 transition-all">
                     I Accept - Register Now
                   </Link>
                 </div>
