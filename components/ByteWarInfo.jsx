@@ -57,7 +57,7 @@ const WowByteWarInfo = () => {
 
           {/* CTA Button */}
           <div className="text-center mt-16">
-            <Link href={"/enroll"}>
+            <Link href={"/BannerPage"}>
               <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
                 Join ByteWar Now
               </button>

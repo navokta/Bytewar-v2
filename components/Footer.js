@@ -59,7 +59,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/enroll" className="text-gray-300 hover:text-white transition-colors duration-300">
+                <Link href="/BannerPage" className="text-gray-300 hover:text-white transition-colors duration-300">
                   Enroll Now
                 </Link>
               </li>
