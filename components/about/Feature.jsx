@@ -103,7 +103,7 @@ const WowWhyChooseSection = () => {
                 Become part of India's most prestigious coding competition and elevate your skills
               </p>
             </div>
-            <Link href={'/enroll'}>
+            <Link href={'/BannerPage'}>
             <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
               Register Now
             </button>
