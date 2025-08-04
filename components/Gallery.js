@@ -164,7 +164,7 @@ export default function MediaGallery() {
 
        {/* Enroll Now Button with Pulse Effect */}
         <Link
-          href="/enroll"
+          href="/BannerPage"
           className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold px-10 py-5 rounded-full text-xl shadow-2xl transform hover:scale-110 transition-all duration-300 ease-in-out group relative overflow-hidden"
         >
           <span className="relative z-10">Enroll Now</span>
