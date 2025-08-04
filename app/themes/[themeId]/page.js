@@ -57,7 +57,7 @@ const ThemeProblemsPage = () => {
           id: 'breach-alert-system',
           title: 'Breach Alert System for Personal Data Leaks',
           description: 'A real-time monitoring and notification system that scans the dark web and public breach databases to detect if personal data (emails, phone numbers, passwords) has been leaked, and alerts users with actionable security recommendations.',
-          difficulty: 'Medium',
+          difficulty: 'Easy',
           participants: 108
         },
         {
@@ -78,14 +78,14 @@ const ThemeProblemsPage = () => {
           id: 'privacy-dashboard',
           title: 'Privacy Dashboard For Apps and Browser',
           description: 'A centralized tool to monitor, manage, and revoke permissions for mobile apps and browser extensions, with real-time alerts and privacy scores to enhance user control and data transparency.',
-          difficulty: 'Easy',
+          difficulty: 'Medium',
           participants: 86
         },
         {
           id: 'anti-surveillance-platform',
           title: 'Smartphone Anti-Surveillance Platform',
           description: 'A privacy-focused Android app that detects and prevents unauthorized microphone, camera, GPS access, and rogue networks, offering real-time alerts, stealth mode, and privacy education.',
-          difficulty: 'Medium',
+          difficulty: 'Hard',
           participants: 72
         }
       ]
@@ -106,7 +106,7 @@ const ThemeProblemsPage = () => {
           id: 'online-note-summarizer',
           title: 'Online Note Summarizer',
           description: 'AI-powered platform to automatically generate concise summaries, key points, and mind maps from long notes to improve revision and retention.',
-          difficulty: 'Medium',
+          difficulty: 'Hard',
           participants: 135
         },
         {
@@ -114,13 +114,13 @@ const ThemeProblemsPage = () => {
           title: 'AI Career Path Advisor',
           description: 'A personalized AI-driven tool that guides individuals in selecting and advancing their career in AI based on skills, goals, and market trends.',
           difficulty: 'Medium',
-          participants: 124
+          participants: 114
         },
         {
           id: 'inclusive-learning-platform',
           title: 'Inclusive Learning for Students with Disabilities',
           description: 'An assistive digital learning platform designed to support students with physical, cognitive, or learning disabilities using adaptive tools and personalized content.',
-          difficulty: 'Medium',
+          difficulty: 'Hard',
           participants: 118
         },
         {
@@ -373,14 +373,14 @@ const ThemeProblemsPage = () => {
           id: 'air-quality-noise-monitoring-app',
           title: 'Air Quality and Noise Monitoring App',
           description: 'Develop a mobile app for real-time air quality and noise level monitoring in urban areas',
-          difficulty: 'Hard',
+          difficulty: 'Medium',
           participants: 105
         },
         {
           id: 'citizen-participation-feedback-platform',
           title: 'Citizen Participation and Feedback Platform',
           description: 'Create a platform for citizens to provide feedback and participate in urban planning decisions',
-          difficulty: 'Medium',
+          difficulty: 'Easy',
           participants: 95
         },
         {
@@ -401,7 +401,7 @@ const ThemeProblemsPage = () => {
           id: 'intelligent-parking-finder',
           title: 'Intelligent Parking Finder',
           description: 'Develop an AI-powered app to help users find available parking spots in real-time',
-          difficulty: 'Medium',
+          difficulty: 'Hard',
           participants: 95
         },
         {
@@ -436,7 +436,7 @@ const ThemeProblemsPage = () => {
           id: 'waste-segregation-smart-bin',
           title: 'Waste Segregation and Smart Bin Monitoring',
           description: 'An AI-powered system designed to automate waste segregation and provide real-time monitoring of waste bins using computer vision and sensor data. It aims to optimize collection schedules, improve recycling, and enhance smart city infrastructure.',
-          difficulty: 'Hard',
+          difficulty: 'Medium',
           participants: 100
         }
       ]
@@ -486,7 +486,7 @@ const ThemeProblemsPage = () => {
           id: 'legal-right-awareness-tool',
           title: 'Legal Right Awareness Tool',
           description: 'A multilingual, mobile-friendly platform to educate users about their legal rights in real-world scenarios like police stops, tenancy issues, or workplace disputes, using plain language and location-based info.',
-          difficulty: 'Medium',
+          difficulty: 'Easy',
           participants: 113
         },
         {
@@ -500,7 +500,7 @@ const ThemeProblemsPage = () => {
           id: 'legal-risk-scoring-startups',
           title: 'Legal Risk Scoring for Startups',
           description: 'An automated tool that assesses a startup’s legal health via questionnaires and document analysis, providing a risk score and improvement suggestions.',
-          difficulty: 'Medium',
+          difficulty: 'Hard',
           participants: 119
         },
         {
