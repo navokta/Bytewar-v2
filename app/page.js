@@ -43,11 +43,11 @@ export default function Home() {
       <Header />
       <HeroSection />
       <ByteWarInfo />
-       <TermsSection />
       <VideoAndInfographicSection />
       <ThemesSection />
       <Gallery />
       <Sponser />
+      <TermsSection />
       <ThoughtSection />
       <Footer />
     </div>
