@@ -9,7 +9,6 @@ import Footer from '@/components/Footer';
 export default function BannerPage() {
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Replace with your actual image paths
   const images = [
     '/banner.png',
     '/banner2.jpg',
@@ -20,22 +19,16 @@ export default function BannerPage() {
     const timer = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 4000);
-
     return () => clearInterval(timer);
   }, [images.length]);
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const nextImage = () => setCurrentImage((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
 
   return (
     <div>
-      {/* Optional: Keep Header/Footer */}
       <Header />
+
       <div className="relative overflow-hidden">
         <Head>
           <title>Bytewar Hackathon | 10,000+ Prizes</title>
@@ -45,22 +38,59 @@ export default function BannerPage() {
         {/* Dark Gradient Background */}
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 relative">
 
-          {/* Background Particles Container */}
-          <div className="particle-container absolute inset-0 z-0"></div>
-
           {/* Background Blobs */}
           <div className="absolute inset-0 z-0 overflow-hidden">
             <div className="absolute top-10 left-10 w-40 h-40 md:w-80 md:h-80 bg-green-600 rounded-full mix-blend-soft-light filter blur-[60px] md:blur-[100px] opacity-20 animate-blob"></div>
             <div className="absolute bottom-10 right-10 w-48 h-48 md:w-96 md:h-96 bg-purple-600 rounded-full mix-blend-soft-light filter blur-[70px] md:blur-[120px] opacity-20 animate-blob animation-delay-4000"></div>
           </div>
 
-          {/* Main Content */}
-          <div className="relative z-10 container mx-auto h-screen flex flex-col md:flex-row items-center justify-center px-4">
+          {/* Main Content: Stack in Column */}
+          <div className="relative z-10 container mx-auto px-4 pt-8 pb-4 flex flex-col min-h-screen">
 
-            {/* ✅ Image Carousel Column (Portrait Optimized) */}
-            <div className="flex-1 w-full h-1/2 md:h-full flex items-center justify-center relative">
-              <div className="relative w-full h-full max-w-xs md:max-w-sm aspect-[3/4] mx-auto">
-                {/* Image Container */}
+            {/* 🔝 Text Section (On Top) */}
+            <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-8 space-y-6">
+              <div className="space-y-2 max-w-lg mx-auto">
+                <h1 className="text-4xl md:text-6xl font-black text-white">
+                  <span className="text-green-500">Bytewar</span> HACKATHON
+                </h1>
+                <p className="text-2xl md:text-4xl font-bold text-yellow-400 animate-pulse">
+                  10,000+ CASH PRIZE
+                </p>
+              </div>
+
+              <p className="text-lg md:text-xl text-gray-300 max-w-md mx-auto">
+                Join the ultimate coding battle powered by NVIDIA. Showcase your AI and GPU programming skills to win amazing prizes and recognition!
+              </p>
+
+              {/* CTA Button */}
+              <Link
+                href="/enroll"
+                className="mt-0 inline-block px-8 py-4 bg-gradient-to-r from-green-600 to-purple-600 rounded-full text-white font-bold text-lg md:text-xl shadow-lg hover:shadow-xl hover:shadow-green-500/30 transform hover:scale-105 transition-all duration-300 active:scale-95 group"
+              >
+                <span className="relative z-10 flex items-center justify-center md:justify-start">
+                  Register Now
+                  <svg className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </span>
+              </Link>
+
+              {/* Tech Stack */}
+              <div className="flex flex-wrap justify-center gap-3 mt-6">
+                {['CUDA', 'TensorFlow', 'PyTorch', 'Docker', 'Kubernetes'].map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1 bg-black/50 text-green-400 rounded-full text-sm font-mono border border-green-500/30"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* ⬇️ Image Carousel (Moved to Bottom) */}
+            <div className="flex-shrink-0 w-full py-6 flex items-center justify-center">
+              <div className="relative w-full max-w-xs md:max-w-sm aspect-[3/4] mx-auto">
                 <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-800">
                   {images.map((src, index) => (
                     <div
@@ -91,62 +121,19 @@ export default function BannerPage() {
                   ))}
                 </div>
 
-                {/* Optional: Arrows on Desktop */}
+                {/* Optional Arrows */}
                 <button
                   onClick={prevImage}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/75 transition z-10 hidden md:flex"
-                  aria-label="Previous image"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white hidden md:flex items-center justify-center hover:bg-black/75 z-10"
                 >
                   ◀
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/75 transition z-10 hidden md:flex"
-                  aria-label="Next image"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white hidden md:flex items-center justify-center hover:bg-black/75 z-10"
                 >
                   ▶
                 </button>
-              </div>
-            </div>
-
-            {/* Text Column */}
-            <div className="flex-1 w-full h-1/2 md:h-full flex flex-col items-center md:items-start justify-center text-center md:text-left p-4 md:p-8 space-y-6">
-              <div className="space-y-2">
-                <h1 className="text-4xl md:text-6xl font-black text-white">
-                  <span className="text-green-500">Bytewar</span> HACKATHON
-                </h1>
-                <p className="text-2xl md:text-4xl font-bold text-yellow-400 animate-pulse">
-                  10,000+ CASH PRIZE
-                </p>
-              </div>
-
-              <p className="text-lg md:text-xl text-gray-300 max-w-md">
-                Join the ultimate coding battle powered by NVIDIA. Showcase your AI and GPU programming skills to win amazing prizes and recognition!
-              </p>
-
-              {/* ✅ Fixed: Single, Correct Link */}
-              <Link
-                href="/enroll"
-                className="mt-0 inline-block px-8 py-4 bg-gradient-to-r from-green-600 to-purple-600 rounded-full text-white font-bold text-lg md:text-xl shadow-lg hover:shadow-xl hover:shadow-green-500/30 transform hover:scale-105 transition-all duration-300 active:scale-95 group"
-              >
-                <span className="relative z-10 flex items-center">
-                  Register Now
-                  <svg className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </span>
-              </Link>
-
-              {/* Tech Stack */}
-              <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-6">
-                {['CUDA', 'TensorFlow', 'PyTorch', 'Docker', 'Kubernetes'].map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 bg-black/50 text-green-400 rounded-full text-sm font-mono border border-green-500/30"
-                  >
-                    {tech}
-                  </span>
-                ))}
               </div>
             </div>
           </div>
@@ -173,22 +160,10 @@ export default function BannerPage() {
             .text-green-500 {
               text-shadow: 0 0 10px rgba(118, 185, 0, 0.5);
             }
-
-            /* Particles */
-            .particle-container {
-              pointer-events: none;
-            }
-
-            /* Optional: Add floating particles */
-            .particle {
-              position: absolute;
-              border-radius: 50%;
-              opacity: 0.5;
-              pointer-events: none;
-            }
           `}</style>
         </div>
       </div>
+
       <Footer />
     </div>
   );
