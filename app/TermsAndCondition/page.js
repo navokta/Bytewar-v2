@@ -2,6 +2,8 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import Link from 'next/link';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function TermsAndConditions() {
   const [activeSection, setActiveSection] = useState(null);
@@ -46,6 +48,9 @@ export default function TermsAndConditions() {
   };
 
   return (
+    <div>
+        <Header />
+    
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 overflow-hidden">
       <Head>
         <title>ByteWar - Terms and Conditions</title>
@@ -65,21 +70,6 @@ export default function TermsAndConditions() {
       </div>
 
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Floating Nav */}
-        <nav className="sticky top-0 z-20 bg-gray-900/80 backdrop-blur-md border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16 items-center">
-              <Link href="/" className="text-white font-bold text-xl flex items-center">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">ByteWar</span>
-              </Link>
-              <div className="flex space-x-4">
-                <Link href="/enroll" className="px-4 py-2 text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:shadow-lg hover:shadow-pink-500/30 transition-all">
-                  Accept Terms
-                </Link>
-              </div>
-            </div>
-          </div>
-        </nav>
 
         {/* Main Content */}
         <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -157,15 +147,6 @@ export default function TermsAndConditions() {
             </div>
           </div>
         </main>
-
-        {/* Footer */}
-        <footer className="bg-gray-900/50 border-t border-white/10 py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-gray-400 text-sm">
-              © {new Date().getFullYear()} ByteWar. All rights reserved.
-            </p>
-          </div>
-        </footer>
       </div>
 
       <style jsx>{`
@@ -230,6 +211,8 @@ export default function TermsAndConditions() {
           }
         }
       `}</style>
+    </div>
+    <Footer />
     </div>
   );
 }
