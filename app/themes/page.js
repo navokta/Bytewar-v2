@@ -143,7 +143,7 @@ const AllThemesPage = () => {
               </p>
             </div>
             <Link 
-              href="/enroll" 
+              href="/BannerPage" 
               className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-sm sm:text-base transform transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-2xl hover:shadow-purple-500/30 shadow-lg"
             >
               <span className="hidden sm:inline">Register Now</span>
