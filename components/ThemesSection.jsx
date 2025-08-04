@@ -9,6 +9,12 @@ const WowThemesSection = () => {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState(0);
   const carouselRef = useRef(null);
+  const isMobile = useRef(false);
+
+  useEffect(() => {
+    // Check if mobile device
+    isMobile.current = window.innerWidth < 1024;
+  }, []);
 
   const themes = [
     {
@@ -85,7 +91,7 @@ const WowThemesSection = () => {
   }, [themes.length, direction, isHovered, isDragging]);
 
   const goToSlide = (index) => {
-    if (isDragging) return; // Prevent navigation during drag
+    if (isDragging) return;
     setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
   };
@@ -128,13 +134,13 @@ const WowThemesSection = () => {
   const handleDragEnd = (e) => {
     if (!isDragging) return;
     
-    const threshold = 20; // Reduced minimum drag distance to trigger navigation
+    const threshold = 20;
     
     if (Math.abs(dragOffset) > threshold) {
       if (dragOffset > 0) {
-        prevSlide(); // Dragged right, go to previous
+        prevSlide();
       } else {
-        nextSlide(); // Dragged left, go to next
+        nextSlide();
       }
     }
     
@@ -174,22 +180,44 @@ const WowThemesSection = () => {
     }
   }, [isDragging, dragStart, dragOffset]);
 
+  // Simplified mobile card styles
+  const getMobileCardStyle = (index) => {
+    const offset = (index - currentIndex + themes.length) % themes.length;
+    const isCenter = offset === 0;
+    
+    if (isCenter) {
+      return {
+        transform: `translateX(${dragOffset}px) scale(1)`,
+        zIndex: 3,
+        opacity: 1
+      };
+    }
+    
+    return {
+      transform: 'scale(0.85)',
+      zIndex: 1,
+      opacity: 0.5
+    };
+  };
+
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-      </div>
+    <section className="relative py-12 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Reduced background animations for mobile */}
+      {!isMobile.current && (
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-300 mb-4 animate-pulse">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-300 mb-4">
             HACKATHON THEMES
           </h2>
-          <p className="text-2xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
             Unleash your creativity on challenges that matter
           </p>
         </div>
@@ -201,13 +229,11 @@ const WowThemesSection = () => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onMouseDown={(e) => {
-            // Only start drag if not clicking on a button or link
             if (!e.target.closest('button') && !e.target.closest('a')) {
               handleMouseDown(e);
             }
           }}
           onTouchStart={(e) => {
-            // Only start drag if not touching a button or link
             if (!e.target.closest('button') && !e.target.closest('a')) {
               handleTouchStart(e);
             }
@@ -216,15 +242,76 @@ const WowThemesSection = () => {
           onTouchEnd={handleTouchEnd}
           style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
         >
-          {/* Floating Elements */}
-          <div className="absolute -top-20 -left-20 w-40 h-40 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 opacity-20 blur-3xl animate-pulse animation-delay-3000"></div>
+          {/* Reduced floating elements for mobile */}
+          {!isMobile.current && (
+            <>
+              <div className="absolute -top-20 -left-20 w-40 h-40 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 blur-3xl animate-pulse"></div>
+              <div className="absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-r from-yellow-500 to-red-500 opacity-20 blur-3xl animate-pulse animation-delay-3000"></div>
+            </>
+          )}
 
-          {/* Carousel Wrapper */}
-          <div className="relative h-[500px] perspective-1000">
+          {/* Carousel Wrapper - Simplified for mobile */}
+          <div className={`relative ${isMobile.current ? 'h-[400px]' : 'h-[500px] perspective-1000'}`}>
             {themes.map((theme, index) => {
-              const offset =
-                (index - currentIndex + themes.length) % themes.length;
+              if (isMobile.current) {
+                // Mobile-optimized rendering
+                const mobileStyle = getMobileCardStyle(index);
+                
+                return (
+                  <div
+                    key={index}
+                    className="absolute inset-0 transition-all duration-300 ease-in-out"
+                    style={mobileStyle}
+                  >
+                    <div className="h-full flex items-center justify-center">
+                      <div className="relative w-full max-w-md mx-auto">
+                        {/* Card */}
+                        <div 
+                          className={`relative bg-gray-900/80 backdrop-blur-sm rounded-3xl p-6 border border-white/10 overflow-hidden transition-all duration-300 ${
+                            mobileStyle.zIndex === 3 ? "shadow-lg" : ""
+                          }`}
+                          onClick={(e) => handleCardClick(index, e)}
+                        >
+                          <div className="relative z-10 flex flex-col items-center text-center space-y-4">
+                            {/* Icon */}
+                            <div
+                              className={`flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br ${theme.color} text-3xl`}
+                            >
+                              {theme.icon}
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                              {theme.title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="text-gray-200 text-base leading-relaxed">
+                              {theme.description}
+                            </p>
+
+                            {/* Button - Always visible on mobile */}
+                            {mobileStyle.zIndex === 3 && (
+                              <div className="pt-4">
+                                <Link href={`../themes/${theme.id}`}>
+                                  <button
+                                    className={`px-5 py-2 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transition-all ${theme.glow}`}
+                                  >
+                                    Explore Theme
+                                  </button>
+                                </Link>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              // Desktop rendering (original with optimizations)
+              const offset = (index - currentIndex + themes.length) % themes.length;
               const isCenter = offset === 0;
               const isNext = offset === 1 || offset === 1 - themes.length;
               const isPrev = offset === -1 || offset === themes.length - 1;
@@ -235,9 +322,8 @@ const WowThemesSection = () => {
               let rotate = 0;
               let translateX = 0;
 
-              // Apply drag offset to center card
               if (isCenter && isDragging) {
-                translateX = dragOffset * 0.8; // Increased drag sensitivity for more responsive movement
+                translateX = dragOffset * 0.8;
               }
 
               if (isCenter) {
@@ -286,59 +372,59 @@ const WowThemesSection = () => {
                       }`}
                     >
                       {/* Glow Effect */}
-                      <div
-                        className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${
-                          theme.color
-                        } opacity-70 blur-xl ${
-                          theme.glow
-                        } transition-all duration-700 ${
-                          isCenter ? "opacity-100 scale-110" : "opacity-50"
-                        }`}
-                      ></div>
+                      {!isMobile.current && (
+                        <div
+                          className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${
+                            theme.color
+                          } opacity-70 blur-xl ${
+                            theme.glow
+                          } transition-all duration-700 ${
+                            isCenter ? "opacity-100 scale-110" : "opacity-50"
+                          }`}
+                        ></div>
+                      )}
 
                       {/* Card */}
                       <div
-                        className={`relative bg-gray-900/80 backdrop-blur-xl rounded-3xl p-8 border border-white/10 overflow-hidden transition-all duration-500 transform hover:-translate-y-2 ${
+                        className={`relative bg-gray-900/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-white/10 overflow-hidden transition-all duration-500 transform hover:-translate-y-2 ${
                           isCenter ? "shadow-2xl" : "shadow-lg"
                         }`}
                       >
-                        {/* Animated Border */}
-                        <div
-                          className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${theme.color} opacity-30 animate-pulse`}
-                        ></div>
+                        {/* Animated Border - removed on mobile */}
+                        {!isMobile.current && (
+                          <div
+                            className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${theme.color} opacity-30 animate-pulse`}
+                          ></div>
+                        )}
 
-                        <div className="relative z-10 flex flex-col items-center text-center space-y-6">
-                          {/* Clickable area for icon, title, and description */}
+                        <div className="relative z-10 flex flex-col items-center text-center space-y-4 md:space-y-6">
                           <div 
-                            className="cursor-pointer flex flex-col items-center space-y-6"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleCardClick(index, e);
-                            }}
+                            className="cursor-pointer flex flex-col items-center space-y-4 md:space-y-6"
+                            onClick={(e) => handleCardClick(index, e)}
                           >
-                            {/* Icon with Animation */}
+                            {/* Icon */}
                             <div
-                              className={`flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br ${
+                              className={`flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br ${
                                 theme.color
-                              } text-4xl transform transition-all duration-500 ${
-                                isCenter ? "scale-110 rotate-12" : "scale-100"
+                              } text-3xl md:text-4xl transform transition-all duration-500 ${
+                                isCenter && !isMobile.current ? "scale-110 rotate-12" : "scale-100"
                               }`}
                             >
                               {theme.icon}
                             </div>
 
                             {/* Title */}
-                            <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                            <h3 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
                               {theme.title}
                             </h3>
 
                             {/* Description */}
-                            <p className="text-gray-200 text-lg leading-relaxed">
+                            <p className="text-gray-200 text-base md:text-lg leading-relaxed">
                               {theme.description}
                             </p>
                           </div>
 
-                          {/* Floating Action Button - Completely separate from clickable area */}
+                          {/* Floating Action Button */}
                           {isCenter && !isDragging && (
                             <div 
                               className="relative z-50 pointer-events-auto"
@@ -346,20 +432,9 @@ const WowThemesSection = () => {
                               onMouseDown={(e) => e.stopPropagation()}
                               onTouchStart={(e) => e.stopPropagation()}
                             >
-                              <Link 
-                                href={`../themes/${theme.id}`}
-                                onClick={(e) => e.stopPropagation()}
-                              >
+                              <Link href={`../themes/${theme.id}`}>
                                 <button
-                                  className={`px-6 py-3 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${theme.glow} pointer-events-auto`}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    e.preventDefault();
-                                    // Force navigation using router or window location
-                                    window.location.href = `../themes/${theme.id}`;
-                                  }}
-                                  onMouseDown={(e) => e.stopPropagation()}
-                                  onTouchStart={(e) => e.stopPropagation()}
+                                  className={`px-5 py-2 md:px-6 md:py-3 bg-gradient-to-r ${theme.color} text-white font-bold rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg ${theme.glow}`}
                                 >
                                   Explore Theme
                                 </button>
@@ -375,48 +450,52 @@ const WowThemesSection = () => {
             })}
           </div>
 
-          {/* Navigation Arrows - Visible only on laptop/desktop */}
-          <button
-            onClick={prevSlide}
-            className="hidden lg:flex absolute left-4 top-1/2 transform -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-gray-900/50 backdrop-blur-lg border border-white/20 items-center justify-center text-white hover:bg-gray-800/70 transition-all duration-300 group"
-          >
-            <svg
-              className="w-8 h-8 group-hover:-translate-x-1 transition-transform duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
+          {/* Navigation Arrows - Hidden on mobile */}
+          {!isMobile.current && (
+            <>
+              <button
+                onClick={prevSlide}
+                className="hidden lg:flex absolute left-4 top-1/2 transform -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-gray-900/50 backdrop-blur-lg border border-white/20 items-center justify-center text-white hover:bg-gray-800/70 transition-all duration-300 group"
+              >
+                <svg
+                  className="w-8 h-8 group-hover:-translate-x-1 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
 
-          <button
-            onClick={nextSlide}
-            className="hidden lg:flex absolute right-4 top-1/2 transform -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-gray-900/50 backdrop-blur-lg border border-white/20 items-center justify-center text-white hover:bg-gray-800/70 transition-all duration-300 group"
-          >
-            <svg
-              className="w-8 h-8 group-hover:translate-x-1 transition-transform duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
+              <button
+                onClick={nextSlide}
+                className="hidden lg:flex absolute right-4 top-1/2 transform -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-gray-900/50 backdrop-blur-lg border border-white/20 items-center justify-center text-white hover:bg-gray-800/70 transition-all duration-300 group"
+              >
+                <svg
+                  className="w-8 h-8 group-hover:translate-x-1 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </>
+          )}
 
           {/* Drag Indicator - Visible only on mobile */}
-          {isDragging && (
-            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 lg:hidden">
+          {isMobile.current && isDragging && (
+            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50">
               <div className="bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm">
                 {dragOffset > 10 ? '← Swipe to go back' : dragOffset < -10 ? 'Swipe to go next →' : 'Swipe left or right'}
               </div>
@@ -424,14 +503,14 @@ const WowThemesSection = () => {
           )}
 
           {/* Dots Indicator */}
-          <div className="flex justify-center mt-16 space-x-3 relative z-20">
+          <div className="flex justify-center mt-8 md:mt-16 space-x-3 relative z-20">
             {themes.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-4 h-4 rounded-full transition-all duration-500 transform hover:scale-125 ${
+                className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-500 ${
                   index === currentIndex
-                    ? `bg-gradient-to-r ${themes[index].color} w-8 scale-125 shadow-lg`
+                    ? `bg-gradient-to-r ${themes[index].color} md:w-8 scale-125 shadow-lg`
                     : "bg-gray-600 hover:bg-gray-500"
                 }`}
               />
@@ -439,17 +518,17 @@ const WowThemesSection = () => {
           </div>
         </div>
 
-        {/*This is the Button Of all Theme*/}
-        <div className="text-center mt-16">
+        {/* View All Themes Button */}
+        <div className="text-center mt-8 md:mt-16">
           <Link href={"/themes"}>
-            <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30">
+            <button className="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-base md:text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30">
               View All Themes
             </button>
           </Link>
         </div>
       </div>
 
-      {/* Custom Styles for Animations */}
+      {/* Custom Styles for Animations - Reduced for mobile */}
       <style jsx>{`
         .perspective-1000 {
           perspective: 1000px;
