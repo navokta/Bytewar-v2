@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaUser, FaEnvelope, FaPhone, FaUsers, FaIdCard, FaUserTag, FaSave } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPhone, FaUsers, FaIdCard, FaUserTag, FaSave, FaUniversity } from "react-icons/fa";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -17,7 +17,7 @@ export default function WowEnrollForm() {
     teamName: "",
     altPhone: "",
     upiId: "",
-    members: Array(5).fill({ name: "", role: "" })
+    members: Array(5).fill({ name: "", role: "", institution: "" })
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -28,8 +28,11 @@ export default function WowEnrollForm() {
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
-        const fullMembersArray = Array(5).fill({ name: "", role: "" }).map((_, index) => {
-          return parsedData.members?.[index] ? { ...parsedData.members[index] } : { name: "", role: "" };
+        const fullMembersArray = Array(5).fill({ name: "", role: "", institution: "" }).map((_, index) => {
+          return parsedData.members?.[index] ? { 
+            ...parsedData.members[index],
+            institution: parsedData.members[index].institution || ""
+          } : { name: "", role: "", institution: "" };
         });
         
         const savedType = parsedData.members && parsedData.members.length === 1 ? "solo" : "team";
@@ -316,7 +319,7 @@ export default function WowEnrollForm() {
                         </h4>
                         <div className="space-y-3 sm:space-y-4">
                           {[...Array(teamSize)].map((_, index) => {
-                            const member = formData.members[index] || { name: "", role: "" };
+                            const member = formData.members[index] || { name: "", role: "", institution: "" };
                             return (
                               <div
                                 key={index}
@@ -352,6 +355,19 @@ export default function WowEnrollForm() {
                                       onChange={(e) => handleMemberChange(index, 'role', e.target.value)}
                                       required
                                       placeholder="Role (Developer, Designer, etc.)"
+                                      className="w-full pl-8 sm:pl-10 pr-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-lg text-xs sm:text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all duration-300"
+                                    />
+                                  </div>
+                                  <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                      <FaUniversity className="text-gray-400 text-xs sm:text-sm" />
+                                    </div>
+                                    <input
+                                      type="text"
+                                      value={member.institution}
+                                      onChange={(e) => handleMemberChange(index, 'institution', e.target.value)}
+                                      required
+                                      placeholder="College/Institution/Coaching"
                                       className="w-full pl-8 sm:pl-10 pr-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-lg text-xs sm:text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all duration-300"
                                     />
                                   </div>
@@ -398,6 +414,19 @@ export default function WowEnrollForm() {
                               onChange={(e) => handleMemberChange(0, 'role', e.target.value)}
                               required
                               placeholder="Your Role (Developer, Designer, etc.)"
+                              className="w-full pl-8 sm:pl-10 pr-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-lg text-xs sm:text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all duration-300"
+                            />
+                          </div>
+                          <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                              <FaUniversity className="text-gray-400 text-xs sm:text-sm" />
+                            </div>
+                            <input
+                              type="text"
+                              value={formData.members[0]?.institution || ""}
+                              onChange={(e) => handleMemberChange(0, 'institution', e.target.value)}
+                              required
+                              placeholder="Your College/Institution/Coaching"
                               className="w-full pl-8 sm:pl-10 pr-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-lg text-xs sm:text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all duration-300"
                             />
                           </div>
