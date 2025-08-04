@@ -11,65 +11,82 @@ export default function BannerPage() {
         <meta name="description" content="Join ByteWar Hackathon" />
       </Head>
 
-      {/* Animated Background Elements */}
+      {/* Background Elements */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-20 left-1/4 w-80 h-80 bg-purple-600 rounded-full mix-blend-soft-light filter blur-[100px] opacity-20 animate-blob"></div>
-        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-pink-600 rounded-full mix-blend-soft-light filter blur-[120px] opacity-20 animate-blob animation-delay-4000"></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-red-600 rounded-full mix-blend-soft-light filter blur-[90px] opacity-15 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-10 left-10 w-40 h-40 md:w-80 md:h-80 bg-purple-600 rounded-full mix-blend-soft-light filter blur-[60px] md:blur-[100px] opacity-20 animate-blob"></div>
+        <div className="absolute bottom-10 right-10 w-48 h-48 md:w-96 md:h-96 bg-pink-600 rounded-full mix-blend-soft-light filter blur-[70px] md:blur-[120px] opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Main Content - 100vh container */}
+      {/* Main Layout */}
       <div className="relative z-10 h-screen flex flex-col">
-        {/* Banner Image Only - Takes most of the space */}
-        <div className="flex-grow relative">
-          <Image
-            src="/photo1.jpg" // Replace with your image path
-            alt="ByteWar Hackathon"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-90"
-            priority
-          />
+        {/* Image Container - Now reversed behavior */}
+        <div className="flex-1 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src="/photo1.jpg"
+              alt="ByteWar Hackathon"
+              fill
+              priority
+              className="object-contain md:object-cover object-center"
+              sizes="100vw"
+            />
+          </div>
+          
+          {/* Gradient Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 md:h-40 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
         </div>
 
-        {/* Text and Button Below Banner */}
-        <div className="bg-gray-900/70 backdrop-blur-sm p-6 text-center border-t border-white/10">
-          <h1 className="text-3xl md:text-4xl font-black mb-4">
+        {/* Call-to-Action */}
+        <div className="absolute bottom-4 md:bottom-8 left-0 right-0 px-4 text-center animate-fade-in">
+          <h1 className="text-2xl md:text-4xl font-black mb-3 md:mb-4 text-white drop-shadow-lg">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
               READY TO COMPETE?
             </span>
           </h1>
-          <Link href="/enroll">
-            <button className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-pink-500/30">
+          <Link href="/enroll" legacyBehavior>
+            <a className="inline-block px-6 py-2 md:px-8 md:py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold text-base md:text-lg shadow-lg hover:shadow-xl hover:shadow-pink-500/30 transform hover:scale-105 transition-all duration-300 active:scale-95">
               Continue to Enrollment
-            </button>
+              <svg className="w-4 h-4 md:w-5 md:h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
           </Link>
         </div>
       </div>
 
       <style jsx>{`
         @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
           }
-          33% {
-            transform: translate(50px, -30px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 40px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
+          50% {
+            transform: translate(0, 10px) scale(1.05);
           }
         }
         .animate-blob {
-          animation: blob 12s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
+          animation: blob 8s ease-in-out infinite;
         }
         .animation-delay-4000 {
-          animation-delay: 4s;
+          animation-delay: 2s;
+        }
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out forwards;
+        }
+
+        /* Reversed Image Behavior */
+        @media (max-width: 768px) {
+          .object-contain {
+            object-fit: contain;
+          }
+        }
+        @media (min-width: 769px) {
+          .object-cover {
+            object-fit: cover;
+          }
         }
       `}</style>
     </div>
