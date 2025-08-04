@@ -44,3 +44,5 @@ export const config = {
     // '/themes/:themeId' // Protect theme overview pages
   ],
 };
+
+// Bhavy Sharma
