@@ -15,83 +15,104 @@ const InteractiveTimeline = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const timelineEvents = [
+const timelineEvents = [
   {
     date: "1 Sep 2025",
     title: "Registration Opens",
-    description: "Secure your spot in the ultimate coding battle. Early birds get exclusive swag and bonus resources!",
-    icon: "🚀",
+    description: "The journey begins! Register your team and secure your spot in the ultimate coding challenge.",
+    icon: "✅",
     color: "from-purple-600 to-blue-500"
   },
   {
     date: "15 Sep 2025",
     title: "End of Registration",
-    description: "Team registration closes. Finalize your quintet of up to 5 members before it's too late!",
-    icon: "👥",
+    description: "Registration closes. No more team entries will be accepted after this date.",
+    icon: "❌",
     color: "from-blue-500 to-teal-400"
   },
   {
     date: "16 Sep 2025",
     title: "Video Submission Round Begins",
-    description: "Kickoff event with a keynote from industry leaders and the official release of problem statements.",
-    icon: "🎯",
+    description: "The first round kicks off! Start preparing your 3-minute video pitch to showcase your idea.",
+    icon: "▶️",
     color: "from-teal-400 to-green-500"
   },
   {
     date: "18 Sep 2025",
     title: "End of Video Submission Round",
-    description: "Deadline to submit your 3-minute concept video showcasing your idea and team vision.",
-    icon: "🎥",
+    description: "Deadline to upload your concept video. Late submissions will not be accepted.",
+    icon: "⏹️",
     color: "from-green-500 to-yellow-400"
   },
   {
-    date: "19-20 Sep 2025",
+    date: "20 Sep 2025",
     title: "Video Submission Results Announced",
-    description: "Top teams selected to advance to the next round based on innovation and feasibility of their video pitch.",
+    description: "Results are out! Check if your team has advanced to the next round.",
     icon: "📢",
     color: "from-yellow-400 to-orange-500"
   },
   {
-    date: "25 Sep 2025",
+    date: "21 Sep 2025",
     title: "PPT Submission Round Begins",
-    description: "Selected teams receive feedback and begin preparing detailed project presentations.",
-    icon: "📘",
+    description: "Selected teams can now start working on their detailed project presentation.",
+    icon: "📊",
     color: "from-orange-500 to-red-500"
   },
   {
-    date: "27 Sep 2025",
+    date: "24 Sep 2025",
     title: "End of PPT Submission",
-    description: "Final deadline to submit your project presentation deck for expert evaluation.",
+    description: "Final deadline to submit your presentation deck. Judges will begin evaluation shortly after.",
     icon: "📤",
     color: "from-red-500 to-pink-500"
   },
   {
-    date: "25 Sep - 5 Oct 2025",
-    title: "Mentor Session & Development Phase",
-    description: "Get guidance from industry mentors and refine your solution during the intensive build phase.",
-    icon: "👨‍🏫",
+    date: "26 Sep 2025",
+    title: "Result of PPT Round",
+    description: "Top teams selected for the final coding round. Congratulations to all qualifiers!",
+    icon: "🎯",
     color: "from-pink-500 to-rose-500"
   },
   {
-    date: "6 Oct 2025",
-    title: "Coding Round Ends",
-    description: "All coding, testing, and documentation must be completed. Final submissions locked at midnight.",
-    icon: "💻",
+    date: "27 Sep 2025",
+    title: "Mentorship Session Begin",
+    description: "Get expert guidance from industry professionals to refine your project before the final build.",
+    icon: "🧑‍🏫",
     color: "from-rose-500 to-orange-500"
   },
   {
+    date: "28 Sep 2025",
+    title: "Mentorship Session Ends",
+    description: "Mentorship concludes. Teams should finalize their plans and prepare for the coding phase.",
+    icon: "🔚",
+    color: "from-orange-500 to-red-600"
+  },
+  {
+    date: "29 Sep 2025",
+    title: "Coding Round Begin",
+    description: "Hackathon coding phase starts! Build, test, and document your solution.",
+    icon: "💻",
+    color: "from-green-500 to-cyan-500"
+  },
+  {
+    date: "6 Oct 2025",
+    title: "Coding Round End",
+    description: "Final deadline for code submission. All repositories must be locked by midnight.",
+    icon: "🔒",
+    color: "from-cyan-500 to-blue-600"
+  },
+  {
     date: "8 Oct 2025",
-    title: "Final Results Announcement",
-    description: "Winners revealed live! Celebrate innovation with prizes worth 10,000 Rs.",
-    icon: "🏆",
-    color: "from-yellow-400 to-gold-500"
+    title: "Coding Round Result",
+    description: "Results of the coding round announced. Top teams move to the final presentation.",
+    icon: "📋",
+    color: "from-blue-600 to-indigo-500"
   },
   {
     date: "10 Oct 2025",
-    title: "Awards & Recognition Ceremony",
-    description: "All participants honored. Winners receive trophies, gifts, and career-boosting opportunities.",
-    icon: "🎁",
-    color: "from-green-400 to-teal-500"
+    title: "Prize and Reward Distribution",
+    description: "Grand finale! Winners announced and awards distributed in a live ceremony.",
+    icon: "🏆",
+    color: "from-yellow-400 to-gold-500"
   }
 ];
 
