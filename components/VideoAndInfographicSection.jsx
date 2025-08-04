@@ -1,12 +1,13 @@
-// components/WowVideoHero.jsx (or app/components/WowVideoHero.jsx)
-"use client"; // This is essential for client-side hooks and effects
-
+"use client";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const WowVideoHero = () => {
+  const [player, setPlayer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  // --- State for YouTube Stats ---
+  const playerRef = useRef(null);
+  
+  // YouTube Stats State
   const [stats, setStats] = useState({
     viewCount: "2.1M+",
     likeCount: "45K+",
@@ -14,58 +15,84 @@ const WowVideoHero = () => {
   });
   const [loadingStats, setLoadingStats] = useState(true);
   const [statsError, setStatsError] = useState(null);
-  // --- End YouTube Stats State ---
 
-  const handlePlayVideo = () => {
-    setIsPlaying(true);
+  // Load YouTube IFrame API
+  useEffect(() => {
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    window.onYouTubeIframeAPIReady = () => {
+      const newPlayer = new window.YT.Player(playerRef.current, {
+        videoId: 'gFM8s2i2emQ',
+        playerVars: {
+          autoplay: 0,
+          controls: 1,
+          modestbranding: 1,
+          rel: 0
+        },
+        events: {
+          'onReady': () => {
+            // Player is ready
+          },
+          'onStateChange': (event) => {
+            setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
+          }
+        }
+      });
+      setPlayer(newPlayer);
+    };
+
+    return () => {
+      if (window.YT && player) {
+        player.destroy();
+      }
+    };
+  }, []);
+
+  const togglePlay = () => {
+    if (!player) return;
+    
+    if (isPlaying) {
+      player.pauseVideo();
+    } else {
+      player.playVideo();
+    }
   };
 
-  // --- Fetch YouTube Stats Effect ---
+  // Fetch YouTube Stats Effect
   useEffect(() => {
     const fetchYouTubeStats = async () => {
-      // Reset loading/error states on new fetch attempt
       setLoadingStats(true);
       setStatsError(null);
 
       try {
-        // 1. Define your API key and Video ID
-        // WARNING: Exposing your API key client-side is a security risk in production.
-        // For production, use a server-side API route as discussed previously.
-        const API_KEY = "AIzaSyDAmA45c0sQEOf5oiXRxk081Jc6LejAVik"; // Replace with your key
-        const VIDEO_ID = "gFM8s2i2emQ"; // Replace with your ByteWar video ID
-
-        // 2. Construct the YouTube Data API URL
+        const API_KEY = "AIzaSyDAmA45c0sQEOf5oiXRxk081Jc6LejAVik";
+        const VIDEO_ID = "gFM8s2i2emQ";
         const url = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${VIDEO_ID}&key=${API_KEY}`;
 
-        // 3. Fetch the data
         const response = await fetch(url);
 
-        // 4. Check for a successful response
         if (!response.ok) {
-          // Try to get error details from the response body
           let errorMsg = `YouTube API error: ${response.status} ${response.statusText}`;
           try {
             const errorData = await response.json();
             if (errorData.error && errorData.error.message) {
               errorMsg = `YouTube API error: ${errorData.error.message}`;
             }
-          } catch (e) {
-            // Ignore JSON parse error for error message
-          }
+          } catch (e) {}
           throw new Error(errorMsg);
         }
 
-        // 5. Parse the JSON data
         const data = await response.json();
 
-        // 6. Check if the expected data exists
         if (!data.items || data.items.length === 0) {
           throw new Error("Video not found or no statistics available.");
         }
 
         const statistics = data.items[0].statistics;
 
-        // 7. Format the numbers (e.g., 1200000 -> 1.2M)
         const formatCount = (count) => {
           const num = parseInt(count, 10);
           if (num >= 1_000_000) {
@@ -74,32 +101,25 @@ const WowVideoHero = () => {
           if (num >= 1_000) {
             return `${(num / 1_000).toFixed(1)}K`;
           }
-          return num.toLocaleString(); // For numbers less than 1000
+          return num.toLocaleString();
         };
 
-        // 8. Update the state with formatted stats
         setStats({
           viewCount: formatCount(statistics.viewCount),
           likeCount: formatCount(statistics.likeCount),
           commentCount: formatCount(statistics.commentCount),
         });
       } catch (err) {
-        // 9. Handle any errors during the fetch/process
         console.error("Error fetching YouTube stats:", err);
-        setStatsError(err.message); // Store the error message to display
-        // Stats will remain at their default/fallback values
+        setStatsError(err.message);
       } finally {
-        // 10. Always stop the loading indicator
         setLoadingStats(false);
       }
     };
 
-    // Call the async function
     fetchYouTubeStats();
-  }, []); // Empty dependency array means this runs once on mount
-  // --- End Fetch YouTube Stats Effect ---
+  }, []);
 
-  // Helper function to render stat items with loading/error handling
   const renderStatItem = (value, label) => (
     <div className="text-center p-4 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-white/10 transform hover:scale-105 transition-all duration-300">
       <div className="text-3xl font-bold text-orange-400">
@@ -110,8 +130,6 @@ const WowVideoHero = () => {
         )}
       </div>
       <div className="text-gray-400">{label}</div>
-      {/* Optionally display individual stat errors if needed */}
-      {/* {statsError && <div className="text-xs text-red-400 mt-1">Error</div>} */}
     </div>
   );
 
@@ -148,31 +166,30 @@ const WowVideoHero = () => {
           <div className="relative group">
             <div
               className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl cursor-pointer transform transition-all duration-700 hover:scale-105"
-              onClick={handlePlayVideo}
+              onClick={togglePlay}
             >
-              {/* Video Container */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900">
-                {/* Animated Grid Pattern */}
-                <div className="absolute inset-0 opacity-20">
-                  <div className="grid grid-cols-8 grid-rows-8 h-full w-full">
-                    {[...Array(64)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="border border-white/5"
-                        style={{
-                          animation: `pulse ${
-                            1 + Math.random() * 2
-                          }s infinite ${Math.random() * 2}s`,
-                        }}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              {/* YouTube Player Container */}
+              <div ref={playerRef} className="absolute inset-0 w-full h-full"></div>
 
-              {!isPlaying ? (
+              {/* Overlay with play button when paused */}
+              {!isPlaying && (
                 <>
-                  {/* Play Button */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900">
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="grid grid-cols-8 grid-rows-8 h-full w-full">
+                        {[...Array(64)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="border border-white/5"
+                            style={{
+                              animation: `pulse ${1 + Math.random() * 2}s infinite ${Math.random() * 2}s`,
+                            }}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="relative">
                       <div className="absolute inset-0 w-24 h-24 bg-red-600 rounded-full animate-ping opacity-75"></div>
@@ -188,7 +205,6 @@ const WowVideoHero = () => {
                     </div>
                   </div>
 
-                  {/* Video Info */}
                   <div className="absolute bottom-6 left-0 right-0 text-center">
                     <h3 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">
                       BYTEWAR 2025
@@ -198,15 +214,6 @@ const WowVideoHero = () => {
                     </p>
                   </div>
                 </>
-              ) : (
-                /* YouTube Embed */
-                <iframe
-                  src="https://youtu.be/gFM8s2i2emQ?si=vxUF1ionEomcMFOd" // Make sure this ID matches VIDEO_ID above
-                  title="ByteWar Hackathon 2023"
-                  className="absolute inset-0 w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
               )}
 
               {/* Glow Effect */}
@@ -214,11 +221,8 @@ const WowVideoHero = () => {
             </div>
 
             {/* Video Stats */}
-            {/* Display a general error message if needed, or rely on individual stat fallbacks */}
             {statsError && (
               <div className="mt-2 text-center text-sm text-red-400">
-                {/* Could not load stats. Showing defaults. */}
-                {/* Or just hide the error visually but log it: */}
                 <span className="sr-only">Stats Error: {statsError}</span>
               </div>
             )}
