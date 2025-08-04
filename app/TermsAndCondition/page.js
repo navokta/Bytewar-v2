@@ -143,7 +143,7 @@ export default function TermsAndConditions() {
                   </Link>
                 </div>
                 <p className="mt-6 text-sm text-gray-400">
-                  Questions? Contact us at <a href="mailto:terms@bytewar.in" className="text-pink-400 hover:underline">terms@bytewar.in</a>
+                  Questions? Contact us at <a href="mailto:navokta@gmail.com" className="text-pink-400 hover:underline">navokta@gmail.com</a>
                 </p>
               </div>
             </div>
