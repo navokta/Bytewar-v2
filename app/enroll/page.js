@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaUser, FaEnvelope, FaPhone, FaUsers, FaIdCard, FaUserTag, FaSave, FaUniversity, FaTag } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPhone, FaUsers, FaIdCard, FaUserTag, FaSave, FaUniversity } from "react-icons/fa";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -16,14 +16,10 @@ export default function WowEnrollForm() {
     teamName: "",
     altPhone: "",
     upiId: "",
-    couponCode: "",
     members: Array(5).fill({ name: "", role: "", institution: "" }),
   });
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
-  const [couponApplied, setCouponApplied] = useState(false);
-  const [couponError, setCouponError] = useState("");
-  const [registrationFee, setRegistrationFee] = useState(150); // Default fee
 
   // Load saved data from localStorage
   useEffect(() => {
@@ -37,19 +33,11 @@ export default function WowEnrollForm() {
           institution: parsedData.members?.[index]?.institution || "",
         }));
         const savedType = parsedData.members?.length === 1 ? "solo" : "team";
-        
         setFormData({
           ...parsedData,
           members: fullMembersArray,
         });
         setParticipationType(savedType);
-        
-        // Check if coupon was previously applied
-        if (parsedData.couponCode && parsedData.couponCode === process.env.NEXT_PUBLIC_COUPON_CODE) {
-          setCouponApplied(true);
-          setRegistrationFee(100);
-        }
-        
         if (savedType === "team" && parsedData.members) {
           const filled = parsedData.members.filter(m => m.name);
           setTeamSize(Math.max(3, Math.min(5, filled.length)));
@@ -75,23 +63,6 @@ export default function WowEnrollForm() {
     setFormData((prev) => ({ ...prev, members: updatedMembers }));
   };
 
-  const handleCouponApply = () => {
-    if (!formData.couponCode) {
-      setCouponError("Please enter a coupon code");
-      return;
-    }
-    
-    if (formData.couponCode === process.env.NEXT_PUBLIC_COUPON_CODE) {
-      setCouponApplied(true);
-      setCouponError("");
-      setRegistrationFee(100);
-    } else {
-      setCouponApplied(false);
-      setCouponError("Invalid coupon code");
-      setRegistrationFee(150);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSaving(true);
@@ -104,7 +75,6 @@ export default function WowEnrollForm() {
       members: participationType === "solo"
         ? [formData.members[0]]
         : formData.members.slice(0, teamSize).filter(m => m.name),
-      registrationFee: couponApplied ? 100 : 150
     };
 
     try {
@@ -262,34 +232,6 @@ export default function WowEnrollForm() {
                         placeholder="UPI ID (e.g. user@upi)"
                         className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-sm sm:text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
                       />
-                    </div>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <FaTag className="text-blue-400 text-sm sm:text-base" />
-                      </div>
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          name="couponCode"
-                          value={formData.couponCode}
-                          onChange={handleInputChange}
-                          placeholder="Coupon Code (optional)"
-                          className="flex-1 pl-9 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-sm sm:text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
-                        />
-                        <button
-                          type="button"
-                          onClick={handleCouponApply}
-                          className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-500 hover:to-purple-500 transition-all"
-                        >
-                          Apply
-                        </button>
-                      </div>
-                      {couponError && (
-                        <p className="mt-1 text-xs text-red-400">{couponError}</p>
-                      )}
-                      {couponApplied && (
-                        <p className="mt-1 text-xs text-green-400">Coupon applied successfully! ₹50 discount applied.</p>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -478,25 +420,6 @@ export default function WowEnrollForm() {
 
                 {/* Submit Button */}
                 <div className="pt-2 sm:pt-4">
-                  <div className="mb-4 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Registration Fee:</span>
-                      <div className="flex items-center gap-2">
-                        {couponApplied && (
-                          <span className="text-gray-400 line-through text-sm">₹150</span>
-                        )}
-                        <span className={`font-bold ${couponApplied ? 'text-green-400' : 'text-white'}`}>
-                          ₹{registrationFee}
-                        </span>
-                      </div>
-                    </div>
-                    {couponApplied && (
-                      <div className="mt-2 text-xs text-green-400">
-                        ₹50 discount applied with coupon code
-                      </div>
-                    )}
-                  </div>
-                  
                   <button
                     type="submit"
                     disabled={isSaving}
@@ -512,7 +435,7 @@ export default function WowEnrollForm() {
                       </>
                     ) : (
                       <>
-                        <FaSave /> Pay ₹{registrationFee} & Register
+                        <FaSave /> Save & Continue to Payment
                       </>
                     )}
                   </button>

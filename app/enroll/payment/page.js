@@ -1,11 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { FaTag } from "react-icons/fa";
 
 export default function PaymentPage() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [paymentStatus, setPaymentStatus] = useState(null);
+  const [couponCode, setCouponCode] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
+  const [couponError, setCouponError] = useState("");
+  const [displayAmount, setDisplayAmount] = useState(150); // Default display amount
 
   useEffect(() => {
     const data = localStorage.getItem('enrollmentData');
@@ -13,9 +18,44 @@ export default function PaymentPage() {
       window.location.href = '/enroll';
       return;
     }
-    setUserData(JSON.parse(data));
+    
+    const parsedData = JSON.parse(data);
+    setUserData(parsedData);
+    
+    // Check if coupon was already applied
+    if (parsedData.couponCode && parsedData.couponCode === process.env.NEXT_PUBLIC_COUPON_CODE) {
+      setCouponApplied(true);
+      setDisplayAmount(100);
+      setCouponCode(parsedData.couponCode);
+    }
+    
     setLoading(false);
   }, []);
+
+  const handleApplyCoupon = () => {
+    if (!couponCode) {
+      setCouponError("Please enter a coupon code");
+      return;
+    }
+    
+    if (couponCode === process.env.NEXT_PUBLIC_COUPON_CODE) {
+      setCouponApplied(true);
+      setCouponError("");
+      setDisplayAmount(100);
+      
+      // Update localStorage with coupon code
+      const updatedData = {
+        ...userData,
+        couponCode: couponCode
+      };
+      localStorage.setItem('enrollmentData', JSON.stringify(updatedData));
+      setUserData(updatedData);
+    } else {
+      setCouponApplied(false);
+      setCouponError("Invalid coupon code");
+      setDisplayAmount(150);
+    }
+  };
 
   const loadRazorpay = () => {
     return new Promise((resolve) => {
@@ -36,11 +76,13 @@ export default function PaymentPage() {
 
     setPaymentStatus('processing');
 
-    // Simulate handler
+    // Always charge 100 regardless of coupon
+    const actualAmount = 100;
+
     setTimeout(() => {
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_xxxxxxxxxxxxxx",
-        amount: 10000, // ₹100
+        amount: actualAmount * 100, // ₹100 in paise
         currency: "INR",
         name: "ByteWar Hackathon",
         description: "Registration Fee",
@@ -49,16 +91,15 @@ export default function PaymentPage() {
           console.log("Payment Success:", response.razorpay_payment_id);
 
           try {
-            // ✅ 1. Send confirmation email
+            // Send confirmation email
             await fetch('/api/send-registration-email', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(userData),
             });
 
-            // ✅ 2. Submit to Google Form (including colleges)
+            // Submit to Google Form
             const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeTj3v7wQSb8HFZPHCLOcsoN_NTNaZMqAZLCY5vBzf9qGSK1w/formResponse";
-
             const formData = new FormData();
 
             // Basic Fields
@@ -68,6 +109,7 @@ export default function PaymentPage() {
             formData.append("entry.2033137663", userData.teamName || "");
             formData.append("entry.1655015983", userData.altPhone || "");
             formData.append("entry.1120477465", userData.upiId);
+            formData.append("entry.123456789", userData.couponCode || "");
 
             // Member Names
             formData.append("entry.1882654199", userData.members[0]?.name || "");
@@ -76,7 +118,7 @@ export default function PaymentPage() {
             formData.append("entry.1717696341", userData.members[3]?.name || "");
             formData.append("entry.1992188917", userData.members[4]?.name || "");
 
-            // ✅ COLLEGE FIELDS - All 5 members
+            // College Fields
             formData.append("entry.187491205", 
               userData.members
                 .filter(m => m?.institution)
@@ -84,14 +126,12 @@ export default function PaymentPage() {
                 .join(" | ") || "Not Provided"
             );
 
-            // Submit to Google Form
             await fetch(formUrl, {
               method: "POST",
               mode: "no-cors",
               body: formData,
             });
 
-            // ✅ Final Success
             localStorage.removeItem('enrollmentData');
             setPaymentStatus('success');
 
@@ -151,13 +191,60 @@ export default function PaymentPage() {
     <div className="min-h-screen bg-gray-900 py-12 px-4">
       <div className="max-w-lg mx-auto">
         <h1 className="text-3xl font-bold text-center text-purple-400 mb-2">Complete Payment</h1>
-        <p className="text-center text-gray-400 mb-8">Pay ₹100 to confirm registration</p>
+        <p className="text-center text-gray-400 mb-8">
+          {couponApplied ? "Coupon applied! Pay ₹100" : "Pay ₹150 (or apply coupon)"}
+        </p>
 
-        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-8">
+        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
           <h3 className="text-xl font-bold text-white mb-4">Your Info</h3>
           <p className="text-gray-300"><strong>Name:</strong> {userData.name}</p>
           <p className="text-gray-300"><strong>Email:</strong> {userData.email}</p>
           <p className="text-gray-300"><strong>Team:</strong> {userData.teamName || "Solo"}</p>
+        </div>
+
+        {/* Coupon Code Section */}
+        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
+          <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <FaTag className="text-purple-400" /> Coupon Code
+          </h3>
+          <div className="flex gap-2 mb-2">
+            <input
+              type="text"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+              placeholder="Enter coupon code"
+              className="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            />
+            <button
+              onClick={handleApplyCoupon}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              Apply
+            </button>
+          </div>
+          {couponError && <p className="text-red-400 text-sm">{couponError}</p>}
+          {couponApplied && <p className="text-green-400 text-sm">Coupon applied! ₹50 discount</p>}
+        </div>
+
+        {/* Payment Summary */}
+        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
+          <h3 className="text-xl font-bold text-white mb-4">Payment Summary</h3>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-gray-300">Registration Fee:</span>
+            <span className="text-gray-300">₹150</span>
+          </div>
+          {couponApplied && (
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-gray-300">Discount:</span>
+              <span className="text-green-400">-₹50</span>
+            </div>
+          )}
+          <div className="flex justify-between items-center pt-2 border-t border-gray-700">
+            <span className="text-white font-bold">Total:</span>
+            <span className={`text-xl font-bold ${couponApplied ? 'text-green-400' : 'text-white'}`}>
+              ₹{displayAmount}
+            </span>
+          </div>
         </div>
 
         <button
@@ -165,7 +252,7 @@ export default function PaymentPage() {
           disabled={paymentStatus === 'processing'}
           className="w-full py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 disabled:opacity-70"
         >
-          {paymentStatus === 'processing' ? 'Processing...' : 'Pay ₹100 Now'}
+          {paymentStatus === 'processing' ? 'Processing...' : `Pay ₹${displayAmount} Now`}
         </button>
 
         <p className="text-center text-gray-500 text-sm mt-4">Secured by Razorpay</p>
