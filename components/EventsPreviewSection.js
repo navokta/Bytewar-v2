@@ -11,7 +11,7 @@ const EventsPreviewSection = () => {
     title: "ByteWar Hackathon",
     date: new Date('September 1, 2025 00:00:00'), // Use Date object
     description: "Intense coding, innovation, and prizes! Join India's premier student hackathon.",
-    image: "/photo1.jpg"
+    image: "/ByteWar_Logo.png"
   };
 
   // State for countdown
