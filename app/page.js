@@ -13,6 +13,7 @@ import VideoAndInfographicSection from '../components/VideoAndInfographicSection
 import ThemesSection from '../components/ThemesSection';
 import Sponser from '../components/Sponser';
 import TermsSection from "@/components/TermsSection";
+import EventsPreviewSection from "@/components/EventsPreviewSection";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -45,6 +46,7 @@ export default function Home() {
       <ByteWarInfo />
       <VideoAndInfographicSection />
       <ThemesSection />
+      <EventsPreviewSection />
       <Gallery />
       <Sponser />
       <TermsSection />
