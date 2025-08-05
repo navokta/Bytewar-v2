@@ -3,7 +3,7 @@
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
-import photo1 from "../public/photo1.jpg";
+import photo1 from "../public/ByteWar_Logo.png";
 import photo2 from "../public/photo2.jpg";
 import photo3 from "../public/photo3.jpg";
 import {
@@ -24,18 +24,18 @@ export default function WowImageCarousel() {
   const images = [
     {
       src: photo1,
-      title: "Innovation Hub",
-      desc: "Students collaborating on groundbreaking projects",
+      title: "ByteWar Hackathon",
+      desc: "Join the ultimate coding challenge with 10,000+ prizes",
     },
     {
       src: photo2,
-      title: "Coding Marathon",
-      desc: "48 hours of non-stop development and creativity",
+      title: "Real World Impact",
+      desc: "Innovative solutions for real-world problems",
     },
     {
       src: photo3,
-      title: "Winner Celebration",
-      desc: "Champions receiving recognition for their excellence",
+      title: "Team Participation",
+      desc: "Collaborate with like-minded individuals",
     },
   ];
 
