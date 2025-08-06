@@ -9,7 +9,9 @@ export default function PaymentPage() {
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [couponCode, setCouponCode] = useState("");
   const [couponError, setCouponError] = useState("");
-  const [displayAmount, setDisplayAmount] = useState(150); // Default display amount
+  const [couponSuccess, setCouponSuccess] = useState("");
+  const [displayAmount, setDisplayAmount] = useState(150);
+  const [isValidating, setIsValidating] = useState(false);
 
   useEffect(() => {
     const data = localStorage.getItem('enrollmentData');
@@ -24,13 +26,73 @@ export default function PaymentPage() {
     // Check if coupon was already entered
     if (parsedData.couponCode) {
       setCouponCode(parsedData.couponCode);
-      if (parsedData.couponCode === process.env.NEXT_PUBLIC_COUPON_CODE) {
-        setDisplayAmount(100);
-      }
+      validateCoupon(parsedData.couponCode);
     }
     
     setLoading(false);
   }, []);
+
+  const validateCoupon = async (code) => {
+    setIsValidating(true);
+    setCouponError("");
+    setCouponSuccess("");
+    
+    try {
+      const response = await fetch('/api/validate-coupon', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code }),
+      });
+
+      const data = await response.json();
+      
+      if (data.valid) {
+        setCouponSuccess(data.message);
+        setDisplayAmount(data.discountedAmount);
+        
+        // Update local storage with coupon info
+        if (userData) {
+          const updatedData = {
+            ...userData,
+            couponCode: code,
+            discountApplied: true
+          };
+          localStorage.setItem('enrollmentData', JSON.stringify(updatedData));
+          setUserData(updatedData);
+        }
+      } else {
+        setCouponError(data.message);
+        setDisplayAmount(data.discountedAmount);
+      }
+    } catch (error) {
+      console.error("Coupon validation failed:", error);
+      setCouponError("Failed to validate coupon. Please try again.");
+      setDisplayAmount(150);
+    } finally {
+      setIsValidating(false);
+    }
+  };
+
+  const handleCouponChange = (e) => {
+    const code = e.target.value;
+    setCouponCode(code);
+    
+    // Validate immediately when user types
+    if (code.trim() === "") {
+      setCouponError("");
+      setCouponSuccess("");
+      setDisplayAmount(150);
+    } else {
+      // Debounce the validation to avoid too many requests
+      const timer = setTimeout(() => {
+        validateCoupon(code);
+      }, 500);
+      
+      return () => clearTimeout(timer);
+    }
+  };
 
   const loadRazorpay = () => {
     return new Promise((resolve) => {
@@ -51,8 +113,8 @@ export default function PaymentPage() {
 
     setPaymentStatus('processing');
 
-    // Determine amount based on coupon code
-    const actualAmount = couponCode === process.env.NEXT_PUBLIC_COUPON_CODE ? 100 : 150;
+    // Use the current display amount for payment
+    const actualAmount = displayAmount;
 
     setTimeout(() => {
       const options = {
@@ -167,7 +229,7 @@ export default function PaymentPage() {
       <div className="max-w-lg mx-auto">
         <h1 className="text-3xl font-bold text-center text-purple-400 mb-2">Complete Payment</h1>
         <p className="text-center text-gray-400 mb-8">
-          {couponCode === process.env.NEXT_PUBLIC_COUPON_CODE ? "Pay ₹100" : "Pay ₹150"}
+          {displayAmount === 100 ? "Pay ₹100 (Coupon Applied)" : "Pay ₹150"}
         </p>
 
         <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
@@ -177,7 +239,6 @@ export default function PaymentPage() {
           <p className="text-gray-300"><strong>Team:</strong> {userData.teamName || "Solo"}</p>
         </div>
 
-        {/* Coupon Code Section - Simplified */}
         <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
           <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
             <FaTag className="text-purple-400" /> Coupon Code
@@ -185,23 +246,19 @@ export default function PaymentPage() {
           <input
             type="text"
             value={couponCode}
-            onChange={(e) => {
-              setCouponCode(e.target.value);
-              // Update amount immediately based on coupon code
-              if (e.target.value === process.env.NEXT_PUBLIC_COUPON_CODE) {
-                setDisplayAmount(100);
-              } else {
-                setDisplayAmount(150);
-              }
-            }}
+            onChange={handleCouponChange}
             placeholder="Enter coupon code (if any)"
             className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 mb-2"
+            disabled={isValidating}
           />
-          {couponCode && couponCode !== process.env.NEXT_PUBLIC_COUPON_CODE && (
-            <p className="text-red-400 text-sm">Invalid coupon code</p>
+          {isValidating && (
+            <p className="text-gray-400 text-sm">Validating coupon...</p>
           )}
-          {couponCode === process.env.NEXT_PUBLIC_COUPON_CODE && (
-            <p className="text-green-400 text-sm">Coupon applied! ₹50 discount</p>
+          {couponError && !isValidating && (
+            <p className="text-red-400 text-sm">{couponError}</p>
+          )}
+          {couponSuccess && !isValidating && (
+            <p className="text-green-400 text-sm">{couponSuccess}</p>
           )}
           <div className="flex justify-end mt-2">
             <Link href="/forcoupancode" className="text-sm text-purple-400 hover:underline">
@@ -210,14 +267,13 @@ export default function PaymentPage() {
           </div>
         </div>
 
-        {/* Payment Summary */}
         <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
           <h3 className="text-xl font-bold text-white mb-4">Payment Summary</h3>
           <div className="flex justify-between items-center mb-2">
             <span className="text-gray-300">Registration Fee:</span>
             <span className="text-gray-300">₹150</span>
           </div>
-          {couponCode === process.env.NEXT_PUBLIC_COUPON_CODE && (
+          {displayAmount === 100 && (
             <div className="flex justify-between items-center mb-2">
               <span className="text-gray-300">Discount:</span>
               <span className="text-green-400">-₹50</span>
@@ -225,7 +281,7 @@ export default function PaymentPage() {
           )}
           <div className="flex justify-between items-center pt-2 border-t border-gray-700">
             <span className="text-white font-bold">Total:</span>
-            <span className={`text-xl font-bold ${couponCode === process.env.NEXT_PUBLIC_COUPON_CODE ? 'text-green-400' : 'text-white'}`}>
+            <span className={`text-xl font-bold ${displayAmount === 100 ? 'text-green-400' : 'text-white'}`}>
               ₹{displayAmount}
             </span>
           </div>
