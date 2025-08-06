@@ -18,11 +18,12 @@ const EventsPage = () => {
       title: "Registration Phase",
       date: "2025-09-01",
       description: "Secure your spot in India's premier hackathon",
-      type: "previous",
+      type: "upcoming",
       highlights: [
         "Early bird benefits",
         "Team formation support",
-        "Technical prep resources"
+        "Technical prep resources",
+        "Many more"
       ],
       icon: "📝",
       tech: ["Blockchain", "AI", "Cloud"],
@@ -33,7 +34,7 @@ const EventsPage = () => {
       title: "Video Submission",
       date: "2025-09-16",
       description: "Pitch your innovative solution in 2-4 minutes",
-      type: "current",
+      type: "upcoming",
       highlights: [
         "Team introduction",
         "Problem statement",
@@ -41,8 +42,8 @@ const EventsPage = () => {
         "Expected impact"
       ],
       icon: "🎥",
-      note: "Key role in shortlisting. Late submissions may disqualify.",
-      tech: ["Video Editing", "Presentation", "Storytelling"],
+      // note: "Key role in shortlisting. Late submissions may disqualify.",
+      tech: ["Video Editing", "Presentation"],
       glowColor: "rgba(167, 139, 250, 0.4)"
     },
     {
