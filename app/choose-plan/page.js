@@ -21,10 +21,10 @@ const ChoosePlanPage = () => {
     {
       id: 'platinum',
       name: "Platinum Partner",
-      price: 5000,
+      price: 6999,
       benefits: [
         "Logo placement on all marketing materials",
-        "Branding on event Posters",
+        "Branding on Event Certificates",
         "2 complimentary Teams",
         "Social media mentions",
         "Recognition in opening/closing ceremony",
@@ -40,10 +40,10 @@ const ChoosePlanPage = () => {
     {
       id: 'gold',
       name: "Gold Sponsor",
-      price: 2500,
+      price: 5000,
       benefits: [
         "Logo on website",
-        "Branding on event Posters",
+        "Branding on Event Certificates",
         "1 complimentary Team",
         "Social media mentions",
         "Recognition in opening/closing ceremony",
@@ -56,11 +56,11 @@ const ChoosePlanPage = () => {
     {
       id: 'silver',
       name: "Silver Sponsor",
-      price: 1000,
+      price: 2500,
       benefits: [
         "Logo on website",
         "Social media mentions",
-        "Branding on event Posters",
+        "Branding on Event Certificates",
         "Add Links of your Social Media"
       ],
       color: "from-gray-200 to-gray-400"
@@ -68,7 +68,7 @@ const ChoosePlanPage = () => {
     {
       id: 'bronze',
       name: "Bronze Sponsor",
-      price: 500,
+      price: 1000,
       benefits: [
         "Logo on website",
         "Social media mentions"  //THis is Changed
