@@ -44,9 +44,9 @@ export default function Home() {
       <Header />
       <HeroSection />
       <ByteWarInfo />
+      <EventsPreviewSection />
       <VideoAndInfographicSection />
       <ThemesSection />
-      <EventsPreviewSection />
       <Gallery />
       <Sponser />
       <TermsSection />
