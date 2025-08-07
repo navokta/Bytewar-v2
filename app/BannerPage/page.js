@@ -32,7 +32,7 @@ export default function BannerPage() {
       <div className="relative overflow-hidden">
         <Head>
           <title>Bytewar Hackathon | 10,000+ Prizes</title>
-          <meta name="description" content="Join the ultimate NVIDIA Hackathon with huge cash prizes" />
+          <meta name="description" content="Join the ultimate Bytewar Hackathon with huge cash prizes" />
         </Head>
 
         {/* Dark Gradient Background */}
@@ -59,7 +59,7 @@ export default function BannerPage() {
               </div>
 
               <p className="text-lg md:text-xl text-gray-300 max-w-md mx-auto">
-                Join the ultimate coding battle powered by NVIDIA. Showcase your AI and GPU programming skills to win amazing prizes and recognition!
+                Join the ultimate coding battle powered by Bytewar. Showcase your AI and GPU programming skills to win amazing prizes and recognition!
               </p>
 
               {/* CTA Button */}

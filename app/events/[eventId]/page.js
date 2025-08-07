@@ -192,7 +192,6 @@ export default function EventDetailsPage() {
   const router = useRouter();
   const [event, setEvent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('details');
 
   useEffect(() => {
     if (params.eventId) {
@@ -325,7 +324,7 @@ export default function EventDetailsPage() {
             ))}
           </div>
 
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <motion.button 
               onClick={() => router.back()}
               whileHover={{ x: -5 }}
@@ -347,7 +346,7 @@ export default function EventDetailsPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
-                  className="text-4xl md:text-6xl font-bold mb-2 tracking-tighter"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 tracking-tighter"
                 >
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
                     {event.title}
@@ -357,7 +356,7 @@ export default function EventDetailsPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
-                  className="text-xl text-white/80 font-mono"
+                  className="text-lg sm:text-xl text-white/80 font-mono"
                 >
                   {event.date}
                 </motion.p>
@@ -376,7 +375,7 @@ export default function EventDetailsPage() {
                     boxShadow: "0 0 30px rgba(34, 211, 238, 0.5)"
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-white text-gray-900 rounded-lg font-bold hover:bg-gray-100 transition-all flex items-center space-x-2"
+                  className="px-6 py-3 sm:px-8 sm:py-4 bg-white text-gray-900 rounded-lg font-bold hover:bg-gray-100 transition-all flex items-center space-x-2"
                 >
                   <span>SUBMIT NOW</span>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -389,7 +388,7 @@ export default function EventDetailsPage() {
         </div>
 
         {/* Content Section */}
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto px-4 sm:px-6 py-12">
           {/* Tech Tags */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -403,7 +402,7 @@ export default function EventDetailsPage() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6 + i * 0.1 }}
-                className={`px-4 py-2 rounded-full text-xs font-mono font-bold ${
+                className={`px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs font-mono font-bold ${
                   event.status === 'Completed' ? 'bg-gray-800/50 text-gray-300' :
                   event.status === 'Active' ? 'bg-purple-900/50 text-purple-200' :
                   'bg-blue-900/50 text-blue-200'
@@ -414,236 +413,76 @@ export default function EventDetailsPage() {
             ))}
           </motion.div>
 
-          {/* Content Tabs */}
-          <motion.div 
-            className="flex justify-center mb-12"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            <div className="inline-flex bg-gray-900/80 backdrop-blur-lg rounded-xl p-1 border border-gray-800 shadow-2xl">
-              {['details', 'requirements', 'resources'].map((tab) => (
-                <motion.button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-wider relative overflow-hidden ${
-                    activeTab === tab
-                      ? `text-white ${
-                          tab === 'details' ? 'bg-gray-800/80' :
-                          tab === 'requirements' ? 'bg-gradient-to-r from-purple-600 to-indigo-700' :
-                          'bg-gradient-to-r from-blue-600 to-cyan-700'
-                        }`
-                      : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
-                  }`}
-                >
-                  {tab}
-                  {activeTab === tab && (
-                    <motion.div 
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"
-                      layoutId="contentTabUnderline"
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Tab Content */}
+          {/* Main Content */}
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Main Content */}
+            {/* Event Details */}
             <div className="md:col-span-2">
-              <AnimatePresence mode="wait">
-                {activeTab === 'details' && (
-                  <motion.div
-                    key="details"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-gray-900/50 backdrop-blur-lg rounded-2xl p-8 border border-gray-800/50"
-                  >
-                    <h2 className="text-2xl font-bold mb-6 flex items-center">
-                      <svg className="w-6 h-6 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg>
-                      EVENT OVERVIEW
-                    </h2>
-                    <p className="text-gray-300 mb-8 leading-relaxed">{event.description}</p>
-                    
-                    {event.details.overview && (
-                      <>
-                        <h3 className="text-xl font-semibold mb-4 text-white">PHASE SUMMARY</h3>
-                        <p className="text-gray-300 mb-8 leading-relaxed">{event.details.overview}</p>
-                      </>
-                    )}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gray-900/50 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-gray-800/50"
+              >
+                <h2 className="text-2xl font-bold mb-6 flex items-center">
+                  <svg className="w-6 h-6 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  EVENT OVERVIEW
+                </h2>
+                <p className="text-gray-300 mb-8 leading-relaxed">{event.description}</p>
+                
+                {event.details.overview && (
+                  <>
+                    <h3 className="text-xl font-semibold mb-4 text-white">PHASE SUMMARY</h3>
+                    <p className="text-gray-300 mb-8 leading-relaxed">{event.details.overview}</p>
+                  </>
+                )}
 
-                    {event.details.statistics && (
-                      <>
-                        <h3 className="text-xl font-semibold mb-4 text-white">KEY STATISTICS</h3>
-                        <div className="grid grid-cols-2 gap-4 mb-8">
-                          {event.details.statistics.map((stat, i) => (
-                            <div key={i} className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50">
-                              <div className="text-sm text-gray-400 mb-1">STAT {i+1}</div>
-                              <div className="text-lg font-medium">{stat}</div>
-                            </div>
+                {event.details.statistics && (
+                  <>
+                    <h3 className="text-xl font-semibold mb-4 text-white">KEY STATISTICS</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                      {event.details.statistics.map((stat, i) => (
+                        <div key={i} className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50">
+                          <div className="text-sm text-gray-400 mb-1">STAT {i+1}</div>
+                          <div className="text-lg font-medium">{stat}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {/* Show all details that are arrays */}
+                {Object.entries(event.details).map(([key, value], index) => {
+                  if (Array.isArray(value) && !['statistics', 'benefits'].includes(key)) {
+                    return (
+                      <div key={key} className="mb-8">
+                        <h3 className="text-xl font-semibold mb-4 text-white capitalize">
+                          {key.replace(/([A-Z])/g, ' $1').toUpperCase()}
+                        </h3>
+                        <ul className="space-y-3">
+                          {value.map((item, i) => (
+                            <motion.li
+                              key={i}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.2 + i * 0.1 }}
+                              className="flex items-start"
+                            >
+                              <span className={`inline-block w-2 h-2 rounded-full mt-2 mr-3 ${
+                                event.status === 'Completed' ? 'bg-gray-400' :
+                                event.status === 'Active' ? 'bg-purple-400' :
+                                'bg-blue-400'
+                              }`}></span>
+                              <span className="text-gray-300">{item}</span>
+                            </motion.li>
                           ))}
-                        </div>
-                      </>
-                    )}
-                  </motion.div>
-                )}
-
-                {activeTab === 'requirements' && (
-                  <motion.div
-                    key="requirements"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-gray-900/50 backdrop-blur-lg rounded-2xl p-8 border border-gray-800/50"
-                  >
-                    <h2 className="text-2xl font-bold mb-6 flex items-center">
-                      <svg className="w-6 h-6 mr-3 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                      </svg>
-                      REQUIREMENTS & GUIDELINES
-                    </h2>
-
-                    {event.id === 'video-submission' ? (
-                      <div className="space-y-8">
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3 text-white">CONTENT REQUIREMENTS</h3>
-                          <ul className="space-y-4">
-                            {event.details.contentRequirements.map((item, i) => (
-                              <motion.li 
-                                key={`content-${i}`}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                className="flex items-start bg-gray-800/30 p-4 rounded-lg border border-gray-700/50"
-                              >
-                                <span className="inline-block w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
-                                  <span className="text-purple-400 text-xs font-mono">{i+1}</span>
-                                </span>
-                                <span className="text-gray-300">{item}</span>
-                              </motion.li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3 text-white">TECHNICAL SPECIFICATIONS</h3>
-                          <ul className="space-y-4">
-                            {event.details.technicalRequirements.map((item, i) => (
-                              <motion.li 
-                                key={`tech-${i}`}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.5 + i * 0.1 }}
-                                className="flex items-start bg-gray-800/30 p-4 rounded-lg border border-gray-700/50"
-                              >
-                                <span className="inline-block w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
-                                  <span className="text-blue-400 text-xs font-mono">{i+1}</span>
-                                </span>
-                                <span className="text-gray-300">{item}</span>
-                              </motion.li>
-                            ))}
-                          </ul>
-                        </div>
+                        </ul>
                       </div>
-                    ) : (
-                      <div className="space-y-6">
-                        {Object.entries(event.details).map(([key, value], index) => {
-                          if (Array.isArray(value) && !['statistics', 'benefits'].includes(key)) {
-                            return (
-                              <div key={key} className="space-y-4">
-                                <h3 className="text-lg font-semibold text-white capitalize">
-                                  {key.replace(/([A-Z])/g, ' $1').toUpperCase()}
-                                </h3>
-                                <ul className="space-y-3">
-                                  {value.map((item, i) => (
-                                    <motion.li
-                                      key={i}
-                                      initial={{ opacity: 0, x: -10 }}
-                                      animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: index * 0.2 + i * 0.1 }}
-                                      className="flex items-start"
-                                    >
-                                      <span className={`inline-block w-2 h-2 rounded-full mt-2 mr-3 ${
-                                        event.status === 'Completed' ? 'bg-gray-400' :
-                                        event.status === 'Active' ? 'bg-purple-400' :
-                                        'bg-blue-400'
-                                      }`}></span>
-                                      <span className="text-gray-300">{item}</span>
-                                    </motion.li>
-                                  ))}
-                                </ul>
-                              </div>
-                            );
-                          }
-                          return null;
-                        })}
-                      </div>
-                    )}
-                  </motion.div>
-                )}
-
-                {activeTab === 'resources' && (
-                  <motion.div
-                    key="resources"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-gray-900/50 backdrop-blur-lg rounded-2xl p-8 border border-gray-800/50"
-                  >
-                    <h2 className="text-2xl font-bold mb-6 flex items-center">
-                      <svg className="w-6 h-6 mr-3 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
-                      </svg>
-                      RESOURCES & MATERIALS
-                    </h2>
-
-                    {event.details.resources ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {event.details.resources.map((resource, i) => (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.1 }}
-                            className="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50 hover:border-blue-500/50 transition-colors"
-                          >
-                            <div className="flex items-center mb-2">
-                              <div className={`w-8 h-8 rounded-full ${
-                                event.status === 'Completed' ? 'bg-gray-700/50' :
-                                event.status === 'Active' ? 'bg-purple-700/50' :
-                                'bg-blue-700/50'
-                              } flex items-center justify-center mr-3`}>
-                                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
-                                </svg>
-                              </div>
-                              <h3 className="font-medium">RESOURCE {i+1}</h3>
-                            </div>
-                            <p className="text-gray-300 text-sm">{resource}</p>
-                          </motion.div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="text-center py-12">
-                        <div className="text-gray-500 mb-4">No specific resources for this phase</div>
-                        <button className="px-6 py-2 bg-gray-800/50 rounded-lg text-gray-300 hover:bg-gray-700/50 transition-colors">
-                          Check General Resources
-                        </button>
-                      </div>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    );
+                  }
+                  return null;
+                })}
+              </motion.div>
             </div>
 
             {/* Sidebar */}

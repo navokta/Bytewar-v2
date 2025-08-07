@@ -255,13 +255,13 @@ const EventsPage = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
         >
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-5xl md:text-7xl font-black mb-6 tracking-tighter"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tighter"
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
               BYTEWAR EVENTS 
@@ -272,34 +272,34 @@ const EventsPage = () => {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="w-48 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full mb-4 origin-left"
+            className="w-32 sm:w-48 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto rounded-full mb-4 origin-left"
           />
           
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-xl text-gray-400 max-w-3xl mx-auto"
+            className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto px-4"
           >
             Navigate through the phases of India's most prestigious hackathon journey
           </motion.p>
         </motion.div>
 
-        {/* Cyber Tabs */}
+        {/* Cyber Tabs - Made responsive */}
         <motion.div 
-          className="flex justify-center mb-16"
+          className="flex justify-center mb-12 md:mb-16 px-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
-          <div className="inline-flex bg-gray-900/80 backdrop-blur-lg rounded-xl p-1 border border-gray-800 shadow-2xl">
+          <div className="inline-flex bg-gray-900/80 backdrop-blur-lg rounded-xl p-1 border border-gray-800 shadow-2xl overflow-x-auto">
             {['previous', 'current', 'upcoming'].map((tab) => (
               <motion.button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-8 py-3 rounded-lg text-sm font-bold uppercase tracking-wider relative overflow-hidden ${
+                className={`px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-xs sm:text-sm font-bold uppercase tracking-wider relative overflow-hidden ${
                   activeTab === tab
                     ? `text-white ${
                         tab === 'previous' ? 'bg-gray-800/80' :
@@ -323,164 +323,194 @@ const EventsPage = () => {
         </motion.div>
 
         {/* Holographic Event Cards */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <AnimatePresence>
-            {filteredEvents.map((event) => (
-              <motion.div
-                key={event.id}
-                variants={cardVariants}
-                whileHover="hover"
-                initial="hidden"
-                animate="visible"
-                exit={{ opacity: 0 }}
-                onHoverStart={() => setHoveredCard(event.id)}
-                onHoverEnd={() => setHoveredCard(null)}
-                className={`relative rounded-2xl overflow-hidden border-2 ${getBorderColor(event.type)} ${getEventColor(event.type)} backdrop-blur-sm`}
-                style={{
-                  boxShadow: hoveredCard === event.id 
-                    ? `0 0 40px ${event.glowColor}`
-                    : 'none',
-                  transition: 'box-shadow 0.3s ease'
-                }}
-              >
-                {/* Holographic Effect */}
-                <div className="absolute inset-0 pointer-events-none">
-                  <div className={`absolute top-0 right-0 w-32 h-32 ${
-                    event.type === 'previous' ? 'bg-gray-600/20' :
-                    event.type === 'current' ? 'bg-purple-500/20' :
-                    'bg-blue-500/20'
-                  }`} style={{
-                    clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)'
-                  }}></div>
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40"></div>
-                </div>
-
-                {/* Event content */}
-                <div className="p-6 h-full flex flex-col">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      event.type === 'previous' ? 'bg-gray-700 text-gray-300' :
-                      event.type === 'current' ? 'bg-white text-purple-900' :
-                      'bg-white text-blue-900'
-                    }`}>
-                      {event.type.toUpperCase()}
-                    </div>
-                    <motion.div 
-                      className="text-3xl"
-                      animate={{
-                        y: [0, -5, 0],
-                        rotate: [0, 5, -5, 0]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatType: "reverse"
-                      }}
-                    >
-                      {event.icon}
-                    </motion.div>
+        {filteredEvents.length > 0 ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          >
+            <AnimatePresence>
+              {filteredEvents.map((event) => (
+                <motion.div
+                  key={event.id}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  initial="hidden"
+                  animate="visible"
+                  exit={{ opacity: 0 }}
+                  onHoverStart={() => setHoveredCard(event.id)}
+                  onHoverEnd={() => setHoveredCard(null)}
+                  className={`relative rounded-2xl overflow-hidden border-2 ${getBorderColor(event.type)} ${getEventColor(event.type)} backdrop-blur-sm`}
+                  style={{
+                    boxShadow: hoveredCard === event.id 
+                      ? `0 0 40px ${event.glowColor}`
+                      : 'none',
+                    transition: 'box-shadow 0.3s ease'
+                  }}
+                >
+                  {/* Holographic Effect */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className={`absolute top-0 right-0 w-32 h-32 ${
+                      event.type === 'previous' ? 'bg-gray-600/20' :
+                      event.type === 'current' ? 'bg-purple-500/20' :
+                      'bg-blue-500/20'
+                    }`} style={{
+                      clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)'
+                    }}></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40"></div>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-white mb-2">{event.title}</h3>
-                  <div className={`text-sm font-mono font-medium mb-4 ${
-                    event.type === 'previous' ? 'text-gray-300' :
-                    event.type === 'current' ? 'text-purple-300' :
-                    'text-blue-300'
-                  }`}>
-                    {formatDate(event.date)}
-                  </div>
-                  
-                  <p className="text-gray-200 mb-6">{event.description}</p>
-                  
-                  {/* Tech Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {event.tech.map((tech, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 + i * 0.1 }}
-                        className={`px-3 py-1 rounded-full text-xs font-mono ${
-                          event.type === 'previous' ? 'bg-gray-700/50 text-gray-300' :
-                          event.type === 'current' ? 'bg-purple-900/50 text-purple-200' :
-                          'bg-blue-900/50 text-blue-200'
-                        }`}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-
-                  <div className="mb-6">
-                    <div className="text-xs uppercase text-white/70 mb-2">KEY POINTS</div>
-                    <ul className="space-y-2">
-                      {event.highlights.map((item, i) => (
-                        <motion.li 
-                          key={i}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3 + i * 0.1 }}
-                          className="flex items-start"
-                        >
-                          <span className={`mr-2 mt-1 inline-block w-2 h-2 rounded-full ${
-                            event.type === 'previous' ? 'bg-gray-400' :
-                            event.type === 'current' ? 'bg-purple-400' :
-                            'bg-blue-400'
-                          }`}></span>
-                          <span className="text-sm text-white/90">{item}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {event.note && (
-                    <div className="mt-auto pt-4 border-t border-white/10">
-                      <div className="text-xs uppercase text-white/70 mb-1">NOTE</div>
-                      <p className="text-xs text-white/80 italic">{event.note}</p>
-                    </div>
-                  )}
-
-                  <Link href={`/events/${event.id}`} passHref className="mt-6">
-                    <motion.button
-                      whileHover={{ 
-                        scale: 1.03,
-                        boxShadow: `0 0 20px ${event.type === 'current' ? 'rgba(167, 139, 250, 0.5)' : 'rgba(96, 165, 250, 0.5)'}`
-                      }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`w-full py-3 rounded-lg font-bold ${
-                        event.type === 'previous' ? 'bg-gray-700/80 text-gray-300' :
+                  {/* Event content */}
+                  <div className="p-6 h-full flex flex-col">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+                        event.type === 'previous' ? 'bg-gray-700 text-gray-300' :
                         event.type === 'current' ? 'bg-white text-purple-900' :
                         'bg-white text-blue-900'
-                      } flex items-center justify-center space-x-2`}
-                    >
-                      <span>View Details</span>
-                      <motion.svg 
-                        className="w-4 h-4"
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
+                      }`}>
+                        {event.type.toUpperCase()}
+                      </div>
+                      <motion.div 
+                        className="text-3xl"
                         animate={{
-                          x: [0, 5, 0]
+                          y: [0, -5, 0],
+                          rotate: [0, 5, -5, 0]
                         }}
                         transition={{
-                          duration: 2,
-                          repeat: Infinity
+                          duration: 3,
+                          repeat: Infinity,
+                          repeatType: "reverse"
                         }}
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                      </motion.svg>
-                    </motion.button>
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                        {event.icon}
+                      </motion.div>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{event.title}</h3>
+                    <div className={`text-xs sm:text-sm font-mono font-medium mb-4 ${
+                      event.type === 'previous' ? 'text-gray-300' :
+                      event.type === 'current' ? 'text-purple-300' :
+                      'text-blue-300'
+                    }`}>
+                      {formatDate(event.date)}
+                    </div>
+                    
+                    <p className="text-gray-200 text-sm sm:text-base mb-6">{event.description}</p>
+                    
+                    {/* Tech Tags */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {event.tech.map((tech, i) => (
+                        <motion.span
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.2 + i * 0.1 }}
+                          className={`px-2 sm:px-3 py-1 rounded-full text-xs font-mono ${
+                            event.type === 'previous' ? 'bg-gray-700/50 text-gray-300' :
+                            event.type === 'current' ? 'bg-purple-900/50 text-purple-200' :
+                            'bg-blue-900/50 text-blue-200'
+                          }`}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+
+                    <div className="mb-6">
+                      <div className="text-xs uppercase text-white/70 mb-2">KEY POINTS</div>
+                      <ul className="space-y-2">
+                        {event.highlights.map((item, i) => (
+                          <motion.li 
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 + i * 0.1 }}
+                            className="flex items-start"
+                          >
+                            <span className={`mr-2 mt-1 inline-block w-2 h-2 rounded-full ${
+                              event.type === 'previous' ? 'bg-gray-400' :
+                              event.type === 'current' ? 'bg-purple-400' :
+                              'bg-blue-400'
+                            }`}></span>
+                            <span className="text-xs sm:text-sm text-white/90">{item}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {event.note && (
+                      <div className="mt-auto pt-4 border-t border-white/10">
+                        <div className="text-xs uppercase text-white/70 mb-1">NOTE</div>
+                        <p className="text-xs text-white/80 italic">{event.note}</p>
+                      </div>
+                    )}
+
+                    <Link href={`/events/${event.id}`} passHref className="mt-6">
+                      <motion.button
+                        whileHover={{ 
+                          scale: 1.03,
+                          boxShadow: `0 0 20px ${event.type === 'current' ? 'rgba(167, 139, 250, 0.5)' : 'rgba(96, 165, 250, 0.5)'}`
+                        }}
+                        whileTap={{ scale: 0.97 }}
+                        className={`w-full py-2 sm:py-3 rounded-lg font-bold ${
+                          event.type === 'previous' ? 'bg-gray-700/80 text-gray-300' :
+                          event.type === 'current' ? 'bg-white text-purple-900' :
+                          'bg-white text-blue-900'
+                        } flex items-center justify-center space-x-2 text-sm sm:text-base`}
+                      >
+                        <span>View Details</span>
+                        <motion.svg 
+                          className="w-4 h-4"
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                          animate={{
+                            x: [0, 5, 0]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity
+                          }}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                        </motion.svg>
+                      </motion.button>
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        ) : (
+          // Empty state message when no events are available for the selected tab
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-center py-20"
+          >
+            <div className="text-5xl mb-6">🔍</div>
+            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+              No {activeTab} events available
+            </h3>
+            <p className="text-gray-400 max-w-md mx-auto">
+              {activeTab === 'previous' 
+                ? "Check back soon for upcoming events or view current events."
+                : activeTab === 'current'
+                ? "Stay tuned! New events will be announced soon."
+                : "We're planning exciting events. Check back later!"}
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setActiveTab(activeTab === 'previous' ? 'upcoming' : 'previous')}
+              className="mt-8 px-8 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold"
+            >
+              View {activeTab === 'previous' ? 'Upcoming' : 'Previous'} Events
+            </motion.button>
+          </motion.div>
+        )}
       </div>
 
       <Footer />
