@@ -3,7 +3,7 @@
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
-import photo1 from "../public/ByteWar_Logo.png";
+import photo1 from "../public/banner3.jpg";
 import photo2 from "../public/photo2.jpg";
 import photo3 from "../public/photo3.jpg";
 import {
