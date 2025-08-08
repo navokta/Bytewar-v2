@@ -25,7 +25,7 @@ export default function WowImageCarousel() {
     {
       src: photo1,
       title: "ByteWar Hackathon",
-      desc: "Join the ultimate coding challenge with 10,000+ prizes",
+      desc: "Join the ultimate coding challenge to Prove yourself",
     },
     {
       src: photo2,
