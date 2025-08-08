@@ -10,18 +10,18 @@ const eventsData = {
   'registration': {
     title: "Registration Phase",
     date: "September 1-15, 2025",
-    description: "The gateway to India's most prestigious hackathon where innovative minds converge to solve real-world problems.",
+    description: "Welcome to the gateway of innovation — India's most prestigious hackathon, where the nation brightest minds, visionary coders, and passionate problem-solvers come together to tackle real-world challenges through technology and creativity. This is more than just a competition — it's a celebration of ideas, collaboration, and breakthroughs that can shape the future. If you have the spark to think differently, the courage to build boldly, and the drive to make an impact, this is your moment. Register now and unlock a journey that could change everything — including you.",
     status: "upcoming",
     icon: "📝",
     tech: ["Blockchain", "AI", "Cloud"],
     glowColor: "rgba(156, 163, 175, 0.3)",
     details: {
-      overview: "This phase marked the beginning of ByteWar 2025, with teams from across the country registering their interest to participate in this technological showdown.",
+      overview: "This phase marked the official launch of ByteWar 2025 — a nationwide call that ignited the spirit of innovation, as brilliant minds and passionate teams from every corner of the country registered to be part of this ultimate technological showdown.",
       statistics: [
-        "150+ applications received",
-        "80% from engineering backgrounds",
-        "20% first-time hackers",
-        "Representation from 15+ states"
+        "You must be 16 years or older to participate in ByteWar 2025.",
+        "Once registered, withdrawal is not allowed. Commit only if you are ready to see it through.",
+        "All participants must provide accurate and verifiable personal details during registration.",
+        "Participation is open exclusively to Indian citizens."
       ],
       benefits: [
         "Early registrants received cloud credits",
@@ -34,7 +34,7 @@ const eventsData = {
   'video-submission': {
     title: "Video Submission Round",
     date: "September 16-18, 2025",
-    description: "Craft your 2-4 minute pitch showcasing your team, problem statement, and innovative solution approach.",
+    description: "As part of the initial submission round, each team is required to create a 2–4 minute video pitch. This video plays a vital role in helping our jury understand your team, your chosen problem statement, and the innovation you bring to the table. ",
     status: "upcoming",
     icon: "🎥",
     tech: ["Video Editing", "Presentation", "Storytelling"],
@@ -42,23 +42,16 @@ const eventsData = {
     details: {
       submissionDeadline: "September 18, 2025, 23:59 IST",
       contentRequirements: [
-        "Team introduction (members, roles, skills)",
-        "Clear problem statement with context",
-        "Solution overview and expected impact",
-        "Motivation behind choosing this problem"
+        "Introduction to Your Team",
+        "Chosen Problem Statement",
+        "Project Idea and Purpose",
+        "Solution Approach (Optional but Recommended)"
       ],
       technicalRequirements: [
         "2-4 minutes duration",
         "English or Hindi (or subtitled)",
         "Good audio/video quality",
         "Public/unlisted YouTube or Google Drive link"
-      ],
-      evaluationCriteria: [
-        "Clarity of problem statement (25%)",
-        "Innovation in solution (30%)",
-        "Team capability (20%)",
-        "Presentation quality (15%)",
-        "Potential impact (10%)"
       ],
       submissionLink: "https://bytewar.submit/videos",
       note: "This video will play a key role in the shortlisting process. Teams failing to submit on time may be disqualified from further rounds."
@@ -67,29 +60,21 @@ const eventsData = {
   'ppt-submission': {
     title: "PPT Submission Round",
     date: "September 21-24, 2025",
-    description: "Detailed presentation of your technical solution with comprehensive analysis and implementation plan.",
+    description: "As part of the next evaluation phase of ByteWar 2025, all participating teams are required to submit a detailed PowerPoint presentation that clearly communicates their project vision, technical approach, and real-world impact. Your PPT will serve as a key component for judging and shortlisting the most promising ideas. Below is the complete breakdown of what your presentation should include:",
     status: "Upcoming",
     icon: "📊",
     tech: ["Design", "Data Viz", "Business"],
     glowColor: "rgba(96, 165, 250, 0.4)",
     details: {
       requirements: [
-        "Team introduction with backgrounds",
-        "Problem statement with real-world relevance",
-        "Target audience and expected impact",
-        "Project workflow with diagrams",
-        "Market and competitor analysis",
-        "Technology stack justification",
-        "Future scope and vision"
+        "Your PPT must contain 8 to 12 slides.",
+        "Use a clean, professional, and visually engaging layout.",
+        "Incorporate bullet points, icons, graphics, charts, or mockups where needed to keep it engaging and informative.",
+        "Submit your presentation in .PDF or .PPTX format.",
+        "Name your file in the following format: TeamName_ProjectTitle_ByteWar2025.pptx",
+        "Upload your file to the official submission portal or share a downloadable link (Google Drive, OneDrive, etc.) as per instructions provided."
       ],
       format: "PDF or PowerPoint (15 slides max)",
-      evaluationCriteria: [
-        "Technical depth (30%)",
-        "Innovation (25%)",
-        "Feasibility (20%)",
-        "Market potential (15%)",
-        "Presentation quality (10%)"
-      ],
       prizes: "Top 20 teams advance to next round"
     }
   },
