@@ -203,7 +203,7 @@ export default function PaymentPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
-        Loading...
+        <div className="animate-pulse">Loading...</div>
       </div>
     );
   }
@@ -211,11 +211,13 @@ export default function PaymentPage() {
   if (paymentStatus === 'success') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-green-900 p-4">
-        <div className="text-center bg-green-800/30 p-8 rounded-2xl border border-green-500 max-w-md">
-          <h2 className="text-3xl font-bold text-white mb-4">✅ Success!</h2>
-          <p className="text-green-200 mb-4">Registration confirmed for <strong>{userData.name}</strong>.</p>
-          <p className="text-green-300 mb-6">Check your email for details.</p>
-          <Link href="/" className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">Home</Link>
+        <div className="text-center bg-green-800/30 p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-green-500 max-w-md w-full mx-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">✅ Success!</h2>
+          <p className="text-green-200 mb-3 sm:mb-4 text-sm sm:text-base">Registration confirmed for <strong>{userData.name}</strong>.</p>
+          <p className="text-green-300 mb-4 sm:mb-6 text-sm sm:text-base">Check your email for details.</p>
+          <Link href="/" className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm sm:text-base">
+            Home
+          </Link>
         </div>
       </div>
     );
@@ -224,12 +226,12 @@ export default function PaymentPage() {
   if (paymentStatus === 'failed') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-red-900 p-4">
-        <div className="text-center bg-red-800/30 p-8 rounded-2xl border border-red-500 max-w-md">
-          <h2 className="text-3xl font-bold text-white mb-4">❌ Failed</h2>
-          <p className="text-red-200 mb-6">Payment failed. Please try again.</p>
+        <div className="text-center bg-red-800/30 p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-red-500 max-w-md w-full mx-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">❌ Failed</h2>
+          <p className="text-red-200 mb-4 sm:mb-6 text-sm sm:text-base">Payment failed. Please try again.</p>
           <button
             onClick={() => setPaymentStatus(null)}
-            className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700"
+            className="px-4 sm:px-6 py-2 sm:py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm sm:text-base"
           >
             Try Again
           </button>
@@ -239,75 +241,81 @@ export default function PaymentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4">
-      <div className="max-w-lg mx-auto">
-        <h1 className="text-3xl font-bold text-center text-purple-400 mb-2">Complete Payment</h1>
-        <p className="text-center text-gray-400 mb-8">
-          {displayAmount < 150 ? `Pay ₹${displayAmount} (Discount Applied)` : "Pay ₹150"}
-        </p>
+    <div className="min-h-screen bg-gray-900 py-8 sm:py-12 px-4 sm:px-6">
+      <div className="max-w-md mx-auto w-full">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2">Complete Payment</h1>
+          <p className="text-gray-400 text-sm sm:text-base">
+            {displayAmount < 150 ? `Pay ₹${displayAmount} (Discount Applied)` : "Pay ₹150"}
+          </p>
+        </div>
 
         {/* User Info */}
-        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
-          <h3 className="text-xl font-bold text-white mb-4">Your Info</h3>
-          <p className="text-gray-300"><strong>Name:</strong> {userData.name}</p>
-          <p className="text-gray-300"><strong>Email:</strong> {userData.email}</p>
-          <p className="text-gray-300"><strong>Team:</strong> {userData.teamName || "Solo"}</p>
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-gray-700 mb-4 sm:mb-6">
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Your Info</h3>
+          <div className="space-y-2">
+            <p className="text-gray-300 text-sm sm:text-base"><strong>Name:</strong> {userData.name}</p>
+            <p className="text-gray-300 text-sm sm:text-base"><strong>Email:</strong> {userData.email}</p>
+            <p className="text-gray-300 text-sm sm:text-base"><strong>Team:</strong> {userData.teamName || "Solo"}</p>
+          </div>
         </div>
 
         {/* Coupon Code Section */}
-        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
-          <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <FaTag className="text-purple-400" /> Coupon Code
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-gray-700 mb-4 sm:mb-6">
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-center gap-2">
+            <FaTag className="text-purple-400 text-sm sm:text-base" /> Coupon Code
           </h3>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <input
               type="text"
               value={couponCode}
               onChange={handleCouponChange}
               placeholder="Enter coupon code"
-              className="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="flex-1 px-3 sm:px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 text-sm sm:text-base"
               disabled={isValidating}
             />
             <button
               onClick={handleApplyCoupon}
               disabled={isValidating || !couponCode.trim()}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
+              className="px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-70 disabled:cursor-not-allowed text-sm sm:text-base"
             >
               {isValidating ? "Applying..." : "Apply"}
             </button>
           </div>
           {isValidating && (
-            <p className="text-gray-400 text-sm mt-2">Checking coupon...</p>
+            <p className="text-gray-400 text-xs sm:text-sm mt-1 sm:mt-2">Checking coupon...</p>
           )}
           {couponError && !isValidating && (
-            <p className="text-red-400 text-sm mt-2">{couponError}</p>
+            <p className="text-red-400 text-xs sm:text-sm mt-1 sm:mt-2">{couponError}</p>
           )}
           {couponSuccess && !isValidating && (
-            <p className="text-green-400 text-sm mt-2">{couponSuccess}</p>
+            <p className="text-green-400 text-xs sm:text-sm mt-1 sm:mt-2">{couponSuccess}</p>
           )}
-          <div className="flex justify-end mt-3">
-            <Link href="/forcouponcode" className="text-sm text-purple-400 hover:underline">
+          <div className="flex justify-end mt-2 sm:mt-3">
+            <Link href="/forcouponcode" className="text-xs sm:text-sm text-purple-400 hover:underline">
               Want a coupon code?
             </Link>
           </div>
         </div>
 
         {/* Payment Summary */}
-        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-6">
-          <h3 className="text-xl font-bold text-white mb-4">Payment Summary</h3>
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-gray-300">Registration Fee:</span>
-            <span className="text-gray-300">₹150</span>
-          </div>
-          {displayAmount < 150 && (
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-gray-300">Discount:</span>
-              <span className="text-green-400">-₹{Math.round((150 - displayAmount) * 100) / 100}</span>
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-gray-700 mb-4 sm:mb-6">
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Payment Summary</h3>
+          <div className="space-y-2 mb-2">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-300 text-sm sm:text-base">Registration Fee:</span>
+              <span className="text-gray-300 text-sm sm:text-base">₹150</span>
             </div>
-          )}
-          <div className="flex justify-between items-center pt-2 border-t border-gray-700">
-            <span className="text-white font-bold">Total:</span>
-            <span className={`text-xl font-bold ${displayAmount < 150 ? 'text-green-400' : 'text-white'}`}>
+            {displayAmount < 150 && (
+              <div className="flex justify-between items-center">
+                <span className="text-gray-300 text-sm sm:text-base">Discount:</span>
+                <span className="text-green-400 text-sm sm:text-base">-₹{Math.round((150 - displayAmount) * 100) / 100}</span>
+              </div>
+            )}
+          </div>
+          <div className="flex justify-between items-center pt-3 border-t border-gray-700">
+            <span className="text-white font-bold text-sm sm:text-base">Total:</span>
+            <span className={`text-lg sm:text-xl font-bold ${displayAmount < 150 ? 'text-green-400' : 'text-white'}`}>
               ₹{displayAmount}
             </span>
           </div>
@@ -317,11 +325,11 @@ export default function PaymentPage() {
         <button
           onClick={handlePayment}
           disabled={paymentStatus === 'processing'}
-          className="w-full py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 disabled:opacity-70 transition"
+          className="w-full py-3 sm:py-4 bg-green-600 text-white font-bold rounded-lg sm:rounded-xl hover:bg-green-700 disabled:opacity-70 transition text-sm sm:text-base"
         >
           {paymentStatus === 'processing' ? 'Processing...' : `Pay ₹${displayAmount} Now`}
         </button>
-        <p className="text-center text-gray-500 text-sm mt-4">Secured by Razorpay</p>
+        <p className="text-center text-gray-500 text-xs sm:text-sm mt-3 sm:mt-4">Secured by Razorpay</p>
       </div>
     </div>
   );
