@@ -156,7 +156,7 @@ const ThemeProblemsPage = () => {
           id: 'anonymous-venting-platform',
           title: 'Anonymous Venting & Emotional Support Platform',
           description: 'A secure and anonymous space for users to vent emotions, get crowd-sourced support, and receive AI-assisted mental health resources without judgment or identity tracking.',
-          difficulty: 'Medium',
+          difficulty: 'Easy',
           participants: 137
         },
         {
@@ -170,7 +170,7 @@ const ThemeProblemsPage = () => {
           id: 'medicine-reminder-app',
           title: 'Medicine Reminder & Pill Management App',
           description: 'A voice-enabled, AI-powered app for medication tracking, pill identification, pharmacy sync, and caregiver support to reduce missed doses and improve adherence.',
-          difficulty: 'Medium',
+          difficulty: 'Easy',
           participants: 129
         },
         {
@@ -219,7 +219,7 @@ const ThemeProblemsPage = () => {
           id: 'emotion-detector-ai',
           title: 'AI-Based Emotion Detector from Voice and Text',
           description: 'An AI-powered tool that detects emotions like happiness, sadness, and anger from text and voice inputs, offering real-time feedback for integration into apps and services.',
-          difficulty: 'Medium',
+          difficulty: 'Easy',
           participants: 130
         },
         {
@@ -240,7 +240,7 @@ const ThemeProblemsPage = () => {
           id: 'ai-code-review-system',
           title: 'AI Based Code Quality Review System',
           description: 'An AI-powered tool that reviews code for bugs, optimization, readability, and best practices across multiple programming languages.',
-          difficulty: 'Medium',
+          difficulty: 'Hard',
           participants: 120
         },
         {
@@ -261,7 +261,7 @@ const ThemeProblemsPage = () => {
           id: 'real-time-news-verifier',
           title: 'Real-time AI News Verifier',
           description: 'An AI-powered tool that verifies news credibility in real-time by detecting misinformation, analyzing bias, and evaluating source trustworthiness.',
-          difficulty: 'Hard',
+          difficulty: 'Easy',
           participants: 92
         }
       ]
