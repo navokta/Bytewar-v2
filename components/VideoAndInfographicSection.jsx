@@ -6,7 +6,7 @@ const WowVideoHero = () => {
   const [player, setPlayer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const playerRef = useRef(null);
-  
+
   // YouTube Stats State
   const [stats, setStats] = useState({
     viewCount: "2.1M+",
@@ -16,33 +16,36 @@ const WowVideoHero = () => {
   const [loadingStats, setLoadingStats] = useState(true);
   const [statsError, setStatsError] = useState(null);
 
-  // Load YouTube IFrame API
+  // Load YouTube IFrame API & Preload Player
   useEffect(() => {
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    window.onYouTubeIframeAPIReady = () => {
-      const newPlayer = new window.YT.Player(playerRef.current, {
-        videoId: 'gFM8s2i2emQ',
-        playerVars: {
-          autoplay: 0,
-          controls: 1,
-          modestbranding: 1,
-          rel: 0
-        },
-        events: {
-          'onReady': () => {
-            // Player is ready
+    const loadYT = () => {
+      if (window.YT && window.YT.Player) {
+        const newPlayer = new window.YT.Player(playerRef.current, {
+          videoId: "gFM8s2i2emQ",
+          playerVars: {
+            autoplay: 0,
+            controls: 1,
+            modestbranding: 1,
+            rel: 0
           },
-          'onStateChange': (event) => {
-            setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
+          events: {
+            onReady: () => {
+              setPlayer(newPlayer);
+            },
+            onStateChange: (event) => {
+              setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
+            }
           }
-        }
-      });
-      setPlayer(newPlayer);
+        });
+      } else {
+        const tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        window.onYouTubeIframeAPIReady = loadYT;
+        document.body.appendChild(tag);
+      }
     };
+
+    loadYT();
 
     return () => {
       if (window.YT && player) {
@@ -53,11 +56,15 @@ const WowVideoHero = () => {
 
   const togglePlay = () => {
     if (!player) return;
-    
-    if (isPlaying) {
-      player.pauseVideo();
-    } else {
+
+    if (!isPlaying) {
+      player.mute(); // Mute first to bypass autoplay restrictions
       player.playVideo();
+      setTimeout(() => {
+        player.unMute();
+      }, 300);
+    } else {
+      player.pauseVideo();
     }
   };
 
@@ -73,34 +80,18 @@ const WowVideoHero = () => {
         const url = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${VIDEO_ID}&key=${API_KEY}`;
 
         const response = await fetch(url);
-
-        if (!response.ok) {
-          let errorMsg = `YouTube API error: ${response.status} ${response.statusText}`;
-          try {
-            const errorData = await response.json();
-            if (errorData.error && errorData.error.message) {
-              errorMsg = `YouTube API error: ${errorData.error.message}`;
-            }
-          } catch (e) {}
-          throw new Error(errorMsg);
-        }
+        if (!response.ok) throw new Error("YouTube API error");
 
         const data = await response.json();
-
         if (!data.items || data.items.length === 0) {
           throw new Error("Video not found or no statistics available.");
         }
 
         const statistics = data.items[0].statistics;
-
         const formatCount = (count) => {
           const num = parseInt(count, 10);
-          if (num >= 1_000_000) {
-            return `${(num / 1_000_000).toFixed(1)}M`;
-          }
-          if (num >= 1_000) {
-            return `${(num / 1_000).toFixed(1)}K`;
-          }
+          if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(1)}M`;
+          if (num >= 1_000) return `${(num / 1_000).toFixed(1)}K`;
           return num.toLocaleString();
         };
 
@@ -110,7 +101,6 @@ const WowVideoHero = () => {
           commentCount: formatCount(statistics.commentCount),
         });
       } catch (err) {
-        console.error("Error fetching YouTube stats:", err);
         setStatsError(err.message);
       } finally {
         setLoadingStats(false);
@@ -168,10 +158,8 @@ const WowVideoHero = () => {
               className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl cursor-pointer transform transition-all duration-700 hover:scale-105"
               onClick={togglePlay}
             >
-              {/* YouTube Player Container */}
               <div ref={playerRef} className="absolute inset-0 w-full h-full"></div>
 
-              {/* Overlay with play button when paused */}
               {!isPlaying && (
                 <>
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900">
@@ -189,7 +177,7 @@ const WowVideoHero = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="relative">
                       <div className="absolute inset-0 w-24 h-24 bg-red-600 rounded-full animate-ping opacity-75"></div>
@@ -216,11 +204,9 @@ const WowVideoHero = () => {
                 </>
               )}
 
-              {/* Glow Effect */}
               <div className="absolute inset-0 rounded-3xl shadow-[0_0_50px_20px_rgba(139,92,246,0.5)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
 
-            {/* Video Stats */}
             {statsError && (
               <div className="mt-2 text-center text-sm text-red-400">
                 <span className="sr-only">Stats Error: {statsError}</span>
@@ -254,22 +240,19 @@ const WowVideoHero = () => {
               <div className="flex items-center justify-center lg:justify-start">
                 <div className="mr-4 text-3xl">🚀</div>
                 <p className="text-xl text-gray-300">
-                  Tackle real-world challenges with the guidance of expert
-                  mentors.
+                  Tackle real-world challenges with the guidance of expert mentors.
                 </p>
               </div>
               <div className="flex items-center justify-center lg:justify-start">
                 <div className="mr-4 text-3xl">💰</div>
                 <p className="text-xl text-gray-300">
-                  Win ₹10,000+ in exciting prizes along with exclusive
-                  internship offers.
+                  Level up your career with exclusive internship offers and networking opportunities.
                 </p>
               </div>
               <div className="flex items-center justify-center lg:justify-start">
                 <div className="mr-4 text-3xl">🌍</div>
                 <p className="text-xl text-gray-300">
-                  Join a national stage with participants from over 26 states of
-                  India.
+                  Join a national stage with participants from over 26 states of India.
                 </p>
               </div>
             </div>
@@ -290,7 +273,6 @@ const WowVideoHero = () => {
         </div>
       </div>
 
-      {/* Custom Styles */}
       <style jsx>{`
         @keyframes gradient-x {
           0%,

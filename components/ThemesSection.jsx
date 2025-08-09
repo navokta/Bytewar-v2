@@ -19,7 +19,7 @@ const WowThemesSection = () => {
   const themes = [
     {
       id: "blockchain-cybersecurity",
-      title: "BLOCKCHAIN & CYBERSECURITY",
+      title: "CYBERSECURITY & PRIVACY",
       description:
         "Provide ideas in a decentralized and distributed ledger technology used to store digital information that powers cryptocurrencies and NFTs and can radically change multiple sectors.",
       icon: "🔐",
