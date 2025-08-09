@@ -59,7 +59,7 @@ export default function BannerPage() {
               </div>
 
               <p className="text-lg md:text-xl text-gray-300 max-w-md mx-auto">
-                Join the ultimate coding battle powered by Bytewar. Showcase your AI and GPU programming skills to win amazing prizes and recognition!
+                Join the ultimate coding battle at Bytewar. Showcase your coding, communication, and presentation skills — from app and web development to innovative problem-solving — and earn recognition and opportunities!
               </p>
 
               {/* CTA Button */}
@@ -77,7 +77,7 @@ export default function BannerPage() {
 
               {/* Tech Stack */}
               <div className="flex flex-wrap justify-center gap-3 mt-6">
-                {['CUDA', 'TensorFlow', 'PyTorch', 'Docker', 'Kubernetes'].map((tech) => (
+                {['Coding', 'Communication', 'Problem-Solving', 'Teamwork', 'Innovation'].map((tech) => (
                   <span
                     key={tech}
                     className="px-3 py-1 bg-black/50 text-green-400 rounded-full text-sm font-mono border border-green-500/30"
