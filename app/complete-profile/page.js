@@ -2,8 +2,10 @@
 'use client';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { FaShieldAlt, FaPhone, FaLock, FaUserPlus } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaShieldAlt, FaPhone, FaLock, FaUserPlus, FaEye, FaEyeSlash, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 export default function CompleteProfile() {
   const { data: session, status } = useSession();
@@ -12,6 +14,27 @@ export default function CompleteProfile() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [requirements, setRequirements] = useState({
+    length: false,
+    uppercase: false,
+    lowercase: false,
+    specialChar: false,
+    number: false,
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [isPhoneFocused, setIsPhoneFocused] = useState(false);
+
+  useEffect(() => {
+    const length = password.length >= 8;
+    const uppercase = /[A-Z]/.test(password);
+    const lowercase = /[a-z]/.test(password);
+    const specialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+    const number = /[0-9]/.test(password);
+    setRequirements({ length, uppercase, lowercase, specialChar, number });
+  }, [password]);
+
+  const isPasswordValid = Object.values(requirements).every(Boolean);
 
   if (status === 'unauthenticated') {
     router.push('/login');
@@ -20,8 +43,21 @@ export default function CompleteProfile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitted(true);
     setLoading(true);
     setError('');
+
+    if (!phone || !password) {
+      setError('Please fill all required fields');
+      setLoading(false);
+      return;
+    }
+
+    if (!isPasswordValid) {
+      setError('Please fulfill all password requirements.');
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch('/api/auth/complete-profile', {
@@ -47,6 +83,23 @@ export default function CompleteProfile() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const renderRequirement = (label, fulfilled) => {
+    const color = submitted
+      ? fulfilled ? 'text-green-400' : 'text-red-400'
+      : 'text-gray-400';
+
+    const Icon = submitted
+      ? fulfilled ? FaCheckCircle : FaTimesCircle
+      : FaShieldAlt;
+
+    return (
+      <li className={`flex items-center text-sm ${color} mb-1 transition-colors duration-200`}>
+        <Icon className="mr-2 mt-0.5 flex-shrink-0" />
+        {label}
+      </li>
+    );
   };
 
   if (status === 'loading') {
@@ -97,42 +150,59 @@ export default function CompleteProfile() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-gray-300 text-sm font-medium mb-2">
-                  Phone Number
+                  Phone Number <span className="text-red-400">*</span>
                 </label>
-                <div className="relative">
+                <div className={`relative w-full bg-gray-700/50 border ${isPhoneFocused ? 'border-purple-500 ring-2 ring-purple-500/30' : 'border-gray-600'} rounded-lg transition duration-200 hover:border-gray-500`}>
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <FaPhone className="text-gray-500" />
                   </div>
-                  <input
-                    type="tel"
+                  <PhoneInput
+                    international
+                    defaultCountry="IN"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full pl-10 pr-3 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-200"
-                    placeholder="+1234567890"
-                    required
+                    onChange={setPhone}
+                    onFocus={() => setIsPhoneFocused(true)}
+                    onBlur={() => setIsPhoneFocused(false)}
+                    className="phone-input"
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-gray-300 text-sm font-medium mb-2">
-                  Password
+                  Password <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <FaLock className="text-gray-500" />
                   </div>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-3 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-200"
+                    className="w-full pl-10 pr-10 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-200 hover:border-gray-500"
                     placeholder="••••••••"
                     required
-                    minLength={6}
+                    minLength={8}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer hover:text-gray-200 transition-colors"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ?
+                      <FaEyeSlash className="text-gray-400 hover:text-gray-200" /> :
+                      <FaEye className="text-gray-400 hover:text-gray-200" />}
+                  </button>
                 </div>
-                <p className="mt-1 text-xs text-gray-500">Minimum 6 characters</p>
+                <ul className="mt-3 space-y-1" aria-live="polite">
+                  {renderRequirement("At least 8 characters", requirements.length)}
+                  {renderRequirement("One uppercase letter", requirements.uppercase)}
+                  {renderRequirement("One lowercase letter", requirements.lowercase)}
+                  {renderRequirement("One special character", requirements.specialChar)}
+                  {renderRequirement("One number", requirements.number)}
+                </ul>
               </div>
 
               {error && (
@@ -174,7 +244,7 @@ export default function CompleteProfile() {
       </div>
 
       {/* Custom Styles */}
-      <style jsx>{`
+      <style jsx global>{`
         @keyframes gradient-x {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -197,6 +267,51 @@ export default function CompleteProfile() {
           33% { transform: translate(30px, -50px) scale(1.1); }
           66% { transform: translate(-20px, 20px) scale(0.9); }
           100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .phone-input {
+          display: flex;
+          align-items: center;
+          height: 100%;
+        }
+        .phone-input .PhoneInputCountry {
+          margin-left: 10px;
+          margin-right: 8px;
+          position: relative;
+          align-self: stretch;
+          display: flex;
+          align-items: center;
+        }
+        .phone-input .PhoneInputCountrySelect {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          z-index: 1;
+          border: 0;
+          opacity: 0;
+          cursor: pointer;
+        }
+        .phone-input .PhoneInputCountryIconImg {
+          width: 20px;
+          height: 15px;
+          display: flex;
+        }
+        .phone-input .PhoneInputInput {
+          flex: 1;
+          min-width: 0;
+          background: transparent;
+          border: none;
+          color: white;
+          font-size: 1rem;
+          padding: 12px 12px 12px 0;
+          outline: none;
+        }
+        .phone-input .PhoneInputInput::placeholder {
+          color: #6B7280;
+        }
+        .phone-input .PhoneInputCountryIcon--border {
+          box-shadow: none;
         }
       `}</style>
     </div>
