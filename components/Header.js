@@ -112,7 +112,7 @@ const fetchUserData = useCallback(async () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLogout = async () => {
+const handleLogout = async () => {
   try {
     // For traditional login (email/password)
     await fetch('/api/auth/logout', { 
@@ -126,6 +126,17 @@ const fetchUserData = useCallback(async () => {
     // Clear local state
     setUser({ isLoggedIn: false, data: null, loading: false });
     
+    // Clear all cookies
+    document.cookie.split(';').forEach(cookie => {
+      const eqPos = cookie.indexOf('=');
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${window.location.hostname}`;
+    });
+
+    // Clear localStorage and sessionStorage
+    localStorage.clear();
+    sessionStorage.clear();
+
     // Optional: Redirect after logout
     window.location.href = '/'; // or use router.push('/') if using Next.js router
   } catch (error) {
