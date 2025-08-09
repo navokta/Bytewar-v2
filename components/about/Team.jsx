@@ -6,13 +6,13 @@ const WowTeamSection = () => {
 const teamMembers = [
   {
     name: "Bhavy Sharma",
-    role: "Lead Developer",
-    bio: "Full-stack specialist driving the core architecture of ByteWar. Passionate about scalable systems and empowering developers through code.",
+    role: "Founder & Director",
+    bio: "From coding and research to marketing and leadership, Bhavy is the unstoppable force powering ByteWar. A strategist, creator, and developer all rolled into one.",
     image: '/bhavy.jpg',
     social: {
       linkedin: "https://www.linkedin.com/in/bhavy-sharma/"
     }
-  },
+},
   {
     name: "Sakshi Jain",
     role: "Tech Leader",
