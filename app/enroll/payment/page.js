@@ -209,36 +209,115 @@ export default function PaymentPage() {
   }
 
   if (paymentStatus === 'success') {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-green-900 p-4">
-        <div className="text-center bg-green-800/30 p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-green-500 max-w-md w-full mx-4">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">✅ Success!</h2>
-          <p className="text-green-200 mb-3 sm:mb-4 text-sm sm:text-base">Registration confirmed for <strong>{userData.name}</strong>.</p>
-          <p className="text-green-300 mb-4 sm:mb-6 text-sm sm:text-base">Check your email for details.</p>
-          <Link href="/" className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm sm:text-base">
-            Home
-          </Link>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl shadow-purple-500/20">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-center">
+          <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-white/10 rounded-full border-2 border-white/20">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-1">Payment Successful!</h2>
+          <p className="text-purple-100">Thank you for registering</p>
         </div>
-      </div>
-    );
-  }
 
-  if (paymentStatus === 'failed') {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-red-900 p-4">
-        <div className="text-center bg-red-800/30 p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-red-500 max-w-md w-full mx-4">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">❌ Failed</h2>
-          <p className="text-red-200 mb-4 sm:mb-6 text-sm sm:text-base">Payment failed. Please try again.</p>
-          <button
-            onClick={() => setPaymentStatus(null)}
-            className="px-4 sm:px-6 py-2 sm:py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm sm:text-base"
-          >
-            Try Again
-          </button>
+        {/* Content */}
+        <div className="p-6 sm:p-8">
+          <div className="mb-6">
+            <div className="flex justify-between py-3 border-b border-gray-700">
+              <span className="text-gray-400">Name</span>
+              <span className="text-white font-medium">{userData.name}</span>
+            </div>
+            <div className="flex justify-between py-3 border-b border-gray-700">
+              <span className="text-gray-400">Email</span>
+              <span className="text-white font-medium">{userData.email}</span>
+            </div>
+            <div className="flex justify-between py-3 border-b border-gray-700">
+              <span className="text-gray-400">Team</span>
+              <span className="text-white font-medium">{userData.teamName || "Solo Participant"}</span>
+            </div>
+            <div className="flex justify-between py-3 border-b border-gray-700">
+              <span className="text-gray-400">Amount Paid</span>
+              <span className="text-green-400 font-bold">₹{displayAmount}</span>
+            </div>
+            {couponCode && (
+              <div className="flex justify-between py-3 border-b border-gray-700">
+                <span className="text-gray-400">Coupon Applied</span>
+                <span className="text-purple-400 font-medium">{couponCode}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Email Verification Section */}
+          <div className="bg-purple-900/30 rounded-lg p-4 mb-6 border border-purple-500/20">
+            <div className="flex items-start mb-3">
+              <svg className="h-5 w-5 text-purple-400 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <div>
+                <h3 className="text-sm font-semibold text-purple-300">Check Your Email</h3>
+                <p className="text-xs text-gray-300 mt-1">
+                  We've sent a confirmation email to <span className="text-white">{userData.email}</span>.
+                  Please verify your email address to complete registration.
+                </p>
+              </div>
+            </div>
+            
+            {/* <div className="flex items-start">
+              <svg className="h-5 w-5 text-purple-400 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p className="text-xs text-gray-300">
+                  Didn't receive email? 
+                  <button 
+                    onClick={async () => {
+                      try {
+                        await fetch('/api/resend-confirmation', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ email: userData.email })
+                        });
+                        alert('Confirmation email resent successfully!');
+                      } catch (error) {
+                        alert('Failed to resend email. Please try again later.');
+                      }
+                    }}
+                    className="text-purple-400 hover:text-white ml-1 underline"
+                  >
+                    Resend now
+                  </button>
+                </p>
+              </div>
+            </div> */}
+          </div>
+
+          <div className="flex flex-col space-y-3">
+            <Link href="/" className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all text-center">
+              Return Home
+            </Link>
+            {/* <button 
+              onClick={() => {
+                // Function to open default email client
+                window.location.href = `mailto:${userData.email}`;
+              }}
+              className="px-6 py-2.5 text-purple-400 hover:text-white text-sm font-medium text-center transition-all"
+            >
+              Open Email App
+            </button> */}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="bg-gray-900/50 p-4 text-center border-t border-gray-800">
+          <p className="text-xs text-gray-500">Need help? <a href="mailto:navokta@gmail.com" className="text-purple-400 hover:underline">Contact support</a></p>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   return (
     <div className="min-h-screen bg-gray-900 py-8 sm:py-12 px-4 sm:px-6">
