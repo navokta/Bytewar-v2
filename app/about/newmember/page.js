@@ -78,25 +78,71 @@ const ENTRY_IDS = {
   }
 
   if (success) {
-    return (
+  return (
+    <>
+      <Header />
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-12 px-4 flex items-center justify-center">
-        <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-8 rounded-2xl shadow-2xl text-center max-w-2xl w-full transform transition-all duration-500 hover:scale-[1.02]">
-          <div className="mb-6">
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-              </svg>
+        <div className="max-w-md w-full">
+          {/* Success Card */}
+          <div className="bg-gray-800/70 backdrop-blur-md rounded-2xl shadow-xl border border-gray-700 overflow-hidden">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-white/10 rounded-full border-2 border-white/20">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-white mb-1">Application Submitted!</h2>
+              <p className="text-green-100 text-sm">Thank you for your interest</p>
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">Application Submitted!</h2>
-            <p className="text-green-100 mb-6">Thank you for your interest in joining ByteWar. We&apos;ll review your application soon.</p>
+
+            {/* Content */}
+            <div className="p-6">
+              <div className="bg-gray-700/30 rounded-lg p-4 mb-6 border border-gray-600">
+                <p className="text-gray-300 text-center text-sm">
+                  We've received your application. Our team will review it and contact you if we proceed with your candidacy.
+                </p>
+              </div>
+
+              {/* Next Steps */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-white mb-3 flex items-center justify-center gap-2">
+                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                  Next Steps
+                </h3>
+                <ul className="space-y-2 text-sm text-gray-300">
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">•</span>
+                    <span>Review within 3-5 business days</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">•</span>
+                    <span>Interview if selected</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-400 mr-2">•</span>
+                    <span>Final decision communication</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Action Button */}
+              <Link 
+                href="/about" 
+                className="block w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium py-3 px-4 rounded-lg text-center transition-all duration-300"
+              >
+                Back to About Page
+              </Link>
+            </div>
           </div>
-          <Link href="/about" className="inline-block bg-white text-green-600 px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 shadow-lg">
-            ← Back to About
-          </Link>
         </div>
       </div>
-    );
-  }
+      <Footer />
+    </>
+  );
+}
 
   return (
     <div>
@@ -245,6 +291,40 @@ const ENTRY_IDS = {
         </div>
       </div>
     </div>
+     {/* Custom Styles */}
+        <style jsx>{`
+          @keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px);
+  }
+  50% {
+    transform: translateY(5px) translateX(-5px);
+  }
+  75% {
+    transform: translateY(-5px) translateX(10px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+        `}</style>
     <Footer />
     </div>
   );
