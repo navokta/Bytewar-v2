@@ -24,7 +24,7 @@ const EventsPage = () => {
         "Many more"
       ],
       icon: "📝",
-      tech: ["Blockchain", "AI", "Cloud"],
+      tech: ["Guts", "Information", "Team"],
       glowColor: "rgba(156, 163, 175, 0.3)"
     },
     {
@@ -40,7 +40,7 @@ const EventsPage = () => {
         "Expected impact"
       ],
       icon: "🎥",
-      tech: ["Video Editing", "Presentation"],
+      tech: ["Confidence", "Communication"],
       glowColor: "rgba(167, 139, 250, 0.4)"
     },
     {
@@ -56,7 +56,7 @@ const EventsPage = () => {
         "Future scope"
       ],
       icon: "📊",
-      tech: ["Design", "Data Viz", "Business"],
+      tech: ["Design", "Presenting Skills", "Business"],
       glowColor: "rgba(96, 165, 250, 0.4)"
     },
     {

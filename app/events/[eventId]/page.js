@@ -13,7 +13,7 @@ const eventsData = {
     description: "Welcome to the gateway of innovation — India's most prestigious hackathon, where the nation brightest minds, visionary coders, and passionate problem-solvers come together to tackle real-world challenges through technology and creativity. This is more than just a competition — it's a celebration of ideas, collaboration, and breakthroughs that can shape the future. If you have the spark to think differently, the courage to build boldly, and the drive to make an impact, this is your moment. Register now and unlock a journey that could change everything — including you.",
     status: "upcoming",
     icon: "📝",
-    tech: ["Blockchain", "AI", "Cloud"],
+    tech: ["Guts", "Information", "Team"],
     glowColor: "rgba(156, 163, 175, 0.3)",
     details: {
       overview: "This phase marked the official launch of ByteWar 2025 — a nationwide call that ignited the spirit of innovation, as brilliant minds and passionate teams from every corner of the country registered to be part of this ultimate technological showdown.",
@@ -37,7 +37,7 @@ const eventsData = {
     description: "As part of the initial submission round, each team is required to create a 2–4 minute video pitch. This video plays a vital role in helping our jury understand your team, your chosen problem statement, and the innovation you bring to the table. ",
     status: "upcoming",
     icon: "🎥",
-    tech: ["Video Editing", "Presentation", "Storytelling"],
+    tech: ["Confidence", "Communication"],
     glowColor: "rgba(167, 139, 250, 0.4)",
     details: {
       submissionDeadline: "September 18, 2025, 23:59 IST",
@@ -63,7 +63,7 @@ const eventsData = {
     description: "As part of the next evaluation phase of ByteWar 2025, all participating teams are required to submit a detailed PowerPoint presentation that clearly communicates their project vision, technical approach, and real-world impact. Your PPT will serve as a key component for judging and shortlisting the most promising ideas. Below is the complete breakdown of what your presentation should include:",
     status: "Upcoming",
     icon: "📊",
-    tech: ["Design", "Data Viz", "Business"],
+    tech: ["Design", "Presenting Skills", "Business"],
     glowColor: "rgba(96, 165, 250, 0.4)",
     details: {
       requirements: [
