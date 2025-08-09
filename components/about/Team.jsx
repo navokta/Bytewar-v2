@@ -15,13 +15,13 @@ const teamMembers = [
   },
   {
     name: "Sakshi Jain",
-    role: "UI/UX Designer",
-    bio: "User experience designer focused on crafting intuitive, beautiful interfaces that make ByteWar - V2 engaging, and enjoyable for all skill levels.",
+    role: "Tech Leader",
+    bio: "Driving innovation and guiding teams to deliver impactful solutions, blending technical expertise with creative problem-solving at ByteWar - V2.",
     image: '/Sakshi.png',
     social: {
       linkedin: "https://www.linkedin.com/in/sakshi-jain-34a7b7355/"
     }
-  },
+},
   {
     name: "Gaurav Pratap Singh",
     role: "Marketing Head",
