@@ -232,7 +232,7 @@ const InteractiveContactPage = () => {
                 <h3 className="text-xl md:text-2xl font-bold mb-5 md:mb-6">Send Us a Message</h3>
                 
                 {/* Inquiry Type Tabs */}
-                <div className="flex flex-wrap gap-2 mb-5 md:mb-6">
+                {/* <div className="flex flex-wrap gap-2 mb-5 md:mb-6">
                   {inquiryTypes.map((type) => (
                     <motion.button
                       key={type.id}
@@ -248,7 +248,7 @@ const InteractiveContactPage = () => {
                       {type.label}
                     </motion.button>
                   ))}
-                </div>
+                </div> */}
 
                 <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
                   <div>
