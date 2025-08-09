@@ -28,7 +28,7 @@ const WowWhyChooseSection = () => {
         </svg>
       ),
       title: "Amazing Prizes",
-      description: "$100K+ in rewards, internships, and career opportunities await winners"
+      description: "Level up your career with exclusive internship offers and networking opportunities."
     },
     {
       icon: (
