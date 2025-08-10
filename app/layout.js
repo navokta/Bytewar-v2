@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SessionWrapper>{children}</SessionWrapper>
       </body>
+      <script defer async src="https://apply.devfolio.co/v2/sdk.js"></script>
     </html>
   );
 }

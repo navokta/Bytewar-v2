@@ -66,9 +66,9 @@ const EventsPage = () => {
       description: "Refine your project with industry experts",
       type: "upcoming",
       highlights: [
-        "Technical guidance",
-        "Business model review",
-        "Presentation coaching",
+        "Expert guidance",
+        "Advice to encahce the project",
+        "Pear to Pear Mentorship",
         "Networking"
       ],
       icon: "🧑‍🏫",
@@ -83,8 +83,8 @@ const EventsPage = () => {
       type: "upcoming",
       highlights: [
         "Original implementation",
-        "Daily check-ins",
-        "Cloud credits provided",
+        "Confidence Building",
+        "Networking",
         "24/7 support"
       ],
       icon: "💻",
@@ -99,9 +99,7 @@ const EventsPage = () => {
       type: "upcoming",
       highlights: [
         "15-minute presentation",
-        "Live Q&A",
-        "₹1,00,000 top prize",
-        "Incubation offers"
+        "Live Q&A"
       ],
       icon: "🏆",
       tech: ["Demo", "Pitching", "Negotiation"],

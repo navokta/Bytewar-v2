@@ -19,6 +19,10 @@ export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+
+
+
+
   useEffect(() => {
     const checkUserProfile = async () => {
       const alreadyRedirected = localStorage.getItem('redirectedToCompleteProfile');

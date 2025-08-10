@@ -79,37 +79,36 @@ const eventsData = {
     }
   },
   'mentorship': {
-    title: "Mentorship Sessions",
-    date: "September 27-28, 2025",
-    description: "Personalized guidance from industry experts to refine your project before the coding marathon.",
-    status: "Upcoming",
-    icon: "🧑‍🏫",
-    tech: ["Mentoring", "Strategy", "Pitching"],
-    glowColor: "rgba(96, 165, 250, 0.4)",
-    details: {
-      schedule: [
-        "Day 1: Technical deep dive (architecture review, stack optimization)",
-        "Day 2: Business refinement (model validation, pitch coaching)"
-      ],
-      mentors: [
-        "CTO of TechCorp India",
-        "Lead Engineer at InnovateX",
-        "Product Manager at FutureTech",
-        "Design Lead at CreativeMinds"
-      ],
-      benefits: [
-        "One-on-one feedback sessions",
-        "Technical roadmap refinement",
-        "Investor pitch preparation",
-        "Networking opportunities"
-      ],
-      deliverables: [
-        "Revised technical documentation",
-        "Business model canvas",
-        "Improved presentation materials"
-      ]
-    }
-  },
+  title: "Coding Phase Mentorship",
+  date: "September 27-28, 2025",
+  description: "During the coding phase, each shortlisted team will get a focused 10-minute mentorship slot with industry experts to refine their approach, clarify strategies, and boost their overall execution — without diving into technical troubleshooting.",
+  status: "Upcoming",
+  icon: "🧑‍🏫",
+  tech: ["Mentoring", "Strategy", "Execution"],
+  glowColor: "rgba(96, 165, 250, 0.4)",
+  details: {
+    rules: [
+      "Only one team member is allowed to attend the mentorship session.",
+      "Each session is strictly 10 minutes.",
+      "No technical or code-level questions are permitted."
+    ],
+    schedule: [
+      "Day 1: Strategy and workflow alignment",
+      "Day 2: Progress review and execution guidance"
+    ],
+    benefits: [
+      "Focused project guidance",
+      "Execution and time-management tips",
+      "Pitch clarity enhancement",
+      "Networking opportunity with mentors"
+    ],
+    deliverables: [
+      "Refined project strategy document",
+      "Updated task execution plan",
+      "Clear action points for final submission"
+    ]
+  }
+},
   'coding-round': {
     title: "Coding Phase",
     date: "September 29 - October 6, 2025",
@@ -121,28 +120,13 @@ const eventsData = {
     details: {
       rules: [
         "Original code only (strict anti-plagiarism policy)",
-        "Daily standup meetings (9:00 AM IST)",
-        "Mentor check-ins every 48 hours",
         "Comprehensive documentation required",
         "Final submission includes demo video"
-      ],
-      resources: [
-        "$500 AWS/GCP credits per team",
-        "API access to partner platforms",
-        "24/7 technical support",
-        "Design asset library",
-        "Co-working space access"
-      ],
-      judgingCriteria: [
-        "Functionality (40%)",
-        "Innovation (25%)",
-        "Code quality (20%)",
-        "Documentation (15%)"
       ]
     }
   },
   'finals': {
-    title: "Final Presentation",
+    title: "Final Submission",
     date: "October 8, 2025",
     description: "Grand finale where top teams present their solutions to a panel of elite judges.",
     status: "Upcoming",
@@ -154,18 +138,6 @@ const eventsData = {
         "15-minute live presentation",
         "10-minute Q&A with judges",
         "Working demo required"
-      ],
-      judgingPanel: [
-        "Industry leaders",
-        "Venture capitalists",
-        "Technical experts",
-        "Previous winners"
-      ],
-      prizes: [
-        "1st Prize: ₹1,00,000 + incubation offer",
-        "2nd Prize: ₹50,000 + mentorship",
-        "3rd Prize: ₹25,000 + swag kits",
-        "Special category awards (Best Design, Most Innovative, etc.)"
       ],
       livestream: "https://youtube.com/bytewar"
     }
