@@ -67,8 +67,8 @@ const EventsPage = () => {
       type: "upcoming",
       highlights: [
         "Expert guidance",
-        "Advice to encahce the project",
-        "Pear to Pear Mentorship",
+        "Advice to enhance the project",
+        "Peer to Peer Mentorship",
         "Networking"
       ],
       icon: "🧑‍🏫",
