@@ -19,6 +19,20 @@ export default function Home() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+
+  React.useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apply.devfolio.co/v2/sdk.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    }
+}, []);
+
+
+
   useEffect(() => {
     const checkUserProfile = async () => {
       const alreadyRedirected = localStorage.getItem('redirectedToCompleteProfile');
