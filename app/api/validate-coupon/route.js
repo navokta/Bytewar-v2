@@ -7,6 +7,7 @@ const COUPONS = {
   EARLYBIRD: { discountPercent: 20 }, // 20% off → ₹120
   HACK2025: { discountPercent: 15 },  // 15% off → ₹127.5
   SHARMAJI: { discountPercent: 99 },   // 99% off → ₹1.5
+  bytewar: { discountPercent: 100 },   // 100% off → ₹0
   // Add more coupons as needed
 };
 
