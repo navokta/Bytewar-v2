@@ -1,43 +1,47 @@
-// app/themes/[themeId]/page.js (Theme Problems Page)
+// app/themes/[themeId]/page.js
 "use client";
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { useSession } from "next-auth/react";
 
 const ThemeProblemsPage = () => {
   const params = useParams();
   const themeId = params.themeId;
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
 
-  // 2. Check login status on component load
-  useEffect(() => {
-    // Check authentication (using localStorage example)
-    const token = localStorage.getItem('authToken');
-    setIsLoggedIn(!!token);
-    
-    // For more robust auth, use:
-    // const checkAuth = async () => {
-    //   const res = await fetch('/api/check-auth');
-    //   setIsLoggedIn(res.ok);
-    // };
-    // checkAuth();
-  }, []);
+  const { data: session, status } = useSession();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // 3. Button click handler
-  const handleClick = () => {
-    if (isLoggedIn) {
-      router.push(`/details/${themeId}`);
+  useEffect(() => {
+    if (status === "authenticated" && session?.user) {
+      setIsLoggedIn(true);
+      return;
     }
-    // Proceed with normal button action
-    // navigate('/details'); // Example redirect
-    console.log('User is logged in, proceeding...');
+
+    // fallback → check JWT cookie
+    const checkCustomAuth = async () => {
+      try {
+        const res = await fetch("/api/check-auth", { credentials: "include" });
+        setIsLoggedIn(res.ok);
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+    checkCustomAuth();
+  }, [status, session]);
+
+  const handleClick = (problemId) => {
+    if (!isLoggedIn) {
+      router.push("/login");
+      return;
+    }
+    router.push(`/themes/${themeId}/${problemId}`);
   };
+
 
   // Mock data for themes and problems - UPDATED IDs to match app/themes/page.js
   const themesData = {
@@ -558,96 +562,32 @@ const ThemeProblemsPage = () => {
 
        {/* Problems Grid - Responsive */}
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
-  {theme.problems.map((problem) => (
-    <div
-      key={problem.id}
-      className="group relative block"
-    >
-      {/* Glow Effect */}
-      <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r ${theme.color} opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500`}></div>
-
-      {/* Card - Enhanced Responsive Design */}
-      <div className="relative bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-6 h-full transform transition-all duration-500 group-hover:-translate-y-2 min-h-[200px] sm:min-h-[220px]">
-        {/* Header with Title and Difficulty */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 mb-4">
-          <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight">
-            {problem.title}
-          </h2>
-          <span className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap self-start ${problem.difficulty === 'Hard'
-              ? 'bg-red-500/20 text-red-400 border border-red-500/30'
-              : problem.difficulty === 'Medium'
-                ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-                : 'bg-green-500/20 text-green-400 border border-green-500/30'
-            }`}>
-            {problem.difficulty}
-          </span>
-        </div>
-
-        {/* Description */}
-        <p className="text-gray-400 text-sm sm:text-base mb-6 leading-relaxed">
-          {problem.description}
-        </p>
-
-        {/* Footer with Participants and Button */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-          <div className="flex items-center text-gray-500 text-sm">
-            <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            <span>{problem.participants} participants</span>
-          </div>
-
-          <div className="relative group">
-            <Link
-              href={`/themes/${themeId}/${problem.id}`}
-              className={`
-                relative px-5 py-2.5 sm:px-6 sm:py-3 
-                bg-gradient-to-r from-blue-600 to-indigo-600
-                text-white font-medium text-sm sm:text-base rounded-lg
-                transition-all duration-200 flex items-center justify-center gap-2
-                shadow-md hover:shadow-lg
-                ring-1 ring-blue-400/30
-                overflow-hidden
-                ${!isLoggedIn ? 
-                  'opacity-75 cursor-not-allowed grayscale-[20%] pointer-events-none' : 
-                  'hover:opacity-90 active:scale-[0.98]'
-                }
-              `}
-            >
-              {/* Animated background effect */}
-              <span className={`absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 opacity-0 ${isLoggedIn && 'group-hover:opacity-100'} transition-opacity duration-200`}></span>
-              
-              <span className="relative z-10 hidden sm:inline">View Details</span>
-              <span className="relative z-10 sm:hidden">Details</span>
-              <svg 
-                className={`relative z-10 w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 ${isLoggedIn && 'group-hover:translate-x-1'}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-
-            {/* Login prompt tooltip */}
-            {!isLoggedIn && (
-              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-max max-w-xs p-3 bg-gray-800 text-white text-sm rounded-md shadow-lg border border-gray-700 animate-fade-in">
-                <div className="flex items-center gap-2">
-                  <svg className="flex-shrink-0 w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
-                  </svg>
-                  <span>Please <a href="/login" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">login</a> to view details</span>
-                </div>
-                {/* Tooltip arrow */}
-                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-800 rotate-45 transform border-t border-l border-gray-700"></div>
+          {theme.problems.map((problem) => (
+            <div key={problem.id} className="bg-gray-800/50 rounded-2xl border border-white/10 p-6">
+              <h2 className="text-xl font-bold text-white">{problem.title}</h2>
+              <p className="text-gray-400 text-sm mb-4">{problem.description}</p>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500">{problem.participants} participants</span>
+                <button
+                  onClick={() => handleClick(problem.id)}
+                  disabled={!isLoggedIn}
+                  className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all
+                    ${isLoggedIn
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90"
+                      : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                    }`}
+                >
+                  View Details
+                </button>
               </div>
-            )}
-          </div>
+              {!isLoggedIn && (
+                <p className="mt-2 text-xs text-gray-400">
+                  Please <Link href="/login" className="text-blue-400 underline">login</Link> to view details
+                </p>
+              )}
+            </div>
+          ))}
         </div>
-      </div>
-    </div>
-  ))}
-</div>
 
         {/* Back Button - Responsive */}
         <div className="text-center">
