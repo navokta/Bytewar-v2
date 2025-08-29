@@ -42,7 +42,7 @@ const teamMembers = [
   },
   {
     name: "Abhinav Kaushik",
-    role: "Video & Creative Editor",
+    role: "Video & Graphics Editor",
     bio: "Creative force behind ByteWar's YouTube videos, announcement reels, and promotional graphics. Crafts engaging visual content that brings the competition to life and keeps our community excited and informed.",
     image: '/Abhinav.jpg',
     social: {
