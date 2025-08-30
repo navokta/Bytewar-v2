@@ -564,7 +564,15 @@ const ThemeProblemsPage = () => {
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {theme.problems.map((problem) => (
             <div key={problem.id} className="bg-gray-800/50 rounded-2xl border border-white/10 p-6">
-              <h2 className="text-xl font-bold text-white">{problem.title}</h2>
+              {/* Header with Title and Difficulty */}
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 mb-4">
+                <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight">
+                  {problem.title}
+                </h2>
+                <span className={`inline-block px-3 py-1 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap self-start ${problem.difficulty === 'Hard' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : problem.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : 'bg-green-500/20 text-green-400 border border-green-500/30'}`}>
+                  {problem.difficulty}
+                </span>
+              </div>
               <p className="text-gray-400 text-sm mb-4">{problem.description}</p>
               <div className="flex justify-between items-center">
                 <span className="text-gray-500">{problem.participants} participants</span>
