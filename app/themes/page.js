@@ -15,7 +15,7 @@ const AllThemesPage = () => {
     color: 'from-purple-600 to-indigo-600',
     glow: 'shadow-purple-500/30'
   },
-  {
+  { 
     id: 'smart-education',
     title: 'SMART EDUCATION',
     description: 'Smart education, a concept that describes learning in digital age. It enables learners to learn more effectively, efficiently, flexibly and comfortably.',
