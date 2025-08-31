@@ -11,7 +11,7 @@ const eventsData = {
     title: "Registration Phase",
     date: "September 1-15, 2025",
     description: "Welcome to the gateway of innovation — India's most prestigious hackathon, where the nation brightest minds, visionary coders, and passionate problem-solvers come together to tackle real-world challenges through technology and creativity. This is more than just a competition — it's a celebration of ideas, collaboration, and breakthroughs that can shape the future. If you have the spark to think differently, the courage to build boldly, and the drive to make an impact, this is your moment. Register now and unlock a journey that could change everything — including you.",
-    status: "upcoming",
+    status: "current",
     icon: "📝",
     tech: ["Guts", "Information", "Team"],
     glowColor: "rgba(156, 163, 175, 0.3)",
