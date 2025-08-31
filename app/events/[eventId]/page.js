@@ -29,7 +29,8 @@ const eventsData = {
         "Team formation assistance",
         "Technical resource kits"
       ]
-    }
+    },
+      REGISTERNOW: "https://www.bytewar.in/BannerPage",
   },
   'video-submission': {
     title: "Video Submission Round",
@@ -319,27 +320,43 @@ export default function EventDetailsPage() {
                 </motion.p>
               </div>
               
-              {event.status === "Active" && event.details.submissionLink && (
-                <motion.a
-                  href={event.details.submissionLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 0 30px rgba(34, 211, 238, 0.5)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 sm:px-8 sm:py-4 bg-white text-gray-900 rounded-lg font-bold hover:bg-gray-100 transition-all flex items-center space-x-2"
-                >
-                  <span>SUBMIT NOW</span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
-                  </svg>
-                </motion.a>
-              )}
+              {event.status === "Active" && (
+  <>
+    {event.REGISTERNOW && (
+      <motion.a
+        href={event.REGISTERNOW}
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        whileHover={{ 
+          scale: 1.05,
+          boxShadow: "0 0 30px rgba(34, 211, 238, 0.5)"
+        }}
+        whileTap={{ scale: 0.95 }}
+        className="px-6 py-3 sm:px-8 sm:py-4 bg-white text-gray-900 rounded-lg font-bold hover:bg-gray-100 transition-all flex items-center space-x-2"
+      >
+        <span>REGISTER NOW</span>
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+        </svg>
+      </motion.a>
+    )}
+
+    {event.details?.submissionLink && (
+      <motion.a
+        href={event.details.submissionLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-3 sm:px-8 sm:py-4 bg-white text-gray-900 rounded-lg font-bold hover:bg-gray-100 transition-all flex items-center space-x-2"
+      >
+        <span>SUBMIT NOW</span>
+      </motion.a>
+    )}
+  </>
+)}
+
             </div>
           </div>
         </div>
