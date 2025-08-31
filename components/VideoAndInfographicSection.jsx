@@ -21,7 +21,7 @@ const WowVideoHero = () => {
     const loadYT = () => {
       if (window.YT && window.YT.Player) {
         const newPlayer = new window.YT.Player(playerRef.current, {
-          videoId: "gFM8s2i2emQ",
+          videoId: "zru3R9dXTbM",
           playerVars: {
             autoplay: 0,
             controls: 1,
@@ -76,7 +76,7 @@ const WowVideoHero = () => {
 
       try {
         const API_KEY = "AIzaSyDAmA45c0sQEOf5oiXRxk081Jc6LejAVik";
-        const VIDEO_ID = "gFM8s2i2emQ";
+        const VIDEO_ID = "zru3R9dXTbM";
         const url = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${VIDEO_ID}&key=${API_KEY}`;
 
         const response = await fetch(url);

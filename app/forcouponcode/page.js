@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function CouponPage() {
-  const youtubeEmbedUrl = `https://www.youtube.com/embed/gFM8s2i2emQ?si=1MFomMGlTBFYvejJ`;
+  const youtubeEmbedUrl = `https://www.youtube.com/embed/zru3R9dXTbM?si=0XlaC5_E9xWvzi_F`;
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col">
