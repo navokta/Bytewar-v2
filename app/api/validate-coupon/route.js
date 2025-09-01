@@ -7,6 +7,7 @@ const COUPONS = {
   EARLYBIRD20: { discountPercent: 20 }, // 20% off → ₹120
   TOPPERS33: { discountPercent: 33 },  // 33% off → ₹127.5
   BYTE33: { discountPercent: 33 },   // 33% off → ₹100.5
+  BHAVYSHARMA: { discountPercent: 99 },   // 33% off → ₹100.5
   // Add more coupons as needed
 };
 
