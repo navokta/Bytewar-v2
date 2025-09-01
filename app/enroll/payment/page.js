@@ -150,7 +150,7 @@ export default function PaymentPage() {
             formData.append("entry.2033137663", userData.teamName || "");
             formData.append("entry.1655015983", userData.altPhone || "");
             formData.append("entry.1120477465", userData.upiId);
-            formData.append("entry.123456789", couponCode || ""); // Store coupon code
+            // formData.append("entry.123456789", couponCode || ""); // Store coupon code
 
             // Member Names
             formData.append("entry.1882654199", userData.members[0]?.name || "");
