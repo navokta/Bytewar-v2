@@ -10,6 +10,9 @@ const COUPONS = {
   BHAVYSHARMA: { discountPercent: 99 },   // 33% off → ₹100.5
   TANISHNIET33: { discountPercent: 33 },   // 33% off → ₹100.5
   SHARMA33: { discountPercent: 33 },   // 33% off → ₹100.5
+  DUBEY33: { discountPercent: 33 },   // 33% off → ₹100.5
+  LAKSHAY33: { discountPercent: 33 },   // 33% off → ₹100.5
+  CHIRAG33: { discountPercent: 33 },   // 33% off → ₹100.5
   // Add more coupons as needed
 };
 
