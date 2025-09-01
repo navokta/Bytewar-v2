@@ -8,6 +8,7 @@ const COUPONS = {
   TOPPERS33: { discountPercent: 33 },  // 33% off → ₹127.5
   BYTE33: { discountPercent: 33 },   // 33% off → ₹100.5
   BHAVYSHARMA: { discountPercent: 99 },   // 33% off → ₹100.5
+  TANISHNIET33: { discountPercent: 33 },   // 33% off → ₹100.5
   // Add more coupons as needed
 };
 
