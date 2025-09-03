@@ -435,13 +435,13 @@ export default function WowEnrollForm() {
                       </>
                     ) : (
                       <>
-                        <FaSave /> Save & Continue to Payment
+                        <FaSave /> Save & Continue
                       </>
                     )}
                   </button>
                   {saveSuccess && (
                     <div className="mt-3 p-2 bg-green-900/30 border border-green-800 rounded-lg text-green-400 text-center text-xs sm:text-sm animate-fadeIn">
-                      Saved! Redirecting to payment...
+                      Saved! Redirecting to Registration...
                     </div>
                   )}
                 </div>
