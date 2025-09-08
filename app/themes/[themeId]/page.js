@@ -15,33 +15,42 @@ const ThemeProblemsPage = () => {
 
   const { data: session, status } = useSession();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    if (status === "authenticated" && session?.user) {
-      setIsLoggedIn(true);
-      return;
-    }
+  if (status === "loading") return; // Wait until session is resolved
 
-    // fallback → check JWT cookie
-    const checkCustomAuth = async () => {
-      try {
-        const res = await fetch("/api/check-auth", { credentials: "include" });
-        setIsLoggedIn(res.ok);
-      } catch {
-        setIsLoggedIn(false);
-      }
-    };
-    checkCustomAuth();
-  }, [status, session]);
+  if (status === "authenticated" && session?.user) {
+    setIsLoggedIn(true);
+    setAuthChecked(true); // ← Auth confirmed
+    return;
+  }
 
-  const handleClick = (problemId) => {
-    if (!isLoggedIn) {
-      router.push("/login");
-      return;
+  // Fallback: check custom JWT/session via your API
+  const checkCustomAuth = async () => {
+    try {
+      const res = await fetch("/api/check-auth", { credentials: "include" });
+      setIsLoggedIn(res.ok);
+    } catch {
+      setIsLoggedIn(false);
+    } finally {
+      setAuthChecked(true); // ← Always mark as checked, even if failed
     }
-    router.push(`/themes/${themeId}/${problemId}`);
   };
 
+  checkCustomAuth();
+}, [status, session]);
+
+const handleClick = (problemId) => {
+  if (!authChecked) return; // Wait until auth status is confirmed
+
+  if (!isLoggedIn) {
+    router.push("/login");
+    return;
+  }
+
+  router.push(`/themes/${themeId}/${problemId}`);
+};
 
   // Mock data for themes and problems - UPDATED IDs to match app/themes/page.js
   const themesData = {
@@ -106,7 +115,7 @@ const ThemeProblemsPage = () => {
           difficulty: 'Medium',
           participants: 148
         },
-       {
+        {
           id: 'online-note-summarizer',
           title: 'Online Note Summarizer',
           description: 'AI-powered platform to automatically generate concise summaries, key points, and mind maps from long notes to improve revision and retention.',
@@ -519,7 +528,7 @@ const ThemeProblemsPage = () => {
 
       ]
     }
-  }; 
+  };
 
   const theme = themesData[themeId] || themesData['CYBERSECURITY-PRIVACY'];
 
@@ -560,8 +569,8 @@ const ThemeProblemsPage = () => {
           </p>
         </div>
 
-       {/* Problems Grid - Responsive */}
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
+        {/* Problems Grid - Responsive */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {theme.problems.map((problem) => (
             <div key={problem.id} className="bg-gray-800/50 rounded-2xl border border-white/10 p-6">
               {/* Header with Title and Difficulty */}
@@ -578,14 +587,16 @@ const ThemeProblemsPage = () => {
                 <span className="text-gray-500">{problem.participants} participants</span>
                 <button
                   onClick={() => handleClick(problem.id)}
-                  disabled={!isLoggedIn}
+                  disabled={!authChecked || !isLoggedIn} 
                   className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all
-                    ${isLoggedIn
-                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90"
-                      : "bg-gray-700 text-gray-400 cursor-not-allowed"
+    ${!authChecked
+                      ? "bg-gray-700 text-gray-500 cursor-wait"
+                      : isLoggedIn
+                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90"
+                        : "bg-gray-700 text-gray-400 cursor-not-allowed"
                     }`}
                 >
-                  View Details
+                  {authChecked ? "View Details" : "Checking..."}
                 </button>
               </div>
               {!isLoggedIn && (

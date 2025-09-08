@@ -1,19 +1,16 @@
 // app/api/check-auth/route.js
-import jwt from "jsonwebtoken";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Adjust path if needed
 
 export async function GET(request) {
-  try {
-    const token = request.cookies.get("token")?.value;
-    if (!token) {
-      return new Response("Not authenticated", { status: 401 });
-    }
+  const session = await getServerSession(authOptions);
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return new Response(JSON.stringify({ user: decoded }), {
+  if (session && session.user) {
+    return new Response(JSON.stringify({ user: session.user }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch {
-    return new Response("Invalid token", { status: 401 });
   }
+
+  return new Response("Unauthorized", { status: 401 });
 }
