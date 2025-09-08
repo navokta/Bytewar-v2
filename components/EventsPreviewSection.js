@@ -66,35 +66,35 @@ const EventsPreviewSection = () => {
   }, [nextEvent]);
 
   return (
-    <section className="py-16 px-6 bg-black relative overflow-hidden">
+    <section className="py-8 md:py-12 lg:py-16 px-4 sm:px-6 bg-black relative overflow-hidden">
       <div className="max-w-5xl mx-auto text-center relative z-10">
-        <h2 className="text-5xl font-extrabold mb-8 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 md:mb-8 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
           BYTEWAR EVENTS
         </h2>
 
         {/* Current Event */}
         {currentEvent && (
-          <div className="mb-10 p-6 rounded-2xl border border-gray-800 bg-gray-900/80 backdrop-blur-md shadow-lg animate-fadeIn">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 animate-pulse">
+          <div className="mb-8 md:mb-10 p-4 sm:p-5 md:p-6 rounded-xl md:rounded-2xl border border-gray-800 bg-gray-900/80 backdrop-blur-md shadow-lg animate-fadeIn">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3">
               {currentEvent.title} <span className="text-cyan-400">(Ongoing)</span>
             </h3>
-            <p className="text-gray-300">{currentEvent.description}</p>
+            <p className="text-sm sm:text-base text-gray-300">{currentEvent.description}</p>
           </div>
         )}
 
         {/* Next Event Countdown */}
         {nextEvent && (
-          <div className="p-6 rounded-2xl border border-gray-800 bg-gray-900/80 backdrop-blur-md shadow-lg animate-fadeIn">
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
+          <div className="p-4 sm:p-5 md:p-6 rounded-xl md:rounded-2xl border border-gray-800 bg-gray-900/80 backdrop-blur-md shadow-lg animate-fadeIn">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">
               Next: <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">{nextEvent.title}</span>
             </h3>
-            <p className="text-gray-300 mb-6">{nextEvent.description}</p>
+            <p className="text-sm sm:text-base text-gray-300 mb-4 md:mb-6">{nextEvent.description}</p>
             
-            <div className="grid grid-cols-4 gap-4 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
               {Object.entries(countdown).map(([unit, value]) => (
-                <div key={unit} className="bg-black/40 rounded-lg p-4 shadow-md transform transition hover:scale-105">
-                  <div className="text-3xl font-bold text-cyan-400 font-mono animate-bounce-slow">{value}</div>
-                  <div className="text-sm text-gray-400 uppercase">{unit}</div>
+                <div key={unit} className="bg-black/40 rounded-lg p-3 sm:p-4 shadow-md transform transition hover:scale-105">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-cyan-400 font-mono">{value}</div>
+                  <div className="text-xs sm:text-sm text-gray-400 uppercase mt-1">{unit}</div>
                 </div>
               ))}
             </div>
@@ -102,9 +102,9 @@ const EventsPreviewSection = () => {
         )}
 
         {/* CTA */}
-        <div className="mt-10">
+        <div className="mt-8 md:mt-10">
           <Link href="/events">
-            <button className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold shadow-lg hover:scale-105 transition-transform">
+            <button className="px-6 py-3 sm:px-8 sm:py-3 text-sm sm:text-base rounded-lg md:rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold shadow-lg hover:scale-105 transition-transform active:scale-95">
               VIEW EVENTS
             </button>
           </Link>
