@@ -4,6 +4,14 @@ import { useRouter } from "next/navigation";
 import { FaUser, FaEnvelope, FaPhone, FaUsers, FaIdCard, FaUserTag, FaSave, FaUniversity } from "react-icons/fa";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import OrganizedComponent from "@/components/OrganizedComponent";
+
+
+
+
+
+
+
 
 export default function WowEnrollForm() {
   const router = useRouter();
@@ -63,6 +71,10 @@ export default function WowEnrollForm() {
     setFormData((prev) => ({ ...prev, members: updatedMembers }));
   };
 
+
+  
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSaving(true);
@@ -98,6 +110,8 @@ export default function WowEnrollForm() {
   return (
     <div>
       <Header />
+
+      <OrganizedComponent/>
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-8 px-4 sm:px-6 lg:px-8">
         {/* Background Blobs */}
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
