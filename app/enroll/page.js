@@ -1,50 +1,12 @@
 "use client";
-
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { FaUser, FaEnvelope, FaPhone, FaUsers, FaIdCard, FaUserTag, FaSave, FaUniversity } from "react-icons/fa";
-// import all from "@/public/All.png";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
-// Organizer Header Component
-const OrganizerHeader = () => {
-  return (
-    <div className="w-full bg-gradient-to-r from-purple-900 via-blue-900 to-indigo-900 py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto text-center">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 sm:mb-4">
-          Organised by Navokta Team
-        </h1>
-        <div className="mt-4 sm:mt-6 flex justify-center">
-          <div className="relative w-full max-w-4xl aspect-video sm:aspect-[3/1] bg-gray-800 rounded-lg overflow-hidden shadow-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20"></div>
-            <img 
-              src="/All.jpg" 
-              alt="Navokta Team" 
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextElementSibling.style.display = 'flex';
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center" style={{ display: 'none' }}>
-              <div className="text-center text-gray-300 p-4">
-                <div className="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 sm:h-12 sm:w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <p className="text-sm sm:text-base font-medium">Group Photo Will Appear Here</p>
-                <p className="text-xs sm:text-sm text-gray-400 mt-2">Image of the Navokta Team organizing this event</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Main Enrollment Form Component
 export default function WowEnrollForm() {
+  const router = useRouter();
   const [participationType, setParticipationType] = useState("team");
   const [teamSize, setTeamSize] = useState(3);
   const [formData, setFormData] = useState({
@@ -59,8 +21,32 @@ export default function WowEnrollForm() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  // Since localStorage is not supported in this environment, we'll skip the useEffect for loading data
-  // In your actual Next.js app, you can uncomment and use the localStorage functionality
+  // Load saved data from localStorage
+  useEffect(() => {
+    const savedData = localStorage.getItem('enrollmentData');
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        const fullMembersArray = Array(5).fill(null).map((_, index) => ({
+          name: parsedData.members?.[index]?.name || "",
+          role: parsedData.members?.[index]?.role || "",
+          institution: parsedData.members?.[index]?.institution || "",
+        }));
+        const savedType = parsedData.members?.length === 1 ? "solo" : "team";
+        setFormData({
+          ...parsedData,
+          members: fullMembersArray,
+        });
+        setParticipationType(savedType);
+        if (savedType === "team" && parsedData.members) {
+          const filled = parsedData.members.filter(m => m.name);
+          setTeamSize(Math.max(3, Math.min(5, filled.length)));
+        }
+      } catch (e) {
+        console.warn("Failed to parse saved data", e);
+      }
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -92,14 +78,13 @@ export default function WowEnrollForm() {
     };
 
     try {
-      // In a real app, you would save to localStorage or make an API call here
-      // localStorage.setItem('enrollmentData', JSON.stringify(submissionData));
+      // ✅ Save everything to localStorage
+      localStorage.setItem('enrollmentData', JSON.stringify(submissionData));
       setSaveSuccess(true);
 
-      // Simulate redirect after 1 second
+      // ✅ Redirect to payment page after 1 second
       setTimeout(() => {
-        // router.push('/enroll/payment');
-        console.log("Would redirect to payment page with data:", submissionData);
+        router.push('/enroll/payment');
       }, 1000);
 
     } catch (error) {
@@ -112,7 +97,7 @@ export default function WowEnrollForm() {
 
   return (
     <div>
-      <OrganizerHeader />
+      <Header />
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 py-8 px-4 sm:px-6 lg:px-8">
         {/* Background Blobs */}
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
@@ -487,6 +472,7 @@ export default function WowEnrollForm() {
           }
         `}</style>
       </div>
+      <Footer />
     </div>
   );
 }
