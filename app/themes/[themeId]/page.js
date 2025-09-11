@@ -6,51 +6,17 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
-import { useSession } from "next-auth/react";
 
 const ThemeProblemsPage = () => {
   const params = useParams();
   const themeId = params.themeId;
   const router = useRouter();
 
-  const { data: session, status } = useSession();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
-
-  useEffect(() => {
-  if (status === "loading") return; // Wait until session is resolved
-
-  if (status === "authenticated" && session?.user) {
-    setIsLoggedIn(true);
-    setAuthChecked(true); // ← Auth confirmed
-    return;
-  }
-
-  // Fallback: check custom JWT/session via your API
-  const checkCustomAuth = async () => {
-    try {
-      const res = await fetch("/api/check-auth", { credentials: "include" });
-      setIsLoggedIn(res.ok);
-    } catch {
-      setIsLoggedIn(false);
-    } finally {
-      setAuthChecked(true); // ← Always mark as checked, even if failed
-    }
+  const handleClick = (problemId) => {
+    // Directly navigate to problem details without authentication check
+    router.push(`/themes/${themeId}/${problemId}`);
   };
 
-  checkCustomAuth();
-}, [status, session]);
-
-const handleClick = (problemId) => {
-  if (!authChecked) return; // Wait until auth status is confirmed
-
-  if (!isLoggedIn) {
-    router.push("/login");
-    return;
-  }
-
-  router.push(`/themes/${themeId}/${problemId}`);
-};
 
   // Mock data for themes and problems - UPDATED IDs to match app/themes/page.js
   const themesData = {
@@ -587,23 +553,11 @@ const handleClick = (problemId) => {
                 <span className="text-gray-500">{problem.participants} participants</span>
                 <button
                   onClick={() => handleClick(problem.id)}
-                  disabled={!authChecked || !isLoggedIn} 
-                  className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all
-    ${!authChecked
-                      ? "bg-gray-700 text-gray-500 cursor-wait"
-                      : isLoggedIn
-                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90"
-                        : "bg-gray-700 text-gray-400 cursor-not-allowed"
-                    }`}
+                  className="px-5 py-2.5 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:opacity-90"
                 >
-                  {authChecked ? "View Details" : "Checking..."}
+                  View Details
                 </button>
               </div>
-              {!isLoggedIn && (
-                <p className="mt-2 text-xs text-gray-400">
-                  Please <Link href="/login" className="text-blue-400 underline">login</Link> to view details
-                </p>
-              )}
             </div>
           ))}
         </div>

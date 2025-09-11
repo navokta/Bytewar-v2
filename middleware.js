@@ -39,8 +39,7 @@ export const config = {
   matcher: [
     '/dashboard/:path*',
     '/profile/:path*',
-    '/settings/:path*',
-    '/themes/:themeId/:problemId', // Protect individual problem pages
+    '/settings/:path*', // Protect individual problem pages
     // '/themes/:themeId' // Protect theme overview pages
   ],
 };
