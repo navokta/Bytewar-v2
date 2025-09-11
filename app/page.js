@@ -14,6 +14,7 @@ import ThemesSection from '../components/ThemesSection';
 import Sponser from '../components/Sponser';
 import TermsSection from "@/components/TermsSection";
 import EventsPreviewSection from "@/components/EventsPreviewSection";
+import MegaEvent from "../components/MegaEvent";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -48,6 +49,7 @@ export default function Home() {
       <Header />
       <HeroSection />
       <ByteWarInfo />
+      <MegaEvent />
       <EventsPreviewSection />
       <VideoAndInfographicSection />
       <ThemesSection />
