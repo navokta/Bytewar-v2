@@ -70,7 +70,7 @@ const problemsData = {
 },
 'breach-alert-system': {
   id: 'breach-alert-system',
-  link: "https://drive.google.com/file/d/17N6tviv1N0yAffwWo9wQlkTVB8OIokwG/view?usp=sharing",
+  link: "https://drive.google.com/file/d/1aokZ0ZTrfA_PAYG1xKuP4zM2dbDrtwOY/view?usp=sharing",
   title: 'Breach Alert System for Personal Data Leaks',
   description: 'An AI-powered platform that scans public and dark web sources to detect data leaks involving personal identifiers such as emails, phone numbers, and usernames, and alerts users with contextual information and personalized security recommendations.',
   objective: 'Protect users by detecting and notifying them in real-time about compromised personal data and recommending corrective actions.',
@@ -1138,7 +1138,7 @@ const problemsData = {
         },
         'online-note-summarizer': {
           id: 'online-note-summarizer',
-          link: "https://drive.google.com/file/d/1I7Fuuqf5NpB04jqmgLN3y370OqF_XbaG/view?usp=sharing", 
+          link: "https://drive.google.com/file/d/1fSHlM4M5rIhbXpdkMDWrJzYJ_TA8YUHs/view?usp=sharing", 
           title: 'Online Note Summarizer',
           description: 'A platform that uses AI to generate summaries, highlights, bullet lists, and action items from user-uploaded notes or documents.',
           objective: 'To make note revision faster and more effective by auto-summarizing long text into digestible formats.',
