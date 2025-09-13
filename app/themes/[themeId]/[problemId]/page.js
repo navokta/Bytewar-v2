@@ -593,7 +593,7 @@ const problemsData = {
           },
           'real-time-news-verifier': {
             id: 'real-time-news-verifier',
-            link: "https://drive.google.com/file/d/1UmJ-8qwoiy1ZdiEGZBY8aKbIbQWKx4y_/view?usp=sharing",
+            link: "https://drive.google.com/file/d/1v_UY9H0vTv_YoZsuGIYJUIYI3F1oBqrC/view?usp=sharing",
             title: 'Real-time AI News Verifier',
             description: 'A machine learning and NLP-based tool that verifies the credibility of news articles and social media posts by flagging misinformation, analyzing bias, and assessing source trustworthiness in real time.',
             objective: 'Combat misinformation by verifying news content accuracy, identifying ideological bias, and enhancing public media literacy through instant credibility assessments.',
