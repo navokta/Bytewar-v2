@@ -14,7 +14,7 @@ const MegaEvent = () => {
   // Calculate time until September 12, 2025
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const eventDate = new Date('September 12, 2025 20:00:00');
+      const eventDate = new Date('September 13, 2025 20:00:00');
       const now = new Date();
       const difference = eventDate.getTime() - now.getTime();
       
