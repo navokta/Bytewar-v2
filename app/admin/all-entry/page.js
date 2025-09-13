@@ -9,6 +9,7 @@ function AllEntryContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+  const [activeTab, setActiveTab] = useState('all');
   const tableRef = useRef(null);
 
   // Load all students
@@ -118,82 +119,154 @@ function AllEntryContent() {
     <div 
       key={student.uuid} 
       id={`row-${student.uuid}`}
-      className="bg-gray-800/60 backdrop-blur-md rounded-lg border border-gray-700/50 mb-3 p-3 shadow-lg hover:shadow-xl transition-all duration-300"
+      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700/50 mb-4 p-5 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 backdrop-blur-md"
       style={{ animationDelay: `${filteredAndSortedStudents.indexOf(student) * 0.05}s` }}
     >
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="text-white font-semibold text-sm md:text-base truncate flex-1">{student.name}</h3>
-        <span className="text-cyan-300 text-xs font-mono px-2 py-1 bg-gray-700/50 rounded">
-          {student.uuid.slice(0, 8)}...
-        </span>
+      <div className="flex justify-between items-start mb-4">
+        <div className="flex-1">
+          <h3 className="text-white font-bold text-lg mb-1">{student.name}</h3>
+          <span className="inline-flex items-center px-2 py-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 text-xs font-medium rounded-full border border-cyan-500/30">
+            {student.uuid.slice(0, 8)}...
+          </span>
+        </div>
+        <div className="flex space-x-1">
+          {editing === student.uuid ? (
+            <>
+              <button 
+                onClick={() => handleUpdate(student.uuid)}
+                className="p-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors duration-200 shadow-md"
+                aria-label="Save"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </button>
+              <button 
+                onClick={() => setEditing(null)}
+                className="p-2 bg-gray-600 hover:bg-gray-700 text-white rounded-xl transition-colors duration-200 shadow-md"
+                aria-label="Cancel"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </>
+          ) : (
+            <>
+              <button 
+                onClick={() => handleEdit(student)}
+                className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors duration-200 shadow-md"
+                aria-label="Edit"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+              </button>
+              <button 
+                onClick={() => handleDelete(student.uuid)}
+                className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-colors duration-200 shadow-md"
+                aria-label="Delete"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+              </button>
+            </>
+          )}
+        </div>
       </div>
       
-      <div className="space-y-2 text-sm">
-        <div className="flex items-center">
-          <svg className="w-3 h-3 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-          </svg>
-          <span className="text-gray-300 truncate max-w-[180px]">{student.email}</span>
-        </div>
-        
-        <div className="flex items-center">
-          <svg className="w-3 h-3 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h1M5 16v1a2 2 0 002 2h10a2 2 0 002-2v-1"></path>
-          </svg>
-          <span className="text-gray-300 truncate max-w-[180px]">{student.college}</span>
-        </div>
-        
-        <div className="flex items-center">
-          <svg className="w-3 h-3 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-          </svg>
-          <a 
-            href={`/certificate/${student.uuid}`} 
-            target="_blank"
-            className="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center text-xs"
-          >
-            <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+      <div className="space-y-3 mb-4">
+        <div className="flex items-center p-3 bg-gray-800/50 rounded-xl border border-gray-700/30">
+          <div className="p-2 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg mr-3">
+            <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
-            View Certificate
-          </a>
+          </div>
+          <div className="flex-1">
+            <p className="text-gray-400 text-sm">Email</p>
+            {editing === student.uuid ? (
+              <input
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="w-full mt-1 px-2 py-1 bg-gray-700/80 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm"
+                placeholder="Enter email"
+              />
+            ) : (
+              <p className="text-white font-medium truncate max-w-[180px]" title={student.email}>{student.email}</p>
+            )}
+          </div>
+        </div>
+        
+        <div className="flex items-center p-3 bg-gray-800/50 rounded-xl border border-gray-700/30">
+          <div className="p-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg mr-3">
+            <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h1M5 16v1a2 2 0 002 2h10a2 2 0 002-2v-1"></path>
+            </svg>
+          </div>
+          <div className="flex-1">
+            <p className="text-gray-400 text-sm">College</p>
+            {editing === student.uuid ? (
+              <input
+                value={form.college}
+                onChange={(e) => setForm({ ...form, college: e.target.value })}
+                className="w-full mt-1 px-2 py-1 bg-gray-700/80 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm"
+                placeholder="Enter college"
+              />
+            ) : (
+              <p className="text-white font-medium truncate max-w-[180px]" title={student.college}>{student.college}</p>
+            )}
+          </div>
+        </div>
+        
+        <div className="flex items-center p-3 bg-gray-800/50 rounded-xl border border-gray-700/30">
+          <div className="p-2 bg-gradient-to-r from-indigo-500/20 to-blue-500/20 rounded-lg mr-3">
+            <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </div>
+          <div className="flex-1">
+            <p className="text-gray-400 text-sm">Certificate</p>
+            {editing === student.uuid ? (
+              <input
+                value={form.certificateLink}
+                onChange={(e) => setForm({ ...form, certificateLink: e.target.value })}
+                className="w-full mt-1 px-2 py-1 bg-gray-700/80 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm"
+                placeholder="Enter certificate link"
+              />
+            ) : (
+              <a 
+                href={`/certificate/${student.uuid}`} 
+                target="_blank"
+                className="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center text-sm font-medium"
+              >
+                <span className="truncate max-w-[150px]">View Certificate</span>
+                <svg className="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+                </svg>
+              </a>
+            )}
+          </div>
         </div>
       </div>
       
-      <div className="mt-3 pt-3 border-t border-gray-700/50 flex justify-between">
-        {editing === student.uuid ? (
-          <>
-            <button 
-              onClick={() => handleUpdate(student.uuid)}
-              className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-xs flex-1 mr-1"
-            >
-              Save
-            </button>
-            <button 
-              onClick={() => setEditing(null)}
-              className="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded text-xs flex-1 ml-1"
-            >
-              Cancel
-            </button>
-          </>
-        ) : (
-          <>
-            <button 
-              onClick={() => handleEdit(student)}
-              className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs flex-1 mr-1"
-            >
-              Edit
-            </button>
-            <button 
-              onClick={() => handleDelete(student.uuid)}
-              className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs flex-1 ml-1"
-            >
-              Delete
-            </button>
-          </>
-        )}
-      </div>
+      {editing === student.uuid && (
+        <div className="flex space-x-2 pt-2">
+          <button 
+            onClick={() => handleUpdate(student.uuid)}
+            className="flex-1 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium rounded-xl transition-all duration-200 shadow-lg transform hover:scale-[1.02]"
+          >
+            Save Changes
+          </button>
+          <button 
+            onClick={() => setEditing(null)}
+            className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium rounded-xl transition-all duration-200 shadow-lg"
+          >
+            Cancel
+          </button>
+        </div>
+      )}
     </div>
   );
 
@@ -202,107 +275,116 @@ function AllEntryContent() {
     <tr 
       key={student.uuid} 
       id={`row-${student.uuid}`}
-      className="border-b border-gray-700/30 hover:bg-gray-700/20 transition-all duration-300"
+      className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
       style={{ animationDelay: `${index * 0.05}s` }}
     >
-      <td className="p-2 md:p-3 lg:p-4">
+      <td className="p-4">
         {editing === student.uuid ? (
           <input
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full px-2 md:px-3 py-1 md:py-2 bg-gray-700/50 border border-gray-600 rounded text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm md:text-base"
+            className="w-full px-3 py-2 bg-gray-800/80 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 text-sm"
           />
         ) : (
-          <div className="text-white text-sm md:text-base truncate max-w-[120px] md:max-w-none" title={student.name}>{student.name}</div>
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center mr-3">
+              <span className="text-cyan-400 text-xs font-bold">{student.name.charAt(0)}</span>
+            </div>
+            <span className="text-white font-medium text-sm">{student.name}</span>
+          </div>
         )}
       </td>
-      <td className="p-2 md:p-3 lg:p-4">
+      <td className="p-4">
         {editing === student.uuid ? (
           <input
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full px-2 md:px-3 py-1 md:py-2 bg-gray-700/50 border border-gray-600 rounded text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm md:text-base"
+            className="w-full px-3 py-2 bg-gray-800/80 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 text-sm"
           />
         ) : (
-          <div className="text-white text-sm md:text-base truncate max-w-[120px] md:max-w-none" title={student.email}>{student.email}</div>
+          <span className="text-gray-300 text-sm truncate max-w-xs" title={student.email}>{student.email}</span>
         )}
       </td>
-      <td className="p-2 md:p-3 lg:p-4">
+      <td className="p-4">
         {editing === student.uuid ? (
           <input
             value={form.college}
             onChange={(e) => setForm({ ...form, college: e.target.value })}
-            className="w-full px-2 md:px-3 py-1 md:py-2 bg-gray-700/50 border border-gray-600 rounded text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm md:text-base"
+            className="w-full px-3 py-2 bg-gray-800/80 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 text-sm"
           />
         ) : (
-          <div className="text-white text-sm md:text-base truncate max-w-[120px] md:max-w-none" title={student.college}>{student.college}</div>
+          <span className="text-gray-300 text-sm truncate max-w-xs" title={student.college}>{student.college}</span>
         )}
       </td>
-      <td className="p-2 md:p-3 lg:p-4">
-        <div className="text-cyan-300 font-mono text-xs md:text-sm truncate max-w-[80px] md:max-w-[120px] lg:max-w-none" title={student.uuid}>{student.uuid}</div>
+      <td className="p-4">
+        <div className="flex items-center">
+          <span className="text-gray-400 text-xs font-mono bg-gray-800/50 px-3 py-1 rounded-lg border border-gray-700/50">
+            {student.uuid.slice(0, 8)}...
+          </span>
+        </div>
       </td>
-      <td className="p-2 md:p-3 lg:p-4">
+      <td className="p-4">
         {editing === student.uuid ? (
           <input
             value={form.certificateLink}
             onChange={(e) => setForm({ ...form, certificateLink: e.target.value })}
-            className="w-full px-2 md:px-3 py-1 md:py-2 bg-gray-700/50 border border-gray-600 rounded text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm md:text-base"
+            className="w-full px-3 py-2 bg-gray-800/80 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 text-sm"
           />
         ) : (
           <a 
             href={`/certificate/${student.uuid}`} 
             target="_blank"
-            className="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center text-sm md:text-base"
+            className="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center text-sm"
           >
-            <svg className="w-3 h-3 md:w-4 md:h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+            <span>View</span>
+            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
             </svg>
-            View
           </a>
         )}
       </td>
-      <td className="p-2 md:p-3 lg:p-4">
-        <div className="flex flex-wrap gap-1 md:gap-2">
+      <td className="p-4">
+        <div className="flex items-center space-x-2">
           {editing === student.uuid ? (
             <>
               <button 
                 onClick={() => handleUpdate(student.uuid)}
-                className="px-2 md:px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded flex items-center transition-colors text-xs md:text-sm"
+                className="p-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-xl transition-all duration-200 shadow-md transform hover:scale-[1.05]"
+                aria-label="Save"
               >
-                <svg className="w-3 h-3 md:w-4 md:h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                Save
               </button>
               <button 
                 onClick={() => setEditing(null)}
-                className="px-2 md:px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded flex items-center transition-colors text-xs md:text-sm"
+                className="p-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-xl transition-all duration-200 shadow-md"
+                aria-label="Cancel"
               >
-                <svg className="w-3 h-3 md:w-4 md:h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
-                Cancel
               </button>
             </>
           ) : (
             <>
               <button 
                 onClick={() => handleEdit(student)}
-                className="px-2 md:px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded flex items-center transition-colors text-xs md:text-sm"
+                className="p-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl transition-all duration-200 shadow-md transform hover:scale-[1.05]"
+                aria-label="Edit"
               >
-                <svg className="w-3 h-3 md:w-4 md:h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                 </svg>
-                Edit
               </button>
               <button 
                 onClick={() => handleDelete(student.uuid)}
-                className="px-2 md:px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded flex items-center transition-colors text-xs md:text-sm"
+                className="p-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl transition-all duration-200 shadow-md transform hover:scale-[1.05]"
+                aria-label="Delete"
               >
-                <svg className="w-3 h-3 md:w-4 md:h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                 </svg>
-                Delete
               </button>
             </>
           )}
@@ -312,30 +394,35 @@ function AllEntryContent() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-900 p-2 md:p-4 lg:p-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 p-2 md:p-4 lg:p-8 relative overflow-hidden">
       {/* Animated background elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 animate-laser-line"></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+      </div>
       
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-4 md:mb-8 p-3 md:p-4 bg-gray-800/80 backdrop-blur-md rounded-xl border border-gray-700/50">
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-white flex items-center">
-            <span className="icon-orb animate-pulse mr-2 md:mr-3">
-              <svg className="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3,3H21V7H3V3M4,8H20V21H4V8M9,11V19H7V11H9M15,11V19H13V11H15M3,1H21V2H3V1Z" />
-              </svg>
-            </span>
-            STUDENT RECORDS DATABASE
+        <div className="mb-8 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl mb-4 shadow-lg">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            Student Records Dashboard
           </h1>
-          <p className="text-gray-400 mt-1 md:mt-2 text-sm md:text-base">Manage all student entries in the system</p>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Manage, edit, and track all student entries with a modern, intuitive interface
+          </p>
         </div>
 
         {/* Controls */}
-        <div className="mb-4 md:mb-6 flex flex-col md:flex-row gap-3 md:gap-4 items-start">
-          <div className="relative flex-grow w-full">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg className="h-4 w-4 md:h-5 md:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="mb-6 flex flex-col lg:flex-row gap-4">
+          <div className="relative flex-grow">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </div>
@@ -344,45 +431,83 @@ function AllEntryContent() {
               placeholder="Search students by name, email, college or UUID..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 md:pl-10 pr-3 md:pr-4 py-2 w-full bg-gray-800/60 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm md:text-base"
+              className="pl-12 pr-6 py-4 w-full bg-gray-800/80 border border-gray-700/50 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all duration-300 text-base shadow-lg"
             />
           </div>
+          
           <button
             onClick={fetchStudents}
-            className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg flex items-center transition-colors w-full md:w-auto justify-center mt-2 md:mt-0 text-sm md:text-base min-h-[40px]"
+            className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-2xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center"
           >
-            <svg className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
             </svg>
             Refresh Data
           </button>
         </div>
 
+        {/* Tab Navigation */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+              activeTab === 'all'
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg transform scale-105'
+                : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800/70 hover:text-gray-200'
+            }`}
+          >
+            All Students ({students.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('recent')}
+            className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+              activeTab === 'recent'
+                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg transform scale-105'
+                : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800/70 hover:text-gray-200'
+            }`}
+          >
+            Recent
+          </button>
+          <button
+            onClick={() => setActiveTab('verified')}
+            className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+              activeTab === 'verified'
+                ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white shadow-lg transform scale-105'
+                : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800/70 hover:text-gray-200'
+            }`}
+          >
+            Verified
+          </button>
+        </div>
+
         {/* Table / Mobile Cards */}
-        <div className="bg-gray-800/60 backdrop-blur-md rounded-xl border border-gray-700/50 overflow-hidden">
+        <div className="bg-gray-800/50 backdrop-blur-md rounded-3xl border border-gray-700/50 overflow-hidden shadow-2xl">
           {isLoading ? (
-            <div className="p-8 md:p-12 text-center">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-t-2 border-b-2 border-cyan-500"></div>
-              <p className="mt-3 md:mt-4 text-gray-400 text-sm md:text-base">Loading student data...</p>
+            <div className="p-12 text-center">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-500 mb-4"></div>
+              <p className="text-gray-400 text-xl">Loading student data...</p>
             </div>
           ) : filteredAndSortedStudents.length === 0 ? (
-            <div className="p-8 md:p-12 text-center">
-              <svg className="inline-block h-12 w-12 md:h-16 md:w-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <p className="mt-3 md:mt-4 text-gray-400 text-sm md:text-base">No student records found</p>
+            <div className="p-12 text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-800/50 rounded-full mb-4">
+                <svg className="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <p className="text-gray-400 text-xl">No student records found</p>
+              <p className="text-gray-500 mt-2">Try adjusting your search criteria</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               {/* Desktop/Tablet View */}
               <div className="hidden md:block">
                 <table ref={tableRef} className="w-full min-w-full">
-                  <thead>
-                    <tr className="bg-gray-700/50 text-left">
+                  <thead className="bg-gray-800/70">
+                    <tr>
                       {['name', 'email', 'college', 'uuid', 'certificate', 'actions'].map((header) => (
                         <th 
                           key={header} 
-                          className="p-2 md:p-3 lg:p-4 text-gray-300 font-semibold uppercase text-xs md:text-sm cursor-pointer hover:bg-gray-700/70 transition-colors"
+                          className="p-4 text-left text-gray-300 font-semibold uppercase text-sm tracking-wider border-b border-gray-700/50 cursor-pointer hover:bg-gray-700/50 transition-colors duration-200"
                           onClick={() => header !== 'actions' && header !== 'certificate' ? handleSort(header) : null}
                         >
                           <div className="flex items-center">
@@ -393,8 +518,8 @@ function AllEntryContent() {
                             {header === 'certificate' && 'Certificate'}
                             {header === 'actions' && 'Actions'}
                             {header !== 'actions' && header !== 'certificate' && (
-                              <svg className="w-3 h-3 md:w-4 md:h-4 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M7 10l5 5 5-5z" />
+                              <svg className={`w-4 h-4 ml-2 ${sortConfig.key === header ? 'text-cyan-400' : 'text-gray-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16V4m0 0L3 8m4-4l4 4"></path>
                               </svg>
                             )}
                           </div>
@@ -402,7 +527,7 @@ function AllEntryContent() {
                       ))}
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-gray-700/30">
                     {filteredAndSortedStudents.map((s, index) => (
                       <DesktopStudentRow key={s.uuid} student={s} index={index} />
                     ))}
@@ -411,7 +536,7 @@ function AllEntryContent() {
               </div>
 
               {/* Mobile View */}
-              <div className="md:hidden">
+              <div className="md:hidden p-4">
                 {filteredAndSortedStudents.map((s) => (
                   <MobileStudentCard key={s.uuid} student={s} />
                 ))}
@@ -421,12 +546,24 @@ function AllEntryContent() {
         </div>
 
         {/* Stats Footer */}
-        <div className="mt-4 md:mt-6 p-3 md:p-4 bg-gray-800/60 backdrop-blur-md rounded-xl border border-gray-700/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-0">
-          <div className="text-gray-400 text-sm md:text-base">
-            Showing <span className="text-white font-semibold">{filteredAndSortedStudents.length}</span> of <span className="text-white font-semibold">{students.length}</span> records
+        <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-4 p-6 bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-md rounded-2xl border border-gray-700/50 shadow-lg">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div className="text-center sm:text-left">
+              <p className="text-gray-400 text-sm">Total Records</p>
+              <p className="text-white text-2xl font-bold">{students.length}</p>
+            </div>
+            <div className="text-center sm:text-left">
+              <p className="text-gray-400 text-sm">Filtered Results</p>
+              <p className="text-cyan-400 text-2xl font-bold">{filteredAndSortedStudents.length}</p>
+            </div>
+            <div className="text-center sm:text-left">
+              <p className="text-gray-400 text-sm">Active Edits</p>
+              <p className="text-purple-400 text-2xl font-bold">{editing ? '1' : '0'}</p>
+            </div>
           </div>
-          <div className="text-gray-400 text-xs md:text-sm">
-            Last updated: {new Date().toLocaleTimeString()}
+          
+          <div className="text-gray-400 text-sm">
+            Last updated: {new Date().toLocaleString()}
           </div>
         </div>
       </div>
@@ -454,6 +591,17 @@ function AllEntryContent() {
           }
         }
         
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
         .animate-laser-line {
           animation: laser-line 2s linear infinite;
         }
@@ -472,17 +620,6 @@ function AllEntryContent() {
           animation: fadeIn 0.5s ease forwards;
         }
         
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
         /* Responsive adjustments for mobile */
         @media (max-width: 768px) {
           /* Ensure tables are scrollable on small screens */
@@ -645,6 +782,37 @@ function AllEntryContent() {
         
         .text-gray-700 {
           color: #374151;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+          background: rgba(148, 163, 184, 0.3);
+          border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+          background: rgba(148, 163, 184, 0.5);
+        }
+        
+        /* Glow effect on hover */
+        .hover\:shadow-lg:hover {
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Gradient borders */
+        .border-gradient {
+          border: 1px solid transparent;
+          background-origin: border-box;
+          background-clip: content-box, border-box;
         }
       `}</style>
     </div>
