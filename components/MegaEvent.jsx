@@ -43,7 +43,7 @@ const MegaEvent = () => {
   ];
 
   const handleJoinEvent = () => {
-    window.open('https://meet.google.com/zar-hpuu-rys', '_blank', 'noopener,noreferrer');
+    window.open('https://us04web.zoom.us/j/6666974127?pwd=yaQmcE5hEimAiaUj2tNDMuQlD9b38N.1&omn=75626714243', '_blank', 'noopener,noreferrer');
   };
 
   return (
