@@ -362,7 +362,7 @@ const problemsData = {
           },
           'predictive-maintenance-ai': {
             id: 'predictive-maintenance-ai',
-            link: "https://drive.google.com/file/d/1U0Ft7ALatvstN7ynrbsU-f3SS-bryumN/view?usp=sharing",
+            link: "https://drive.google.com/file/d/14K4rdereNRmA_QRv7AmpiOVyb7oEJOCG/view?usp=sharing",
             title: 'Predictive Maintenance for Machines or Vehicles',
             description: 'AI system that predicts mechanical failures using sensor and historical data to reduce downtime and improve maintenance efficiency.',
             objective: 'To forecast equipment failures in advance, enable data-driven maintenance, and reduce unplanned downtime.',
@@ -407,7 +407,7 @@ const problemsData = {
           },
           'sales-inventory-automation': {
             id: 'sales-inventory-automation',
-            link: "https://drive.google.com/file/d/1jlC2srdlWDw-lNgOR6LNhxgDsGlSa0GU/view?usp=sharing",
+            link: "https://drive.google.com/file/d/1wvRwDfF_eTOMpwPC9XwFFJZ4Ff26XIRQ/view?usp=sharing",
             title: 'Sales Forecasting and Inventory Automation System',
             description: 'AI system for predicting sales and automating inventory levels using past data, seasonal trends, and external variables.',
             objective: 'To reduce stockouts/overstock by using AI-driven sales forecasting and inventory planning.',
@@ -453,7 +453,7 @@ const problemsData = {
           },
           'ai-code-review-system': {
             id: 'ai-code-review-system',
-            link: "https://drive.google.com/file/d/1J56kz_XBnO4Y9-FEEh5SAstIV8f9vb4u/view?usp=sharing",
+            link: "https://drive.google.com/file/d/1M0VbxkQPt8-mKnLulKTV_4aENoabiuLi/view?usp=sharing",
             title: 'AI Based Code Quality Review System',
             description: 'AI tool that analyzes code to detect bugs, suggest improvements, enforce coding standards, and evaluate maintainability automatically.',
             objective: 'Improve code quality through automated AI review of syntax, logic, readability, and compliance with best practices.',
@@ -499,7 +499,7 @@ const problemsData = {
           },
           'ai-resume-analyser': {
             id: 'ai-resume-analyser',
-            link: "https://drive.google.com/file/d/12GRgfIcxLSH1kUxTGY_Tnb3IHEwmArjX/view?usp=sharing",
+            link: "https://drive.google.com/file/d/1B6E76fbGjthnLvVbW3hl3MjjVynWRBS9/view?usp=sharing",
             title: 'AI Powered Resume Analyser for Job Fitment',
             description: 'Automated system using NLP to evaluate resumes against job descriptions, reducing hiring bias, time-to-hire, and increasing match accuracy.',
             objective: 'Streamline recruitment by automating resume-job matching, highlighting key skills, and delivering objective fitment scores.',
@@ -546,7 +546,7 @@ const problemsData = {
           },
           'ai-traffic-violation-detector': {
             id: 'ai-traffic-violation-detector',
-            link: "https://drive.google.com/file/d/1kiyx7VRGC9aGzEF2hKzb1GoxNT3na3Ae/view?usp=sharing",
+            link: "https://drive.google.com/file/d/1JujPwGYGvO19FJv7WSuYvPsfcGmTGLu2/view?usp=sharing",
             title: 'AI Powered Traffic Violation Detection System',
             description: 'A real-time AI system using computer vision to detect traffic violations (e.g., red light running, speeding), generate evidence, and assist enforcement with live video analytics.',
             objective: 'Reduce manual traffic enforcement by automating violation detection, improving road safety, and enabling data-driven traffic management.',
