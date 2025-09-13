@@ -319,7 +319,7 @@ const problemsData = {
     problems: { 
         'emotion-detector-ai': {
             id: 'emotion-detector-ai',
-            link: "https://drive.google.com/file/d/1Ti7n7YeKVs70-c1WaQ7hydJkqT-6q4uo/view?usp=sharing",
+            link: "https://drive.google.com/file/d/1qXibtFUSLSWbLbvRznTGzYDG6jkgmC9b/view?usp=sharing",
             title: 'AI-Based Emotion Detector from Voice and Text',
             description: 'EmotionSense is an AI tool that detects user emotions from voice and text using NLP and audio analysis.',
             objective: 'To detect emotions like joy, anger, sadness, fear, and neutrality from both text and voice with confidence scoring.',
