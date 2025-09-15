@@ -16,7 +16,7 @@ const EventsPage = () => {
       title: "Registration Phase",
       date: "2025-09-01",
       description: "Secure your spot in India's premier hackathon",
-      type: "current",
+      type: "previous",
       highlights: [
         "Early bird benefits",
         "Team formation support",
@@ -32,7 +32,7 @@ const EventsPage = () => {
       title: "Video Submission",
       date: "2025-09-16",
       description: "Pitch your innovative solution in 2-4 minutes",
-      type: "upcoming",
+      type: "current",
       highlights: [
         "Team introduction",
         "Problem statement",

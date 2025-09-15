@@ -14,13 +14,13 @@ const events = [
   {
     title: "Video Submission",
     startDate: new Date('September 16, 2025 00:00:00'),
-    endDate: new Date('September 25, 2025 23:59:59'),
+    endDate: new Date('September 18, 2025 23:59:59'),
     description: "Submit your idea video for BYTEWAR Hackathon."
   },
   {
-    title: "Hackathon Phase",
-    startDate: new Date('October 1, 2025 00:00:00'),
-    endDate: new Date('October 3, 2025 23:59:59'),
+    title: "Presentation Phase",
+    startDate: new Date('September 21, 2025 00:00:00'),
+    endDate: new Date('September 24, 2025 23:59:59'),
     description: "48 hours of non-stop coding and innovation!"
   }
 ];

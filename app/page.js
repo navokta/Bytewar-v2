@@ -49,7 +49,7 @@ export default function Home() {
       <Header />
       <HeroSection />
       <ByteWarInfo />
-      <MegaEvent />
+      {/* <MegaEvent /> */}
       <EventsPreviewSection />
       <VideoAndInfographicSection />
       <ThemesSection />
