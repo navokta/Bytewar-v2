@@ -10,13 +10,7 @@ export async function middleware(request) {
 
   // Check if user is trying to access enroll or banner pages after registration
   if (pathname === '/enroll' || pathname === '/BannerPage') {
-    // Check if registration phase has ended (you'll need to implement this logic)
-    const registrationEnd = new Date('September 15, 2025 23:59:59');
-    const now = new Date();
-    
-    if (now > registrationEnd) {
       return NextResponse.redirect(new URL('/enrollComplete', request.url));
-    }
   }
 
   // If no token, redirect to login for protected routes
