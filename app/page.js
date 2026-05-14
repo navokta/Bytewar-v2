@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
-import Gallery from '../components/Gallery';
+// import Gallery from '../components/Gallery';
 import ThoughtSection from '../components/ThoughtSection';
 import Footer from '../components/Footer';
 import ByteWarInfo from '../components/ByteWarInfo';
@@ -53,7 +53,7 @@ export default function Home() {
       <EventsPreviewSection />
       <VideoAndInfographicSection />
       <ThemesSection />
-      <Gallery />
+      {/* <Gallery /> */}
       <Sponser />
       <TermsSection />
       <ThoughtSection />
