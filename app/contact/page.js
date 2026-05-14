@@ -108,7 +108,7 @@ const InteractiveContactPage = () => {
     {
       icon: <FaPhone className="text-2xl" />,
       title: "Contact Number",
-      description: "+91 8307233996",
+      description: "+91 7088017681",
       color: "bg-green-100 text-green-600"
     },
     {

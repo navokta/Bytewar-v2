@@ -4,15 +4,15 @@ import Image from 'next/image';
 
 const WowTeamSection = () => {
 const teamMembers = [
-  {
-    name: "Bhavy Sharma",
-    role: "Founder & Director",
-    bio: "From coding and research to marketing and leadership, Bhavy is the unstoppable force powering ByteWar. A strategist, creator, and developer all rolled into one.",
-    image: '/bhavy.jpg',
-    social: {
-      linkedin: "https://www.linkedin.com/in/bhavy-sharma/"
-    }
-},
+//   {
+//     name: "Bhavy Sharma",
+//     role: "Founder & Director",
+//     bio: "From coding and research to marketing and leadership, Bhavy is the unstoppable force powering ByteWar. A strategist, creator, and developer all rolled into one.",
+//     image: '/bhavy.jpg',
+//     social: {
+//       linkedin: "https://www.linkedin.com/in/bhavy-sharma/"
+//     }
+// },
   {
     name: "Sakshi Jain",
     role: "Tech Leader",

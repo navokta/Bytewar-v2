@@ -37,7 +37,7 @@ export default function AboutPage() {
 
   const teamMembers = [
     // Replace with actual team member data
-    { name: "Bhavy Sharma", role: "Founder & Lead Developer", bio: "Passionate about competitive programming and building developer tools." },
+    // { name: "Bhavy Sharma", role: "Founder & Lead Developer", bio: "Passionate about competitive programming and building developer tools." },
     { name: "Sakshi Jain", role: "UI Developer", bio: "Ensures every coder feels welcome and supported in our community." },
     { name: "Mohd. Fazal Ali", role: "Backend Developer", bio: "Creates challenging and educational problems for our competitions." },
     { name: "Next you", role: "UI/UX Designer", bio: "Crafts intuitive and engaging user experiences for coders." },
